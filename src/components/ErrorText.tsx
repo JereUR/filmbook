@@ -2,11 +2,11 @@ import React from "react";
 
 interface ErrorTextProps {
   errorText: string;
-  classname?: string;
+  className?: string;
 }
 
-export default function ErrorText({ errorText, classname }: ErrorTextProps) {
+export default function ErrorText({ errorText, className }: ErrorTextProps) {
   return (
-    <p className={`text-center text-destructive ${classname}`}>{errorText}</p>
+    <p className={`text-center text-destructive ${className}`}>{errorText}</p>
   );
 }
