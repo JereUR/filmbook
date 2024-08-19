@@ -1,5 +1,9 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+
 import { useSession } from "@/app/(main)/SessionProvider";
 import {
   DropdownMenu,
@@ -14,11 +18,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import UserAvatar from "./UserAvatar";
-import Link from "next/link";
 import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
 import { logout } from "@/app/(auth)/actions";
-import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
 
 interface UserButtonProps {
   className?: string;
@@ -41,14 +42,19 @@ export default function UserButton({ className }: UserButtonProps) {
           Sesión iniciada como @{user.username}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={`/users/${user.username}`}>
-          <DropdownMenuItem className="cursor-pointer">
+        <Link href={`/usuarios/${user.username}`}>
+          <DropdownMenuItem className="cursor-pointer hover:bg-[hsl(var(--button-hover))]">
             <UserIcon className="mr-2 size-4" />
             Mi perfil
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger className="cursor-pointer">
+          <DropdownMenuSubTrigger
+            className={cn(
+              "cursor-pointer hover:bg-[hsl(var(--button-hover))]",
+              "data-[state=open]:bg-[hsl(var(--button-hover))]",
+            )}
+          >
             <Monitor className="mr-2 size-4" />
             Tema
           </DropdownMenuSubTrigger>
@@ -56,7 +62,7 @@ export default function UserButton({ className }: UserButtonProps) {
             <DropdownMenuSubContent>
               <DropdownMenuItem
                 onClick={() => setTheme("system")}
-                className="cursor-pointer"
+                className="cursor-pointer hover:bg-[hsl(var(--button-hover))]"
               >
                 <Monitor className="mr-2 size-4" />
                 Default{" "}
@@ -64,14 +70,14 @@ export default function UserButton({ className }: UserButtonProps) {
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("light")}
-                className="cursor-pointer"
+                className="cursor-pointer hover:bg-[hsl(var(--button-hover))]"
               >
                 <Sun className="mr-2 size-4" />
                 Claro {theme === "light" && <Check className="ms-2 size-4" />}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("dark")}
-                className="cursor-pointer"
+                className="cursor-pointer hover:bg-[hsl(var(--button-hover))]"
               >
                 <Moon className="mr-2 size-4" />
                 Oscuro {theme === "dark" && <Check className="ms-2 size-4" />}
@@ -80,7 +86,10 @@ export default function UserButton({ className }: UserButtonProps) {
           </DropdownMenuPortal>
         </DropdownMenuSub>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => logout()} className="cursor-pointer">
+        <DropdownMenuItem
+          onClick={() => logout()}
+          className="cursor-pointer hover:bg-[hsl(var(--button-hover))]"
+        >
           <LogOutIcon className="mr-2 size-4" />
           Cerrar sesión
         </DropdownMenuItem>
