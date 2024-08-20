@@ -43,7 +43,7 @@ export default function UserButton({ className }: UserButtonProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href={`/usuarios/${user.username}`}>
-          <DropdownMenuItem className="cursor-pointer hover:bg-[hsl(var(--button-hover))]">
+          <DropdownMenuItem className="cursor-pointer hover:bg-[hsl(var(--button-hover))] focus:bg-[hsl(var(--button-hover))]">
             <UserIcon className="mr-2 size-4" />
             Mi perfil
           </DropdownMenuItem>
@@ -52,7 +52,7 @@ export default function UserButton({ className }: UserButtonProps) {
           <DropdownMenuSubTrigger
             className={cn(
               "cursor-pointer hover:bg-[hsl(var(--button-hover))]",
-              "data-[state=open]:bg-[hsl(var(--button-hover))]",
+              "focus:bg-[hsl(var(--button-hover))] data-[state=open]:bg-[hsl(var(--button-hover))]",
             )}
           >
             <Monitor className="mr-2 size-4" />
@@ -62,7 +62,7 @@ export default function UserButton({ className }: UserButtonProps) {
             <DropdownMenuSubContent>
               <DropdownMenuItem
                 onClick={() => setTheme("system")}
-                className="cursor-pointer hover:bg-[hsl(var(--button-hover))]"
+                className="cursor-pointer hover:bg-[hsl(var(--button-hover))] focus:bg-[hsl(var(--button-hover))]"
               >
                 <Monitor className="mr-2 size-4" />
                 Default{" "}
@@ -70,14 +70,14 @@ export default function UserButton({ className }: UserButtonProps) {
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("light")}
-                className="cursor-pointer hover:bg-[hsl(var(--button-hover))]"
+                className="cursor-pointer hover:bg-[hsl(var(--button-hover))] focus:bg-[hsl(var(--button-hover))]"
               >
                 <Sun className="mr-2 size-4" />
                 Claro {theme === "light" && <Check className="ms-2 size-4" />}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setTheme("dark")}
-                className="cursor-pointer hover:bg-[hsl(var(--button-hover))]"
+                className="cursor-pointer hover:bg-[hsl(var(--button-hover))] focus:bg-[hsl(var(--button-hover))]"
               >
                 <Moon className="mr-2 size-4" />
                 Oscuro {theme === "dark" && <Check className="ms-2 size-4" />}
@@ -88,7 +88,7 @@ export default function UserButton({ className }: UserButtonProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => logout()}
-          className="cursor-pointer hover:bg-[hsl(var(--button-hover))]"
+          className="cursor-pointer hover:bg-[hsl(var(--button-hover))] focus:bg-[hsl(var(--button-hover))]"
         >
           <LogOutIcon className="mr-2 size-4" />
           Cerrar sesión
