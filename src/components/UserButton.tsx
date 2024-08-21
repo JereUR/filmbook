@@ -20,6 +20,7 @@ import {
 import UserAvatar from "./UserAvatar";
 import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
 import { logout } from "@/app/(auth)/actions";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface UserButtonProps {
   className?: string;
@@ -29,6 +30,8 @@ export default function UserButton({ className }: UserButtonProps) {
   const { user } = useSession();
 
   const { theme, setTheme } = useTheme();
+
+  const queryClient = useQueryClient();
 
   return (
     <DropdownMenu>
@@ -87,7 +90,10 @@ export default function UserButton({ className }: UserButtonProps) {
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={() => logout()}
+          onClick={() => {
+            queryClient.clear();
+            logout();
+          }}
           className="cursor-pointer hover:bg-[hsl(var(--button-hover))] focus:bg-[hsl(var(--button-hover))]"
         >
           <LogOutIcon className="mr-2 size-4" />
