@@ -54,7 +54,8 @@ export function useSubmitPostMutation() {
       console.error(error);
       toast({
         variant: "destructive",
-        description: "Error al crear el post. Por favor vuelve a intentarlo.",
+        description:
+          "Error al crear la publicación. Por favor vuelve a intentarlo.",
       });
     },
   });

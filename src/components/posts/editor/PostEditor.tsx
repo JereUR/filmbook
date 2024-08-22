@@ -8,7 +8,6 @@ import Placeholder from "@tiptap/extension-placeholder";
 import "./styles.css";
 import UserAvatar from "@/components/UserAvatar";
 import { useSession } from "@/app/(main)/SessionProvider";
-import { Button } from "@/components/ui/button";
 import { useSubmitPostMutation } from "./mutations";
 import LoadingButton from "@/components/LoadingButton";
 

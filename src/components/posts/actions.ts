@@ -15,10 +15,10 @@ export async function deletePost(id: string) {
     },
   });
 
-  if (!post) throw new Error("Post no encontrado.");
+  if (!post) throw new Error("Publicación no encontrada.");
 
   if (post.userId !== user.id)
-    throw new Error("No tienes permisos para eliminar este post.");
+    throw new Error("No tienes permisos para eliminar esta publicación.");
 
   const deletedPost = await prisma.post.delete({
     where: { id },

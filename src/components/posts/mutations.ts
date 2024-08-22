@@ -39,7 +39,7 @@ export function useDeletePostMutation() {
       );
 
       toast({
-        description: "Post eliminado.",
+        description: "Publicación eliminada.",
       });
 
       if (pathname === `/posts/${deletedPost.id}`) {
@@ -50,8 +50,11 @@ export function useDeletePostMutation() {
       console.error(error);
       toast({
         variant: "destructive",
-        description: "Error al borrar el post. Por favor vuelve a intentarlo.",
+        description:
+          "Error al borrar la publicación. Por favor vuelve a intentarlo.",
       });
     },
   });
+
+  return mutation;
 }
