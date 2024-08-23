@@ -8,7 +8,7 @@ import { createPostSchema } from "@/lib/validation";
 export async function submitPost(input: string) {
   const { user } = await validateRequest();
 
-  if (!user) throw Error("Unauthorized");
+  if (!user) throw Error("No autorizado.");
 
   const { content } = createPostSchema.parse({ content: input });
 
