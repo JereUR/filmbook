@@ -5,11 +5,11 @@ import prisma from "@/lib/prisma";
 import { getPostDataInclude, PostsPage } from "@/lib/types";
 
 export async function GET(req: NextRequest) {
-  const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
-
-  const pageSize = 10;
-
   try {
+    const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
+
+    const pageSize = 10;
+
     const { user } = await validateRequest();
 
     if (!user) {
