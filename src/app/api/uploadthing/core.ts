@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma";
 
 const f = createUploadthing();
 
-export const fileRoute = {
+export const fileRouter = {
   avatar: f({
     image: { maxFileSize: "512KB" },
   })
@@ -32,4 +32,4 @@ export const fileRoute = {
     }),
 } satisfies FileRouter;
 
-export type AppFileRoute = typeof fileRoute;
+export type AppFileRouter = typeof fileRouter;
