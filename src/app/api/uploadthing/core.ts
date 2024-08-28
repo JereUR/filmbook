@@ -20,7 +20,7 @@ export const fileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       const newAvatarUrl = file.url.replace(
         "/f/",
-        `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}`,
+        `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`,
       );
 
       await prisma.user.update({
