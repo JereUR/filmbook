@@ -10,10 +10,20 @@ import UserAvatar from "@/components/UserAvatar";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { useSubmitPostMutation } from "./mutations";
 import LoadingButton from "@/components/LoadingButton";
+import useMediaUpload from "./useMediaUpload";
 
 export default function PostEditor() {
   const { user } = useSession();
   const mutation = useSubmitPostMutation();
+
+  const {
+    startUpload,
+    attachments,
+    isUploading,
+    uploadProgress,
+    removeAttachment,
+    reset: resetMediaUpload,
+  } = useMediaUpload();
 
   const editor = useEditor({
     extensions: [
@@ -33,11 +43,18 @@ export default function PostEditor() {
     }) || "";
 
   function onSubmit() {
-    mutation.mutate(input, {
-      onSuccess: () => {
-        editor?.commands.clearContent();
+    mutation.mutate(
+      {
+        content: input,
+        mediaIds: attachments.map((a) => a.mediaId).filter(Boolean) as string[],
       },
-    });
+      {
+        onSuccess: () => {
+          editor?.commands.clearContent();
+          resetMediaUpload();
+        },
+      },
+    );
   }
 
   return (
