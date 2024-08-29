@@ -30,7 +30,7 @@ export default function LoginPage() {
         </div>
         <Image
           src={loginImage}
-          alt="Login image"
+          alt="Imagen inicio de sesión"
           className="hidden w-1/2 object-cover md:block"
         />
       </div>

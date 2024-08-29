@@ -36,7 +36,7 @@ export default function SignUpPage() {
         </div>
         <Image
           src={signUpImage}
-          alt="Sign up image"
+          alt="Imagen registro"
           className="hidden w-1/2 object-cover md:block"
         />
       </div>

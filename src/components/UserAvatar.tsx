@@ -17,7 +17,7 @@ export default function UserAvatar({
   return (
     <Image
       src={avatarUrl || avatarPlaceholder}
-      alt="User avatar"
+      alt="Avatar de usuario"
       width={size ?? 48}
       height={size ?? 48}
       className={cn(
