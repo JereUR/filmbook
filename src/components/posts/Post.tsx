@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 import { PostData } from "@/lib/types";
 import UserAvatar from "../UserAvatar";
@@ -10,7 +11,6 @@ import PostMoreButton from "./PostMoreButton";
 import Linkify from "../Linkify";
 import UserTooltip from "../UserTooltip";
 import { Media } from "@prisma/client";
-import Image from "next/image";
 
 interface PostProps {
   post: PostData;
@@ -40,6 +40,7 @@ export default function Post({ post }: PostProps) {
             <Link
               href={`/posts/${post.id}`}
               className="block text-sm text-muted-foreground hover:underline"
+              suppressHydrationWarning
             >
               {formatRelativeDate(post.createdAt)}
             </Link>
