@@ -5,11 +5,11 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { Heart } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 import { LikeInfo } from "@/lib/types";
 import kyInstance from "@/lib/ky";
-import { Heart } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 interface LikeButtonProps {
   postId: string;
