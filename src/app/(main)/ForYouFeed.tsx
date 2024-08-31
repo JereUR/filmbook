@@ -49,7 +49,7 @@ export default function ForYouFeed() {
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        Ocurrió un error al cargar los posts
+        Ocurrió un error al cargar las publicaciones
       </p>
     );
   }
