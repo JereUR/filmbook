@@ -29,7 +29,6 @@ export default function ForYouFeed() {
         .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-    refetchInterval: 60 * 60 * 1000, // refetch every hour
   });
 
   const posts = data?.pages.flatMap((page) => page.posts) || [];
