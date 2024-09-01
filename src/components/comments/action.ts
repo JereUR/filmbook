@@ -45,7 +45,10 @@ export async function deleteComment(id: string) {
 
   if (comment.userId !== user.id) throw Error("No autorizado.");
 
-  await prisma.comment.delete({
+  const deletedComment = await prisma.comment.delete({
     where: { id },
+    include: getCommentDataInclude(user.id),
   });
+
+  return deletedComment;
 }
