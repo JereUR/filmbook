@@ -7,6 +7,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "../ui/dialog";
 import LoadingButton from "../LoadingButton";
 import { Button } from "../ui/button";
@@ -33,11 +34,13 @@ export default function DeletePostDialog({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
-        <DialogHeader>Borrar publicación?</DialogHeader>
-        <DialogDescription>
-          Estas seguro que quieres eliminar esta publicación? Esta acción no se
-          puede deshacer.
-        </DialogDescription>
+        <DialogHeader>
+          <DialogTitle>Borrar publicación?</DialogTitle>
+          <DialogDescription>
+            Estas seguro que quieres eliminar esta publicación? Esta acción no
+            se puede deshacer.
+          </DialogDescription>
+        </DialogHeader>
         <DialogFooter>
           <LoadingButton
             variant="destructive"
