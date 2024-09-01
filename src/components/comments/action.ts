@@ -29,3 +29,23 @@ export async function submitComment({
 
   return newComment;
 }
+
+export async function deleteComment(id: string) {
+  const { user } = await validateRequest();
+
+  if (!user) throw Error("No autorizado.");
+
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!comment) throw Error("Comentario no encontrado.");
+
+  if (comment.userId !== user.id) throw Error("No autorizado.");
+
+  await prisma.comment.delete({
+    where: { id },
+  });
+}
