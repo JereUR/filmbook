@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~stream-chat-react/dist/css/v2/index.css";
+
 @layer base {
   :root {
     --background: 270 20% 98%;
     --foreground: 270 40% 30%;
     --card: 270 15% 98%;
     --card-foreground: 270 40% 30%;
+    --card-child: 240 20% 95%;
+    --card-child-hover: 240 25% 90%;
+    --card-child-text: 240 40% 30%;
     --popover: 270 15% 98%;
     --popover-foreground: 270 40% 30%;
     --primary: 262.1 83.3% 57.8%;
@@ -37,6 +42,9 @@
     --foreground: 210 20% 98%;
     --card: 240 62.4% 10%;
     --card-foreground: 210 20% 98%;
+    --card-child: 240 40% 20%;
+    --card-child-hover: 240 45% 25%;
+    --card-child-text: 240 60% 90%;
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
     --primary: 263.4 80% 50.4%;
@@ -68,4 +76,70 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.str-chat {
+  --str-chat__font-family: inherit;
+  --str-chat__primary-color: theme(colors.primary.DEFAULT);
+  --str-chat__on-primary-color: theme(colors.primary.foreground);
+  --str-chat__active-primary-color: theme(colors.primary.foreground);
+  --str-chat__primary-color-low-emphasis: color-mix(
+    in hsl,
+    hsl(var(--primary)) 10%,
+    transparent
+  );
+  --str-chat__background-color: theme(colors.card.DEFAULT);
+  --str-chat__secondary-background-color: theme(colors.card.DEFAULT);
+  --str-chat__message-textarea-background-color: hsl(var(--card-child));
+  --str-chat__channel-preview-active-background-color: hsl(var(--foreground));
+  --str-chat__channel-preview-hover-background-color: var(
+    --str-chat__channel-preview-active-background-color
+  );
+  --str-chat__secondary-surface-color: hsl(var(--card-child));
+  --str-chat__own-message-bubble-color: theme(colors.primary.foreground);
+  --str-chat__own-message-text: theme(colors.white);
+  --str-chat__primary-surface-color: theme(colors.primary.DEFAULT);
+  --str-chat__primary-surface-color-low-emphasis: var(
+    --str-chat__primary-color-low-emphasis
+  );
+  --str-chat__disabled-color: theme(colors.muted.DEFAULT);
+  --str-chat__cta-button-border-radius: var(--radius);
+}
+
+.str-chat-channel-list {
+  border-right: none;
+}
+
+.str-chat__channel-list-react .str-chat__channel-list-messenger-react {
+  padding-bottom: 0;
+}
+
+.str-chat__channel-search-bar-button--exit-search {
+  display: none;
+}
+
+.str-chat__channel-preview-messenger--active {
+  background-color: hsl(var(--card-child));
+  color: hsl(var(--card-child-text));
+}
+
+.str-chat__channel-preview-messenger--active:hover {
+  background-color: hsl(var(--card-child-hover));
+}
+
+.str-chat__message-textarea {
+  color: hsl(var(--foreground)) !important;
+  background-color: hsl(var(--card-child));
+}
+
+.str-chat__message-text {
+  color: hsl(var(--foreground));
+}
+
+.str-chat__own-message-text {
+  color: white !important;
+}
+
+.rta__textarea str-chat__textarea__textarea str-chat__message-textarea {
+  color: hsl(var(--card-foreground));
 }
