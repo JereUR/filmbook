@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { lucia } from "@/auth";
 import prisma from "@/lib/prisma";
 import { signUpSchema, SignUpValues } from "@/lib/validation";
+import streamServerClient from "@/lib/stream";
 
 export async function signUp(
   credentials: SignUpValues,
@@ -51,14 +52,21 @@ export async function signUp(
       return { error: "Correo electrónico ya está en uso." };
     }
 
-    await prisma.user.create({
-      data: {
+    await prisma.$transaction(async (tx) => {
+      await tx.user.create({
+        data: {
+          id: userId,
+          username,
+          displayName: username,
+          email,
+          passwordHash,
+        },
+      });
+      await streamServerClient.upsertUser({
         id: userId,
         username,
-        displayName: username,
-        email,
-        passwordHash,
-      },
+        name: username,
+      });
     });
 
     const session = await lucia.createSession(userId, {});
