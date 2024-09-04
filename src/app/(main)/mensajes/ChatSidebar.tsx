@@ -1,12 +1,25 @@
 import { ChannelList } from "stream-chat-react";
+import { cn } from "@/lib/utils";
+
+import { X } from "lucide-react";
 
 import { useSession } from "../SessionProvider";
+import { Button } from "@/components/ui/button";
 
-export default function ChatSidebar() {
+interface ChatSidebarProps{
+  open:boolean
+  onClose:()=>void
+}
+
+export default function ChatSidebar({
+  open,
+  onClose,
+}:ChatSidebarProps) {
   const { user } = useSession();
 
   return (
-    <div className="flex size-full flex-col border-e md:w-72">
+    <div className={cn("md:flex size-full flex-col border-e md:w-72",open?'flex':'hidden')}>
+      <MenuHeader onClose={onClose}/>
       <ChannelList
         filters={{
           type: "messaging",
@@ -26,4 +39,18 @@ export default function ChatSidebar() {
       />
     </div>
   );
+}
+
+interface MenuHeaderProps{
+  onClose:()=>void
+}
+
+function MenuHeader({onClose}:MenuHeaderProps){
+  return <div className='flex items-center gap-3 p-2'>
+    <div className='h-full md:hidden'>
+      <Button size='icon' variant='ghost' onClick={onClose}>
+        <X className="size-5"/>
+      </Button>
+    </div>
+  </div>
 }
