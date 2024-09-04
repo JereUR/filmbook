@@ -13,6 +13,16 @@ export default function ChatSidebar() {
           members: { $in: [user.id] },
         }}
         showChannelSearch
+        options={{ state: true, presence: true, limit: 8 }}
+        sort={{ last_message_at: -1 }}
+        additionalChannelSearchProps={{
+          searchForChannels: true,
+          searchQueryParams: {
+            channelFilters: {
+              filters: { members: { $in: [user.id] } },
+            },
+          },
+        }}
       />
     </div>
   );
