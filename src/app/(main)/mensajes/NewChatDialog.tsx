@@ -1,18 +1,21 @@
+import { useState } from "react";
+import { UserResponse } from "stream-chat";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Check, Loader2, SearchIcon, User, X } from "lucide-react";
+import { DefaultStreamChatGenerics, useChatContext } from "stream-chat-react";
+
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
-import { DefaultStreamChatGenerics, useChatContext } from "stream-chat-react";
 import { useSession } from "../SessionProvider";
-import { useState } from "react";
 import useDebounce from "@/hooks/useDebounce";
-import { UserResponse } from "stream-chat";
-import { useQuery } from "@tanstack/react-query";
-import { Check, SearchIcon } from "lucide-react";
 import UserAvatar from "@/components/UserAvatar";
+import LoadingButton from "@/components/LoadingButton";
 
 interface NewChatDialogProps {
   onOpenChange: (open: boolean) => void;
@@ -57,6 +60,32 @@ export default function NewChatDialog({
       ),
   });
 
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const channel = client.channel("messaging", {
+        members: [loggedInUser.id, ...selectedUsers.map((user) => user.id)],
+        name:
+          selectedUsers.length > 1
+            ? `Chat con ${selectedUsers.map((user) => user.username).join(", ")}`
+            : undefined,
+      });
+
+      await channel.create();
+      return channel;
+    },
+    onSuccess: (channel) => {
+      setActiveChannel(channel);
+      onChatCreated();
+    },
+    onError(error) {
+      console.error("Error al iniciar el chat", error);
+      toast({
+        variant: "destructive",
+        description: "Error al iniciar el chat. Por favor vuelve a intentarlo.",
+      });
+    },
+  });
+
   return (
     <Dialog open onOpenChange={onOpenChange}>
       <DialogContent className="bg-card p-0">
@@ -68,12 +97,28 @@ export default function NewChatDialog({
             <SearchIcon className="absolute left-5 top-1/2 size-5 -translate-y-1/2 transform text-muted-foreground group-focus-within:text-primary" />
             <input
               placeholder="Buscar usuarios..."
-              className="h-12 w-full pe-4 ps-14 focus:outline-none"
+              className="h-12 w-full bg-background pe-4 ps-14 focus:outline-none"
               value={searchInput}
               onChange={({ target }) => setSearchInput(target.value)}
             />
           </div>
-          <div className="h-96 overflow-y-auto">
+          <hr />
+          {!!selectedUsers.length && (
+            <div className="mt-4 flex flex-wrap gap-2 p-2">
+              {selectedUsers.map((user) => (
+                <SelectedUserTag
+                  key={user.id}
+                  user={user}
+                  onRemove={() =>
+                    setSelectedUsers((prev) =>
+                      prev.filter((u) => u.id !== user.id),
+                    )
+                  }
+                />
+              ))}
+            </div>
+          )}
+          <div className="mt-2 h-96 overflow-y-auto">
             {isSuccess &&
               data.users.map((user) => (
                 <UserResult
@@ -89,8 +134,30 @@ export default function NewChatDialog({
                   }}
                 />
               ))}
+            {isSuccess && !data.users.length && (
+              <p className="my-3 text-center text-muted-foreground">
+                No se encontraron resultados.
+              </p>
+            )}
+            {isFetching && <Loader2 className="mx-auto my-3 animate-spin" />}
+            {isError && (
+              <p className="my-3 text-center text-destructive">
+                Hubo un problema al cargar los resultados. Intenta de nuevo más
+                tarde.
+              </p>
+            )}
           </div>
         </div>
+        <DialogFooter className="px-6 pb-6">
+          <LoadingButton
+            disabled={!selectedUsers.length}
+            loading={mutation.isPending}
+            onClick={() => mutation.mutate()}
+          >
+            
+            Iniciar chat
+          </LoadingButton>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
@@ -116,6 +183,24 @@ function UserResult({ user, selected, onClick }: UserResultProps) {
         </div>
       </div>
       {selected && <Check className="size-5 text-green-600" />}
+    </button>
+  );
+}
+
+interface SelectedUserTagProps {
+  user: UserResponse<DefaultStreamChatGenerics>;
+  onRemove: () => void;
+}
+
+function SelectedUserTag({ user, onRemove }: SelectedUserTagProps) {
+  return (
+    <button
+      className="flex items-center gap-2 rounded-full border p-1 hover:bg-muted/50"
+      onClick={onRemove}
+    >
+      <UserAvatar avatarUrl={user.image} size={24} />
+      <p className="font-bold">{user.name}</p>
+      <X className="mx-2 size-5 text-muted-foreground" />
     </button>
   );
 }
