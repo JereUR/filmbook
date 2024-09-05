@@ -5,8 +5,6 @@ export async function GET() {
   try {
     const { user } = await validateRequest();
 
-    console.log("get-token para", user?.id);
-
     if (!user) {
       return Response.json({ error: "No autorizado." }, { status: 401 });
     }
