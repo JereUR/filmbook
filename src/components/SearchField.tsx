@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Input } from "./ui/input";
 import { SearchIcon } from "lucide-react";
+
+import { Input } from "./ui/input";
 
 export default function SearchField() {
   const router = useRouter();
@@ -16,11 +17,11 @@ export default function SearchField() {
 
     if (!q) return;
 
-    router.push(`/search?q=${encodeURIComponent(q)}`);
+    router.push(`/buscar?q=${encodeURIComponent(q)}`);
   }
 
   return (
-    <form onSubmit={handleSubmit} method="GET" action="/search">
+    <form onSubmit={handleSubmit} method="GET" action="/buscar">
       <div className="relative">
         <Input name="q" placeholder="Buscar" className="pe-10" />
         <SearchIcon className="absolute right-3 top-1/2 size-5 -translate-y-1/2 transform text-muted-foreground" />
