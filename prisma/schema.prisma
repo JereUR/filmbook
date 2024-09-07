@@ -34,6 +34,7 @@ model User {
   recievedNotifications Notification[] @relation("Recipient")
   issuedNotifications   Notification[] @relation("Issuer")
 
+  reviews   Review[] // Relación con reseñas
   createdAt DateTime @default(now())
 
   @@map("users")
@@ -152,4 +153,41 @@ enum NotificationType {
   LIKE
   FOLLOW
   COMMENT
+}
+
+model Movie {
+  id        String       @id @default(cuid())
+  title     String
+  posterUrl String?
+  rating    MovieRating?
+  reviews   Review[]
+
+  createdAt DateTime @default(now())
+
+  @@map("movies")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movieId   String
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  rating    Int
+  review    String?
+  createdAt DateTime @default(now())
+
+  @@map("reviews")
+}
+
+model MovieRating {
+  id              String @id @default(cuid())
+  movieId         String @unique
+  movie           Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  averageRating   Float  @default(0)
+  numberOfRatings Int    @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@map("movie_ratings")
 }
