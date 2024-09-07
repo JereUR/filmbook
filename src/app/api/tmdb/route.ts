@@ -1,5 +1,5 @@
-// /app/api/tmdb/route.ts
 import { NextRequest } from "next/server";
+
 import { TMDBResponse } from "@/lib/types";
 
 export async function GET(req: NextRequest) {
