@@ -129,3 +129,14 @@ export interface NotificationCountInfo {
 export interface MessageCountInfo {
   unreadCount: number;
 }
+
+export interface Movie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string;
+}
+
+export interface TMDBResponse {
+  results: Movie[];
+}
