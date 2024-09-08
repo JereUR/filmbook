@@ -33,3 +33,9 @@ export function slugify(input: string): string {
     .replace(/ /g, "-")
     .replace(/[^a-z0-9-]/g, "");
 }
+
+export function getYear(input: string): string {
+  const year = input.substring(0, 4);
+
+  return year;
+}
