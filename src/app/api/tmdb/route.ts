@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-
+import { genres } from "@/lib/genres"; // Importa los géneros desde tu archivo
 import { TMDBResponse } from "@/lib/types";
 import { validateRequest } from "@/auth";
 
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}`,
+      `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}&language=es-ES`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -36,7 +36,16 @@ export async function GET(req: NextRequest) {
     }
 
     const data: TMDBResponse = await response.json();
-    return new Response(JSON.stringify(data));
+
+    const moviesWithGenres = data.results.map((movie) => ({
+      ...movie,
+      genre_names: movie.genre_ids.map(
+        (genreId) =>
+          genres.find((genre) => genre.id === genreId)?.name || "Desconocido",
+      ),
+    }));
+
+    return new Response(JSON.stringify(moviesWithGenres), { status: 200 });
   } catch (error) {
     console.error(error);
     return new Response(
