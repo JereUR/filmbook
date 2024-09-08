@@ -135,8 +135,16 @@ export interface Movie {
   title: string;
   overview: string;
   poster_path: string;
+  genre_ids: number[];
+  genre_names?: string[];
+  release_date: string;
 }
 
 export interface TMDBResponse {
   results: Movie[];
+}
+
+export interface Genre {
+  id: number;
+  name: string;
 }
