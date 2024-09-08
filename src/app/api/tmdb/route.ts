@@ -1,11 +1,18 @@
 import { NextRequest } from "next/server";
 
 import { TMDBResponse } from "@/lib/types";
+import { validateRequest } from "@/auth";
 
 export async function GET(req: NextRequest) {
   const title = req.nextUrl.searchParams.get("title") || "";
   const apiKey = process.env.MOVIE_API_KEY;
   const accessToken = process.env.MOVIE_ACCESS_TOKEN;
+
+  const { user } = await validateRequest();
+
+  if (!user) {
+    return Response.json({ error: "No autorizado." }, { status: 401 });
+  }
 
   if (!title || typeof title !== "string") {
     return new Response(JSON.stringify({ error: "Parametro sin valor." }), {
