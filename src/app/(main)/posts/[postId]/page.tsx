@@ -48,9 +48,7 @@ export default async function Page({ params: { postId } }: PageProps) {
 
   if (!user) {
     return (
-      <p className="text-destructive">
-        You&apos;re not authorized to view this page.
-      </p>
+      <p className="text-destructive">No estas autorizado a ver esta página.</p>
     );
   }
 
