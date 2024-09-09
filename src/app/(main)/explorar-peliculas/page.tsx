@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 
-import TrendsSidebar from "@/components/TrendsSidebar";
-import SearchMovie from "./SearchMovie";
+import SearchMovie from "@/components/movies/search/SearchMovie";
 
 export const metadata: Metadata = {
   title: "Explorar películas",
@@ -16,7 +15,6 @@ export default function MoviesPage() {
         </div>
         <SearchMovie />
       </div>
-      <TrendsSidebar />
     </main>
   );
 }
