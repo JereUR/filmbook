@@ -130,21 +130,51 @@ export interface MessageCountInfo {
   unreadCount: number;
 }
 
+export interface SearchMovie {
+  id: number;
+  title: string;
+  release_date: string;
+  poster_path?: string;
+  genre_names: string[];
+}
+
+export interface TMDBSearchResponse {
+  results: SearchMovie[];
+}
+
 export interface Movie {
   id: number;
   title: string;
   overview: string;
-  poster_path: string;
+  poster_path?: string;
   genre_ids: number[];
-  genre_names?: string[];
+  genre_names: string[];
   release_date: string;
 }
 
 export interface TMDBResponse {
-  results: Movie[];
+  page: number;
+  total_results: number;
+  total_pages: number;
+  results: Array<{
+    id: number;
+    title: string;
+    release_date: string;
+    poster_path: string;
+    genre_ids: number[];
+  }>;
 }
 
 export interface Genre {
   id: number;
   name: string;
+}
+
+export interface CrewMember {
+  job: string;
+  name: string;
+}
+
+export interface CreditsData {
+  crew: CrewMember[];
 }
