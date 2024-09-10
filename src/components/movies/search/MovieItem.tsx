@@ -13,7 +13,7 @@ export default function MovieItem({ movie }: MovieItemProps) {
   const { id, poster_path, title, release_date, genre_names } = movie;
 
   return (
-    <Link href={`/pelicula/${id}`}>
+    <Link href={`/film/${id}?title=${title}&date=${getYear(release_date)}`}>
       <div className="flex h-full cursor-pointer items-start space-x-4 overflow-hidden rounded-2xl border p-5 shadow-lg">
       <div className="relative flex-shrink-0 h-48 w-32">
           <Image
