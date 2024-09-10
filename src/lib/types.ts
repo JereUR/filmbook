@@ -143,13 +143,23 @@ export interface TMDBSearchResponse {
 }
 
 export interface Movie {
-  id: number;
+  id: string;
   title: string;
-  overview: string;
-  poster_path?: string;
-  genre_ids: number[];
-  genre_names: string[];
-  release_date: string;
+  posterPath?: string;
+  releaseDate?: Date;
+  overview?: string;
+  runtime?: number;
+  voteAverage?: number;
+  productionCompanies?: any;
+  spokenLanguages?: any;
+  productionCountries?: any; 
+  genres?: any; 
+  director?: any; 
+  cast?: any;
+  recommendations?: any; 
+  platforms?: any; 
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface TMDBResponse {
