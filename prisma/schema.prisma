@@ -156,13 +156,27 @@ enum NotificationType {
 }
 
 model Movie {
-  id        String       @id @default(cuid())
-  title     String
-  posterUrl String?
-  rating    MovieRating?
-  reviews   Review[]
+  id                  String    @id @default(cuid())
+  title               String
+  posterPath          String?
+  releaseDate         DateTime?
+  overview            String?
+  runtime             Int?
+  voteAverage         Float?
+  productionCompanies Json?
+  spokenLanguages     Json?
+  productionCountries Json?
+  genres              Json?
+  director            Json?
+  cast                Json?
+  recommendations     Json?
+  platforms           Json?
+
+  rating  MovieRating?
+  reviews Review[]
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("movies")
 }
