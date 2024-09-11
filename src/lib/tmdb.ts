@@ -1,4 +1,4 @@
-import { Movie } from "./types";
+import { Movie, Recommendation,RecommendationsResponse } from "./types";
 
 const API_KEY = process.env.MOVIE_API_KEY;
 const ACCESS_TOKEN = process.env.MOVIE_ACCESS_TOKEN;
@@ -15,11 +15,16 @@ interface CastMember {
   profile_path: string;
 }
 
+const headers = {
+  Authorization: `Bearer ${ACCESS_TOKEN}`,
+  "Content-Type": "application/json;charset=utf-8",
+};
+
 export async function getMovieById(id: string): Promise<Movie | null> {
   try {
     const response = await fetch(`/api/tmdb/movie?id=${id}`);
     if (!response.ok) {
-      throw new Error('Error al obtener los datos de la película');
+      throw new Error("Error al obtener los datos de la película");
     }
     const data: Movie = await response.json();
     return data;
@@ -29,19 +34,29 @@ export async function getMovieById(id: string): Promise<Movie | null> {
   }
 }
 
+export async function getRecomendationsMovieById(
+  id: string,
+): Promise<Recommendation[] | null> {
+  try {
+    const response = await fetch(`/api/tmdb/recommendations?id=${id}`);
+    if (!response.ok) {
+      throw new Error("Error al obtener las recomendaciones de la película");
+    }
+    const data: Recommendation[] = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 
 export async function fetchMovieFromTMDB(movieId: string) {
-  const headers = {
-    Authorization: `Bearer ${ACCESS_TOKEN}`,
-    "Content-Type": "application/json;charset=utf-8",
-  };
-
   // Fetch de los detalles de la película
   const movieResponse = await fetch(
     `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=es-ES`,
     {
       headers,
-    }
+    },
   );
 
   if (!movieResponse.ok) {
@@ -55,7 +70,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
     `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=es-ES`,
     {
       headers,
-    }
+    },
   );
 
   if (!creditsResponse.ok) {
@@ -66,9 +81,9 @@ export async function fetchMovieFromTMDB(movieId: string) {
 
   // Obtener el director (de los miembros del equipo de producción)
   const director = creditsData.crew?.find(
-    (member: CrewMember) => member.job === "Director"
+    (member: CrewMember) => member.job === "Director",
   );
-  
+
   // Obtener el elenco principal (máximo 5 actores)
   const cast = creditsData.cast.slice(0, 5).map((actor: CastMember) => ({
     name: actor.name,
@@ -76,26 +91,12 @@ export async function fetchMovieFromTMDB(movieId: string) {
     profile_path: actor.profile_path,
   }));
 
-  // Fetch de las recomendaciones
-  /* const recommendationsResponse = await fetch(
-    `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=es-ES`,
-    {
-      headers,
-    }
-  );
-
-  if (!recommendationsResponse.ok) {
-    throw new Error("Error al obtener las recomendaciones de la película");
-  }
-
-  const recommendationsData = await recommendationsResponse.json(); */
-
   // Fetch de las plataformas de streaming en Argentina
   const watchProvidersResponse = await fetch(
     `${BASE_URL}/movie/${movieId}/watch/providers?api_key=${API_KEY}`,
     {
       headers,
-    }
+    },
   );
 
   if (!watchProvidersResponse.ok) {
@@ -104,23 +105,62 @@ export async function fetchMovieFromTMDB(movieId: string) {
 
   const watchProvidersData = await watchProvidersResponse.json();
   const platforms =
-    watchProvidersData.results?.AR?.flatrate?.map((provider: any) => provider.provider_name) || [];
+    watchProvidersData.results?.AR?.flatrate?.map(
+      (provider: any) => provider.provider_name,
+    ) || [];
 
   // Devolver todos los datos estructurados
   return {
     title: movieData.title,
+    backdrop_path: movieData.backdrop_path,
     poster_path: movieData.poster_path,
     release_date: movieData.release_date,
     overview: movieData.overview,
     runtime: movieData.runtime,
     vote_average: movieData.vote_average,
+    vote_count: movieData.vote_count,
     production_companies: movieData.production_companies,
     spoken_languages: movieData.spoken_languages,
     production_countries: movieData.production_countries,
     genres: movieData.genres,
     director: director,
     cast: cast,
-    recommendations: undefined,
     platforms: platforms,
   };
+}
+
+export async function fetchMovieRecommendations(
+  movieId: string,
+) {
+  try {
+    const recommendationsResponse = await fetch(
+      `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=es-ES`,
+      {
+        headers,
+      },
+    );
+
+    if (!recommendationsResponse.ok) {
+      throw new Error("Error al obtener las recomendaciones de la película");
+    }
+
+    const recommendationsData = await recommendationsResponse.json();
+
+    console.log(recommendationsData.results);
+
+    const recommendations = recommendationsData.results
+      .slice(0, 10)
+      .map((movie: any) => ({
+        id: movie.id,
+        title: movie.title,
+        poster_path: movie.poster_path,
+        release_date: movie.release_date,
+        vote_average: movie.vote_average,
+      }));
+
+    return {results:recommendations};
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error al obtener recomendaciones de la película");
+  }
 }
