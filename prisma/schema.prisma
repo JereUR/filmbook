@@ -158,11 +158,13 @@ enum NotificationType {
 model Movie {
   id                  String    @id @default(cuid())
   title               String
+  backdropPath        String?
   posterPath          String?
   releaseDate         DateTime?
   overview            String?
   runtime             Int?
   voteAverage         Float?
+  voteCount           Int?
   productionCompanies Json?
   spokenLanguages     Json?
   productionCountries Json?
