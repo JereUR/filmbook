@@ -145,19 +145,21 @@ export interface TMDBSearchResponse {
 export interface Movie {
   id: string;
   title: string;
+  backdropPath?: string;
   posterPath?: string;
   releaseDate?: Date;
   overview?: string;
   runtime?: number;
   voteAverage?: number;
+  voteCount?: number;
   productionCompanies?: any;
   spokenLanguages?: any;
-  productionCountries?: any; 
-  genres?: any; 
-  director?: any; 
+  productionCountries?: any;
+  genres?: any;
+  director?: any;
   cast?: any;
-  recommendations?: any; 
-  platforms?: any; 
+  recommendations?: any;
+  platforms?: any;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -187,4 +189,16 @@ export interface CrewMember {
 
 export interface CreditsData {
   crew: CrewMember[];
+}
+
+export interface Recommendation {
+  id: string;
+  title: string;
+  poster_path: string | null;
+  release_date: string;
+  vote_average: number;
+}
+
+export interface RecommendationsResponse {
+  results: Recommendation[];
 }
