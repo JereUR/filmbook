@@ -3,7 +3,6 @@ import { genres } from "@/lib/genres";
 import { TMDBResponse, SearchMovie } from "@/lib/types";
 import { validateRequest } from "@/auth";
 
-// Define el tipo para la respuesta de la API
 interface SearchMoviesResponse {
   movies: SearchMovie[];
   nextPage: number | null;
