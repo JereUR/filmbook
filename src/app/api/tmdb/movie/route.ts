@@ -18,18 +18,19 @@ export async function GET(req: NextRequest) {
     select:{
       id: true,
       title: true,
+      backdropPath:true,
       posterPath : true,
       releaseDate: true,
       overview: true,
       runtime: true,
       voteAverage: true,
+      voteCount:true,
       productionCompanies: true,
       spokenLanguages: true,
       productionCountries: true,
       genres: true,
       director: true,
       cast: true,
-      recommendations: true,
       platforms: true,
       createdAt: true,
       updatedAt: true,
@@ -40,23 +41,19 @@ export async function GET(req: NextRequest) {
   if (movie) {
     const oneWeekAgo = subWeeks(new Date(), 1);
 
-    // Si ha pasado más de una semana, actualizar los datos volátiles
     if (isAfter(oneWeekAgo, movie.updatedAt)) {
-      // Hacer fetch a la API para obtener los datos volátiles actualizados
       const movieData = await fetchMovieFromTMDB(movieId);
 
-      // Actualizar solo los campos volátiles
       movie = await prisma.movie.update({
         where: { id: movieId },
         data: {
           voteAverage: movieData.vote_average,
-          recommendations: movieData.recommendations,
+          voteCount:movieData.vote_count,
           platforms: movieData.platforms,
         },
       });
     }
 
-    // Devolver la película de la base de datos (ya actualizada si es necesario)
     return NextResponse.json(movie);
   }
 
@@ -64,32 +61,31 @@ export async function GET(req: NextRequest) {
   try {
     const movieData = await fetchMovieFromTMDB(movieId);
 
-    const {title,poster_path,release_date,overview,runtime,vote_average,production_companies,spoken_languages,production_countries,genres,director,cast,recommendations,platforms}=movieData
+    const {title,backdrop_path,poster_path,release_date,overview,runtime,vote_average,vote_count,production_companies,spoken_languages,production_countries,genres,director,cast,platforms}=movieData
 
     const newMovie: Movie = {
       id: movieId,
       title: title,
+      backdropPath:backdrop_path,
       posterPath: poster_path,
       releaseDate: new Date(release_date),
       overview: overview,
       runtime: runtime,
       voteAverage: vote_average,
+      voteCount:vote_count,
       productionCompanies: production_companies,
       spokenLanguages: spoken_languages,
       productionCountries: production_countries,
       genres: genres,
       director: director ? { name: director.name,profilePath:director.profile_path } : null,
       cast: cast,
-      recommendations: recommendations,
       platforms: platforms,
     };
 
-    // Guardar la nueva película en la base de datos
     const createdMovie = await prisma.movie.create({
       data: newMovie,
     });
 
-    // Devolver la película recién creada
     return NextResponse.json(createdMovie);
   } catch (error) {
     console.error("Error al obtener los datos de la película desde TMDB", error);
