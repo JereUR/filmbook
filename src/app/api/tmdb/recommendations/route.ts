@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
       const recommendations = await fetchMovieRecommendations(movieId);
       const recommendationsData=recommendations.results
 
-      const movie = await prisma.movie.update({
+      movie = await prisma.movie.update({
         where: { id: movieId },
         data: {
           recommendations:recommendationsData,
@@ -45,14 +45,14 @@ export async function GET(req: NextRequest) {
     const recommendations = await fetchMovieRecommendations(movieId);
     const recommendationsData=recommendations.results
 
-    const movie = await prisma.movie.update({
+    const updatedMovie = await prisma.movie.update({
       where: { id: movieId },
       data: {
         recommendations:recommendationsData,
       },
     });
 
-    return NextResponse.json(movie.recommendations);
+    return NextResponse.json(updatedMovie.recommendations);
   } catch (error) {
     console.error("Error al obtener las recomendaciones desde TMDB", error);
     return NextResponse.json(
