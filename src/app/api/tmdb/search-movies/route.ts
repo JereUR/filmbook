@@ -9,6 +9,8 @@ interface SearchMoviesResponse {
   error?: string;
 }
 
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500";
+
 export async function GET(req: NextRequest) {
   const title = req.nextUrl.searchParams.get("title") || "";
   const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
@@ -60,7 +62,7 @@ export async function GET(req: NextRequest) {
         id: movie.id,
         title: movie.title,
         release_date: movie.release_date,
-        poster_path: movie.poster_path,
+        poster_path: `${BASE_IMG_TMDB}${movie.poster_path}`,
         genre_names: genreNames,
       };
     });
