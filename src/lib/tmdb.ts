@@ -1,8 +1,10 @@
-import { Movie, Recommendation,RecommendationsResponse } from "./types";
+import { Movie, Recommendation, RecommendationsResponse } from "./types";
 
 const API_KEY = process.env.MOVIE_API_KEY;
 const ACCESS_TOKEN = process.env.MOVIE_ACCESS_TOKEN;
 const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500";
+const BASE_BACKDROP_TMDB = "https://image.tmdb.org/t/p/original";
 
 interface CrewMember {
   name: string;
@@ -88,7 +90,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   const cast = creditsData.cast.slice(0, 5).map((actor: CastMember) => ({
     name: actor.name,
     character: actor.character,
-    profile_path: actor.profile_path,
+    profile_path: `${BASE_IMG_TMDB}${actor.profile_path}`,
   }));
 
   // Fetch de las plataformas de streaming en Argentina
@@ -104,16 +106,17 @@ export async function fetchMovieFromTMDB(movieId: string) {
   }
 
   const watchProvidersData = await watchProvidersResponse.json();
-  const platforms =
-    watchProvidersData.results?.AR?.flatrate?.map(
-      (provider: any) => provider.provider_name,
-    ) || [];
+  const providers = watchProvidersData.results?.AR?.flatrate || [];
 
-  // Devolver todos los datos estructurados
+  const platforms = providers.map((provider: any) => ({
+    name: provider.provider_name,
+    logoPath: `${BASE_IMG_TMDB}${provider.logo_path}`,
+  }));
+
   return {
     title: movieData.title,
-    backdrop_path: movieData.backdrop_path,
-    poster_path: movieData.poster_path,
+    backdrop_path: `${BASE_BACKDROP_TMDB}${movieData.backdrop_path}`,
+    poster_path: `${BASE_IMG_TMDB}${movieData.poster_path}`,
     release_date: movieData.release_date,
     overview: movieData.overview,
     runtime: movieData.runtime,
@@ -129,9 +132,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   };
 }
 
-export async function fetchMovieRecommendations(
-  movieId: string,
-) {
+export async function fetchMovieRecommendations(movieId: string) {
   try {
     const recommendationsResponse = await fetch(
       `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=es-ES`,
@@ -146,19 +147,17 @@ export async function fetchMovieRecommendations(
 
     const recommendationsData = await recommendationsResponse.json();
 
-    console.log(recommendationsData.results);
-
     const recommendations = recommendationsData.results
       .slice(0, 10)
       .map((movie: any) => ({
         id: movie.id,
         title: movie.title,
-        poster_path: movie.poster_path,
+        poster_path: `${BASE_IMG_TMDB}${movie.poster_path}`,
         release_date: movie.release_date,
         vote_average: movie.vote_average,
       }));
 
-    return {results:recommendations};
+    return { results: recommendations };
   } catch (error) {
     console.error(error);
     throw new Error("Error al obtener recomendaciones de la película");
