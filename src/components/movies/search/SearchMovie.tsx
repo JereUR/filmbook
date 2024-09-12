@@ -5,6 +5,7 @@ import SearchForm from "./SearchForm";
 import MovieItem from "./MovieItem";
 import type { SearchMovie } from "@/lib/types";
 import { Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface SearchMoviesResponse {
   movies: SearchMovie[];
@@ -20,6 +21,8 @@ export default function SearchMovie() {
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(false);
 
+  const {toast}=useToast()
+
   const searchMovies = async (pageNumber: number = 1) => {
     if (!searchTerm) return;
     setLoading(true);
@@ -32,13 +35,21 @@ export default function SearchMovie() {
 
       if (data.error) {
         setError(data.error);
+        toast({
+          variant: "destructive",
+          description: error,
+        });
       } else {
         setMovies((prevMovies) => [...prevMovies, ...data.movies]);
         setHasMore(data.nextPage !== null);
         setError(null);
       }
     } catch (error) {
-      setError("Error al obtener datos.");
+      setError(`Error al obtener los datos: ${error}.`);
+      toast({
+        variant: "destructive",
+        description: `Error al obtener los datos: ${error}`,
+      });
     } finally {
       setLoading(false);
     }
