@@ -148,8 +148,8 @@ export interface Movie {
   backdropPath?: string;
   posterPath?: string;
   releaseDate?: Date;
-  overview?: string;
-  runtime?: number;
+  overview: string;
+  runtime: number;
   voteAverage?: number;
   voteCount?: number;
   productionCompanies?: any;
