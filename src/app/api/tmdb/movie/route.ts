@@ -5,6 +5,8 @@ import { Movie } from "@/lib/types";
 import { isAfter, subWeeks } from "date-fns";
 import { NextRequest, NextResponse } from "next/server";
 
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500";
+
 export async function GET(req: NextRequest) {
   const movieId = req.nextUrl.searchParams.get("id") || "";
 
@@ -77,7 +79,7 @@ export async function GET(req: NextRequest) {
       spokenLanguages: spoken_languages,
       productionCountries: production_countries,
       genres: genres,
-      director: director ? { name: director.name,profilePath:director.profile_path } : null,
+      director: director ? { name: director.name,profilePath:`${BASE_IMG_TMDB}${director.profile_path}` } : null,
       cast: cast,
       platforms: platforms,
     };
