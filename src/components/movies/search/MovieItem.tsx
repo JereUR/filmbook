@@ -13,18 +13,18 @@ export default function MovieItem({ movie }: MovieItemProps) {
   const { id, poster_path, title, release_date, genre_names } = movie;
 
   return (
-    <Link href={`/film/${id}?title=${title}&date=${getYear(release_date)}`}>
+    <Link href={`/pelicula/${id}?title=${title}&date=${getYear(release_date)}`}>
       <div className="flex h-full cursor-pointer items-start space-x-4 overflow-hidden rounded-2xl border p-5 shadow-lg">
-      <div className="relative flex-shrink-0 h-48 w-32">
+        <div className="relative h-48 w-32 flex-shrink-0">
           <Image
             src={
               poster_path
-                ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                ? poster_path
                 : noImage
             }
             alt={title}
-            layout="fill"
-            objectFit="cover"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="rounded"
           />
         </div>
