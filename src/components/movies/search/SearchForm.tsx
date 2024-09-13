@@ -17,6 +17,7 @@ export default function SearchForm({
 }: SearchFormProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       searchMovies();
     }
   };
