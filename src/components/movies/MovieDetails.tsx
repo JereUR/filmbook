@@ -48,15 +48,19 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
       )}
 
       <div className="relative z-10 p-6 text-foreground bg-card/50 flex gap-5">
-      <div>
-        <Image
-          src={posterPath? posterPath : noImagePath}
-          alt="Poster"
-          width={180}
-          height={270}
-          layout="fixed"
-        />
-      </div>
+      <div className="relative h-48 w-32 flex-shrink-0">
+          <Image
+            src={
+              posterPath
+                ? posterPath
+                : noImagePath
+            }
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="rounded"
+          />
+        </div>
         <div>
           <h1 className="text-4xl font-bold">{title}</h1>
           <p>{director.name}</p>
