@@ -115,8 +115,12 @@ export async function fetchMovieFromTMDB(movieId: string) {
 
   return {
     title: movieData.title,
-    backdrop_path: `${BASE_BACKDROP_TMDB}${movieData.backdrop_path}`,
-    poster_path: `${BASE_IMG_TMDB}${movieData.poster_path}`,
+    backdrop_path: movieData.backdrop_path
+      ? `${BASE_BACKDROP_TMDB}${movieData.backdrop_path}`
+      : undefined,
+    poster_path: movieData.poster_path
+      ? `${BASE_IMG_TMDB}${movieData.poster_path}`
+      : undefined,
     release_date: movieData.release_date,
     overview: movieData.overview,
     runtime: movieData.runtime,
@@ -152,7 +156,9 @@ export async function fetchMovieRecommendations(movieId: string) {
       .map((movie: any) => ({
         id: movie.id,
         title: movie.title,
-        poster_path: `${BASE_IMG_TMDB}${movie.poster_path}`,
+        poster_path: movie.poster_path
+          ? `${BASE_IMG_TMDB}${movie.poster_path}`
+          : undefined,
         release_date: movie.release_date,
         vote_average: movie.vote_average,
       }));

@@ -62,7 +62,7 @@ export async function GET(req: NextRequest) {
         id: movie.id,
         title: movie.title,
         release_date: movie.release_date,
-        poster_path: `${BASE_IMG_TMDB}${movie.poster_path}`,
+        poster_path: movie.poster_path?`${BASE_IMG_TMDB}${movie.poster_path}`:undefined,
         genre_names: genreNames,
       };
     });
