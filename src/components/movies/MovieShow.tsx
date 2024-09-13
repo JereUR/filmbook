@@ -5,7 +5,7 @@ import { getMovieById, getRecomendationsMovieById } from "@/lib/tmdb";
 import { Movie, Recommendation } from "@/lib/types";
 import { useToast } from "../ui/use-toast";
 import { Loader2 } from "lucide-react";
-import MovieDetails from "./search/MovieDetails";
+import MovieDetails from "./MovieDetails";
 
 interface MovieShowProps{
   id:string
@@ -89,9 +89,9 @@ export default function MovieShow({id}:MovieShowProps) {
   }
 
   return (
-    <div>
+    <div className="p-5 space-y-3 bg-card rounded-2xl shadow-sm">
       {movie  ? (
-        <MovieDetails movie={movie}/>
+          <MovieDetails movie={movie}/>
       ) : (
         <div>
           <p>Pelicula no encontrada.</p>
@@ -100,3 +100,5 @@ export default function MovieShow({id}:MovieShowProps) {
     </div>
   );
 }
+
+
