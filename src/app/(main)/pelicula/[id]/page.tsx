@@ -37,7 +37,7 @@ export default function MoviePage({ params }: PageProps) {
 
 function RecommendationsContainer({ id }: { id: string }) {
   return (
-    <div className="sticky top-[5.25rem] hidden h-fit w-48 flex-none space-y-5 md:block">
+    <div className="sticky top-[5.25rem] hidden h-fit w-48 p-5 flex-none space-y-5 md:block">
       <Recommendations id={id} />
     </div>
   );
