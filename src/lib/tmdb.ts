@@ -82,7 +82,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   const creditsData = await creditsResponse.json();
 
   // Obtener el director (de los miembros del equipo de producción)
-  const director = creditsData.crew?.find(
+  const directors = creditsData.crew?.filter(
     (member: CrewMember) => member.job === "Director",
   );
 
@@ -130,7 +130,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
     spoken_languages: movieData.spoken_languages,
     production_countries: movieData.production_countries,
     genres: movieData.genres,
-    director: director,
+    directors: directors,
     cast: cast,
     platforms: platforms,
   };
