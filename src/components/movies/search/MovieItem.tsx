@@ -14,8 +14,8 @@ export default function MovieItem({ movie }: MovieItemProps) {
 
   return (
     <Link href={`/pelicula/${id}?title=${title}&date=${getYear(release_date)}`}>
-      <div className="flex h-full cursor-pointer items-start space-x-4 overflow-hidden rounded-2xl border p-5 shadow-lg">
-        <div className="relative h-48 w-32 flex-shrink-0">
+      <div className="flex h-full cursor-pointer items-start space-x-4 overflow-hidden rounded-2xl border p-5 shadow-lg hover:bg-card/70 transition-colors duration-300 ease-in-out">
+        <div className="relative h-40 w-28 flex-shrink-0">
           <Image
             src={
               poster_path
