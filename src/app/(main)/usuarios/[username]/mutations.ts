@@ -1,6 +1,4 @@
 import { useToast } from "@/components/ui/use-toast";
-import { useUploadThing } from "@/lib/uploadthing";
-import { UpdateUserProfileValues } from "@/lib/validation";
 import {
   InfiniteData,
   QueryFilters,
@@ -8,8 +6,11 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+
 import { updateUserProfile } from "./actions";
 import { PostsPage } from "@/lib/types";
+import { useUploadThing } from "@/lib/uploadthing";
+import { UpdateUserProfileValues } from "@/lib/validation";
 
 export function useUpdateProfileMutation() {
   const { toast } = useToast();

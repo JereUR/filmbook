@@ -4,15 +4,14 @@ import {
   ChannelPreviewUIComponentProps,
   useChatContext,
 } from "stream-chat-react";
-import { cn } from "@/lib/utils";
-
+import { useQueryClient } from "@tanstack/react-query";
 import { MailPlus, X } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 import { useSession } from "../SessionProvider";
 import { Button } from "@/components/ui/button";
-import { useCallback, useEffect, useState } from "react";
 import NewChatDialog from "./NewChatDialog";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface ChatSidebarProps {
   open: boolean;

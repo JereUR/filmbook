@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";

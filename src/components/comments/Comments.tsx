@@ -1,11 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
 import { CommentsPage, PostData } from "@/lib/types";
 import CommentInput from "./CommentInput";
 import kyInstance from "@/lib/ky";
 import Comment from "./Comment";
 import { Button } from "../ui/button";
-import { Loader2 } from "lucide-react";
 
 interface CommentsProps {
   post: PostData;

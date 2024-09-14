@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ClipboardEvent, useRef } from "react";
+import { ClipboardEvent, useRef } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";

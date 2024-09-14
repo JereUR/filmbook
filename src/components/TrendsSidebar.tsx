@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";

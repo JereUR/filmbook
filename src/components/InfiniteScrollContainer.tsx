@@ -1,4 +1,3 @@
-import React from "react";
 import { useInView } from "react-intersection-observer";
 
 interface InfiniteScrollContainerProps extends React.PropsWithChildren {

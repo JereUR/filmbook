@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useQueryClient } from "@tanstack/react-query";
+import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
 
 import { useSession } from "@/app/(main)/SessionProvider";
 import {
@@ -18,9 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import UserAvatar from "./UserAvatar";
-import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
 import { logout } from "@/app/(auth)/actions";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface UserButtonProps {
   className?: string;
@@ -32,6 +32,8 @@ export default function UserButton({ className }: UserButtonProps) {
   const { theme, setTheme } = useTheme();
 
   const queryClient = useQueryClient();
+
+  if (window !== undefined) return null;
 
   return (
     <DropdownMenu>

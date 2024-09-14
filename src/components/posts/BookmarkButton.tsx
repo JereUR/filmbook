@@ -1,4 +1,3 @@
-import { useToast } from "../ui/use-toast";
 import {
   QueryKey,
   useMutation,
@@ -8,6 +7,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Bookmark } from "lucide-react";
 
+import { useToast } from "../ui/use-toast";
 import { BookmarkInfo } from "@/lib/types";
 import kyInstance from "@/lib/ky";
 

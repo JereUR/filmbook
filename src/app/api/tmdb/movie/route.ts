@@ -1,9 +1,9 @@
+import { isAfter, subWeeks } from "date-fns";
+import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "@/lib/prisma";
 import { fetchMovieFromTMDB } from "@/lib/tmdb";
 import { Movie } from "@/lib/types";
-import { isAfter, subWeeks } from "date-fns";
-import { NextRequest, NextResponse } from "next/server";
 
 const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500";
 

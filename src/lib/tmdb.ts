@@ -1,4 +1,4 @@
-import { Movie, Recommendation, RecommendationsResponse } from "./types";
+import { Movie, Recommendation} from "./types";
 
 const API_KEY = process.env.MOVIE_API_KEY;
 const ACCESS_TOKEN = process.env.MOVIE_ACCESS_TOKEN;

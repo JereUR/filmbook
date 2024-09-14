@@ -2,7 +2,6 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import React from "react";
 
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import Post from "@/components/posts/Post";

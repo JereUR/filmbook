@@ -1,9 +1,8 @@
 import { Metadata } from "next";
-import React from "react";
-
-import signUpImage from "@/assets/signup-image.jpg";
 import Image from "next/image";
 import Link from "next/link";
+
+import signUpImage from "@/assets/signup-image.jpg";
 import SignUpForm from "./SignUpForm";
 
 export const metadata: Metadata = {

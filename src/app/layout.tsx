@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
 
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import ReactQueryProvider from "./ReactQueryProvider";
-import { extractRouterConfig } from "uploadthing/server";
 import { fileRouter } from "./api/uploadthing/core";
 
 const geistSans = localFont({

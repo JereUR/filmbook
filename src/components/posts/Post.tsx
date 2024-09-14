@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { MessageSquare } from "lucide-react";
+import { Media } from "@prisma/client";
 
 import { PostData } from "@/lib/types";
 import UserAvatar from "../UserAvatar";
@@ -12,7 +13,6 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import PostMoreButton from "./PostMoreButton";
 import Linkify from "../Linkify";
 import UserTooltip from "../UserTooltip";
-import { Media } from "@prisma/client";
 import LikeButton from "./LikeButton";
 import BookmarkButton from "./BookmarkButton";
 import Comments from "../comments/Comments";
@@ -129,6 +129,7 @@ function MediaPreview({ media }: MediaPreviewProps) {
         width={500}
         height={500}
         className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+        priority
       />
     );
   }

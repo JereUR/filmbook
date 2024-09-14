@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+
 import { genres } from "@/lib/genres";
 import { TMDBResponse, SearchMovie } from "@/lib/types";
 import { validateRequest } from "@/auth";

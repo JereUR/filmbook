@@ -1,6 +1,7 @@
+import { Search } from "lucide-react";
+
 import LoadingButton from "@/components/LoadingButton";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 
 interface SearchFormProps {
   searchTerm: string;

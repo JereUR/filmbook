@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
+
 import SearchForm from "./SearchForm";
 import MovieItem from "./MovieItem";
 import type { SearchMovie } from "@/lib/types";
-import { Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface SearchMoviesResponse {

@@ -1,10 +1,11 @@
-import { CommentData } from "@/lib/types";
-import UserTooltip from "../UserTooltip";
 import Link from "next/link";
+
 import UserAvatar from "../UserAvatar";
 import { formatRelativeDate } from "@/lib/utils";
 import { useSession } from "@/app/(main)/SessionProvider";
 import CommentMoreButton from "./CommentMoreButton";
+import { CommentData } from "@/lib/types";
+import UserTooltip from "../UserTooltip";
 
 interface CommentProps {
   comment: CommentData;

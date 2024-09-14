@@ -1,5 +1,7 @@
 import { CommentData } from "@/lib/types";
 import { useState } from "react";
+import { MoreHorizontal, Trash2 } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +9,6 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreHorizontal, Trash2 } from "lucide-react";
 import DeleteCommentDialog from "./DeleteCommentDialog";
 
 interface CommentMoreButtonProps {

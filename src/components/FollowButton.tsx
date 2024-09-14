@@ -1,9 +1,10 @@
 "use client";
 
+import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
+
 import useFollowerInfo from "@/hooks/useFollowerInfo";
 import { FollowerInfo } from "@/lib/types";
 import { useToast } from "./ui/use-toast";
-import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "./ui/button";
 import kyInstance from "@/lib/ky";
 

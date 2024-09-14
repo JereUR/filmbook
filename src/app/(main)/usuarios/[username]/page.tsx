@@ -1,13 +1,13 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { Metadata } from "next";
+import { formatDate } from "date-fns";
 
 import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
 import { validateRequest } from "@/auth";
-import { Metadata } from "next";
 import TrendsSidebar from "@/components/TrendsSidebar";
 import UserAvatar from "@/components/UserAvatar";
-import { formatDate } from "date-fns";
 import { formatNumber } from "@/lib/utils";
 import FollowerCount from "@/components/FollowerCount";
 import FollowButton from "@/components/FollowButton";

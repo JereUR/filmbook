@@ -2,10 +2,10 @@
 
 import { Bell } from "lucide-react";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import { NotificationCountInfo } from "@/lib/types";
-import { useQuery } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
 
 interface NotificationsButtonProps {

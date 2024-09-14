@@ -1,4 +1,3 @@
-import { useToast } from "../ui/use-toast";
 import {
   QueryKey,
   useMutation,
@@ -8,6 +7,7 @@ import {
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import { useToast } from "../ui/use-toast";
 import { LikeInfo } from "@/lib/types";
 import kyInstance from "@/lib/ky";
 

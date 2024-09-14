@@ -1,10 +1,11 @@
 'use client'
+
 import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 import { getMovieById, getRecomendationsMovieById } from "@/lib/tmdb";
 import { Movie, Recommendation } from "@/lib/types";
 import { useToast } from "../ui/use-toast";
-import { Loader2 } from "lucide-react";
 import MovieDetails from "./MovieDetails";
 
 interface MovieShowProps{

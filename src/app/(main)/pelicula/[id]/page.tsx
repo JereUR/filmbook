@@ -1,7 +1,8 @@
-import MovieShow from '@/components/movies/MovieShow';
-import Recommendations from '@/components/movies/Recommendations';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
+import MovieShow from '@/components/movies/MovieShow';
+import Recommendations from '@/components/movies/Recommendations';
 
 interface PageProps {
   params: { id: string },

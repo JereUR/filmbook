@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import Bookmarks from "./Bookmarks";
 import TrendsSidebar from "@/components/TrendsSidebar";
 

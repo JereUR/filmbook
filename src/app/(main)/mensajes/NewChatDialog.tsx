@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { UserResponse } from "stream-chat";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Check, Loader2, SearchIcon, User, X } from "lucide-react";
+import { Check, Loader2, SearchIcon, X } from "lucide-react";
 import { DefaultStreamChatGenerics, useChatContext } from "stream-chat-react";
 
 import {

@@ -1,6 +1,7 @@
+import { useState } from "react";
+
 import { useToast } from "@/components/ui/use-toast";
 import { useUploadThing } from "@/lib/uploadthing";
-import { useState } from "react";
 
 export interface Attachment {
   file: File;

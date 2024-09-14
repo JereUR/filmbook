@@ -1,13 +1,14 @@
+import { cookies } from "next/headers";
+import { NextRequest } from "next/server";
+import { generateIdFromEntropySize } from "lucia";
+import { OAuth2RequestError } from "arctic";
+
 import { google } from "@/auth";
 import kyInstance from "@/lib/ky";
 import prisma from "@/lib/prisma";
-import { cookies } from "next/headers";
-import { NextRequest } from "next/server";
-import { lucia } from "../../../../../auth";
-import { generateIdFromEntropySize } from "lucia";
 import { slugify } from "@/lib/utils";
 import streamServerClient from "@/lib/stream";
-import { OAuth2RequestError } from "arctic";
+import { lucia } from "../../../../../auth";
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");

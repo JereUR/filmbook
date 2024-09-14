@@ -1,10 +1,9 @@
 import { Metadata } from "next";
-import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import LoginForm from "./LoginForm";
 import loginImage from "@/assets/login-image.jpg";
-import Image from "next/image";
 import GoogleSignInButton from "./google/GoogleSignInButton";
 
 export const metadata: Metadata = {
