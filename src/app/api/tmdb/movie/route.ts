@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
       spokenLanguages: true,
       productionCountries: true,
       genres: true,
-      director: true,
+      directors: true,
       cast: true,
       platforms: true,
       createdAt: true,
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
   try {
     const movieData = await fetchMovieFromTMDB(movieId);
 
-    const {title,backdrop_path,poster_path,release_date,overview,runtime,vote_average,vote_count,production_companies,spoken_languages,production_countries,genres,director,cast,platforms}=movieData
+    const {title,backdrop_path,poster_path,release_date,overview,runtime,vote_average,vote_count,production_companies,spoken_languages,production_countries,genres,directors,cast,platforms}=movieData
 
     const newMovie: Movie = {
       id: movieId,
@@ -79,7 +79,11 @@ export async function GET(req: NextRequest) {
       spokenLanguages: spoken_languages,
       productionCountries: production_countries,
       genres: genres,
-      director: director ? { name: director.name,profilePath:`${BASE_IMG_TMDB}${director.profile_path}` } : null,
+      directors: directors?.map((director:any) => ({
+        id: director.id,
+        name: director.name,
+        profilePath: director.profile_path? `${BASE_IMG_TMDB}${director.profile_path}` : null,
+      })),
       cast: cast,
       platforms: platforms,
     };

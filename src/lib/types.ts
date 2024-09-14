@@ -156,7 +156,7 @@ export interface Movie {
   spokenLanguages?: any;
   productionCountries?: any;
   genres?: any;
-  director?: any;
+  directors?: any;
   cast?: any;
   recommendations?: any;
   platforms?: any;
@@ -201,4 +201,10 @@ export interface Recommendation {
 
 export interface RecommendationsResponse {
   results: Recommendation[];
+}
+
+export interface Director{
+  id:number
+  name: string;
+  profilePath: string;
 }
