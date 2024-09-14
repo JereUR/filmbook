@@ -169,7 +169,7 @@ model Movie {
   spokenLanguages     Json?
   productionCountries Json?
   genres              Json?
-  director            Json?
+  directors           Json?
   cast                Json?
   recommendations     Json?
   platforms           Json?
