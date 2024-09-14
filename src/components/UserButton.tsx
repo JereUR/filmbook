@@ -33,8 +33,6 @@ export default function UserButton({ className }: UserButtonProps) {
 
   const queryClient = useQueryClient();
 
-  if (window !== undefined) return null;
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
