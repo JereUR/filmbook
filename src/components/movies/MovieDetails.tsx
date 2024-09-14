@@ -73,7 +73,12 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
                 src={director.profilePath}
                 alt={`${director.name} avatar`}
               />
-              <span className="text-muted-foreground">{director.name}</span>
+              <div className='flex flex-col'>
+                <span className="text-muted-foreground">{director.name}</span>
+                <span className="text-primary text-sm">
+                  Director
+                </span>
+              </div>
             </div>
           ))}
           <p className="font-medium text-foreground/70">
