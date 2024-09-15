@@ -160,6 +160,8 @@ export interface Movie {
   cast?: any;
   recommendations?: any;
   platforms?: any;
+  rating?:any
+  reviews?:any
   createdAt?: Date;
   updatedAt?: Date;
 }
