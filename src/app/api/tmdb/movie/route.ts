@@ -14,19 +14,19 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "ID de película no proporcionado" }, { status: 400 });
   }
 
-  // Buscar la película en la base de datos
+  // Buscar la película en la base de datos e incluir rating y reviews
   let movie = await prisma.movie.findUnique({
     where: { id: movieId },
-    select:{
+    select: {
       id: true,
       title: true,
-      backdropPath:true,
-      posterPath : true,
+      backdropPath: true,
+      posterPath: true,
       releaseDate: true,
       overview: true,
       runtime: true,
       voteAverage: true,
-      voteCount:true,
+      voteCount: true,
       productionCompanies: true,
       spokenLanguages: true,
       productionCountries: true,
@@ -36,7 +36,23 @@ export async function GET(req: NextRequest) {
       platforms: true,
       createdAt: true,
       updatedAt: true,
-    }
+      rating: { 
+        select: {
+          averageRating: true,
+          numberOfRatings: true,
+        },
+      },
+      reviews: { 
+        select: {
+          user: {
+            select: { username: true }, 
+          },
+          rating: true,
+          review: true,
+          createdAt: true,
+        },
+      },
+    },
   });
 
   // Si la película existe, verificar si han pasado más de 7 días
@@ -50,39 +66,91 @@ export async function GET(req: NextRequest) {
         where: { id: movieId },
         data: {
           voteAverage: movieData.vote_average,
-          voteCount:movieData.vote_count,
+          voteCount: movieData.vote_count,
           platforms: movieData.platforms,
+        },
+        select: {
+          id: true,
+          title: true,
+          backdropPath: true,
+          posterPath: true,
+          releaseDate: true,
+          overview: true,
+          runtime: true,
+          voteAverage: true,
+          voteCount: true,
+          productionCompanies: true,
+          spokenLanguages: true,
+          productionCountries: true,
+          genres: true,
+          directors: true,
+          cast: true,
+          platforms: true,
+          createdAt: true,
+          updatedAt: true,
+          rating: { 
+            select: {
+              averageRating: true,
+              numberOfRatings: true,
+            },
+          },
+          reviews: { 
+            select: {
+              user: {
+                select: { username: true }, 
+              },
+              rating: true,
+              review: true,
+              createdAt: true,
+            },
+          },
         },
       });
     }
 
-    return NextResponse.json(movie);
+    return NextResponse.json(movie); // Ahora devuelve la película junto con rating y reviews
   }
 
   // Si la película no existe, hacer fetch a la API y crearla en la base de datos
   try {
     const movieData = await fetchMovieFromTMDB(movieId);
 
-    const {title,backdrop_path,poster_path,release_date,overview,runtime,vote_average,vote_count,production_companies,spoken_languages,production_countries,genres,directors,cast,platforms}=movieData
+    const {
+      title,
+      backdrop_path,
+      poster_path,
+      release_date,
+      overview,
+      runtime,
+      vote_average,
+      vote_count,
+      production_companies,
+      spoken_languages,
+      production_countries,
+      genres,
+      directors,
+      cast,
+      platforms,
+    } = movieData;
 
     const newMovie: Movie = {
       id: movieId,
       title: title,
-      backdropPath:backdrop_path,
+      backdropPath: backdrop_path,
       posterPath: poster_path,
       releaseDate: new Date(release_date),
       overview: overview,
       runtime: runtime,
       voteAverage: vote_average,
-      voteCount:vote_count,
+      voteCount: vote_count,
       productionCompanies: production_companies,
       spokenLanguages: spoken_languages,
       productionCountries: production_countries,
       genres: genres,
-      directors: directors?.map((director:any) => ({
+      directors: directors?.map((director: any) => ({
         id: director.id,
         name: director.name,
-        profilePath: director.profile_path? `${BASE_IMG_TMDB}${director.profile_path}` : null,
+        profilePath: director.profile_path ? `${BASE_IMG_TMDB}${director.profile_path}` : null,
       })),
       cast: cast,
       platforms: platforms,
