@@ -20,7 +20,7 @@ export default function CircularImage({ src, size, alt, className }: CircularIma
         width={size ?? 38}
         height={size ?? 38}
         alt={alt}
-        className='object-cover'
+        className="object-cover transform translate-y-[-10%]"
       />
     </div>
   );
