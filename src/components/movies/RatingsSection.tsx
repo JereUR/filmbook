@@ -27,7 +27,7 @@ export default function RatingsSection({
   }
 
   return (
-    <div className="w-full my-2 md:my-4 md:w-1/4 flex flex-col gap-2 rounded-2xl shadow-md shadow-primary p-2 md:p-6">
+    <div className="w-full my-2 md:my-4 md:w-1/4 flex flex-col gap-2 rounded-2xl border border-primary/50 p-2 md:p-6">
       <div className="flex gap-4 items-center justify-center">
         <h1 className="text-lg md:text-xl font-bold">RATING</h1>
       </div>
