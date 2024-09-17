@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
       genres: true,
       directors: true,
       cast: true,
-      platforms: true,
+      providers: true,
       createdAt: true,
       updatedAt: true,
       rating: { 
@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
         data: {
           voteAverage: movieData.vote_average,
           voteCount: movieData.vote_count,
-          platforms: movieData.platforms,
+          providers: movieData.providers,
         },
         select: {
           id: true,
@@ -85,7 +85,7 @@ export async function GET(req: NextRequest) {
           genres: true,
           directors: true,
           cast: true,
-          platforms: true,
+          providers: true,
           createdAt: true,
           updatedAt: true,
           rating: { 
@@ -130,7 +130,7 @@ export async function GET(req: NextRequest) {
       genres,
       directors,
       cast,
-      platforms,
+      providers,
     } = movieData;
 
     const newMovie: Movie = {
@@ -153,7 +153,7 @@ export async function GET(req: NextRequest) {
         profilePath: director.profile_path ? `${BASE_IMG_TMDB}${director.profile_path}` : null,
       })),
       cast: cast,
-      platforms: platforms,
+      providers: providers,
     };
 
     const createdMovie = await prisma.movie.create({
