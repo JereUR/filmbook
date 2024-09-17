@@ -34,13 +34,13 @@ export default function UserButton({ className }: UserButtonProps) {
   const queryClient = useQueryClient();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu >
       <DropdownMenuTrigger asChild>
         <button className={cn("flex-none rounded-full", className)}>
           <UserAvatar avatarUrl={user.avatarUrl} size={40} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="z-[100]">
         <DropdownMenuLabel>
           Sesión iniciada como @{user.username}
         </DropdownMenuLabel>
