@@ -1,4 +1,4 @@
-import { Movie, Recommendation} from "./types";
+import { Movie, Recommendation } from "./types";
 
 const API_KEY = process.env.MOVIE_API_KEY;
 const ACCESS_TOKEN = process.env.MOVIE_ACCESS_TOKEN;
@@ -51,6 +51,40 @@ export async function getRecomendationsMovieById(
     return null;
   }
 }
+
+const formatProviders = (results: any) => {
+  const formattedResults: { [key: string]: any } = {};
+
+  Object.keys(results).forEach((countryCode) => {
+    const countryData = results[countryCode];
+
+    formattedResults[countryCode] = {
+      flatrate: countryData.flatrate
+        ? countryData.flatrate.map((provider: any) => ({
+            logo_path: `https://image.tmdb.org/t/p/original${provider.logo_path}`,
+            provider_name: provider.provider_name,
+            display_priority: provider.display_priority,
+          }))
+        : [],
+      rent: countryData.rent
+        ? countryData.rent.map((provider: any) => ({
+            logo_path: `https://image.tmdb.org/t/p/original${provider.logo_path}`,
+            provider_name: provider.provider_name,
+            display_priority: provider.display_priority,
+          }))
+        : [],
+      buy: countryData.buy
+        ? countryData.buy.map((provider: any) => ({
+            logo_path: `https://image.tmdb.org/t/p/original${provider.logo_path}`,
+            provider_name: provider.provider_name,
+            display_priority: provider.display_priority,
+          }))
+        : [],
+    };
+  });
+
+  return formattedResults;
+};
 
 export async function fetchMovieFromTMDB(movieId: string) {
   // Fetch de los detalles de la película
@@ -106,12 +140,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   }
 
   const watchProvidersData = await watchProvidersResponse.json();
-  const providers = watchProvidersData.results?.AR?.flatrate || [];
-
-  const platforms = providers.map((provider: any) => ({
-    name: provider.provider_name,
-    logoPath: `${BASE_IMG_TMDB}${provider.logo_path}`,
-  }));
+  const providers = formatProviders(watchProvidersData.results)
 
   return {
     title: movieData.title,
@@ -130,9 +159,9 @@ export async function fetchMovieFromTMDB(movieId: string) {
     spoken_languages: movieData.spoken_languages,
     production_countries: movieData.production_countries,
     genres: movieData.genres,
-    directors: directors,
-    cast: cast,
-    platforms: platforms,
+    directors,
+    cast,
+    providers,
   };
 }
 
