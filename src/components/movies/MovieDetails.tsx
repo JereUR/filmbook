@@ -5,6 +5,7 @@ import { Movie, Director } from "@/lib/types";
 import { getYear } from "@/lib/utils";
 import CircularImage from "./CircularImage";
 import RatingsSection from "./RatingsSection";
+import ProvidersInfo from "./ProvidersInfo";
 
 interface MovieDetailsProps {
   movie: Movie;
@@ -22,7 +23,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
     productionCountries,
     cast,
     genres,
-    platforms,
+    providers,
     posterPath,
     spokenLanguages,
     voteAverage,
@@ -35,10 +36,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
   console.log({ genres });
   console.log({ directors });
   console.log({ cast });
-  console.log({ platforms });
   console.log({ spokenLanguages });
-  console.log({ voteAverage });
-  console.log({ voteCount });
   console.log({ rating });
 
   return (
@@ -110,7 +108,9 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
         </div>
       </div>
       <hr className="mx-auto w-4/5 font-extralight md:w-5/6" />
-      <div></div>
+      <div>
+        <ProvidersInfo providersList={ providers }/>
+      </div>
     </div>
   );
 }
