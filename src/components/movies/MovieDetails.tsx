@@ -107,7 +107,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
           </p>
         </div>
       </div>
-      <hr className="mx-auto w-4/5 font-extralight md:w-5/6" />
+      <hr className="mx-auto w-4/5 font-extralight md:w-5/6 text-primary/50" />
       <div>
         <ProvidersInfo providersList={ providers }/>
       </div>
