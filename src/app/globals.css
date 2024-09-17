@@ -118,3 +118,60 @@
 .str-chat__channel-search-bar-button--exit-search {
   display: none;
 }
+
+/* Scrollbar styles */
+
+/* Ocultar scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scrollbar delgada */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 8px;
+  width: 8px; /* También se puede definir el ancho de la barra */
+}
+
+/* Contenedor de la scrollbar (track) */
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: var(--card);
+  border-radius: 10px;
+}
+
+/* Barra de desplazamiento (thumb) */
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #6A1BE6;
+  border-radius: 10px; /* Agregar border-radius al thumb */
+  opacity: 0.8;
+}
+
+/* Hover en la barra de desplazamiento (thumb) */
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #6A1BE6;
+  opacity: 0.8;
+  cursor: grab;
+}
+
+/* Scroll animation (show) */
+
+@keyframes show {
+  from {
+    opacity: 0;
+    scale: 10%;
+  }
+
+  to {
+    opacity: 1;
+    scale: 100%;
+  }
+}
+
+.show-animate {
+  view-timeline-name: --reveal;
+
+  animation-name: show;
+  animation-fill-mode: both;
+
+  animation-timeline: --reveal;
+  animation-range: entry 15% cover 25%;
+}
