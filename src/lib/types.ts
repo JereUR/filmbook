@@ -159,7 +159,7 @@ export interface Movie {
   directors?: any;
   cast?: any;
   recommendations?: any;
-  platforms?: any;
+  providers?: any;
   rating?:any
   reviews?:any
   createdAt?: Date;

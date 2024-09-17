@@ -172,7 +172,7 @@ model Movie {
   directors           Json?
   cast                Json?
   recommendations     Json?
-  platforms           Json?
+  providers           Json?
 
   rating  MovieRating?
   reviews Review[]
