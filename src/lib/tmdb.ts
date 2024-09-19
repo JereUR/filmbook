@@ -121,7 +121,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   );
 
   // Obtener el elenco principal (máximo 5 actores)
-  const cast = creditsData.cast.slice(0, 5).map((actor: CastMember) => ({
+  const cast = creditsData.cast.slice(0, 8).map((actor: CastMember) => ({
     name: actor.name,
     character: actor.character,
     profile_path: `${BASE_IMG_TMDB}${actor.profile_path}`,
@@ -140,7 +140,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   }
 
   const watchProvidersData = await watchProvidersResponse.json();
-  const providers = formatProviders(watchProvidersData.results)
+  const providers = formatProviders(watchProvidersData.results);
 
   return {
     title: movieData.title,
@@ -155,7 +155,10 @@ export async function fetchMovieFromTMDB(movieId: string) {
     runtime: movieData.runtime,
     vote_average: movieData.vote_average,
     vote_count: movieData.vote_count,
-    production_companies: movieData.production_companies,
+    production_companies: movieData.production_companies.map((prod: any) => ({
+      ...prod,
+      logo_path: `${BASE_IMG_TMDB}${prod.logo_path}`,
+    })),
     spoken_languages: movieData.spoken_languages,
     production_countries: movieData.production_countries,
     genres: movieData.genres,
