@@ -29,14 +29,13 @@ export default function RatingsSection({
   }
 
   return (
-    <div className="my-2 flex w-full flex-col gap-2 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:p-4">
-      <div className="flex items-center justify-between gap-4">
-        <h1 className="font-semibold md:text-lg">RATING</h1>
+    <div className="my-2 flex w-full flex-col gap-4 md:gap-3 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:p-4">
+      <div className="flex items-center justify-around gap-4">
+        <h1 className="font-semibold text-lg md:text-xl">RATING</h1>
         <Button className="group flex items-start gap-2 rounded-2xl border-none p-2 text-sm">
-          <Clapperboard size={25} />
+          <Clapperboard className='h-6 w-6' />
           <BadgePlus
-            size={15}
-            className="transition-transform duration-300 ease-in-out group-hover:scale-125"
+            className="h-[14px] w-[14px] transition-transform duration-300 ease-in-out group-hover:scale-125"
           />
         </Button>
       </div>
