@@ -73,15 +73,15 @@ export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
   }
 
   return (
-    <Card className="m-1 space-y-2 border-2 border-primary/50 p-5 md:m-5 md:space-y-4">
-      <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:justify-between">
-        <h3 className="text-lg font-semibold">
+    <Card className="my-1 mx-2 space-y-2 border-2 border-primary/50 p-5 md:m-5 md:space-y-4">
+      <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
+        <h3 className="md:text-lg font-semibold">
           Donde ver en {selectedCountry?.name}:
         </h3>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger
             asChild
-            className="border-1 border-primary/50 bg-background text-sm hover:bg-background/50 md:text-sm"
+            className="border-1 border-primary/50 bg-background text-xs hover:bg-background/50 md:text-sm"
           >
             <Button
               variant="outline"
