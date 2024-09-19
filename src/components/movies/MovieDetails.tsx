@@ -52,7 +52,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
             quality={100}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent dark:from-card" />
+          <div className="absolute -inset-10 md:inset-0 bg-gradient-to-t from-primary/30 to-transparent dark:from-card" />
         </div>
       )}
 
@@ -107,7 +107,6 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
           </p>
         </div>
       </div>
-      <hr className="mx-auto w-4/5 border-t-[1px] border-primary/50" />
       <div>
         <ProvidersInfo providersList={ providers }/>
       </div>
