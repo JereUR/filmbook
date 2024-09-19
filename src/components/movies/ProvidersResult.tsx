@@ -1,6 +1,7 @@
 import Image from "next/image";
 
-import { ProvidersByCountry } from "./ProvidersInfo";
+import { Provider, ProvidersByCountry } from "./ProvidersInfo";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 interface ProvidersResultProps {
   providers: ProvidersByCountry | null;
@@ -8,89 +9,61 @@ interface ProvidersResultProps {
 
 export default function ProvidersResult({ providers }: ProvidersResultProps) {
   return (
-    <>
-      {providers ? (
-        <div className="space-y-4">
-          {providers.flatrate && providers.flatrate.length > 0 ? (
-            <div>
-              <h4 className="text-md font-medium">Ver en streaming:</h4>
-              <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                {providers.flatrate.map((provider) => (
-                  <li
-                    key={provider.provider_name}
-                    className="flex items-center space-x-2"
-                  >
-                    <Image
-                      src={provider.logo_path}
-                      alt={provider.provider_name}
-                      width={40}
-                      height={40}
-                      className="rounded-full"
-                    />
-                    <span>{provider.provider_name}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p>No hay proveedores para ver en streaming.</p>
-          )}
+    <div className="w-full min-w-0 space-y-5">
+      <Tabs defaultValue="flatrate" className='w-full'>
+        <TabsList className="rounded-md bg-card-child p-1 text-muted-foreground shadow-sm">
+          <TabsTrigger value="flatrate" className="text-xs sm:text-sm">Suscripción</TabsTrigger>
+          <TabsTrigger value="rent" className="text-xs sm:text-sm">Alquilar</TabsTrigger>
+          <TabsTrigger value="buy" className="text-xs sm:text-sm">Comprar</TabsTrigger>
+        </TabsList>
+        <TabsContent value="flatrate">
+          <Providers
+            providers={providers?.flatrate}
+            noDataText="ver en streaming"
+          />
+        </TabsContent>
+        <TabsContent value="rent">
+          <Providers providers={providers?.rent} noDataText="alquilar" />
+        </TabsContent>
+        <TabsContent value="buy">
+          <Providers providers={providers?.buy} noDataText="comprar" />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
 
-          {providers.rent && providers.rent.length > 0 ? (
-            <div>
-              <h4 className="text-md font-medium">Alquilar:</h4>
-              <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                {providers.rent.map((provider) => (
-                  <li
-                    key={provider.provider_name}
-                    className="flex items-center space-x-2"
-                  >
-                    <Image
-                      src={provider.logo_path}
-                      alt={provider.provider_name}
-                      width={40}
-                      height={40}
-                      className="rounded-full"
-                    />
-                    <span>{provider.provider_name}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p>No hay proveedores para alquilar.</p>
-          )}
+interface ProvidersProps {
+  providers: Provider[] | undefined;
+  noDataText: string;
+}
 
-          {providers.buy && providers.buy.length > 0 ? (
-            <div>
-              <h4 className="text-md font-medium">Comprar:</h4>
-              <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                {providers.buy.map((provider) => (
-                  <li
-                    key={provider.provider_name}
-                    className="flex items-center space-x-2"
-                  >
-                    <Image
-                      src={provider.logo_path}
-                      alt={provider.provider_name}
-                      width={40}
-                      height={40}
-                      className="rounded-full"
-                    />
-                    <span>{provider.provider_name}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p>No hay proveedores para comprar.</p>
-          )}
+function Providers({ providers, noDataText }: ProvidersProps) {
+  return (
+    <div className='m-6 mb-2'>
+      {providers && providers.length > 0 ? (
+        <div>
+          <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {providers.map((provider) => (
+              <li
+                key={provider.provider_name}
+                className="flex items-center space-x-2"
+              >
+                <Image
+                  src={provider.logo_path}
+                  alt={provider.provider_name}
+                  width={35}
+                  height={35}
+                  className="rounded-full"
+                />
+                <span className='font-semibold'>{provider.provider_name}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       ) : (
-        <p className="text-muted-foreground">
-          No hay proveedores disponibles para este país.
-        </p>
+        <p className="text-center text-sm leading-relaxed text-foreground/40 md:text-base">No hay proveedores para {noDataText}.</p>
       )}
-    </>
+    </div>
   );
 }
