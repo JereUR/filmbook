@@ -6,6 +6,7 @@ import { getYear } from "@/lib/utils";
 import CircularImage from "./CircularImage";
 import RatingsSection from "./RatingsSection";
 import ProvidersInfo from "./ProvidersInfo";
+import CastSection from "./CastSection";
 
 interface MovieDetailsProps {
   movie: Movie;
@@ -28,16 +29,14 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
     spokenLanguages,
     voteAverage,
     voteCount,
-    rating
+    rating,
   } = movie;
 
   console.log({ productionCompanies });
   console.log({ productionCountries });
   console.log({ genres });
-  console.log({ directors });
   console.log({ cast });
   console.log({ spokenLanguages });
-  console.log({ rating });
 
   return (
     <div className="relative w-full">
@@ -52,7 +51,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
             quality={100}
             priority
           />
-          <div className="absolute -inset-10 md:inset-0 bg-gradient-to-t from-primary/30 to-transparent dark:from-card" />
+          <div className="absolute -inset-10 bg-gradient-to-t from-primary/30 to-transparent dark:from-card md:inset-0" />
         </div>
       )}
 
@@ -99,7 +98,11 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
               </div>
             </div>
           </div>
-          <RatingsSection rating={rating} voteAverage={voteAverage} voteCount={voteCount}/>
+          <RatingsSection
+            rating={rating}
+            voteAverage={voteAverage}
+            voteCount={voteCount}
+          />
         </div>
         <div className="mt-4 px-1 md:mt-6 md:px-4">
           <p className="text-justify text-sm leading-relaxed text-foreground/40 md:text-base">
@@ -107,9 +110,8 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
           </p>
         </div>
       </div>
-      <div>
-        <ProvidersInfo providersList={ providers }/>
-      </div>
+      <ProvidersInfo providersList={providers} />
+      <CastSection cast={cast} />
     </div>
   );
 }
