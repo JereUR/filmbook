@@ -124,7 +124,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   const cast = creditsData.cast.slice(0, 8).map((actor: CastMember) => ({
     name: actor.name,
     character: actor.character,
-    profile_path: `${BASE_IMG_TMDB}${actor.profile_path}`,
+    profilePath: actor.profile_path?`${BASE_IMG_TMDB}${actor.profile_path}`:null,
   }));
 
   // Fetch de las plataformas de streaming en Argentina
