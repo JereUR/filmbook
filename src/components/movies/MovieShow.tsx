@@ -90,7 +90,7 @@ export default function MovieShow({id}:MovieShowProps) {
   }
 
   return (
-    <div className="p-5 space-y-3 bg-card rounded-2xl shadow-sm">
+    <div className="pb-1 md:p-5 space-y-3 bg-card rounded-2xl shadow-sm">
       {movie  ? (
           <MovieDetails movie={movie}/>
       ) : (
