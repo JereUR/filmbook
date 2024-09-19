@@ -108,7 +108,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    return NextResponse.json(movie); // Ahora devuelve la película junto con rating y reviews
+    return NextResponse.json(movie); 
   }
 
   // Si la película no existe, hacer fetch a la API y crearla en la base de datos
