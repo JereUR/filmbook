@@ -1,7 +1,9 @@
 import Image from "next/image";
+import { Clapperboard, BadgePlus } from "lucide-react";
 
 import TmdbLogo from "@/assets/TMDB.png";
 import AppLogo from "@/assets/logo.png";
+import { Button } from "../ui/button";
 
 interface RatingsSectionProps {
   rating: any;
@@ -28,10 +30,17 @@ export default function RatingsSection({
 
   return (
     <div className="my-2 flex w-full flex-col gap-2 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:p-4">
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <h1 className="font-semibold md:text-lg">RATING</h1>
+        <Button className="group flex items-start gap-2 rounded-2xl border-none p-2 text-sm">
+          <Clapperboard size={25} />
+          <BadgePlus
+            size={15}
+            className="transition-transform duration-300 ease-in-out group-hover:scale-125"
+          />
+        </Button>
       </div>
-      <div className="flex gap-2 md:flex-col justify-center">
+      <div className="flex justify-center gap-2 md:flex-col">
         <div className="flex border-r pr-8 md:flex-col md:border-b md:border-r-0 md:pb-4 md:pr-0">
           <div className="flex items-center gap-4">
             <div className="relative h-10 w-10 flex-shrink-0 md:h-14 md:w-14">
@@ -45,14 +54,14 @@ export default function RatingsSection({
             </div>
             <div className="flex w-full flex-col items-center justify-center">
               {voteAverage ? (
-                <div className="flex gap-1 text-xl md:text-2xl italic font-semibold">
+                <div className="flex gap-1 text-xl font-semibold italic md:text-2xl">
                   <span className={ratingColor(voteAverage)}>
                     {voteAverage.toFixed(1)}
                   </span>
                   <span className="text-gray-400">/10</span>
                 </div>
               ) : (
-                <span className="text-center text-xl md:text-2xl text-foreground/40">
+                <span className="text-center text-xl text-foreground/40 md:text-2xl">
                   S/P
                 </span>
               )}
@@ -75,14 +84,14 @@ export default function RatingsSection({
             </div>
             <div className="flex w-full flex-col items-center justify-center">
               {rating ? (
-                <div className="flex gap-1 text-xl md:text-2xl italic font-semibold">
+                <div className="flex gap-1 text-xl font-semibold italic md:text-2xl">
                   <span className={ratingColor(rating.averageRating)}>
                     {rating.averageRating.toFixed(1)}
                   </span>
                   <span className="text-gray-400">/5</span>
                 </div>
               ) : (
-                <span className="text-center text-xl md:text-2xl text-foreground/40">
+                <span className="text-center text-xl text-foreground/40 md:text-2xl">
                   S/P
                 </span>
               )}
