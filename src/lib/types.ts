@@ -210,3 +210,9 @@ export interface Director{
   name: string;
   profilePath: string;
 }
+
+export interface CastMember{
+  name:string,
+  character:string,
+  profile_path: string
+}
