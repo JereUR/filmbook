@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import noImage from "@/assets/avatar-placeholder.png";
 
 interface CircularImageProps {
-  src: string;
+  src: string | null;
   size?: number;
   alt: string;
   className?: string;
