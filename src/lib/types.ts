@@ -157,11 +157,12 @@ export interface Movie {
   productionCountries?: any;
   genres?: any;
   directors?: any;
+  crew?: any;
   cast?: any;
   recommendations?: any;
   providers?: any;
-  rating?:any
-  reviews?:any
+  rating?: any;
+  reviews?: any;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -185,8 +186,10 @@ export interface Genre {
 }
 
 export interface CrewMember {
+  id?: number;
   job: string;
   name: string;
+  profilePath: string | null;
 }
 
 export interface CreditsData {
@@ -205,15 +208,9 @@ export interface RecommendationsResponse {
   results: Recommendation[];
 }
 
-export interface Director{
-  id:number
+export interface CastMember {
+  id?: number;
   name: string;
+  character?: string;
   profilePath: string;
-}
-
-export interface CastMember{
-  id?:number
-  name:string,
-  character?:string,
-  profilePath: string
 }

@@ -11,7 +11,10 @@ export async function GET(req: NextRequest) {
   const movieId = req.nextUrl.searchParams.get("id") || "";
 
   if (!movieId) {
-    return NextResponse.json({ error: "ID de película no proporcionado" }, { status: 400 });
+    return NextResponse.json(
+      { error: "ID de película no proporcionado" },
+      { status: 400 },
+    );
   }
 
   // Buscar la película en la base de datos e incluir rating y reviews
@@ -32,20 +35,21 @@ export async function GET(req: NextRequest) {
       productionCountries: true,
       genres: true,
       directors: true,
+      crew: true,
       cast: true,
       providers: true,
       createdAt: true,
       updatedAt: true,
-      rating: { 
+      rating: {
         select: {
           averageRating: true,
           numberOfRatings: true,
         },
       },
-      reviews: { 
+      reviews: {
         select: {
           user: {
-            select: { username: true }, 
+            select: { username: true },
           },
           rating: true,
           review: true,
@@ -84,20 +88,21 @@ export async function GET(req: NextRequest) {
           productionCountries: true,
           genres: true,
           directors: true,
+          crew: true,
           cast: true,
           providers: true,
           createdAt: true,
           updatedAt: true,
-          rating: { 
+          rating: {
             select: {
               averageRating: true,
               numberOfRatings: true,
             },
           },
-          reviews: { 
+          reviews: {
             select: {
               user: {
-                select: { username: true }, 
+                select: { username: true },
               },
               rating: true,
               review: true,
@@ -108,7 +113,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    return NextResponse.json(movie); 
+    return NextResponse.json(movie);
   }
 
   // Si la película no existe, hacer fetch a la API y crearla en la base de datos
@@ -129,6 +134,7 @@ export async function GET(req: NextRequest) {
       production_countries,
       genres,
       directors,
+      crew,
       cast,
       providers,
     } = movieData;
@@ -150,8 +156,12 @@ export async function GET(req: NextRequest) {
       directors: directors?.map((director: any) => ({
         id: director.id,
         name: director.name,
-        profilePath: director.profile_path ? `${BASE_IMG_TMDB}${director.profile_path}` : null,
+        profilePath: director.profile_path
+          ? `${BASE_IMG_TMDB}${director.profile_path}`
+          : null,
+        job: director.job,
       })),
+      crew: crew,
       cast: cast,
       providers: providers,
     };
@@ -162,7 +172,13 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(createdMovie);
   } catch (error) {
-    console.error("Error al obtener los datos de la película desde TMDB", error);
-    return NextResponse.json({ error: "Error al obtener la película" }, { status: 500 });
+    console.error(
+      "Error al obtener los datos de la película desde TMDB",
+      error,
+    );
+    return NextResponse.json(
+      { error: "Error al obtener la película" },
+      { status: 500 },
+    );
   }
 }
