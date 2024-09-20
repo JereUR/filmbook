@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-import { Director } from "@/lib/types";
+import { CrewMember} from "@/lib/types";
 import { getYear } from "@/lib/utils";
 import noImagePath from "@/assets/no-image-film.jpg";
-import CastMemberShow from "./CastMemberShow";
+import CrewMemberShow from "./CrewMemberShow";
 
 interface TitleSectionProps{
   posterPath:string|undefined
@@ -11,7 +11,7 @@ interface TitleSectionProps{
   releaseDate: Date|undefined
   runtime: number
   genres: any[]
-  directors: Director[]
+  directors: CrewMember[]
 }
 
 export default function TitleSection({
@@ -36,11 +36,10 @@ export default function TitleSection({
       <h1 className="text-2xl font-bold md:text-3xl lg:text-4xl">
         {title} ({getYear(releaseDate ? releaseDate.toString() : "")})
       </h1>
-      {directors.map((director: Director) => (
-        <CastMemberShow
+      {directors.map((director: CrewMember) => (
+        <CrewMemberShow
           key={director.id}
           member={director}
-          role="Director"
         />
       ))}
       <p className="text-sm font-light italic text-foreground/40 md:text-base">
