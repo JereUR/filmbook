@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import type { Movie, CastMember } from "@/lib/types";
+import type { Movie, CastMember, CrewMember } from "@/lib/types";
 import RatingsSection from "./RatingsSection";
 import ProvidersInfo from "./ProvidersInfo";
 import {
@@ -12,6 +12,7 @@ import {
 } from "../ui/carousel";
 import TitleSection from "./TitleSection";
 import CastMemberShow from "./CastMemberShow";
+import CrewMemberShow from "./CrewMemberShow";
 
 interface MovieDetailsProps {
   movie: Movie;
@@ -28,6 +29,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
     productionCompanies,
     productionCountries,
     cast,
+    crew,
     genres,
     providers,
     posterPath,
@@ -41,6 +43,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
   console.log({ productionCountries });
   console.log({ genres });
   console.log({ spokenLanguages });
+  console.log({ crew });
 
   return (
     <div className="relative w-full">
@@ -87,9 +90,9 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
 
       {/* Cast section */}
 
-      <div className="m-1 flex flex-col gap-2 space-y-2 p-5 md:my-2 md:mx-5 md:space-y-4">
+      <div className="flex flex-col gap-2 space-y-2 p-2 md:mx-5 md:space-y-4">
         <h2
-          className="text-lg text-foreground/40 underline md:text-xl lg:text-2xl"
+          className="text-lg text-foreground/40 underline md:text-xl lg:text-2xl font-light"
           style={{ textUnderlineOffset: "3px" }}
         >
           Reparto
@@ -98,17 +101,41 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
           opts={{
             align: "start",
           }}
-          className="mx-auto w-full max-w-[250px] md:max-w-xl lg:max-w-3xl"
+          className="mx-auto w-full overflow-visible md:max-w-xl lg:max-w-3xl"
         >
           <CarouselContent className="-ml-1">
             {cast.map((member: CastMember, index: number) => (
-              <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
-                <CastMemberShow key={index} member={member} role="Cast" />
+              <CarouselItem key={index} className="basis-1/2 md:basis-1/3">
+                <CastMemberShow member={member} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
+        </Carousel>
+      </div>
+      <div className="flex flex-col gap-2 space-y-2 p-2 md:mx-5 md:space-y-4">
+        <h2
+          className="text-lg text-foreground/40 underline md:text-xl lg:text-2xl font-light"
+          style={{ textUnderlineOffset: "3px" }}
+        >
+          Equipo
+        </h2>
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="mx-auto w-full overflow-visible md:max-w-xl lg:max-w-3xl"
+        >
+          <CarouselContent className="-ml-1">
+            {crew.map((member: CrewMember) => (
+              <CarouselItem key={member.id} className="basis-1/2 md:basis-1/3">
+                <CrewMemberShow member={member} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
         </Carousel>
       </div>
     </div>
