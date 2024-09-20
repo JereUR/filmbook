@@ -1,14 +1,11 @@
 import Image from "next/image";
 
-import type { Movie, CastMember, CrewMember } from "@/lib/types";
-import RatingsSection from "./RatingsSection";
+import type { Movie} from "@/lib/types";
 import ProvidersInfo from "./ProvidersInfo";
 
-import TitleSection from "./TitleSection";
-import CastMemberShow from "./CastMemberShow";
-import CrewMemberShow from "./CrewMemberShow";
 import CrewCastSection from "./CrewCastSection";
 import GeneralInfoSection from "./GeneralInfoSection";
+import DetailsSection from "./DetailsSection";
 
 interface MovieDetailsProps {
   movie: Movie;
@@ -37,7 +34,6 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
 
   console.log({ productionCompanies });
   console.log({ productionCountries });
-  console.log({ genres });
   console.log({ spokenLanguages });
 
   return (
@@ -70,6 +66,11 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
       />
       <ProvidersInfo providersList={providers} />
       <CrewCastSection cast={cast} crew={crew} />
+      <DetailsSection
+        productionCompanies={productionCompanies}
+        productionCountries={productionCountries}
+        spokenLanguages={spokenLanguages}
+      />
     </div>
   );
 }
