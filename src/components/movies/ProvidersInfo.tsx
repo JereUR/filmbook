@@ -127,7 +127,7 @@ export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
                           <Image
                             src={`https://flagcdn.com/w20/${country.code.toLowerCase()}.png`}
                             width={20}
-                            height={15}
+                            height={20}
                             alt={`${country.name} flag`}
                             className="mr-2"
                           />
