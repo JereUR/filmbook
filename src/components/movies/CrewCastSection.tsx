@@ -32,13 +32,16 @@ export default function CrewCastSection({ cast, crew }: CrewCastSectionProps) {
         >
           <CarouselContent className="-ml-1">
             {cast.map((member: CastMember, index: number) => (
-              <CarouselItem key={index} className="basis-1/2 md:basis-1/3">
+              <CarouselItem
+                key={`${index}-${member.name}`}
+                className="basis-1/2 md:basis-1/3"
+              >
                 <CastMemberShow member={member} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex transition-colors duration-300 ease-in-out disabled:hover:text-foreground/40 hover:text-primary" />
-          <CarouselNext className="hidden md:flex transition-colors duration-300 ease-in-out disabled:hover:text-foreground/40  hover:text-primary" />
+          <CarouselPrevious className="hidden transition-colors duration-300 ease-in-out hover:text-primary disabled:hover:text-foreground/40 md:flex" />
+          <CarouselNext className="hidden transition-colors duration-300 ease-in-out hover:text-primary disabled:hover:text-foreground/40 md:flex" />
         </Carousel>
       </div>
       <div className="flex flex-col gap-2 space-y-2 p-2 md:mx-5 md:space-y-4">
@@ -55,14 +58,17 @@ export default function CrewCastSection({ cast, crew }: CrewCastSectionProps) {
           className="mx-auto w-full overflow-visible md:max-w-xl lg:max-w-3xl"
         >
           <CarouselContent className="-ml-1">
-            {crew.map((member: CrewMember) => (
-              <CarouselItem key={member.id} className="basis-1/2 md:basis-1/3">
+            {crew.map((member: CrewMember, index: number) => (
+              <CarouselItem
+                key={`${index}-${member.id}`}
+                className="basis-1/2 md:basis-1/3"
+              >
                 <CrewMemberShow member={member} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex transition-colors duration-300 ease-in-out disabled:hover:text-foreground/40  hover:text-primary" />
-          <CarouselNext className="hidden md:flex transition-colors duration-300 ease-in-out disabled:hover:text-foreground/40  hover:text-primary" />
+          <CarouselPrevious className="hidden transition-colors duration-300 ease-in-out hover:text-primary disabled:hover:text-foreground/40 md:flex" />
+          <CarouselNext className="hidden transition-colors duration-300 ease-in-out hover:text-primary disabled:hover:text-foreground/40 md:flex" />
         </Carousel>
       </div>
     </>
