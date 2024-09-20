@@ -1,3 +1,4 @@
+import translateJobToSpanish from "./translateJobToSpanish";
 import { Movie, Recommendation } from "./types";
 
 const API_KEY = process.env.MOVIE_API_KEY;
@@ -6,16 +7,37 @@ const BASE_URL = "https://api.themoviedb.org/3";
 const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500";
 const BASE_BACKDROP_TMDB = "https://image.tmdb.org/t/p/original";
 
-interface CrewMember {
-  name: string;
-  job: string;
-}
-
 interface CastMember {
   name: string;
   character: string;
   profile_path: string;
 }
+
+interface CrewMember {
+  id: number;
+  job: string;
+  name: string;
+  profile_path: string | null;
+}
+
+type JobType =
+  | "Director"
+  | "Producer"
+  | "Writer"
+  | "Co-Producer"
+  | "Director of Photography"
+  | "Original Music Composer"
+  | "Visual Effects Producer";
+
+const desiredJobsOrder: Record<JobType, number> = {
+  Director: 1,
+  Producer: 2,
+  Writer: 3,
+  "Co-Producer": 4,
+  "Director of Photography": 5,
+  "Original Music Composer": 6,
+  "Visual Effects Producer": 7,
+};
 
 const headers = {
   Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -61,21 +83,21 @@ const formatProviders = (results: any) => {
     formattedResults[countryCode] = {
       flatrate: countryData.flatrate
         ? countryData.flatrate.map((provider: any) => ({
-            logo_path: `https://image.tmdb.org/t/p/original${provider.logo_path}`,
+            logo_path: `${BASE_BACKDROP_TMDB}${provider.logo_path}`,
             provider_name: provider.provider_name,
             display_priority: provider.display_priority,
           }))
         : [],
       rent: countryData.rent
         ? countryData.rent.map((provider: any) => ({
-            logo_path: `https://image.tmdb.org/t/p/original${provider.logo_path}`,
+            logo_path: `${BASE_BACKDROP_TMDB}${provider.logo_path}`,
             provider_name: provider.provider_name,
             display_priority: provider.display_priority,
           }))
         : [],
       buy: countryData.buy
         ? countryData.buy.map((provider: any) => ({
-            logo_path: `https://image.tmdb.org/t/p/original${provider.logo_path}`,
+            logo_path: `${BASE_BACKDROP_TMDB}${provider.logo_path}`,
             provider_name: provider.provider_name,
             display_priority: provider.display_priority,
           }))
@@ -84,6 +106,11 @@ const formatProviders = (results: any) => {
   });
 
   return formattedResults;
+};
+
+const filterCrew = (crew: any[]) => {
+  const desiredJobs = Object.keys(desiredJobsOrder) as JobType[];
+  return crew.filter((member) => desiredJobs.includes(member.job as JobType));
 };
 
 export async function fetchMovieFromTMDB(movieId: string) {
@@ -120,11 +147,29 @@ export async function fetchMovieFromTMDB(movieId: string) {
     (member: CrewMember) => member.job === "Director",
   );
 
+  const filteredCrew = filterCrew(creditsData.crew);
+
+  // Ordena los miembros de la crew
+  const sortedCrew = filteredCrew.sort((a: CrewMember, b: CrewMember) => {
+    return (desiredJobsOrder[a.job as JobType] || Infinity) - (desiredJobsOrder[b.job as JobType] || Infinity);
+  });
+
+  const crew = sortedCrew.map((member: CrewMember) => ({
+    id: member.id,
+    name: member.name,
+    job: translateJobToSpanish(member.job),
+    profilePath: member.profile_path
+      ? `${BASE_IMG_TMDB}${member.profile_path}`
+      : null,
+  }));
+
   // Obtener el elenco principal (máximo 5 actores)
   const cast = creditsData.cast.slice(0, 8).map((actor: CastMember) => ({
     name: actor.name,
     character: actor.character,
-    profilePath: actor.profile_path?`${BASE_IMG_TMDB}${actor.profile_path}`:null,
+    profilePath: actor.profile_path
+      ? `${BASE_IMG_TMDB}${actor.profile_path}`
+      : null,
   }));
 
   // Fetch de las plataformas de streaming en Argentina
@@ -163,6 +208,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
     production_countries: movieData.production_countries,
     genres: movieData.genres,
     directors,
+    crew,
     cast,
     providers,
   };
