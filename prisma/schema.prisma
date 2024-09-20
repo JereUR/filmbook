@@ -170,6 +170,7 @@ model Movie {
   productionCountries Json?
   genres              Json?
   directors           Json?
+  crew                Json?
   cast                Json?
   recommendations     Json?
   providers           Json?
