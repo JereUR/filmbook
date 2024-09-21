@@ -151,7 +151,10 @@ export async function fetchMovieFromTMDB(movieId: string) {
 
   // Ordena los miembros de la crew
   const sortedCrew = filteredCrew.sort((a: CrewMember, b: CrewMember) => {
-    return (desiredJobsOrder[a.job as JobType] || Infinity) - (desiredJobsOrder[b.job as JobType] || Infinity);
+    return (
+      (desiredJobsOrder[a.job as JobType] || Infinity) -
+      (desiredJobsOrder[b.job as JobType] || Infinity)
+    );
   });
 
   const crew = sortedCrew.map((member: CrewMember) => ({
@@ -202,7 +205,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
     vote_count: movieData.vote_count,
     production_companies: movieData.production_companies.map((prod: any) => ({
       ...prod,
-      logo_path: `${BASE_IMG_TMDB}${prod.logo_path}`,
+      logo_path: prod.logo_path ? `${BASE_IMG_TMDB}${prod.logo_path}` : null,
     })),
     spoken_languages: movieData.spoken_languages,
     production_countries: movieData.production_countries,

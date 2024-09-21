@@ -6,7 +6,7 @@ import noLogoImage from "@/assets/no-image-film.jpg";
 interface Companies {
   id: number;
   name: string;
-  logo_path: string;
+  logo_path: string | null;
   origin_country: string;
 }
 
