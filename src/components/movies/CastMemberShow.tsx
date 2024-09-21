@@ -7,7 +7,7 @@ interface CastMemberShowProps {
 
 export default function CastMemberShow({ member}: CastMemberShowProps) {
   return (
-    <div className="flex items-center gap-2 md:gap-3">
+    <div className="flex items-center gap-2 md:gap-3 min-h-[70px]">
       <CircularImage src={member.profilePath} alt={`${member.name} avatar`} size={40}/>
       <div className="flex flex-col">
         <span className="text-sm text-muted-foreground md:text-base">

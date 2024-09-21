@@ -19,7 +19,7 @@ export default function CrewCastSection({ cast, crew }: CrewCastSectionProps) {
     <>
       <div className="flex flex-col gap-2 space-y-2 p-2 md:mx-5 md:space-y-4">
         <h2
-          className="text-lg font-light text-foreground/40 underline md:text-xl lg:text-2xl"
+          className="font-light text-foreground/40 underline lg:text-lg ml-1 md:ml-0"
           style={{ textUnderlineOffset: "3px" }}
         >
           Reparto
@@ -44,9 +44,10 @@ export default function CrewCastSection({ cast, crew }: CrewCastSectionProps) {
           <CarouselNext className="hidden transition-colors duration-300 ease-in-out hover:text-primary disabled:hover:text-foreground/40 md:flex" />
         </Carousel>
       </div>
+      <hr className="h-[1px] bg-primary/40 border-none mx-5 my-2 md:mx-12 md:my-5" />
       <div className="flex flex-col gap-2 space-y-2 p-2 md:mx-5 md:space-y-4">
         <h2
-          className="text-lg font-light text-foreground/40 underline md:text-xl lg:text-2xl"
+          className="font-light text-foreground/40 underline lg:text-lg ml-1 md:ml-0"
           style={{ textUnderlineOffset: "3px" }}
         >
           Equipo

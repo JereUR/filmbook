@@ -65,7 +65,9 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
         overview={overview}
       />
       <ProvidersInfo providersList={providers} />
+      <hr className="h-[1px] bg-primary/40 border-none mx-5 mb-2 mt-5 md:mx-12 md:mb-5 md:mt-8" />
       <CrewCastSection cast={cast} crew={crew} />
+      <hr className="h-[1px] bg-primary/40 border-none mx-5 my-2 md:mx-12 md:my-5" />
       <DetailsSection
         productionCompanies={productionCompanies}
         productionCountries={productionCountries}
