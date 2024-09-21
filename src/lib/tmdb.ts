@@ -164,7 +164,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   }));
 
   // Obtener el elenco principal (máximo 5 actores)
-  const cast = creditsData.cast.slice(0, 8).map((actor: CastMember) => ({
+  const cast = creditsData.cast.map((actor: CastMember) => ({
     name: actor.name,
     character: actor.character,
     profilePath: actor.profile_path
