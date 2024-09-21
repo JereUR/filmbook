@@ -95,3 +95,94 @@ export function translateLanguageToSpanish(language: string): string {
       return language;
   }
 }
+
+export function translateCountryToSpanish(country: string): string {
+  switch (country.toLowerCase()) {
+    case "united states":
+      return "Estados Unidos";
+    case "canada":
+      return "Canadá";
+    case "mexico":
+      return "México";
+    case "argentina":
+      return "Argentina";
+    case "brazil":
+      return "Brasil";
+    case "spain":
+      return "España";
+    case "france":
+      return "Francia";
+    case "germany":
+      return "Alemania";
+    case "italy":
+      return "Italia";
+    case "united kingdom":
+      return "Reino Unido";
+    case "china":
+      return "China";
+    case "japan":
+      return "Japón";
+    case "south korea":
+      return "Corea del Sur";
+    case "russia":
+      return "Rusia";
+    case "india":
+      return "India";
+    case "portugal":
+      return "Portugal";
+    case "australia":
+      return "Australia";
+    case "netherlands":
+      return "Países Bajos";
+    case "greece":
+      return "Grecia";
+    case "sweden":
+      return "Suecia";
+    case "norway":
+      return "Noruega";
+    case "finland":
+      return "Finlandia";
+    case "denmark":
+      return "Dinamarca";
+    case "switzerland":
+      return "Suiza";
+    case "poland":
+      return "Polonia";
+    case "turkey":
+      return "Turquía";
+    case "egypt":
+      return "Egipto";
+    case "south africa":
+      return "Sudáfrica";
+    case "saudi arabia":
+      return "Arabia Saudita";
+    case "iran":
+      return "Irán";
+    case "israel":
+      return "Israel";
+    case "thailand":
+      return "Tailandia";
+    case "vietnam":
+      return "Vietnam";
+    case "new zealand":
+      return "Nueva Zelanda";
+    case "indonesia":
+      return "Indonesia";
+    case "philippines":
+      return "Filipinas";
+    case "malaysia":
+      return "Malasia";
+    case "iceland":
+      return "Islandia";
+    case "romania":
+      return "Rumania";
+    case "ukraine":
+      return "Ucrania";
+    case "hungary":
+      return "Hungría";
+    case "czech republic":
+      return "República Checa";
+    default:
+      return country;
+  }
+}
