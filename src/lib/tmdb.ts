@@ -4,8 +4,7 @@ import { Movie, Recommendation } from "./types";
 const API_KEY = process.env.MOVIE_API_KEY;
 const ACCESS_TOKEN = process.env.MOVIE_ACCESS_TOKEN;
 const BASE_URL = "https://api.themoviedb.org/3";
-const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500";
-const BASE_BACKDROP_TMDB = "https://image.tmdb.org/t/p/original";
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original";
 
 interface CastMember {
   name: string;
@@ -83,21 +82,21 @@ const formatProviders = (results: any) => {
     formattedResults[countryCode] = {
       flatrate: countryData.flatrate
         ? countryData.flatrate.map((provider: any) => ({
-            logo_path: `${BASE_BACKDROP_TMDB}${provider.logo_path}`,
+            logo_path: `${BASE_IMG_TMDB}${provider.logo_path}`,
             provider_name: provider.provider_name,
             display_priority: provider.display_priority,
           }))
         : [],
       rent: countryData.rent
         ? countryData.rent.map((provider: any) => ({
-            logo_path: `${BASE_BACKDROP_TMDB}${provider.logo_path}`,
+            logo_path: `${BASE_IMG_TMDB}${provider.logo_path}`,
             provider_name: provider.provider_name,
             display_priority: provider.display_priority,
           }))
         : [],
       buy: countryData.buy
         ? countryData.buy.map((provider: any) => ({
-            logo_path: `${BASE_BACKDROP_TMDB}${provider.logo_path}`,
+            logo_path: `${BASE_IMG_TMDB}${provider.logo_path}`,
             provider_name: provider.provider_name,
             display_priority: provider.display_priority,
           }))
@@ -193,7 +192,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   return {
     title: movieData.title,
     backdrop_path: movieData.backdrop_path
-      ? `${BASE_BACKDROP_TMDB}${movieData.backdrop_path}`
+      ? `${BASE_IMG_TMDB}${movieData.backdrop_path}`
       : undefined,
     poster_path: movieData.poster_path
       ? `${BASE_IMG_TMDB}${movieData.poster_path}`
