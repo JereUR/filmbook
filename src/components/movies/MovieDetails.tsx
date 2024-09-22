@@ -1,17 +1,29 @@
+'use client'
+
 import Image from "next/image";
+import { useState } from "react";
 
-import type { Movie} from "@/lib/types";
+import type { ImageInfo, Movie} from "@/lib/types";
 import ProvidersInfo from "./ProvidersInfo";
-
 import CrewCastSection from "./CrewCastSection";
 import GeneralInfoSection from "./GeneralInfoSection";
 import DetailsSection from "./DetailsSection";
+
+import PhotoModal from "./PhotoModal";
 
 interface MovieDetailsProps {
   movie: Movie;
 }
 
 export default function MovieDetails({ movie }: MovieDetailsProps) {
+  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [selectedImage, setSelectedImage] = useState<ImageInfo|null>(null)
+
+  const handleImageClick = (image: ImageInfo) => {
+    setSelectedImage(image)
+    setOpenModal(true)
+  }
+
   const {
     overview,
     runtime,
@@ -32,10 +44,6 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
     rating,
   } = movie;
 
-  console.log({ productionCompanies });
-  console.log({ productionCountries });
-  console.log({ spokenLanguages });
-
   return (
     <div className="relative w-full">
       {backdropPath && (
@@ -44,7 +52,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
             src={backdropPath}
             alt="Backdrop"
             fill
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover cursor-pointer"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             quality={100}
             priority
@@ -63,15 +71,21 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
         voteAverage={voteAverage}
         voteCount={voteCount}
         overview={overview}
+        handleImageClick={handleImageClick}
       />
       <ProvidersInfo providersList={providers} />
       <hr className="h-[1px] bg-primary/40 border-none mx-5 mb-2 mt-5 md:mx-12 md:mb-5 md:mt-8" />
-      <CrewCastSection cast={cast} crew={crew} />
+      <CrewCastSection cast={cast} crew={crew} handleImageClick={handleImageClick}/>
       <hr className="h-[1px] bg-primary/40 border-none mx-5 my-2 md:mx-12 md:my-5" />
       <DetailsSection
         productionCompanies={productionCompanies}
         productionCountries={productionCountries}
         spokenLanguages={spokenLanguages}
+      />
+      <PhotoModal 
+      isOpen={openModal}
+      onClose={() => setOpenModal(false)}
+      image={selectedImage}
       />
     </div>
   );

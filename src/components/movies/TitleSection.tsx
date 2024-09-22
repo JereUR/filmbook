@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { CrewMember} from "@/lib/types";
+import { CrewMember,ImageInfo} from "@/lib/types";
 import { getYear } from "@/lib/utils";
 import noImagePath from "@/assets/no-image-film.jpg";
 import CrewMemberShow from "./CrewMemberShow";
@@ -12,6 +12,7 @@ interface TitleSectionProps{
   runtime: number
   genres: any[]
   directors: CrewMember[]
+  handleImageClick:(image:ImageInfo)=>void
 }
 
 export default function TitleSection({
@@ -20,8 +21,14 @@ export default function TitleSection({
   releaseDate,
   runtime,
   genres,
-  directors
+  directors,
+  handleImageClick
 }:TitleSectionProps){
+  const image:ImageInfo={
+    src:posterPath ? posterPath : noImagePath,
+    name:title
+  }
+
   return(<div className="flex items-start gap-4 md:gap-8">
     <div className="relative h-24 w-16 flex-shrink-0 md:h-40 md:w-28">
       <Image
@@ -29,7 +36,8 @@ export default function TitleSection({
         alt={title}
         fill
         sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-        className="rounded"
+        className="rounded cursor-pointer"
+        onClick={()=>handleImageClick(image)}
       />
     </div>
     <div className="flex flex-col space-y-3">
@@ -40,6 +48,7 @@ export default function TitleSection({
         <CrewMemberShow
           key={director.id}
           member={director}
+          handleImageClick={handleImageClick}
         />
       ))}
       <p className="text-sm font-light italic text-foreground/40 md:text-base">

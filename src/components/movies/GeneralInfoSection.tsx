@@ -1,4 +1,4 @@
-import { CrewMember } from "@/lib/types";
+import { CrewMember,ImageInfo } from "@/lib/types";
 import RatingsSection from "./RatingsSection";
 import TitleSection from "./TitleSection";
 
@@ -13,6 +13,7 @@ interface GeneralInfoSectionProps {
   voteAverage?: number;
   voteCount?: number;
   overview: string;
+  handleImageClick:(image:ImageInfo)=>void
 }
 
 export default function GeneralInfoSection({
@@ -26,6 +27,7 @@ export default function GeneralInfoSection({
   voteAverage,
   voteCount,
   overview,
+  handleImageClick
 }: GeneralInfoSectionProps) {
   return (
     <>
@@ -39,6 +41,7 @@ export default function GeneralInfoSection({
               runtime={runtime}
               genres={genres}
               directors={directors}
+              handleImageClick={handleImageClick}
             />
           </div>
           <RatingsSection
