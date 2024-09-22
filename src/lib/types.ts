@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { StaticImageData } from "next/image";
 
 export function getUserDataSelect(loggedInUserId: string) {
   return {
@@ -213,4 +214,9 @@ export interface CastMember {
   name: string;
   character?: string;
   profilePath: string;
+}
+
+export interface ImageInfo{
+  src:string | StaticImageData
+  name:string
 }
