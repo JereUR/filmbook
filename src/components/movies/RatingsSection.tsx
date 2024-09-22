@@ -4,6 +4,7 @@ import { Clapperboard, BadgePlus } from "lucide-react";
 import TmdbLogo from "@/assets/TMDB.png";
 import AppLogo from "@/assets/logo.png";
 import { Button } from "../ui/button";
+import { ratingColor } from "@/lib/utils";
 
 interface RatingsSectionProps {
   rating: any;
@@ -16,27 +17,16 @@ export default function RatingsSection({
   voteAverage,
   voteCount,
 }: RatingsSectionProps) {
-  function ratingColor(rating: number) {
-    if (rating < 4.0) {
-      return "text-red-600";
-    } else if (rating < 6.0) {
-      return "text-yellow-600";
-    } else if (rating < 9.0) {
-      return "text-green-600";
-    } else {
-      return "text-primary";
-    }
-  }
-
   return (
-    <div className="my-2 flex w-full flex-col gap-4 md:gap-3 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:p-4">
+    <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">
       <div className="flex items-center justify-around gap-4">
-        <h1 className="font-semibold text-lg md:text-xl">RATING</h1>
-        <Button variant='ghost' className="group flex items-start gap-2 rounded-2xl border border-primary p-2 text-sm hover:bg-primary/80 ">
-          <Clapperboard className='h-6 w-6' />
-          <BadgePlus
-            className="h-[14px] w-[14px] transition-transform duration-300 ease-in-out group-hover:scale-125"
-          />
+        <h1 className="text-lg font-semibold md:text-xl">RATING</h1>
+        <Button
+          variant="ghost"
+          className="group flex items-start gap-2 rounded-2xl border border-primary p-2 text-sm hover:bg-primary/80"
+        >
+          <Clapperboard className="h-6 w-6" />
+          <BadgePlus className="h-[14px] w-[14px] transition-transform duration-300 ease-in-out group-hover:scale-125" />
         </Button>
       </div>
       <div className="flex justify-center gap-2 md:flex-col">

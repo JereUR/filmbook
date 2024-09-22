@@ -39,3 +39,15 @@ export function getYear(input: string): string {
 
   return year;
 }
+
+export function ratingColor(rating: number) {
+  if (rating < 4.0) {
+    return "text-red-600";
+  } else if (rating < 6.0) {
+    return "text-yellow-600";
+  } else if (rating < 9.0) {
+    return "text-green-600";
+  } else {
+    return "text-primary";
+  }
+}
