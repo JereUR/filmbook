@@ -34,7 +34,7 @@ export default function TitleSection({
     </div>
     <div className="flex flex-col space-y-3">
       <h1 className="text-2xl font-bold md:text-3xl lg:text-4xl">
-        {title} ({getYear(releaseDate ? releaseDate.toString() : "")})
+        {title} {getYear(releaseDate ? `(${releaseDate.toString()})` : "")}
       </h1>
       {directors.map((director: CrewMember) => (
         <CrewMemberShow
