@@ -1,0 +1,12 @@
+.clip-half-left {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+.clip-half-right {
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+.icon-thick {
+  stroke-width: 2.5;
+  stroke: currentColor;
+}
