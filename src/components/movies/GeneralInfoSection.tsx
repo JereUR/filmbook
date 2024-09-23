@@ -1,6 +1,6 @@
 import { CrewMember,ImageInfo } from "@/lib/types";
-import RatingsSection from "./RatingsSection";
 import TitleSection from "./TitleSection";
+import RatingsSection from "./rating/RatingsSection";
 
 interface GeneralInfoSectionProps {
   title: string;
