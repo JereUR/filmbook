@@ -35,7 +35,8 @@ model User {
   issuedNotifications   Notification[] @relation("Issuer")
 
   reviews   Review[]
-  createdAt DateTime @default(now())
+  watchlist Watchlist[]
+  createdAt DateTime    @default(now())
 
   @@map("users")
 }
@@ -175,8 +176,9 @@ model Movie {
   recommendations     Json?
   providers           Json?
 
-  rating  MovieRating?
-  reviews Review[]
+  rating    MovieRating?
+  reviews   Review[]
+  watchlist Watchlist[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -208,4 +210,16 @@ model MovieRating {
   createdAt DateTime @default(now())
 
   @@map("movie_ratings")
+}
+
+model Watchlist {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movieId   String
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, movieId]) // Un usuario solo puede agregar una película una vez a su watchlist
+  @@map("watchlist")
 }
