@@ -17,7 +17,6 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // Buscar la película en la base de datos e incluir rating y reviews
   let movie = await prisma.movie.findUnique({
     where: { id: movieId },
     select: {
@@ -56,10 +55,16 @@ export async function GET(req: NextRequest) {
           createdAt: true,
         },
       },
+      watchlist:{
+        select:{
+          userId:true,
+          movieId:true,
+
+        }
+      }
     },
   });
 
-  // Si la película existe, verificar si han pasado más de 7 días
   if (movie) {
     const oneWeekAgo = subWeeks(new Date(), 1);
 
@@ -109,6 +114,13 @@ export async function GET(req: NextRequest) {
               createdAt: true,
             },
           },
+          watchlist:{
+            select:{
+              userId:true,
+              movieId:true,
+    
+            }
+          }
         },
       });
     }
@@ -116,7 +128,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(movie);
   }
 
-  // Si la película no existe, hacer fetch a la API y crearla en la base de datos
   try {
     const movieData = await fetchMovieFromTMDB(movieId);
 

@@ -14,6 +14,7 @@ interface GeneralInfoSectionProps {
   voteAverage?: number;
   voteCount?: number;
   overview: string;
+  watchlist:{userId: string, movieId: string}[]
   handleImageClick:(image:ImageInfo)=>void
 }
 
@@ -29,6 +30,7 @@ export default function GeneralInfoSection({
   voteAverage,
   voteCount,
   overview,
+  watchlist,
   handleImageClick
 }: GeneralInfoSectionProps) {
   return (
@@ -53,6 +55,7 @@ export default function GeneralInfoSection({
             rating={rating}
             voteAverage={voteAverage}
             voteCount={voteCount}
+            watchlist={watchlist}
           />
         </div>
         <div className="mt-2 px-1 md:mt-3 md:px-4">

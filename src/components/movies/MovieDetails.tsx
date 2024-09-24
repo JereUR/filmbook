@@ -43,6 +43,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
     voteAverage,
     voteCount,
     rating,
+    watchlist
   } = movie;
 
   return (
@@ -73,6 +74,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
         voteAverage={voteAverage}
         voteCount={voteCount}
         overview={overview}
+        watchlist={watchlist}
         handleImageClick={handleImageClick}
       />
       <ProvidersInfo providersList={providers} />

@@ -1,21 +1,26 @@
-import { BookmarkPlus, Eye, Heart, ListCheck, ListPlus, Loader2 } from "lucide-react";
-
-import "./styles.css";
-import { useEffect, useState } from "react";
-import { useSession } from "@/app/(main)/SessionProvider";
+import { cache, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Eye, Heart, Loader2 } from "lucide-react";
+
 import kyInstance from "@/lib/ky";
 import WatchlistButton from "./WatchlistButton";
+import { useSession } from "@/app/(main)/SessionProvider";
+import { WatchlistInfo } from "@/lib/types";
 
 interface ButtonActionsProps {
   movieId: string;
   watched: boolean;
-  setWatched: (watched: boolean) => void; // Agregar prop
+  setWatched: (watched: boolean) => void;
+  watchlist:{userId: string, movieId: string}[]
 }
 
-export default function ButtonActions({ movieId, watched, setWatched }: ButtonActionsProps) {
+export default function ButtonActions({
+  movieId,
+  watched,
+  setWatched,
+  watchlist
+}: ButtonActionsProps) {
   const [liked, setLiked] = useState<boolean>(false);
-  const [addToWatchlist, setAddToWatchlist] = useState<boolean>(false);
 
   const { user } = useSession();
 
@@ -33,13 +38,11 @@ export default function ButtonActions({ movieId, watched, setWatched }: ButtonAc
   });
 
   useEffect(() => {
-    if (movieStates?.watched) {
-      setWatched(true);
+    if (movieStates && !isLoadingMovieStates) {
+      setWatched(movieStates.watched);
+      setLiked(movieStates.like);
     }
-    if (movieStates?.like) {
-      setLiked(true);
-    }
-  }, [movieStates]);
+  }, [movieStates, isLoadingMovieStates]);
 
   return (
     <div className="flex justify-around">
@@ -56,7 +59,7 @@ export default function ButtonActions({ movieId, watched, setWatched }: ButtonAc
       </div>
       <div className="flex flex-col items-center">
         <Heart
-          className={`icon-fine h-10 w-10 cursor-pointer ${liked ? "fill-red-500 dark:fill-red-600 text-background" : "text-muted-foreground"}`}
+          className={`icon-fine h-10 w-10 cursor-pointer ${liked ? "fill-red-500 text-background dark:fill-red-600" : "text-muted-foreground"}`}
           onClick={() => setLiked(!liked)}
         />
         {isLoadingMovieStates || isFecthingMovieStates ? (
@@ -65,7 +68,14 @@ export default function ButtonActions({ movieId, watched, setWatched }: ButtonAc
           <span className="mt-1 text-sm font-semibold">Like</span>
         )}
       </div>
-      <WatchlistButton movieId={movieId} initialState={{isAddToWatchlistByUser: addToWatchlist}}/>
+      <WatchlistButton
+        movieId={movieId}
+        initialState={{
+         isAddToWatchlistByUser: watchlist.some(
+            (movie) => movie.userId === user.id && movie.movieId===movieId,
+          ),
+        }}
+      />
     </div>
   );
 }
