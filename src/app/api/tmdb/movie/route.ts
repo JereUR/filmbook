@@ -48,20 +48,25 @@ export async function GET(req: NextRequest) {
       reviews: {
         select: {
           user: {
-            select: { username: true },
+            select: {
+              username: true,
+            },
           },
+          userId: true,
+          movieId: true,
           rating: true,
           review: true,
           createdAt: true,
+          liked: true,
+          watched: true,
         },
       },
-      watchlist:{
-        select:{
-          userId:true,
-          movieId:true,
-
-        }
-      }
+      watchlist: {
+        select: {
+          userId: true,
+          movieId: true,
+        },
+      },
     },
   });
 
@@ -107,20 +112,25 @@ export async function GET(req: NextRequest) {
           reviews: {
             select: {
               user: {
-                select: { username: true },
+                select: {
+                  username: true,
+                },
               },
+              userId: true,
+              movieId: true,
               rating: true,
               review: true,
               createdAt: true,
+              liked: true,
+              watched: true,
             },
           },
-          watchlist:{
-            select:{
-              userId:true,
-              movieId:true,
-    
-            }
-          }
+          watchlist: {
+            select: {
+              userId: true,
+              movieId: true,
+            },
+          },
         },
       });
     }
