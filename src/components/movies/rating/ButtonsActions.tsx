@@ -54,7 +54,7 @@ export default function ButtonActions({ movieId }: ButtonActionsProps) {
       </div>
       <div className="flex flex-col items-center">
         <Heart
-          className={`icon-fine h-10 w-10 cursor-pointer ${liked ? "fill-primary text-background" : "text-muted-foreground"}`}
+          className={`icon-fine h-10 w-10 cursor-pointer ${liked ? "fill-red-500 dark:fill-red-600 text-background" : "text-muted-foreground"}`}
           onClick={() => setLiked(!liked)}
         />
         {isLoadingMovieStates || isFecthingMovieStates ? (
