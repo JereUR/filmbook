@@ -193,10 +193,12 @@ model Review {
   movieId   String
   movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
   rating    Int?
-  like      Boolean  @default(false)
+  watched   Boolean  @default(false)
+  liked      Boolean  @default(false)
   review    String?
   createdAt DateTime @default(now())
 
+  @@unique([userId, movieId])
   @@map("reviews")
 }
 
