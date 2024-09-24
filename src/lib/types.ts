@@ -164,6 +164,7 @@ export interface Movie {
   providers?: any;
   rating?: any;
   reviews?: any;
+  watchlist?: any;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -216,9 +217,9 @@ export interface CastMember {
   profilePath: string;
 }
 
-export interface ImageInfo{
-  src:string | StaticImageData
-  name:string
+export interface ImageInfo {
+  src: string | StaticImageData;
+  name: string;
 }
 
 export interface WatchlistInfo {
