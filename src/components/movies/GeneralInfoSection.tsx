@@ -1,9 +1,9 @@
-import { CrewMember,ImageInfo } from "@/lib/types";
+import { CrewMember, ImageInfo } from "@/lib/types";
 import TitleSection from "./TitleSection";
 import RatingsSection from "./rating/RatingsSection";
 
 interface GeneralInfoSectionProps {
-  id:string
+  id: string;
   title: string;
   releaseDate: Date | undefined;
   posterPath: string | undefined;
@@ -14,8 +14,14 @@ interface GeneralInfoSectionProps {
   voteAverage?: number;
   voteCount?: number;
   overview: string;
-  watchlist:{userId: string, movieId: string}[]
-  handleImageClick:(image:ImageInfo)=>void
+  watchlist: { userId: string; movieId: string }[];
+  reviews: {
+    userId: string;
+    movieId: string;
+    liked: boolean;
+    watched: boolean;
+  }[];
+  handleImageClick: (image: ImageInfo) => void;
 }
 
 export default function GeneralInfoSection({
@@ -31,7 +37,8 @@ export default function GeneralInfoSection({
   voteCount,
   overview,
   watchlist,
-  handleImageClick
+  reviews,
+  handleImageClick,
 }: GeneralInfoSectionProps) {
   return (
     <>
@@ -56,6 +63,7 @@ export default function GeneralInfoSection({
             voteAverage={voteAverage}
             voteCount={voteCount}
             watchlist={watchlist}
+            reviews={reviews}
           />
         </div>
         <div className="mt-2 px-1 md:mt-3 md:px-4">

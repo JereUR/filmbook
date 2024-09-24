@@ -8,12 +8,10 @@ import kyInstance from "@/lib/ky";
 
 interface RatingEditorProps {
   movieId: string;
-  setWatched: (watched: boolean) => void;
 }
 
 export default function RatingEditor({
   movieId,
-  setWatched,
 }: RatingEditorProps) {
   const [rating, setRating] = useState<number>(0);
   const [halfRating, setHalfRating] = useState(false);
@@ -41,7 +39,6 @@ export default function RatingEditor({
       setHalfRating(false);
       setRating(index + 1);
     }
-    setWatched(true);
   };
 
   const renderPopcorn = (index: number) => {
