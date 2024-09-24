@@ -225,3 +225,12 @@ export interface ImageInfo {
 export interface WatchlistInfo {
   isAddToWatchlistByUser: boolean;
 }
+
+export interface WatchedInfo {
+  isWatchedByUser: boolean;
+}
+
+export interface LikedInfo {
+  isLikedByUser: boolean;
+}
+
