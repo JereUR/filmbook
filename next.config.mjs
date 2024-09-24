@@ -23,6 +23,7 @@ const nextConfig = {
         pathname: "/**",
       }
     ],
+    icon: '/public/favicon.ico',
   },
   rewrites: () => {
     return [
