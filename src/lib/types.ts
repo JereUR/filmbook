@@ -220,3 +220,7 @@ export interface ImageInfo{
   src:string | StaticImageData
   name:string
 }
+
+export interface WatchlistInfo {
+  isAddToWatchlistByUser: boolean;
+}
