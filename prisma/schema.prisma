@@ -34,7 +34,7 @@ model User {
   recievedNotifications Notification[] @relation("Recipient")
   issuedNotifications   Notification[] @relation("Issuer")
 
-  reviews   Review[] // Relación con reseñas
+  reviews   Review[]
   createdAt DateTime @default(now())
 
   @@map("users")
@@ -190,7 +190,7 @@ model Review {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   movieId   String
   movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  rating    Int
+  rating    Int?
   review    String?
   createdAt DateTime @default(now())
 
