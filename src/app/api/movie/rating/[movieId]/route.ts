@@ -1,18 +1,18 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
-import { validateRequest } from '@/auth';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import { validateRequest } from "@/auth";
 
-export async function GET(req: Request, { params }: { params: { movieId: string } }) {
+export async function GET(
+  req: Request,
+  { params }: { params: { movieId: string } },
+) {
   const { user: loggedInUser } = await validateRequest();
-
-  console.log({params})
-  console.log({loggedInUser})
 
   if (!loggedInUser) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 });
   }
 
-  const rating = await prisma.review.findFirst({
+  const review = await prisma.review.findFirst({
     where: {
       userId: loggedInUser.id,
       movieId: params.movieId,
@@ -22,11 +22,9 @@ export async function GET(req: Request, { params }: { params: { movieId: string 
     },
   });
 
-  console.log(rating)
-
-  if (!rating) {
+  if (!review) {
     return NextResponse.json(null);
   }
 
-  return NextResponse.json(rating);
+  return NextResponse.json(review.rating);
 }
