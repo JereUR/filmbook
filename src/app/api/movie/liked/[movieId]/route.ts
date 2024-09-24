@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
-import { WatchedInfo } from "@/lib/types";
+import { LikedInfo } from "@/lib/types";
 
 export async function GET(
   req: Request,
@@ -19,12 +19,16 @@ export async function GET(
       movieId: params.movieId,
     },
     select: {
-      watched: true,
+      liked: true,
     },
   });
-  
-  const data: WatchedInfo = {
-    isWatchedByUser: movie ? movie.watched : false,
+
+  if (!movie) {
+    return NextResponse.json({ isLikedByUser: false });
+  }
+
+  const data: LikedInfo = {
+    isLikedByUser: !!movie?.liked,
   };
 
   return NextResponse.json(data);
@@ -48,8 +52,8 @@ export async function POST(
           movieId,
         },
       },
-      create: { userId: loggedInUser.id, movieId, watched: true },
-      update: { watched: true },
+      create: { userId: loggedInUser.id, movieId, liked: true },
+      update: { liked: true },
     });
 
     return new Response();
@@ -77,7 +81,7 @@ export async function DELETE(
       where: {
         userId: loggedInUser.id,
         movieId,
-        watched: true,
+        liked: true,
       },
     });
 
