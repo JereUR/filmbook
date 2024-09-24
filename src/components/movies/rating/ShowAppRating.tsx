@@ -36,7 +36,7 @@ export default function ShowAppRating({
             <span className={ratingColor(voteAverage)}>
               {voteAverage.toFixed(1)}
             </span>
-            <span className="text-gray-400">/10</span>
+            <span className="text-gray-400">{ownApp ? "/7" : "/10"}</span>
           </div>
         ) : (
           <span className="text-center text-xl text-foreground/40 md:text-2xl">
