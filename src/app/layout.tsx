@@ -33,6 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="shortcut icon" href="/favicon.ico?v=2" />.
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
         <ReactQueryProvider>
