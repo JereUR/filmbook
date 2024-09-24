@@ -17,6 +17,7 @@ interface RatingsSectionProps {
   rating: any;
   voteAverage?: number;
   voteCount?: number;
+  watchlist:{userId: string, movieId: string}[]
 }
 
 export default function RatingsSection({
@@ -26,6 +27,7 @@ export default function RatingsSection({
   rating,
   voteAverage,
   voteCount,
+  watchlist
 }: RatingsSectionProps) {
   const [showRatingEditor, setShowRatingEditor] = useState<boolean>(false);
   const [watched, setWatched] = useState<boolean>(false);
@@ -45,7 +47,7 @@ export default function RatingsSection({
         <h1 className="text-lg font-semibold md:text-xl">RATING</h1>
         <CirclePlus
           className="icon-fine h-12 w-12 cursor-pointer fill-green-600 text-muted transition duration-300 ease-in-out hover:scale-110"
-          onClick={() => setShowRatingEditor(true)}
+          onClick={() => {setShowRatingEditor(true)}}
         />
       </div>
       <div className="flex justify-center gap-2 md:flex-col">
@@ -77,7 +79,7 @@ export default function RatingsSection({
             </p>
           </div>
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
-          <ButtonActions movieId={movieId} watched={watched} setWatched={setWatched} />
+          <ButtonActions movieId={movieId} watched={watched} setWatched={setWatched} watchlist={watchlist}/>
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
           <RatingEditor
             movieId={movieId}
