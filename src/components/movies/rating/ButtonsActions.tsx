@@ -1,17 +1,19 @@
-import { Eye, Heart, ListCheck, ListPlus, Loader2 } from "lucide-react";
+import { BookmarkPlus, Eye, Heart, ListCheck, ListPlus, Loader2 } from "lucide-react";
 
 import "./styles.css";
 import { useEffect, useState } from "react";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { useQuery } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
+import WatchlistButton from "./WatchlistButton";
 
 interface ButtonActionsProps {
   movieId: string;
+  watched: boolean;
+  setWatched: (watched: boolean) => void; // Agregar prop
 }
 
-export default function ButtonActions({ movieId }: ButtonActionsProps) {
-  const [watched, setWatched] = useState<boolean>(false);
+export default function ButtonActions({ movieId, watched, setWatched }: ButtonActionsProps) {
   const [liked, setLiked] = useState<boolean>(false);
   const [addToWatchlist, setAddToWatchlist] = useState<boolean>(false);
 
@@ -60,23 +62,10 @@ export default function ButtonActions({ movieId }: ButtonActionsProps) {
         {isLoadingMovieStates || isFecthingMovieStates ? (
           <Loader2 className="h-4 w-4 animate-spin text-primary" />
         ) : (
-          <span className="mt-1 text-sm font-semibold">Me gusta</span>
+          <span className="mt-1 text-sm font-semibold">Like</span>
         )}
       </div>
-      <div className="flex flex-col items-center">
-        {addToWatchlist ? (
-          <ListCheck
-            className="h-10 w-10 scale-110 transform cursor-pointer text-green-600 transition duration-300 ease-in-out"
-            onClick={() => setAddToWatchlist(false)}
-          />
-        ) : (
-          <ListPlus
-            className="h-10 w-10 scale-100 transform cursor-pointer text-muted-foreground transition duration-300 ease-in-out"
-            onClick={() => setAddToWatchlist(true)}
-          />
-        )}
-        <span className="mt-1 text-sm font-semibold">Watchlist</span>
-      </div>
+      <WatchlistButton movieId={movieId} initialState={{isAddToWatchlistByUser: addToWatchlist}}/>
     </div>
   );
 }

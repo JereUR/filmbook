@@ -1,10 +1,9 @@
 "use client";
 
-import { Clapperboard, BadgePlus, CirclePlus } from "lucide-react";
-import { useState } from "react";
+import { CirclePlus } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import "./styles.css";
-import { Button } from "@/components/ui/button";
 import ShowAppRating from "./ShowAppRating";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import RatingEditor from "./RatingEditor";
@@ -29,6 +28,16 @@ export default function RatingsSection({
   voteCount,
 }: RatingsSectionProps) {
   const [showRatingEditor, setShowRatingEditor] = useState<boolean>(false);
+  const [watched, setWatched] = useState<boolean>(false);
+  const [initialWatched, setInitialWatched] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (showRatingEditor) {
+      setInitialWatched(watched);
+    } else {
+      setWatched(initialWatched);
+    }
+  }, [showRatingEditor]);
 
   return (
     <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">
@@ -58,24 +67,26 @@ export default function RatingsSection({
       </div>
       <Dialog
         open={showRatingEditor}
-        onOpenChange={() => setShowRatingEditor(false)}
+        onOpenChange={() => setShowRatingEditor(false)} 
       >
         <DialogContent className="z-[110] p-4 rounded-2xl border-primary/40">
           <div className="flex flex-col ml-1">
-            <h1 className="font-semibold text-foreground">
-              {title}
-            </h1>
+            <h1 className="font-semibold text-foreground">{title}</h1>
             <p className="font-light text-foreground/40">
               {getYear(releaseDate ? `${releaseDate.toString()}` : "")}
             </p>
           </div>
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
-          <ButtonActions movieId={movieId} />
+          <ButtonActions movieId={movieId} watched={watched} setWatched={setWatched} />
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
-          <RatingEditor movieId={movieId} />
+          <RatingEditor
+            movieId={movieId}
+            setWatched={setWatched}
+          />
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
         </DialogContent>
       </Dialog>
     </div>
   );
 }
+
