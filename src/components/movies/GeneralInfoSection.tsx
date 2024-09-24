@@ -48,6 +48,8 @@ export default function GeneralInfoSection({
           </div>
           <RatingsSection
             movieId={id}
+            title={title}
+            releaseDate={releaseDate}
             rating={rating}
             voteAverage={voteAverage}
             voteCount={voteCount}

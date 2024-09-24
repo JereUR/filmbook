@@ -1,15 +1,20 @@
 "use client";
 
-import { Clapperboard, BadgePlus } from "lucide-react";
+import { Clapperboard, BadgePlus, CirclePlus } from "lucide-react";
+import { useState } from "react";
 
+import "./styles.css";
 import { Button } from "@/components/ui/button";
 import ShowAppRating from "./ShowAppRating";
-import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import RatingEditor from "./RatingEditor";
+import { getYear } from "@/lib/utils";
+import ButtonActions from "./ButtonsActions";
 
 interface RatingsSectionProps {
-  movieId:string
+  movieId: string;
+  title: string;
+  releaseDate: Date | undefined;
   rating: any;
   voteAverage?: number;
   voteCount?: number;
@@ -17,6 +22,8 @@ interface RatingsSectionProps {
 
 export default function RatingsSection({
   movieId,
+  title,
+  releaseDate,
   rating,
   voteAverage,
   voteCount,
@@ -27,14 +34,10 @@ export default function RatingsSection({
     <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">
       <div className="flex items-center justify-around gap-4">
         <h1 className="text-lg font-semibold md:text-xl">RATING</h1>
-        <Button
-          variant="ghost"
-          className="group flex items-start gap-2 rounded-2xl border border-primary p-2 text-sm hover:bg-primary/80"
-          onClick={()=>setShowRatingEditor(true)}
-        >
-          <Clapperboard className="h-6 w-6" />
-          <BadgePlus className="h-[14px] w-[14px] transition-transform duration-300 ease-in-out group-hover:scale-125" />
-        </Button>
+        <CirclePlus
+          className="icon-fine h-12 w-12 cursor-pointer fill-green-600 text-muted transition duration-300 ease-in-out hover:scale-110"
+          onClick={() => setShowRatingEditor(true)}
+        />
       </div>
       <div className="flex justify-center gap-2 md:flex-col">
         <div className="flex border-r pr-8 md:flex-col md:border-b md:border-r-0 md:pb-4 md:pr-0">
@@ -57,8 +60,20 @@ export default function RatingsSection({
         open={showRatingEditor}
         onOpenChange={() => setShowRatingEditor(false)}
       >
-        <DialogContent className="z-[110] p-0">
-          <RatingEditor movieId={movieId}/>
+        <DialogContent className="z-[110] p-4 rounded-2xl border-primary/40">
+          <div className="flex flex-col ml-1">
+            <h1 className="font-semibold text-foreground">
+              {title}
+            </h1>
+            <p className="font-light text-foreground/40">
+              {getYear(releaseDate ? `${releaseDate.toString()}` : "")}
+            </p>
+          </div>
+          <hr className="-my-1 h-[1px] border-none bg-primary/40" />
+          <ButtonActions movieId={movieId} />
+          <hr className="-my-1 h-[1px] border-none bg-primary/40" />
+          <RatingEditor movieId={movieId} />
+          <hr className="-my-1 h-[1px] border-none bg-primary/40" />
         </DialogContent>
       </Dialog>
     </div>
