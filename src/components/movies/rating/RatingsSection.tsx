@@ -9,12 +9,14 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import RatingEditor from "./RatingEditor";
 
 interface RatingsSectionProps {
+  movieId:string
   rating: any;
   voteAverage?: number;
   voteCount?: number;
 }
 
 export default function RatingsSection({
+  movieId,
   rating,
   voteAverage,
   voteCount,
@@ -56,7 +58,7 @@ export default function RatingsSection({
         onOpenChange={() => setShowRatingEditor(false)}
       >
         <DialogContent className="z-[110] p-0">
-          <RatingEditor />
+          <RatingEditor movieId={movieId}/>
         </DialogContent>
       </Dialog>
     </div>

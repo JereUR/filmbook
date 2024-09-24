@@ -25,6 +25,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
   }
 
   const {
+    id,
     overview,
     runtime,
     title,
@@ -61,6 +62,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
         </div>
       )}
       <GeneralInfoSection
+        id={id}
         title={title}
         releaseDate={releaseDate}
         posterPath={posterPath}

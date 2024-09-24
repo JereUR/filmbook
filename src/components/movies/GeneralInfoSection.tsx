@@ -3,6 +3,7 @@ import TitleSection from "./TitleSection";
 import RatingsSection from "./rating/RatingsSection";
 
 interface GeneralInfoSectionProps {
+  id:string
   title: string;
   releaseDate: Date | undefined;
   posterPath: string | undefined;
@@ -17,6 +18,7 @@ interface GeneralInfoSectionProps {
 }
 
 export default function GeneralInfoSection({
+  id,
   title,
   releaseDate,
   posterPath,
@@ -45,6 +47,7 @@ export default function GeneralInfoSection({
             />
           </div>
           <RatingsSection
+            movieId={id}
             rating={rating}
             voteAverage={voteAverage}
             voteCount={voteCount}
