@@ -11,14 +11,14 @@ interface ButtonActionsProps {
   movieId: string;
   watched: boolean;
   setWatched: (watched: boolean) => void;
-  watchlist:{userId: string, movieId: string}[]
+  watchlist: { userId: string; movieId: string }[];
 }
 
 export default function ButtonActions({
   movieId,
   watched,
   setWatched,
-  watchlist
+  watchlist,
 }: ButtonActionsProps) {
   const [liked, setLiked] = useState<boolean>(false);
 
@@ -71,9 +71,12 @@ export default function ButtonActions({
       <WatchlistButton
         movieId={movieId}
         initialState={{
-         isAddToWatchlistByUser: watchlist.some(
-            (movie) => movie.userId === user.id && movie.movieId===movieId,
-          ),
+          isAddToWatchlistByUser: watchlist
+            ? watchlist.some(
+                (movie) =>
+                  movie.userId === user.id && movie.movieId === movieId,
+              )
+            : false,
         }}
       />
     </div>
