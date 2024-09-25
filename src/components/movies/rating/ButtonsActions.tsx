@@ -1,23 +1,13 @@
-import { cache, useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Eye, Heart, Loader2 } from "lucide-react";
-
-import kyInstance from "@/lib/ky";
 import WatchlistButton from "./WatchlistButton";
 import { useSession } from "@/app/(main)/SessionProvider";
 import WatchedButton from "./WatchedButton";
 import LikeButton from "./LikeButton";
-import { LikedInfo, WatchedInfo } from "@/lib/types";
+import { ReviewInfo } from "@/lib/types";
 
 interface ButtonActionsProps {
   movieId: string;
   watchlist: { userId: string; movieId: string }[];
-  reviews: {
-    userId: string;
-    movieId: string;
-    liked: boolean;
-    watched: boolean;
-  }[];
+  reviews: ReviewInfo[];
 }
 
 export default function ButtonActions({

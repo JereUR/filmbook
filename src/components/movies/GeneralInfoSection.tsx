@@ -1,4 +1,4 @@
-import { CrewMember, ImageInfo } from "@/lib/types";
+import { CrewMember, ImageInfo, ReviewInfo } from "@/lib/types";
 import TitleSection from "./TitleSection";
 import RatingsSection from "./rating/RatingsSection";
 
@@ -15,12 +15,7 @@ interface GeneralInfoSectionProps {
   voteCount?: number;
   overview: string;
   watchlist: { userId: string; movieId: string }[];
-  reviews: {
-    userId: string;
-    movieId: string;
-    liked: boolean;
-    watched: boolean;
-  }[];
+  reviews: ReviewInfo[];
   handleImageClick: (image: ImageInfo) => void;
 }
 

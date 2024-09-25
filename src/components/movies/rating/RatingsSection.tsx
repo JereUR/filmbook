@@ -9,6 +9,8 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import RatingEditor from "./RatingEditor";
 import { getYear } from "@/lib/utils";
 import ButtonActions from "./ButtonsActions";
+import { ReviewInfo } from "@/lib/types";
+import { useSession } from "@/app/(main)/SessionProvider";
 
 interface RatingsSectionProps {
   movieId: string;
@@ -18,12 +20,7 @@ interface RatingsSectionProps {
   voteAverage?: number;
   voteCount?: number;
   watchlist: { userId: string; movieId: string }[];
-  reviews: {
-    userId: string;
-    movieId: string;
-    liked: boolean;
-    watched: boolean;
-  }[];
+  reviews: ReviewInfo[];
 }
 
 export default function RatingsSection({
@@ -37,6 +34,11 @@ export default function RatingsSection({
   reviews,
 }: RatingsSectionProps) {
   const [showRatingEditor, setShowRatingEditor] = useState<boolean>(false);
+  const { user } = useSession()
+
+  const ownReview = reviews.find(review => review.movieId === movieId && review.userId === user.id)
+
+  const ownRating = ownReview ? ownReview.rating : null
 
   return (
     <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">
@@ -85,7 +87,7 @@ export default function RatingsSection({
             reviews={reviews}
           />
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
-          <RatingEditor movieId={movieId} />
+          <RatingEditor movieId={movieId} ownRating={ownRating} />
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
         </DialogContent>
       </Dialog>
