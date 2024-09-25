@@ -47,11 +47,6 @@ export async function GET(req: NextRequest) {
       },
       reviews: {
         select: {
-          user: {
-            select: {
-              username: true,
-            },
-          },
           userId: true,
           movieId: true,
           rating: true,
