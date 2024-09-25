@@ -222,6 +222,32 @@ export interface ImageInfo {
   name: string;
 }
 
+export interface ReviewInfo {
+  id: string;
+  userId: string;
+  movieId: string;
+  movie?: {
+    id: string;
+    title: string;
+    backdropPath: string | null;
+    posterPath: string | null;
+    releaseDate: Date | null;
+    overview: string | null;
+    runtime: number | null;
+    voteAverage: number | null;
+    updatedAt: Date;
+  };
+  rating: number | null;
+  review?: string | null;
+  createdAt: Date;
+  liked: boolean;
+  watched: boolean;
+}
+
+export interface ReviewsPage {
+  reviews: ReviewInfo[]; 
+}
+
 export interface WatchlistInfo {
   isAddToWatchlistByUser: boolean;
 }
@@ -233,4 +259,3 @@ export interface WatchedInfo {
 export interface LikedInfo {
   isLikedByUser: boolean;
 }
-
