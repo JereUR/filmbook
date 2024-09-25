@@ -32,7 +32,7 @@ export default function WatchedButton({
     staleTime: Infinity,
     initialData: initialState,
   });
-  
+
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -41,11 +41,10 @@ export default function WatchedButton({
         : kyInstance.post(`/api/movie/watched/${movieId}`),
     onMutate: async () => {
       toast({
-        description: `Película ${
-          watchedData?.isWatchedByUser
+        description: `Película ${watchedData?.isWatchedByUser
             ? "desmarcada como vista"
             : "marcada como vista"
-        }`,
+          }`,
       });
 
       await queryClient.cancelQueries({ queryKey });
@@ -85,7 +84,7 @@ export default function WatchedButton({
       {isLoading ? (
         <Loader2 className="h-4 w-4 animate-spin text-primary" />
       ) : (
-        <span className="mt-1 text-sm font-semibold">Mirar</span>
+        <span className="mt-1 text-sm font-semibold">{watchedData?.isWatchedByUser ? 'Vista' : 'No vista'}</span>
       )}
     </div>
   );

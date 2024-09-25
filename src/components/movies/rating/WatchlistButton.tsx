@@ -24,8 +24,8 @@ export default function WatchlistButton({
     queryKey,
     queryFn: () =>
       kyInstance.get(`/api/movie/watchlist/${movieId}`).json<WatchlistInfo>(),
-    initialData: initialState, 
-    staleTime: Infinity, 
+    initialData: initialState,
+    staleTime: Infinity,
   });
 
   const { mutate } = useMutation({
@@ -35,11 +35,10 @@ export default function WatchlistButton({
         : kyInstance.post(`/api/movie/watchlist/${movieId}`),
     onMutate: async () => {
       toast({
-        description: `Película ${
-          watchlistData?.isAddToWatchlistByUser
+        description: `Película ${watchlistData?.isAddToWatchlistByUser
             ? "eliminada de tu watchlist"
             : "agregada a tu watchlist"
-        }`,
+          }`,
       });
 
       await queryClient.cancelQueries({ queryKey });
@@ -74,12 +73,12 @@ export default function WatchlistButton({
             ? "fill-primary text-background"
             : "text-muted-foreground",
         )}
-        onClick={() => mutate()} 
+        onClick={() => mutate()}
       />
       {isLoading ? (
         <Loader2 className="h-4 w-4 animate-spin text-primary" />
       ) : (
-        <span className="mt-1 text-sm font-semibold">Watchlist</span>
+        <span className="mt-1 text-sm font-semibold">{watchlistData?.isAddToWatchlistByUser ? 'En watchlist' : 'Watchlist'}</span>
       )}
     </div>
   );
