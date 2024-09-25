@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { number, z } from "zod";
 
 const requiredString = z.string().trim().min(1, "Requerido");
 
@@ -39,4 +39,14 @@ export type UpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>;
 
 export const createCommentSchema = z.object({
   content: requiredString,
+});
+
+export const createRatingSchema = z.object({
+  rating: z
+    .number({
+      required_error: "Rating es requerido",
+    })
+    .min(0, "Rating debe tener un valor 0 o más")
+    .max(7, "Rating debe ser como máximo 7"),
+    movieId: requiredString
 });
