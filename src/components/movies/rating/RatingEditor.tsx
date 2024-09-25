@@ -1,34 +1,37 @@
 import { useEffect, useState } from "react";
-import { Loader2, Popcorn } from "lucide-react";
+import { Popcorn } from "lucide-react";
 
-import "./styles.css";
-import { useSession } from "@/app/(main)/SessionProvider";
-import { useQuery } from "@tanstack/react-query";
-import kyInstance from "@/lib/ky";
+import { useSubmitRatingMutation } from "./mutations";
+import LoadingButton from "@/components/LoadingButton";
+import { useToast } from "@/components/ui/use-toast";
 
 interface RatingEditorProps {
   movieId: string;
+  ownRating: number | null;
 }
 
 export default function RatingEditor({
   movieId,
+  ownRating,
 }: RatingEditorProps) {
-  const [rating, setRating] = useState<number>(0);
-  const [halfRating, setHalfRating] = useState(false);
-  const { user } = useSession();
-
-  const { data, isLoading, isFetching } = useQuery({
-    queryKey: ["rating", movieId, user?.id],
-    queryFn: () =>
-      kyInstance.get(`/api/movie/rating/${movieId}`).json<number | null>(),
-    initialData: null,
-  });
+  const [rating, setRating] = useState<number>(ownRating ? ownRating : 0);
+  const [halfRating, setHalfRating] = useState<boolean>(false);
+  const [onEdit, setOnEdit] = useState<boolean>(false);
+  const { toast } = useToast();
+  const mutation = useSubmitRatingMutation();
 
   useEffect(() => {
-    if (data) setRating(data);
-  }, [data]);
+    if (ownRating) {
+      setRating(ownRating);
+      setHalfRating(ownRating % 1 !== 0); 
+    } else {
+      setRating(0);
+      setHalfRating(false);
+    }
+  }, [ownRating]);
 
   const handleClick = (index: number) => {
+    setOnEdit(true);
     if (rating === index + 1 && !halfRating) {
       setHalfRating(true);
       setRating(index + 0.5);
@@ -62,6 +65,20 @@ export default function RatingEditor({
     }
   };
 
+  const handleSubmit = () => {
+    mutation.mutate(
+      { rating, movieId },
+      {
+        onSuccess: () => {
+          setOnEdit(false);
+          toast({
+            description: "Rating actualizado con éxito.",
+          });
+        },
+      },
+    );
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-4">
       <div className="flex space-x-2">
@@ -75,10 +92,15 @@ export default function RatingEditor({
           </div>
         ))}
       </div>
-      {isLoading || isFetching ? (
-        <Loader2 className="h-4 w-4 animate-spin text-primary" />
-      ) : (
-        <span className="text-sm font-semibold">Puntuar</span>
+      <span className="text-sm font-semibold">Puntuar</span>
+      {onEdit && (
+        <LoadingButton
+          loading={mutation.isPending}
+          onClick={handleSubmit}
+          disabled={mutation.isPending}
+        >
+          Guardar
+        </LoadingButton>
       )}
     </div>
   );
