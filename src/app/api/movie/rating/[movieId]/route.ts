@@ -28,3 +28,29 @@ export async function GET(
 
   return NextResponse.json(review.rating);
 }
+
+export async function POST(
+  req: Request,
+  { params: { movieId } }: { params: { movieId: string } }
+) {
+  const { user: loggedInUser } = await validateRequest();
+
+  if (!loggedInUser) {
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+  }
+
+  const { rating } = await req.json(); 
+
+  await prisma.review.upsert({
+    where: {
+      userId_movieId: {
+        userId: loggedInUser.id,
+        movieId,
+      },
+    },
+    create: { userId: loggedInUser.id, movieId, rating },
+    update: { rating },
+  });
+
+  return NextResponse.json({ success: true });
+}
