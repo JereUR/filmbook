@@ -192,7 +192,7 @@ model Review {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   movieId   String
   movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  rating    Int?
+  rating    Float?
   watched   Boolean  @default(false)
   liked      Boolean  @default(false)
   review    String?
