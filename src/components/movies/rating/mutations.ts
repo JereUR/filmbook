@@ -1,13 +1,13 @@
 import {
-  InfiniteData,
   QueryFilters,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { useToast } from "@/components/ui/use-toast";
-import { submitRating } from "./actions"; 
+
+import { useToast } from "@/components/ui/use-toast"; 
 import { useSession } from "@/app/(main)/SessionProvider";
 import { ReviewsPage } from "@/lib/types"; 
+import { submitReview } from "./actions";
 
 export function useSubmitRatingMutation() {
   const { toast } = useToast();
@@ -15,7 +15,7 @@ export function useSubmitRatingMutation() {
   const { user } = useSession();
 
   const mutation = useMutation({
-    mutationFn: submitRating,
+    mutationFn: submitReview,
     onSuccess: async (updatedReview) => {
       const queryFilter = {
         queryKey: ["review-feed"],
@@ -52,7 +52,7 @@ export function useSubmitRatingMutation() {
       });
 
       toast({
-        description: "Rating actualizado.",
+        description: "Review actualizada.",
       });
     },
     onError: (error) => {
@@ -60,7 +60,7 @@ export function useSubmitRatingMutation() {
       toast({
         variant: "destructive",
         description:
-          "Error al actualizar el rating. Por favor vuelve a intentarlo.",
+          "Error al actualizar la review. Por favor vuelve a intentarlo.",
       });
     },
   });
