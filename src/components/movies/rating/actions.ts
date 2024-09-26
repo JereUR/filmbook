@@ -11,7 +11,6 @@ export async function submitReview(input: {
   previousRating: number | null;
 }) {
   const { user } = await validateRequest();
-
   if (!user) throw new Error("No autorizado.");
 
   const { rating, movieId, review, previousRating } = createReviewSchema.parse(input);
@@ -24,8 +23,8 @@ export async function submitReview(input: {
   let newNumberOfRatings: number;
 
   if (!movieRating) {
-    newAverageRating = rating; 
-    newNumberOfRatings = 1; 
+    newAverageRating = rating;
+    newNumberOfRatings = 1;
   } else {
     newNumberOfRatings = movieRating.numberOfRatings;
     newAverageRating = previousRating
@@ -75,3 +74,4 @@ export async function submitReview(input: {
 
   return newReview;
 }
+

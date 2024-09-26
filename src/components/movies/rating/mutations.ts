@@ -56,12 +56,12 @@ export function useSubmitRatingMutation() {
       });
     },
     onError: (error) => {
-      console.error(error);
-      toast({
-        variant: "destructive",
-        description:
-          "Error al actualizar la review. Por favor vuelve a intentarlo.",
-      });
+      console.error("Error detalles:", error); 
+  toast({
+    variant: "destructive",
+    description:
+      "Error al actualizar la review: " + error.message, 
+  });
     },
   });
 
