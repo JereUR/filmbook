@@ -1,16 +1,16 @@
 "use client";
 
 import { CirclePlus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "./styles.css";
 import ShowAppRating from "./ShowAppRating";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import RatingEditor from "./RatingEditor";
 import { getYear } from "@/lib/utils";
 import ButtonActions from "./ButtonsActions";
 import { ReviewInfo } from "@/lib/types";
 import { useSession } from "@/app/(main)/SessionProvider";
+import ReviewEditor from "./ReviewEditor";
 
 interface RatingsSectionProps {
   movieId: string;
@@ -39,6 +39,7 @@ export default function RatingsSection({
   const ownReview = reviews.find(review => review.movieId === movieId && review.userId === user.id)
 
   const ownRating = ownReview ? ownReview.rating : null
+  const reviewText = ownReview ? ownReview.review : null
 
   return (
     <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">
@@ -87,8 +88,7 @@ export default function RatingsSection({
             reviews={reviews}
           />
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
-          <RatingEditor movieId={movieId} ownRating={ownRating} />
-          <hr className="-my-1 h-[1px] border-none bg-primary/40" />
+          <ReviewEditor movieId={movieId} ownRating={ownRating} reviewText={reviewText}/>
         </DialogContent>
       </Dialog>
     </div>
