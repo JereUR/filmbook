@@ -4,17 +4,23 @@ import { Popcorn } from "lucide-react";
 import { useSubmitRatingMutation } from "./mutations";
 import LoadingButton from "@/components/LoadingButton";
 import { useToast } from "@/components/ui/use-toast";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
 
-interface RatingEditorProps {
+interface ReviewEditorProps {
   movieId: string;
   ownRating: number | null;
+  reviewText: string | null | undefined
 }
 
-export default function RatingEditor({
+export default function ReviewEditor({
   movieId,
   ownRating,
-}: RatingEditorProps) {
+  reviewText
+}: ReviewEditorProps) {
   const [rating, setRating] = useState<number>(ownRating ? ownRating : 0);
+  const [review, setReview] = useState(reviewText ? reviewText : '')
   const [halfRating, setHalfRating] = useState<boolean>(false);
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const { toast } = useToast();
@@ -23,12 +29,18 @@ export default function RatingEditor({
   useEffect(() => {
     if (ownRating) {
       setRating(ownRating);
-      setHalfRating(ownRating % 1 !== 0); 
+      setHalfRating(ownRating % 1 !== 0);
     } else {
       setRating(0);
       setHalfRating(false);
     }
   }, [ownRating]);
+
+  useEffect(() => {
+    if (reviewText) {
+      setReview(reviewText)
+    }
+  }, [reviewText])
 
   const handleClick = (index: number) => {
     setOnEdit(true);
@@ -67,7 +79,7 @@ export default function RatingEditor({
 
   const handleSubmit = () => {
     mutation.mutate(
-      { rating, movieId },
+      { rating, movieId, review, previousRating: ownRating },
       {
         onSuccess: () => {
           setOnEdit(false);
@@ -85,7 +97,10 @@ export default function RatingEditor({
         {[...Array(7)].map((_, index) => (
           <div
             key={index}
-            onClick={() => handleClick(index)}
+            onClick={() => {
+
+              handleClick(index)
+            }}
             className="cursor-pointer"
           >
             {renderPopcorn(index)}
@@ -93,13 +108,26 @@ export default function RatingEditor({
         ))}
       </div>
       <span className="text-sm font-semibold">Puntuar</span>
+      <hr className="my-2 h-[1px] border-none bg-primary/40 w-full" />
+      <div className="w-full">
+        <textarea
+          value={review}
+          placeholder="Agrega una review..."
+          onChange={(e) => {
+            setOnEdit(true)
+            setReview(e.target.value)
+          }}
+          className="text-sm h-[30vh] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3 text-foreground/40 resize-none scrollbar-thin focus:outline-none "
+        />
+      </div>
       {onEdit && (
         <LoadingButton
           loading={mutation.isPending}
           onClick={handleSubmit}
           disabled={mutation.isPending}
+          className='w-full'
         >
-          Guardar
+          Enviar review
         </LoadingButton>
       )}
     </div>
