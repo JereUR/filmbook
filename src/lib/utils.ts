@@ -53,7 +53,7 @@ export function ratingColor(rating: number) {
 }
 
 export function ratingColorFilmbook(rating: number) {
-  if (rating < 2.0) {
+  if (rating < 2.5) {
     return "text-red-600";
   } else if (rating < 4.5) {
     return "text-yellow-600";
