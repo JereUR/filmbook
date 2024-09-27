@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import TmdbLogo from "@/assets/TMDB.png";
 import AppLogo from "@/assets/logo.png";
-import { cn, ratingColor } from "@/lib/utils";
+import { cn, ratingColor, ratingColorFilmbook } from "@/lib/utils";
 
 interface ShowAppRatingProps {
   ownApp: boolean;
@@ -33,7 +33,7 @@ export default function ShowAppRating({
       <div className="flex w-full flex-col items-center justify-center">
         {voteAverage ? (
           <div className="flex gap-1 text-xl font-semibold italic md:text-2xl">
-            <span className={ratingColor(voteAverage)}>
+            <span className={ownApp ? ratingColorFilmbook(voteAverage) : ratingColor(voteAverage)}>
               {voteAverage.toFixed(1)}
             </span>
             <span className="text-gray-400">{ownApp ? "/7" : "/10"}</span>

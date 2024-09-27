@@ -51,3 +51,15 @@ export function ratingColor(rating: number) {
     return "text-primary";
   }
 }
+
+export function ratingColorFilmbook(rating: number) {
+  if (rating < 2.0) {
+    return "text-red-600";
+  } else if (rating < 4.5) {
+    return "text-yellow-600";
+  } else if (rating < 7.0) {
+    return "text-green-600";
+  } else {
+    return "text-primary";
+  }
+}
