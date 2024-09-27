@@ -8,12 +8,22 @@ export async function submitReview(input: {
   rating: number;
   movieId: string;
   review: string | undefined | null;
-  previousRating: number | null;
 }) {
   const { user } = await validateRequest();
   if (!user) throw new Error("No autorizado.");
 
-  const { rating, movieId, review, previousRating } = createReviewSchema.parse(input);
+  const { rating, movieId, review } = createReviewSchema.parse(input);
+
+  const existingReview = await prisma.review.findUnique({
+    where: {
+      userId_movieId: {
+        userId: user.id,
+        movieId,
+      },
+    },
+  });
+
+  const previousRating = existingReview ? existingReview.rating : null;
 
   const movieRating = await prisma.movieRating.findUnique({
     where: { movieId },
@@ -27,10 +37,11 @@ export async function submitReview(input: {
     newNumberOfRatings = 1;
   } else {
     newNumberOfRatings = movieRating.numberOfRatings;
+
     newAverageRating = previousRating
       ? ((movieRating.averageRating * newNumberOfRatings) - previousRating + rating) / newNumberOfRatings
       : ((movieRating.averageRating * newNumberOfRatings) + rating) / (newNumberOfRatings + 1);
-    
+
     newNumberOfRatings += previousRating ? 0 : 1; 
   }
 
@@ -39,7 +50,7 @@ export async function submitReview(input: {
       where: {
         userId_movieId: {
           userId: user.id,
-          movieId: movieId,
+          movieId,
         },
       },
       update: {
@@ -50,7 +61,7 @@ export async function submitReview(input: {
       create: {
         rating,
         userId: user.id,
-        movieId: movieId,
+        movieId,
         watched: true,
         review,
       },
@@ -74,4 +85,5 @@ export async function submitReview(input: {
 
   return newReview;
 }
+
 

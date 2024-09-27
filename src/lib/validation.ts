@@ -50,5 +50,4 @@ export const createReviewSchema = z.object({
     .max(7, "Rating debe ser como máximo 7"),
   movieId: requiredString,
   review: z.string().optional(),
-  previousRating: z.number().nullable().optional(),
 });
