@@ -26,7 +26,7 @@ export default function ReviewEditor({
   const mutation = useSubmitRatingMutation();
 
   useEffect(() => {
-    if (ownRating) {
+    if (ownRating !== null) {
       setRating(ownRating);
       setHalfRating(ownRating % 1 !== 0);
     } else {
@@ -36,10 +36,8 @@ export default function ReviewEditor({
   }, [ownRating]);
 
   useEffect(() => {
-    if (reviewText) {
-      setReview(reviewText)
-    }
-  }, [reviewText])
+    setReview(reviewText || '');
+  }, [reviewText]);
 
   const handleClick = (index: number) => {
     setOnEdit(true);
