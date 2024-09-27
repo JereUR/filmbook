@@ -1,7 +1,7 @@
 "use client";
 
 import { CirclePlus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./styles.css";
 import ShowAppRating from "./ShowAppRating";
@@ -33,13 +33,29 @@ export default function RatingsSection({
   watchlist,
   reviews,
 }: RatingsSectionProps) {
-  const [showRatingEditor, setShowRatingEditor] = useState<boolean>(false);
+  const [showRatingEditor, setShowRatingEditor] = useState<boolean>(false)
+  const [appRating, setAppRating] = useState<{ averageRating: number, numberOfRatings: number } | null>(null)
+  const [ratingWasChanged, setRatingWasChanged] = useState<boolean>(false)
   const { user } = useSession()
 
   const ownReview = reviews.find(review => review.movieId === movieId && review.userId === user.id)
 
   const ownRating = ownReview ? ownReview.rating : null
   const reviewText = ownReview ? ownReview.review : null
+
+  async function fetchNewRating() {
+    const response = await fetch(`/api/movie/average-rating-app/${movieId}`)
+    const data = await response.json()
+
+    if (data) {
+      setAppRating(data)
+    }
+
+  }
+
+  useEffect(() => {
+    fetchNewRating().then(() => setRatingWasChanged(false));
+  }, [ratingWasChanged]);
 
   return (
     <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">
@@ -60,14 +76,12 @@ export default function RatingsSection({
             voteCount={voteCount}
           />
         </div>
-        <div>
-          <ShowAppRating
-            ownApp={true}
-            voteAverage={rating ? rating.averageRating : undefined}
-            voteCount={rating ? rating.numberOfRatings : undefined}
-            className="pl-5 md:pl-0 md:pt-1"
-          />
-        </div>
+        <ShowAppRating
+          ownApp={true}
+          voteAverage={appRating ? appRating.averageRating : rating?.averageRating}
+          voteCount={appRating ? appRating.numberOfRatings : rating?.numberOfRatings}
+          className="pl-5 md:pl-0 md:pt-1"
+        />
       </div>
       <Dialog
         open={showRatingEditor}
@@ -88,7 +102,7 @@ export default function RatingsSection({
             reviews={reviews}
           />
           <hr className="-my-1 h-[1px] border-none bg-primary/40" />
-          <ReviewEditor movieId={movieId} ownRating={ownRating} reviewText={reviewText}/>
+          <ReviewEditor movieId={movieId} ownRating={ownRating} reviewText={reviewText} activateRefresh={() => setRatingWasChanged(!ratingWasChanged)} />
         </DialogContent>
       </Dialog>
     </div>

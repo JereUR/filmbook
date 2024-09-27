@@ -4,18 +4,19 @@ import { Popcorn } from "lucide-react";
 import { useSubmitRatingMutation } from "./mutations";
 import LoadingButton from "@/components/LoadingButton";
 import { useToast } from "@/components/ui/use-toast";
-import { revalidatePath } from "next/cache";
 
 interface ReviewEditorProps {
   movieId: string;
   ownRating: number | null;
   reviewText: string | null | undefined
+  activateRefresh:()=>void
 }
 
 export default function ReviewEditor({
   movieId,
   ownRating,
-  reviewText
+  reviewText,
+  activateRefresh
 }: ReviewEditorProps) {
   const [rating, setRating] = useState<number>(ownRating || 0);
   const [review, setReview] = useState(reviewText || '')
@@ -77,9 +78,10 @@ export default function ReviewEditor({
 
   const handleSubmit = () => {
     mutation.mutate(
-      { rating, movieId, review, previousRating: ownRating },
+      { rating, movieId, review},
       {
         onSuccess: () => {
+          activateRefresh()
           setOnEdit(false);
           toast({
             description: "Rating actualizado con éxito.",
