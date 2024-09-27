@@ -4,9 +4,7 @@ import { Popcorn } from "lucide-react";
 import { useSubmitRatingMutation } from "./mutations";
 import LoadingButton from "@/components/LoadingButton";
 import { useToast } from "@/components/ui/use-toast";
-import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Placeholder from "@tiptap/extension-placeholder";
+import { revalidatePath } from "next/cache";
 
 interface ReviewEditorProps {
   movieId: string;
@@ -19,8 +17,8 @@ export default function ReviewEditor({
   ownRating,
   reviewText
 }: ReviewEditorProps) {
-  const [rating, setRating] = useState<number>(ownRating ? ownRating : 0);
-  const [review, setReview] = useState(reviewText ? reviewText : '')
+  const [rating, setRating] = useState<number>(ownRating || 0);
+  const [review, setReview] = useState(reviewText || '')
   const [halfRating, setHalfRating] = useState<boolean>(false);
   const [onEdit, setOnEdit] = useState<boolean>(false);
   const { toast } = useToast();
