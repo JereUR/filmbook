@@ -1,6 +1,7 @@
 import { CrewMember, ImageInfo, ReviewInfo } from "@/lib/types";
 import TitleSection from "./TitleSection";
 import RatingsSection from "./rating/RatingsSection";
+import { useSession } from "@/app/(main)/SessionProvider";
 
 interface GeneralInfoSectionProps {
   id: string;
@@ -35,7 +36,14 @@ export default function GeneralInfoSection({
   reviews,
   handleImageClick,
 }: GeneralInfoSectionProps) {
+  const {user}=useSession()
+
+  const foundUserReview = reviews && reviews.find(review => review.movieId === id && review.userId === user.id);
+  const watched = foundUserReview?.watched || false
+  const liked = foundUserReview?.liked || false
+
   return (
+
     <>
       <div className="relative z-10 bg-card/50 p-4 text-foreground">
         <div className="flex flex-col gap-3 md:flex-row">
@@ -47,6 +55,8 @@ export default function GeneralInfoSection({
               runtime={runtime}
               genres={genres}
               directors={directors}
+              watched={watched}
+              liked={liked}
               handleImageClick={handleImageClick}
             />
           </div>

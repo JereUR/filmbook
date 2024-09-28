@@ -1,9 +1,10 @@
 import Image from "next/image";
-
 import { CrewMember, ImageInfo } from "@/lib/types";
 import { getYear } from "@/lib/utils";
 import noImagePath from "@/assets/no-image-film.jpg";
+
 import CrewMemberShow from "./CrewMemberShow";
+import { Eye, Heart } from "lucide-react";
 
 interface TitleSectionProps {
   posterPath: string | undefined;
@@ -12,6 +13,8 @@ interface TitleSectionProps {
   runtime: number;
   genres: any[];
   directors: CrewMember[];
+  watched: boolean;
+  liked: boolean;
   handleImageClick: (image: ImageInfo) => void;
 }
 
@@ -22,13 +25,14 @@ export default function TitleSection({
   runtime,
   genres,
   directors,
+  watched,
+  liked,
   handleImageClick,
 }: TitleSectionProps) {
   const image: ImageInfo = {
     src: posterPath ? posterPath : noImagePath,
     name: title,
   };
-
   const year = releaseDate ? getYear(releaseDate.toString()) : null;
 
   return (
@@ -42,6 +46,20 @@ export default function TitleSection({
           className="cursor-pointer rounded"
           onClick={() => handleImageClick(image)}
         />
+        <div className="absolute inset-0 flex items-end justify-center mb-1">
+          <div className="bg-black/70 p-1 rounded flex space-x-2">
+            <Eye
+              className={`h-5 w-5 text-foreground/70 ${
+                watched ? "fill-primary" : "fill-white/50"
+              }`}
+            />
+            <Heart
+              className={`h-5 w-5 text-foreground/70 ${
+                liked ? "fill-red-500 dark:fill-red-600" : "fill-white/50"
+              }`}
+            />
+          </div>
+        </div>
       </div>
       <div className="flex flex-col space-y-3">
         <h1 className="text-2xl font-bold md:text-3xl lg:text-4xl">
