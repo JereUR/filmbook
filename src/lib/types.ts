@@ -245,7 +245,7 @@ export interface ReviewInfo {
 }
 
 export interface ReviewsPage {
-  reviews: ReviewInfo[]; 
+  reviews: ReviewInfo[];
 }
 
 export interface WatchlistInfo {
