@@ -73,6 +73,38 @@ export async function getRecomendationsMovieById(
   }
 }
 
+export async function getPopularMovies(): Promise<Movie[] | null> {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=es-ES`,
+    );
+    if (!response.ok) {
+      throw new Error("Error al obtener las películas populares");
+    }
+    const data = await response.json();
+
+    const movies:Movie[] = data.results.map((movie:any) => {
+      const releaseDate = new Date(movie.release_date);
+      return {
+        id: movie.id,
+        title: movie.title,
+        backdropPath: movie.backdrop_path? `${BASE_IMG_TMDB}${movie.backdrop_path}` : null,
+        posterPath: movie.poster_path? `${BASE_IMG_TMDB}${movie.poster_path}` : null,
+        poster_path: movie.poster_path? `${BASE_IMG_TMDB}${movie.poster_path}` : null,
+        releaseDate,
+        overview: movie.overview,
+        runtime: movie.runtime,
+        voteAverage: movie.vote_average,
+        voteCount: movie.vote_count,
+      };
+    })
+    return movies
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
 const formatProviders = (results: any) => {
   const formattedResults: { [key: string]: any } = {};
 
@@ -113,7 +145,6 @@ const filterCrew = (crew: any[]) => {
 };
 
 export async function fetchMovieFromTMDB(movieId: string) {
-  // Fetch de los detalles de la película
   const movieResponse = await fetch(
     `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=es-ES`,
     {
