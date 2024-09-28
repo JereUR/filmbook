@@ -42,8 +42,8 @@ export default function LikeButton({
       toast({
         description: `Película ${
           likeData?.isLikedByUser
-            ? "marcada como favorita"
-            : "desmarcada como favorita"
+            ? "desmarcada como favorita"
+            : "marcada como favorita"
         }`,
       });
 
