@@ -23,7 +23,7 @@ export default async function PopularMovies({ className }: PopularMoviesProps) {
       <ul className="space-y-2">
         {movies.map((movie) => (
           <li key={movie.id}>
-            <Link href={`/pelicula/${movie.id}`} className="m-1 flex cursor-pointer items-start gap-3 rounded-2xl border border-primary/40 bg-background p-2 transition-colors duration-300 ease-in-out hover:bg-background/40 md:p-4">
+            <Link href={`/pelicula/${movie.id}?title=${movie.title}&date=${movie.releaseDate?getYear(movie.releaseDate.toString()):'N/A'}`} className="m-1 flex cursor-pointer items-start gap-3 rounded-2xl border border-primary/40 bg-background p-2 transition-colors duration-300 ease-in-out hover:bg-background/40 md:p-4">
             <div className="my-auto flex-none">
         <Image
           src={movie.posterPath ? movie.posterPath : noImagePath}
