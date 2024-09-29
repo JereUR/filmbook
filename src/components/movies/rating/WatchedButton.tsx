@@ -14,11 +14,13 @@ import { cn } from "@/lib/utils";
 interface WatchedButtonProps {
   movieId: string;
   initialState: WatchedInfo;
+  activateRefresh:()=>void
 }
 
 export default function WatchedButton({
   movieId,
   initialState,
+  activateRefresh
 }: WatchedButtonProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -64,6 +66,9 @@ export default function WatchedButton({
         variant: "destructive",
         description: "Error al intentar actualizar tu watchlist.",
       });
+    },
+    onSuccess: () => {
+      activateRefresh(); 
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey });

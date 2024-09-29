@@ -8,12 +8,14 @@ interface ButtonActionsProps {
   movieId: string;
   watchlist: { userId: string; movieId: string }[];
   reviews: ReviewInfo[];
+  activateRefresh:()=>void
 }
 
 export default function ButtonActions({
   movieId,
   watchlist,
   reviews,
+  activateRefresh
 }: ButtonActionsProps) {
   const { user } = useSession();
 
@@ -48,12 +50,14 @@ export default function ButtonActions({
         initialState={{
           isWatchedByUser
         }}
+        activateRefresh={activateRefresh}
       />
       <LikeButton
         movieId={movieId}
         initialState={{
           isLikedByUser,
         }}
+        activateRefresh={activateRefresh}
       />
       <WatchlistButton
         movieId={movieId}

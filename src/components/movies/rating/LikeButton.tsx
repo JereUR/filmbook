@@ -14,11 +14,13 @@ import { cn } from "@/lib/utils";
 interface LikeButtonProps {
   movieId: string;
   initialState: LikedInfo;
+  activateRefresh:()=>void
 }
 
 export default function LikeButton({
   movieId,
   initialState,
+  activateRefresh
 }: LikeButtonProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -64,6 +66,9 @@ export default function LikeButton({
         variant: "destructive",
         description: "Error al intentar actualizar tu watchlist.",
       });
+    },
+    onSuccess: () => {
+      activateRefresh(); 
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey });
