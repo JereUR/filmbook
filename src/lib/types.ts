@@ -259,3 +259,10 @@ export interface WatchedInfo {
 export interface LikedInfo {
   isLikedByUser: boolean;
 }
+
+export interface ReviewData{
+  rating: number | null;
+  review: string | null;
+  liked: boolean;
+  watched: boolean;
+}
