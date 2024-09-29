@@ -1,12 +1,14 @@
 import Image from "next/image";
-import { CrewMember, ImageInfo } from "@/lib/types";
+import { CrewMember, ImageInfo, ReviewData } from "@/lib/types";
 import { getYear } from "@/lib/utils";
 import noImagePath from "@/assets/no-image-film.jpg";
 
 import CrewMemberShow from "./CrewMemberShow";
 import { Eye, Heart } from "lucide-react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface TitleSectionProps {
+  movieId: string
   posterPath: string | undefined;
   title: string;
   releaseDate: Date | undefined;
@@ -16,9 +18,12 @@ interface TitleSectionProps {
   watched: boolean;
   liked: boolean;
   handleImageClick: (image: ImageInfo) => void;
+  ratingWasChanged: boolean;
+  setRatingWasChanged: Dispatch<SetStateAction<boolean>>
 }
 
 export default function TitleSection({
+  movieId,
   posterPath,
   title,
   releaseDate,
@@ -28,12 +33,30 @@ export default function TitleSection({
   watched,
   liked,
   handleImageClick,
+  ratingWasChanged,
+  setRatingWasChanged
 }: TitleSectionProps) {
+  const [appReview, setAppReview] = useState<ReviewData | null>(null)
+
   const image: ImageInfo = {
     src: posterPath ? posterPath : noImagePath,
     name: title,
   };
   const year = releaseDate ? getYear(releaseDate.toString()) : null;
+
+  async function fetchNewReview() {
+    const response = await fetch(`/api/movie/review/${movieId}`)
+    const data = await response.json()
+
+    if (data) {
+      setAppReview(data)
+    }
+
+  }
+
+  useEffect(() => {
+    fetchNewReview().then(() => setRatingWasChanged(false));
+  }, [ratingWasChanged]);
 
   return (
     <div className="flex items-start gap-4 md:gap-8">
@@ -48,16 +71,20 @@ export default function TitleSection({
         />
         <div className="absolute inset-0 flex items-end justify-center mb-1">
           <div className="bg-black/70 p-1 rounded flex space-x-2">
-            <Eye
-              className={`h-5 w-5 text-foreground/70 ${
-                watched ? "fill-primary" : "fill-white/50"
-              }`}
-            />
-            <Heart
-              className={`h-5 w-5 text-foreground/70 ${
-                liked ? "fill-red-500 dark:fill-red-600" : "fill-white/50"
-              }`}
-            />
+            {appReview ? <Eye
+              className={`h-5 w-5 text-foreground/70 ${appReview.watched ? "fill-primary" : "fill-white/50"
+                }`}
+            /> : <Eye
+              className={`h-5 w-5 text-foreground/70 ${watched ? "fill-primary" : "fill-white/50"
+                }`}
+            />}
+            {appReview ? <Heart
+              className={`h-5 w-5 text-foreground/70 ${appReview.liked ? "fill-red-500 dark:fill-red-600" : "fill-white/50"
+                }`}
+            /> : <Heart
+              className={`h-5 w-5 text-foreground/70 ${liked ? "fill-red-500 dark:fill-red-600" : "fill-white/50"
+                }`}
+            />}
           </div>
         </div>
       </div>

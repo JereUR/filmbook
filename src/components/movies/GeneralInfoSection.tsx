@@ -2,6 +2,7 @@ import { CrewMember, ImageInfo, ReviewInfo } from "@/lib/types";
 import TitleSection from "./TitleSection";
 import RatingsSection from "./rating/RatingsSection";
 import { useSession } from "@/app/(main)/SessionProvider";
+import { useEffect, useState } from "react";
 
 interface GeneralInfoSectionProps {
   id: string;
@@ -36,11 +37,28 @@ export default function GeneralInfoSection({
   reviews,
   handleImageClick,
 }: GeneralInfoSectionProps) {
-  const {user}=useSession()
+  const [ratingWasChanged, setRatingWasChanged] = useState<boolean>(false)
+  const { user } = useSession()
 
   const foundUserReview = reviews && reviews.find(review => review.movieId === id && review.userId === user.id);
-  const watched = foundUserReview?.watched || false
-  const liked = foundUserReview?.liked || false
+  let watched = foundUserReview?.watched || false
+  let liked = foundUserReview?.liked || false
+
+  async function fetchNewReview() {
+    const movieId=id
+    const response = await fetch(`/api/movie/review/${movieId}`)
+    const data = await response.json()
+
+    if (data) {
+      watched = data.watched
+      liked = data.liked
+    }
+
+  }
+
+  useEffect(() => {
+    fetchNewReview().then(() => setRatingWasChanged(false));
+  }, [ratingWasChanged]);
 
   return (
 
@@ -49,6 +67,7 @@ export default function GeneralInfoSection({
         <div className="flex flex-col gap-3 md:flex-row">
           <div className="flex flex-col items-start gap-2 md:w-3/4 md:flex-row md:items-center md:gap-4">
             <TitleSection
+              movieId={id}
               title={title}
               releaseDate={releaseDate}
               posterPath={posterPath}
@@ -58,6 +77,8 @@ export default function GeneralInfoSection({
               watched={watched}
               liked={liked}
               handleImageClick={handleImageClick}
+              ratingWasChanged={ratingWasChanged}
+              setRatingWasChanged={setRatingWasChanged}
             />
           </div>
           <RatingsSection
@@ -69,6 +90,8 @@ export default function GeneralInfoSection({
             voteCount={voteCount}
             watchlist={watchlist}
             reviews={reviews}
+            ratingWasChanged={ratingWasChanged}
+            setRatingWasChanged={setRatingWasChanged}
           />
         </div>
         <div className="mt-2 px-1 md:mt-3 md:px-4">

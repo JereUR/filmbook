@@ -1,7 +1,7 @@
 "use client";
 
 import { CirclePlus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import "./styles.css";
 import ShowAppRating from "./ShowAppRating";
@@ -21,6 +21,8 @@ interface RatingsSectionProps {
   voteCount?: number;
   watchlist: { userId: string; movieId: string }[];
   reviews: ReviewInfo[];
+  ratingWasChanged: boolean;
+  setRatingWasChanged: Dispatch<SetStateAction<boolean>>
 }
 
 export default function RatingsSection({
@@ -32,12 +34,13 @@ export default function RatingsSection({
   voteCount,
   watchlist,
   reviews,
+  ratingWasChanged,
+  setRatingWasChanged
 }: RatingsSectionProps) {
   const [showRatingEditor, setShowRatingEditor] = useState<boolean>(false)
   const [appRating, setAppRating] = useState<{ averageRating: number, numberOfRatings: number } | null>(null)
   const [ownRating, setOwnRating] = useState<number | null>(null);
   const [reviewText, setReviewText] = useState<string | null | undefined>(null);
-  const [ratingWasChanged, setRatingWasChanged] = useState<boolean>(false)
   const { user } = useSession()
 
   async function fetchNewRating() {
@@ -88,6 +91,7 @@ export default function RatingsSection({
               movieId={movieId}
               watchlist={watchlist}
               reviews={reviews}
+              activateRefresh={() => setRatingWasChanged(!ratingWasChanged)}
             />
             <hr className="-my-1 h-[1px] border-none bg-primary/40" />
             <ReviewEditor
