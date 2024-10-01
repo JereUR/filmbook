@@ -60,9 +60,11 @@ export default function UserReviews({ userId }: UserReviewListProps) {
       className="space-y-5"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      {reviews.map((review) => (
-        <ReviewItem key={review.id} review={review} />
-      ))}
+      <div className='flex justify-start gap-2 w-full rounded-2xl bg-card p-5 shadow-sm'>
+        {reviews.map((review) => (
+          <ReviewItem key={review.id} review={review} />
+        ))}
+      </div>
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
   );
