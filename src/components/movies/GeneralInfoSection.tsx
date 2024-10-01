@@ -46,7 +46,7 @@ export default function GeneralInfoSection({
 
   async function fetchNewReview() {
     const movieId = id
-    const response = await fetch(`/api/movie/review/${movieId}`)
+    const response = await fetch(`/api/movie/review/movie/${movieId}`)
     const data = await response.json()
 
     if (data) {

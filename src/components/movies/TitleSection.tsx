@@ -45,7 +45,7 @@ export default function TitleSection({
   const year = releaseDate ? getYear(releaseDate.toString()) : null;
 
   async function fetchNewReview() {
-    const response = await fetch(`/api/movie/review/${movieId}`)
+    const response = await fetch(`/api/movie/review/movie/${movieId}`)
     const data = await response.json()
 
     if (data) {

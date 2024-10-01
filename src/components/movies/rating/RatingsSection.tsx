@@ -52,7 +52,7 @@ export default function RatingsSection({
   }, [reviews, movieId, user]);
 
   async function fetchNewReview() {
-    const response = await fetch(`/api/movie/review/${movieId}`)
+    const response = await fetch(`/api/movie/review/movie/${movieId}`)
     const data = await response.json()
     console.log(data)
 
