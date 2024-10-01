@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { cache } from "react";
+import { cache, Suspense } from "react";
 import { Metadata } from "next";
 import { formatDate } from "date-fns";
 
@@ -14,6 +14,9 @@ import FollowButton from "@/components/FollowButton";
 import UserPosts from "./UserPosts";
 import Linkify from "@/components/Linkify";
 import EditProfileButton from "./EditProfileButton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ReviewList from "@/components/user/lists/review/ReviewList";
+import { Loader2 } from "lucide-react";
 
 interface UserPageProps {
   params: { username: string };
@@ -66,12 +69,26 @@ export default async function UserPage({
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
-        <div className="rounded-2xl bg-card p-5 shadow-sm">
-          <h2 className="text-center text-2xl font-bold">
-            Publicaciones de {user.username}
-          </h2>
-        </div>
-        <UserPosts userId={user.id} />
+        <Tabs defaultValue="posts" className='w-full'>
+          <TabsList className="rounded-md bg-card-child p-1 text-muted-foreground shadow-sm">
+            <TabsTrigger value="posts" className="text-xs sm:text-sm">Publicaciones</TabsTrigger>
+            <TabsTrigger value="reviews" className="text-xs sm:text-sm">Reviews</TabsTrigger>
+          </TabsList>
+          <TabsContent value="posts">
+            {/* <div className="rounded-2xl bg-card p-5 shadow-sm">
+              <h2 className="text-center text-2xl font-bold">
+                Publicaciones de {user.username}
+              </h2>
+            </div> */}
+            <UserPosts userId={user.id} />
+          </TabsContent>
+          <TabsContent value="reviews">
+            <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+              <ReviewList userId={user.id} />
+            </Suspense>
+          </TabsContent>
+        </Tabs>
+
       </div>
       <TrendsSidebar />
     </main>
@@ -122,14 +139,14 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
         )}
       </div>
       {user.bio && (
-        <>
+        <div>
           <hr />
           <Linkify>
-            <div className="overflow-hidden whitespace-pre-line break-words">
+            <div className="overflow-hidden whitespace-pre-line break-words mt-2">
               {user.bio}
             </div>
           </Linkify>
-        </>
+        </div>
       )}
     </div>
   );
