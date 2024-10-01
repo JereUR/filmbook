@@ -36,6 +36,7 @@ model User {
 
   reviews   Review[]
   watchlist Watchlist[]
+  diary     Diary[]
   createdAt DateTime    @default(now())
 
   @@map("users")
@@ -179,6 +180,7 @@ model Movie {
   rating    MovieRating?
   reviews   Review[]
   watchlist Watchlist[]
+  diary     Diary[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -187,15 +189,17 @@ model Movie {
 }
 
 model Review {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  movieId   String
-  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  rating    Float?
-  watched   Boolean  @default(false)
-  liked      Boolean  @default(false)
-  review    String?
+  id      String  @id @default(cuid())
+  userId  String
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movieId String
+  movie   Movie   @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  rating  Float?
+  watched Boolean @default(false)
+  liked   Boolean @default(false)
+  review  String?
+  diary   Diary[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -225,4 +229,19 @@ model Watchlist {
 
   @@unique([userId, movieId]) // Un usuario solo puede agregar una película una vez a su watchlist
   @@map("watchlist")
+}
+
+model Diary {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movieId   String
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  reviewId  String?
+  review    Review?  @relation(fields: [reviewId], references: [id], onDelete: SetNull)
+  watchedOn DateTime 
+  createdAt DateTime @default(now())
+
+  @@unique([userId, movieId, watchedOn])
+  @@map("movie_watches")
 }
