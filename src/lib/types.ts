@@ -226,7 +226,7 @@ export interface ReviewInfo {
   id: string;
   userId: string;
   movieId: string;
-  movie: {
+  movie?: {
     id: string;
     title: string;
     backdropPath: string | null;
