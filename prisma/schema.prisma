@@ -197,6 +197,7 @@ model Review {
   liked      Boolean  @default(false)
   review    String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, movieId])
   @@map("reviews")
