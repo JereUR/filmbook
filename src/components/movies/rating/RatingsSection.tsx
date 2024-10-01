@@ -43,6 +43,26 @@ export default function RatingsSection({
   const [reviewText, setReviewText] = useState<string | null | undefined>(null);
   const { user } = useSession()
 
+  useEffect(() => {
+    if (user && reviews) {
+      const foundReview = reviews.find(review => review.movieId === movieId && review.userId === user.id);
+      setOwnRating(foundReview ? foundReview.rating : null);
+      setReviewText(foundReview ? foundReview.review : null);
+    }
+  }, [reviews, movieId, user]);
+
+  async function fetchNewReview() {
+    const response = await fetch(`/api/movie/review/${movieId}`)
+    const data = await response.json()
+    console.log(data)
+
+    if (data) {
+      setOwnRating(data.rating)
+      setReviewText(data.review)
+    }
+
+  }
+
   async function fetchNewRating() {
     const response = await fetch(`/api/movie/average-rating-app/${movieId}`)
     const data = await response.json()
@@ -50,18 +70,14 @@ export default function RatingsSection({
     if (data) {
       setAppRating(data)
     }
-
   }
 
   useEffect(() => {
-    fetchNewRating().then(() => setRatingWasChanged(false));
-    console.log('test')
-    const foundReview = reviews && reviews.find(review => review.movieId === movieId && review.userId === user.id);
-
-    setOwnRating(foundReview ? foundReview.rating : null);
-    setReviewText(foundReview ? foundReview.review : null);
-
-  }, [ratingWasChanged, reviews, user.id, movieId]);
+    if (ratingWasChanged) {
+      fetchNewRating()
+      fetchNewReview().then(() => setRatingWasChanged(false));
+    }
+  }, [ratingWasChanged]);
 
   return (
     <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">

@@ -45,7 +45,7 @@ export default function GeneralInfoSection({
   let liked = foundUserReview?.liked || false
 
   async function fetchNewReview() {
-    const movieId=id
+    const movieId = id
     const response = await fetch(`/api/movie/review/${movieId}`)
     const data = await response.json()
 
@@ -53,7 +53,6 @@ export default function GeneralInfoSection({
       watched = data.watched
       liked = data.liked
     }
-
   }
 
   useEffect(() => {
@@ -61,45 +60,42 @@ export default function GeneralInfoSection({
   }, [ratingWasChanged]);
 
   return (
-
-    <>
-      <div className="relative z-10 bg-card/50 p-4 text-foreground">
-        <div className="flex flex-col gap-3 md:flex-row">
-          <div className="flex flex-col items-start gap-2 md:w-3/4 md:flex-row md:items-center md:gap-4">
-            <TitleSection
-              movieId={id}
-              title={title}
-              releaseDate={releaseDate}
-              posterPath={posterPath}
-              runtime={runtime}
-              genres={genres}
-              directors={directors}
-              watched={watched}
-              liked={liked}
-              handleImageClick={handleImageClick}
-              ratingWasChanged={ratingWasChanged}
-              setRatingWasChanged={setRatingWasChanged}
-            />
-          </div>
-          <RatingsSection
+    <div className="relative z-10 bg-card/50 p-4 text-foreground">
+      <div className="flex flex-col gap-3 md:flex-row">
+        <div className="flex flex-col items-start gap-2 md:w-3/4 md:flex-row md:items-center md:gap-4">
+          <TitleSection
             movieId={id}
             title={title}
             releaseDate={releaseDate}
-            rating={rating}
-            voteAverage={voteAverage}
-            voteCount={voteCount}
-            watchlist={watchlist}
-            reviews={reviews}
+            posterPath={posterPath}
+            runtime={runtime}
+            genres={genres}
+            directors={directors}
+            watched={watched}
+            liked={liked}
+            handleImageClick={handleImageClick}
             ratingWasChanged={ratingWasChanged}
             setRatingWasChanged={setRatingWasChanged}
           />
         </div>
-        <div className="mt-2 px-1 md:mt-3 md:px-4">
-          <p className="text-justify text-sm leading-relaxed text-foreground/40 md:text-base">
-            {overview}
-          </p>
-        </div>
+        <RatingsSection
+          movieId={id}
+          title={title}
+          releaseDate={releaseDate}
+          rating={rating}
+          voteAverage={voteAverage}
+          voteCount={voteCount}
+          watchlist={watchlist}
+          reviews={reviews}
+          ratingWasChanged={ratingWasChanged}
+          setRatingWasChanged={setRatingWasChanged}
+        />
       </div>
-    </>
+      <div className="mt-2 px-1 md:mt-3 md:px-4">
+        <p className="text-justify text-sm leading-relaxed text-foreground/40 md:text-base">
+          {overview}
+        </p>
+      </div>
+    </div>
   );
 }
