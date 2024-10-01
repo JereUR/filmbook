@@ -52,10 +52,10 @@ export async function POST(
       update: { watched: true },
     });
 
-    return new Response();
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return Response.json(
+    return NextResponse.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
     );
@@ -73,18 +73,21 @@ export async function DELETE(
       return Response.json({ error: "No autorizado." }, { status: 401 });
     }
 
-    await prisma.review.deleteMany({
+    await prisma.review.upsert({
       where: {
-        userId: loggedInUser.id,
-        movieId,
-        watched: true,
+        userId_movieId: {
+          userId: loggedInUser.id,
+          movieId,
+        },
       },
+      create: { userId: loggedInUser.id, movieId, watched: false },
+      update: { watched: false },
     });
 
-    return new Response();
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return Response.json(
+    return NextResponse.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
     );
