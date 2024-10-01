@@ -226,7 +226,7 @@ export interface ReviewInfo {
   id: string;
   userId: string;
   movieId: string;
-  movie?: {
+  movie: {
     id: string;
     title: string;
     backdropPath: string | null;
@@ -243,6 +243,10 @@ export interface ReviewInfo {
   updateAt?: Date;
   liked: boolean;
   watched: boolean;
+}
+
+export interface ReviewSinglePage{
+  reviews: ReviewInfo[]
 }
 
 export interface ReviewsPage {

@@ -6,7 +6,7 @@ import {
 
 import { useToast } from "@/components/ui/use-toast"; 
 import { useSession } from "@/app/(main)/SessionProvider";
-import { ReviewsPage } from "@/lib/types"; 
+import { ReviewSinglePage } from "@/lib/types"; 
 import { submitReview } from "./actions";
 
 export function useSubmitRatingMutation() {
@@ -30,7 +30,7 @@ export function useSubmitRatingMutation() {
 
       await queryClient.cancelQueries(queryFilter);
 
-      queryClient.setQueriesData<ReviewsPage>(
+      queryClient.setQueriesData<ReviewSinglePage>(
         queryFilter,
         (oldData) => {
           if (oldData) {

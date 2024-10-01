@@ -7,6 +7,6 @@ interface ReviewItemProps{
 
 export default function ReviewItem({review}:ReviewItemProps) {
   return (
-    <div>{review.movie?.title}</div>
+    <div>{review.movie.title}</div>
   )
 }
