@@ -16,7 +16,7 @@ import Linkify from "@/components/Linkify";
 import EditProfileButton from "./EditProfileButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ReviewList from "@/components/user/lists/review/ReviewList";
-import { Loader2 } from "lucide-react";
+import ReviewsLoadingSkeleton from "@/components/user/lists/review/ReviewsLoadingSkeleton";
 
 interface UserPageProps {
   params: { username: string };
@@ -75,15 +75,10 @@ export default async function UserPage({
             <TabsTrigger value="reviews" className="text-xs sm:text-sm">Reviews</TabsTrigger>
           </TabsList>
           <TabsContent value="posts">
-            {/* <div className="rounded-2xl bg-card p-5 shadow-sm">
-              <h2 className="text-center text-2xl font-bold">
-                Publicaciones de {user.username}
-              </h2>
-            </div> */}
             <UserPosts userId={user.id} />
           </TabsContent>
           <TabsContent value="reviews">
-            <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+            <Suspense fallback={<ReviewsLoadingSkeleton />}>
               <ReviewList userId={user.id} />
             </Suspense>
           </TabsContent>
