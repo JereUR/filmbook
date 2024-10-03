@@ -224,25 +224,29 @@ export interface ImageInfo {
 
 export interface ReviewInfo {
   id: string;
-  userId: string;
-  movieId: string;
+  userId?: string;
+  movieId?: string;
   movie: {
-    id: string;
-    title: string;
-    backdropPath: string | null;
-    posterPath: string | null;
-    releaseDate: Date | null;
-    overview: string | null;
-    runtime: number | null;
-    voteAverage: number | null;
-    updatedAt: Date;
+    id?: string;
+    title?: string;
+    backdropPath?: string | null;
+    posterPath?: string | null;
+    releaseDate?: Date | null;
+    overview?: string | null;
+    runtime?: number | null;
+    voteAverage?: number | null;
+    updatedAt?: Date;
   };
+  user: {
+    username: string
+    avatarUrl?: string | null
+  }
   rating: number | null;
   review?: string | null;
   createdAt: Date;
-  updateAt?: Date;
+  updatedAt?: Date;
   liked: boolean;
-  watched: boolean;
+  watched?: boolean;
 }
 
 export interface ReviewSinglePage{
