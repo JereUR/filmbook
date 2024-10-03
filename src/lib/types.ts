@@ -237,7 +237,7 @@ export interface ReviewInfo {
     voteAverage?: number | null;
     updatedAt?: Date;
   };
-  user: {
+  user?: {
     username: string
     avatarUrl?: string | null
   }
