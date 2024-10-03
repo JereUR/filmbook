@@ -13,6 +13,7 @@ interface ReviewItemProps {
 export default function ReviewItem({ review }: ReviewItemProps) {
   const { posterPath, title, releaseDate } = review.movie
   const { id, rating, review: reviewText, liked, movieId } = review
+  const username = review.user ? review.user.username : ''
 
   const renderPopcorn = (index: number) => {
     if (!rating) {
@@ -39,7 +40,7 @@ export default function ReviewItem({ review }: ReviewItemProps) {
 
   return (
     <div className="space-y-1 flex flex-col justify-center items-center cursor-pointer">
-      <Link href={`/pelicula/review/${id}?title=${title}&date=${getYear(releaseDate?releaseDate.toString():'')}&username=${review.user.username}&movieId=${movieId}`} className="relative flex-shrink-0">
+      <Link href={`/pelicula/review/${id}?title=${title}&date=${getYear(releaseDate ? releaseDate.toString() : '')}&username=${username}&movieId=${movieId}`} className="relative flex-shrink-0">
         <Image
           className="h-32 w-20 md:h-40 md:w-28 rounded"
           src={posterPath ? posterPath : noImage}
