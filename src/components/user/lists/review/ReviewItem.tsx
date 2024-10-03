@@ -1,15 +1,18 @@
+import Image from 'next/image'
+import { Heart, Popcorn, Text } from 'lucide-react'
+import Link from 'next/link'
+
+import { getYear } from "@/lib/utils";
 import { ReviewInfo } from '@/lib/types'
 import noImage from '@/assets/no-image-film.jpg'
-import Image from 'next/image'
-import { Eye, Heart, Popcorn, Text } from 'lucide-react'
 
 interface ReviewItemProps {
   review: ReviewInfo
 }
 
 export default function ReviewItem({ review }: ReviewItemProps) {
-  const { posterPath, title } = review.movie
-  const { rating, review: reviewText, liked } = review
+  const { posterPath, title, releaseDate } = review.movie
+  const { id, rating, review: reviewText, liked, movieId } = review
 
   const renderPopcorn = (index: number) => {
     if (!rating) {
@@ -36,7 +39,7 @@ export default function ReviewItem({ review }: ReviewItemProps) {
 
   return (
     <div className="space-y-1 flex flex-col justify-center items-center cursor-pointer">
-      <div className="relative flex-shrink-0">
+      <Link href={`/pelicula/review/${id}?title=${title}&date=${getYear(releaseDate?releaseDate.toString():'')}&username=${review.user.username}&movieId=${movieId}`} className="relative flex-shrink-0">
         <Image
           className="h-32 w-20 md:h-40 md:w-28 rounded"
           src={posterPath ? posterPath : noImage}
@@ -55,7 +58,7 @@ export default function ReviewItem({ review }: ReviewItemProps) {
             />}
           </div>
         </div>
-      </div>
+      </Link>
       <div className="h-5 w-20 md:w-28 rounded flex justify-center items-center">
         <div className="flex gap-1">
           {[...Array(rating ? Math.floor(rating) + 1 : 7)].map((_, index) => (
