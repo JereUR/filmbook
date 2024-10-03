@@ -6,7 +6,7 @@ import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import kyInstance from "@/lib/ky";
 import { ReviewsPage } from "@/lib/types";
 import ReviewItem from "./ReviewItem";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
+import ReviewsLoadingSkeleton from './ReviewsLoadingSkeleton'
 
 interface UserReviewListProps {
   userId: string;
@@ -36,7 +36,7 @@ export default function UserReviews({ userId }: UserReviewListProps) {
   const reviews = data?.pages.flatMap((page) => page.reviews) || [];
 
   if (status === "pending") {
-    return <PostsLoadingSkeleton />;
+    return <ReviewsLoadingSkeleton />;
   }
 
   if (status === "success" && !reviews.length && !hasNextPage) {
