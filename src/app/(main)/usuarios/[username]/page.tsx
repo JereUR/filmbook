@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { cache, Suspense } from "react";
+import { cache} from "react";
 import { Metadata } from "next";
 import { formatDate } from "date-fns";
 
@@ -16,7 +16,6 @@ import Linkify from "@/components/Linkify";
 import EditProfileButton from "./EditProfileButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ReviewList from "@/components/user/lists/review/ReviewList";
-import ReviewsLoadingSkeleton from "@/components/user/lists/review/ReviewsLoadingSkeleton";
 
 interface UserPageProps {
   params: { username: string };
@@ -78,9 +77,7 @@ export default async function UserPage({
             <UserPosts userId={user.id} />
           </TabsContent>
           <TabsContent value="reviews">
-            <Suspense fallback={<ReviewsLoadingSkeleton />}>
-              <ReviewList userId={user.id} />
-            </Suspense>
+            <ReviewList userId={user.id} />
           </TabsContent>
         </Tabs>
 
