@@ -29,11 +29,22 @@ export async function GET(
       review: true,
       updatedAt: true,
       createdAt: true,
-      movie: true,
+      movie: {
+        select: {
+          posterPath: true,
+          title: true,
+          releaseDate: true
+        },
+      },
+      user:{
+        select:{
+          username: true
+        }
+      }
     },
     take: pageSize + 1,
-    cursor: cursor ? { id: cursor } : undefined, 
-    orderBy: { createdAt: "desc" }, 
+    cursor: cursor ? { id: cursor } : undefined,
+    orderBy: { createdAt: "desc" },
   });
 
   const nextCursor = reviews.length > pageSize ? reviews[pageSize].id : null;
@@ -42,6 +53,7 @@ export async function GET(
     id: review.id,
     movieId: review.movieId,
     movie: review.movie,
+    user: review.user,
     userId: params.userId,
     liked: review.liked,
     watched: review.watched,
