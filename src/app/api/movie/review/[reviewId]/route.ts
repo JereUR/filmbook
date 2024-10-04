@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
-import { ReviewInfo } from "@/lib/types";
+import { LikeInfo, ReviewInfo } from "@/lib/types";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: { reviewId: string } },
 ) {
   const { user: loggedInUser } = await validateRequest();
 
@@ -15,7 +15,7 @@ export async function GET(
 
   const reviewData = await prisma.review.findUnique({
     where: {
-      id: params.id,
+      id: params.reviewId,
     },
     select: {
       id: true,
@@ -39,13 +39,31 @@ export async function GET(
           username: true,
           avatarUrl: true
         }
-      }
+      },
+      likes: {
+        where: {
+          userId: loggedInUser.id,
+        },
+        select: {
+          userId: true,
+        },
+      },
+      _count: {
+        select: {
+          likes: true,
+        },
+      },
     },
   });
 
   if (!reviewData) {
     return NextResponse.json(null);
   }
+
+  const likesData: LikeInfo = {
+    likes: reviewData._count.likes,
+    isLikedByUser: !!reviewData.likes.length,
+  };
 
   const review: ReviewInfo ={
     id: reviewData.id,
@@ -58,6 +76,7 @@ export async function GET(
     review: reviewData.review,
     createdAt: reviewData.createdAt,
     updatedAt: reviewData.updatedAt,
+    likesData
   };
 
   return NextResponse.json(review);

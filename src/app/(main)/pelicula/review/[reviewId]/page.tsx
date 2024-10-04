@@ -7,7 +7,7 @@ import UserReview from './UserReview'
 import OtherReviews from './OtherReviews';
 
 interface PageProps {
-  params: { id: string },
+  params: { reviewId: string },
   searchParams: { username?:string, title?: string, date?: string, movieId:string }
 }
 
@@ -32,7 +32,7 @@ export default function ReviewPage({ params, searchParams }: PageProps) {
     <main className="flex flex-col md:flex-row w-full min-w-0 gap-5">
       <div className="flex-grow md:w-3/4">
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-          <UserReview id={params.id} />
+          <UserReview reviewId={params.reviewId} />
       </Suspense>
       </div>
       <div className="md:w-1/4">
