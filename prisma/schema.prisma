@@ -113,12 +113,21 @@ model Comment {
 }
 
 model Like {
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  postId String
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  id      String  @id @default(cuid())
+  userId  String
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  postId  String?
+  post    Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  
+  reviewId String?
+  review   Review? @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 
   @@unique([userId, postId])
+  @@unique([userId, reviewId])
+
   @@map("likes")
 }
 
@@ -141,8 +150,11 @@ model Notification {
   recipient   User             @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade)
   issuerId    String
   issuer      User             @relation("Issuer", fields: [issuerId], references: [id], onDelete: Cascade)
-  postId      String?
-  post        Post?            @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId       String?  
+  post         Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  reviewId     String?  
+  review       Review?  @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   type        NotificationType
   read        Boolean          @default(false)
 
@@ -199,6 +211,8 @@ model Review {
   liked   Boolean @default(false)
   review  String?
   diary   Diary[]
+  likes   Like[]
+  linkedNotifications Notification[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -239,7 +253,7 @@ model Diary {
   movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
   reviewId  String?
   review    Review?  @relation(fields: [reviewId], references: [id], onDelete: SetNull)
-  watchedOn DateTime 
+  watchedOn DateTime
   createdAt DateTime @default(now())
 
   @@unique([userId, movieId, watchedOn])
