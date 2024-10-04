@@ -98,6 +98,9 @@ export const notificationsInclude = {
   post: {
     select: { content: true },
   },
+  review: {
+    select: { review: true },
+  },
 } satisfies Prisma.NotificationInclude;
 
 export type NotificationData = Prisma.NotificationGetPayload<{
@@ -248,6 +251,7 @@ export interface ReviewInfo {
   updatedAt?: Date;
   liked: boolean;
   watched?: boolean;
+  likesData?: LikeInfo
 }
 
 export interface ReviewSinglePage{
