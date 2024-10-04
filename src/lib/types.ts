@@ -232,6 +232,7 @@ export interface ReviewInfo {
     backdropPath?: string | null;
     posterPath?: string | null;
     releaseDate?: Date | null;
+    directors?: any
     overview?: string | null;
     runtime?: number | null;
     voteAverage?: number | null;
