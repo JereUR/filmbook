@@ -63,3 +63,27 @@ export function ratingColorFilmbook(rating: number) {
     return "text-primary";
   }
 }
+
+export function DateFormat(dateISO: string) {
+  const date = new Date(dateISO);
+
+  const day = date.getUTCDate();
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+  const month = months[date.getUTCMonth()];
+  const year = date.getUTCFullYear();
+
+  return `${day} de ${month} de ${year}`;
+}
