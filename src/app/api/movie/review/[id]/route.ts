@@ -30,7 +30,8 @@ export async function GET(
         select: {
           posterPath: true,
           title: true,
-          releaseDate: true
+          releaseDate: true,
+          directors: true
         },
       },
       user:{
