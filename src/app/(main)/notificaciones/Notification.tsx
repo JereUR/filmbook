@@ -26,9 +26,13 @@ export default function Notification({ notification }: NotificationProps) {
       href: `/posts/${notification.postId}`,
     },
     LIKE: {
-      message: `${notification.issuer.displayName} ha dado like a tu publicación.`,
+      message: notification.review
+        ? `${notification.issuer.displayName} ha dado like a tu review.`
+        : `${notification.issuer.displayName} ha dado like a tu publicación.`,
       icon: <Heart className="size-7 fill-red-600 text-red-600" />,
-      href: `/posts/${notification.postId}`,
+      href: notification.review
+        ? `/reviews/${notification.reviewId}`
+        : `/posts/${notification.postId}`,
     },
   };
 
