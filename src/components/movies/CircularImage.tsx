@@ -9,7 +9,8 @@ interface CircularImageProps {
   size?: number;
   alt: string;
   className?: string;
-  handleImageClick:(image:ImageInfo)=>void
+  handleImageClick?: (image: ImageInfo) => void
+  transform?: boolean
 }
 
 export default function CircularImage({
@@ -18,10 +19,11 @@ export default function CircularImage({
   handleImageClick,
   alt,
   className,
+  transform = true
 }: CircularImageProps) {
-  const image:ImageInfo={
-    src:src ? src : noImage,
-    name:alt
+  const image: ImageInfo = {
+    src: src ? src : noImage,
+    name: alt
   }
 
   return (
@@ -37,8 +39,9 @@ export default function CircularImage({
         width={size ?? 38}
         height={size ?? 38}
         alt={alt}
-        className={`object-cover cursor-pointer ${src && "translate-y-[-10%] transform"}`}
-        onClick={()=>handleImageClick(image)}
+        aria-label={alt}
+        className={`object-cover cursor-pointer ${src && transform && "translate-y-[-10%] transform"}`}
+        onClick={() => handleImageClick && handleImageClick(image)}
       />
     </div>
   );
