@@ -37,17 +37,17 @@ export default function ReviewPage({ params, searchParams }: PageProps) {
       </div>
       <div className="md:w-1/4">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-          <OtherReviewsContainer movieId={movieId} />
+          <OtherReviewsContainer movieId={movieId} reviewId={params.reviewId}/>
         </Suspense>
       </div>
     </main>
   );
 }
 
-function OtherReviewsContainer({ movieId }: { movieId: string }) {
+function OtherReviewsContainer({ movieId, reviewId }: { movieId: string, reviewId: string }) {
   return (
     <div className="h-fit w-full px-2 flex-none space-y-5 md:block">
-      <OtherReviews movieId={movieId} />
+      <OtherReviews movieId={movieId} reviewId={reviewId}/>
     </div>
   );
 }
