@@ -254,6 +254,25 @@ export interface ReviewInfo {
   likesData?: LikeInfo
 }
 
+export interface ReviewResumeInfo {
+  id: string;
+  userId?: string;
+  movieId?: string;
+  user?: {
+    username: string
+    avatarUrl?: string | null
+  }
+  rating: number | null;
+  liked: boolean
+  review?: string | null;
+  createdAt: Date;
+}
+
+export interface ReviewResumeInfoPage{
+  reviews: ReviewResumeInfo[]
+  nextCursor: string | null;
+}
+
 export interface ReviewSinglePage{
   reviews: ReviewInfo[]
 }
