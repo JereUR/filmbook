@@ -11,6 +11,7 @@ import { DateFormat, getYear } from "@/lib/utils";
 import noImage from '@/assets/no-image-film.jpg'
 import Link from "next/link";
 import LikeReviewButton from "@/components/movies/LikeReviewButton";
+import UserTooltip from "@/components/UserTooltip";
 
 interface UserReviewProps {
   reviewId: string
@@ -66,10 +67,10 @@ export default function UserReview({ reviewId }: UserReviewProps) {
     <div className='p-2 md:p-5 bg-card rounded-2xl space-y-3 md:space-y-5'>
       <div className="flex justify-between items-center gap-2 md:gap-4 mb-2 md:mb-4 ">
         <div className="flex flex-col">
-          <div className="flex items-center gap-2 md:gap-4 mb-4">
-            <CircularImage src={review.user?.avatarUrl || null} alt={`${review.user?.username} photo`} size={34} transform={false} />
+          <Link className="flex items-center gap-2 md:gap-4 mb-4" href={`/usuarios/${review.user.username}`}>
+             <CircularImage src={review.user?.avatarUrl || null} alt={`${review.user?.username} photo`} size={34} transform={false} />
             <span className="text-sm md:text-base italic font-medium">{review.user?.username}</span>
-          </div>
+          </Link>
           <div>
             <div className="flex gap-2 items-center">
               <span className="flex gap-2 items-center md:text-lg font-semibold">{review.movie.title} </span>
