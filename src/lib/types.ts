@@ -241,7 +241,7 @@ export interface ReviewInfo {
     voteAverage?: number | null;
     updatedAt?: Date;
   };
-  user?: {
+  user: {
     username: string
     avatarUrl?: string | null
   }
@@ -256,13 +256,13 @@ export interface ReviewInfo {
 
 export interface ReviewResumeInfo {
   id: string;
-  userId?: string;
-  movieId?: string;
-  movie?: {
+  userId: string;
+  movieId: string;
+  movie: {
     title?: string
     releaseDate?: string
   }
-  user?: {
+  user: {
     username: string
     avatarUrl?: string | null
   }
