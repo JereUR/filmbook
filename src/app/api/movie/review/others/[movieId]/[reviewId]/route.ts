@@ -24,6 +24,7 @@ export async function GET(
     },
     select: {
       id: true,
+      userId: true,
       movieId: true,
       rating: true,
       liked: true,
@@ -52,6 +53,7 @@ export async function GET(
 
   const data: ReviewResumeInfo[] = reviews.slice(0, pageSize).map((review) => ({
     id: review.id,
+    userId: review.userId,
     movieId: review.movieId,
     movie: {
       ...review.movie,
