@@ -258,6 +258,10 @@ export interface ReviewResumeInfo {
   id: string;
   userId?: string;
   movieId?: string;
+  movie?: {
+    title?: string
+    releaseDate?: string
+  }
   user?: {
     username: string
     avatarUrl?: string | null

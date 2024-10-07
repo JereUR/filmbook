@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
 import { ReviewResumeInfo } from "@/lib/types";
+import { getYear } from "@/lib/utils";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { movieId: string, reviewId: string } },
+  { params }: { params: { movieId: string; reviewId: string } },
 ) {
   const { user: loggedInUser } = await validateRequest();
 
@@ -25,16 +26,22 @@ export async function GET(
       id: true,
       movieId: true,
       rating: true,
-      liked: true, 
+      liked: true,
       review: true,
       updatedAt: true,
       createdAt: true,
-      user:{
-        select:{
+      movie: {
+        select: {
+          title: true,
+          releaseDate: true,
+        },
+      },
+      user: {
+        select: {
           username: true,
-          avatarUrl: true
-        }
-      }
+          avatarUrl: true,
+        },
+      },
     },
     take: pageSize + 1,
     cursor: cursor ? { id: cursor } : undefined,
@@ -46,6 +53,12 @@ export async function GET(
   const data: ReviewResumeInfo[] = reviews.slice(0, pageSize).map((review) => ({
     id: review.id,
     movieId: review.movieId,
+    movie: {
+      ...review.movie,
+      releaseDate: getYear(
+        review.movie.releaseDate ? review.movie.releaseDate?.toString() : "",
+      ),
+    },
     user: review.user,
     rating: review.rating,
     liked: review.liked,
