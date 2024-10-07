@@ -2,7 +2,7 @@
 
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
-import { Heart, Popcorn } from "lucide-react";
+import { Heart, Loader2, Popcorn } from "lucide-react";
 import Image from "next/image";
 
 import { CrewMember, ReviewInfo } from "@/lib/types";
@@ -31,7 +31,13 @@ export default function UserReview({ reviewId }: UserReviewProps) {
     getReview();
   }, [])
 
-  if (!review) return null;
+  if (!review) {
+    return (
+      <div className='p-2 md:p-5 bg-card rounded-2xl space-y-3 md:space-y-5'>
+        <Loader2 className="animate-spin mx-auto" />
+      </div>
+    );
+  }
 
   const renderPopcorn = (index: number) => {
     if (!review.rating) {
@@ -82,7 +88,7 @@ export default function UserReview({ reviewId }: UserReviewProps) {
                 ))}
               </div>
             </div>
-            <span className="text-sm md:text-base text-foreground/40">Vista el {DateFormat(review.createdAt.toString())} {review.updatedAt && review.updatedAt !== review.createdAt && < span className="italic text-xs md:text-sm">(Actualizada el {DateFormat(review.updatedAt.toString())})</span>}</span>
+            <span className="text-sm md:text-base text-foreground/40 font-light">Vista el {DateFormat(review.createdAt.toString())} {review.updatedAt && review.updatedAt !== review.createdAt && < span className="italic text-xs md:text-sm">(Actualizada el {DateFormat(review.updatedAt.toString())})</span>}</span>
           </div>
         </div>
         <div className='mr-5'>
@@ -98,7 +104,7 @@ export default function UserReview({ reviewId }: UserReviewProps) {
           </Link>
         </div>
       </div>
-      <span className="text-sm md:text-base text-foreground/40">
+      <span className="text-sm md:text-base font-semibold text-foreground/40">
         <p className="text-justify mx-2 md:mx-4 indent-2 md:indent-4">{review.review}</p>
       </span>
       <LikeReviewButton
