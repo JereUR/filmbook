@@ -299,6 +299,7 @@ export interface LikedInfo {
 }
 
 export interface ReviewData{
+  id: string
   rating: number | null;
   review: string | null;
   liked: boolean;
