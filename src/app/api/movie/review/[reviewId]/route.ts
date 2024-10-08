@@ -19,6 +19,7 @@ export async function GET(
     },
     select: {
       id: true,
+      userId: true,
       movieId: true,
       liked: true,
       watched: true,
@@ -67,6 +68,7 @@ export async function GET(
 
   const review: ReviewInfo ={
     id: reviewData.id,
+    userId: reviewData.userId,
     movieId: reviewData.movieId,
     movie: reviewData.movie,
     user: reviewData.user,
