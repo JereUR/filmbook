@@ -23,7 +23,7 @@ export default function PostMoreButton({
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
 
   return (
-    <>
+    <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size="icon" variant="ghost" className={className}>
@@ -47,6 +47,6 @@ export default function PostMoreButton({
         open={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}
       />
-    </>
+    </div>
   );
 }
