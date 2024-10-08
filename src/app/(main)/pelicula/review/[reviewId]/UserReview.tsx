@@ -4,14 +4,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { Heart, Loader2, Popcorn } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { CrewMember, ReviewInfo } from "@/lib/types";
 import CircularImage from "@/components/movies/CircularImage";
 import { DateFormat, getYear } from "@/lib/utils";
 import noImage from '@/assets/no-image-film.jpg'
-import Link from "next/link";
 import LikeReviewButton from "@/components/movies/LikeReviewButton";
-import UserTooltip from "@/components/UserTooltip";
+import ReviewMoreButton from "@/components/movies/review/ReviewMoreButton";
 
 interface UserReviewProps {
   reviewId: string
@@ -92,7 +92,8 @@ export default function UserReview({ reviewId }: UserReviewProps) {
             <span className="text-sm md:text-base text-foreground/40 font-light">Vista el {DateFormat(review.createdAt.toString())} {review.updatedAt && review.updatedAt !== review.createdAt && < span className="italic text-xs md:text-sm">(Actualizada el {DateFormat(review.updatedAt.toString())})</span>}</span>
           </div>
         </div>
-        <div className='mr-5'>
+        <div className='flex flex-col items-end mr-5'>
+          <ReviewMoreButton review={review} className=''/>
           <Link href={`/pelicula/${review.movieId}?title=${review.movie.title}&date=${getYear(review.movie.releaseDate ? review.movie.releaseDate?.toString() : '')}`}>
             <Image
               className="h-32 w-20 md:h-40 md:w-28 rounded cursor-pointer"
