@@ -1,6 +1,6 @@
 "use client";
 
-import { ClipboardEvent, useRef } from "react";
+import { ClipboardEvent, useEffect, useRef } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -17,7 +17,11 @@ import LoadingButton from "@/components/LoadingButton";
 import useMediaUpload, { Attachment } from "./useMediaUpload";
 import { Button } from "@/components/ui/button";
 
-export default function PostEditor() {
+interface PostEditorProps {
+  initialContent?: string;
+}
+
+export default function PostEditor({ initialContent = "" }: PostEditorProps) {
   const { user } = useSession();
   const mutation = useSubmitPostMutation();
 
@@ -43,10 +47,16 @@ export default function PostEditor() {
         italic: false,
       }),
       Placeholder.configure({
-        placeholder: "¿De que quieres hablar?",
+        placeholder: "¿De qué quieres hablar?",
       }),
     ],
   });
+
+  useEffect(() => {
+    if (editor && initialContent) {
+      editor.commands.setContent(initialContent);
+    }
+  }, [editor, initialContent]);
 
   const input =
     editor?.getText({
@@ -76,6 +86,7 @@ export default function PostEditor() {
     startUpload(files);
   }
 
+
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex gap-5">
@@ -100,10 +111,10 @@ export default function PostEditor() {
       )}
       <div className="flex items-center justify-end gap-3">
         {isUploading && (
-          <>
+          <div>
             <span className="text-sm">{uploadProgress ?? 0}%</span>
             <Loader2 className="size-5 animate-spin text-primary" />
-          </>
+          </div>
         )}
         <AddAttachmentsButtonProps
           onFilesSelected={startUpload}
@@ -134,7 +145,7 @@ function AddAttachmentsButtonProps({
   const filesInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <>
+    <div>
       <Button
         variant="ghost"
         size="icon"
@@ -158,7 +169,7 @@ function AddAttachmentsButtonProps({
           }
         }}
       />
-    </>
+    </div>
   );
 }
 
