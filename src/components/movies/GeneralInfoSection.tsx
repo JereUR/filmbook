@@ -43,6 +43,7 @@ export default function GeneralInfoSection({
   const foundUserReview = reviews && reviews.find(review => review.movieId === id && review.userId === user.id);
   let watched = foundUserReview?.watched || false
   let liked = foundUserReview?.liked || false
+  let reviewId = foundUserReview?.id
 
   async function fetchNewReview() {
     const movieId = id
@@ -50,6 +51,7 @@ export default function GeneralInfoSection({
     const data = await response.json()
 
     if (data) {
+      reviewId = data.id
       watched = data.watched
       liked = data.liked
     }
@@ -65,6 +67,8 @@ export default function GeneralInfoSection({
         <div className="flex flex-col items-start gap-2 md:w-3/4 md:flex-row md:items-center md:gap-4">
           <TitleSection
             movieId={id}
+            reviewId={reviewId}
+            username={user.username}
             title={title}
             releaseDate={releaseDate}
             posterPath={posterPath}

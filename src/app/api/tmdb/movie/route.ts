@@ -47,6 +47,7 @@ export async function GET(req: NextRequest) {
       },
       reviews: {
         select: {
+          id: true,
           userId: true,
           movieId: true,
           rating: true,
@@ -111,6 +112,7 @@ export async function GET(req: NextRequest) {
                   username: true,
                 },
               },
+              id: true,
               userId: true,
               movieId: true,
               rating: true,
