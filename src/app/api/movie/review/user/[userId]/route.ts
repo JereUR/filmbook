@@ -33,14 +33,15 @@ export async function GET(
         select: {
           posterPath: true,
           title: true,
-          releaseDate: true
+          releaseDate: true,
         },
       },
-      user:{
-        select:{
-          username: true
-        }
-      }
+      user: {
+        select: {
+          username: true,
+          displayName: true,
+        },
+      },
     },
     take: pageSize + 1,
     cursor: cursor ? { id: cursor } : undefined,
