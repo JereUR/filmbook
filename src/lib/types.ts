@@ -244,6 +244,7 @@ export interface ReviewInfo {
   user?: {
     username: string
     avatarUrl?: string | null
+    displayName: string
   }
   rating: number | null;
   review?: string | null;

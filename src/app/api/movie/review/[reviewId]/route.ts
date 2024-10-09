@@ -32,14 +32,15 @@ export async function GET(
           posterPath: true,
           title: true,
           releaseDate: true,
-          directors: true
+          directors: true,
         },
       },
-      user:{
-        select:{
+      user: {
+        select: {
           username: true,
-          avatarUrl: true
-        }
+          avatarUrl: true,
+          displayName: true,
+        },
       },
       likes: {
         where: {
@@ -66,7 +67,7 @@ export async function GET(
     isLikedByUser: !!reviewData.likes.length,
   };
 
-  const review: ReviewInfo ={
+  const review: ReviewInfo = {
     id: reviewData.id,
     userId: reviewData.userId,
     movieId: reviewData.movieId,
@@ -78,7 +79,7 @@ export async function GET(
     review: reviewData.review,
     createdAt: reviewData.createdAt,
     updatedAt: reviewData.updatedAt,
-    likesData
+    likesData,
   };
 
   return NextResponse.json(review);
