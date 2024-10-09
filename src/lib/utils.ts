@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { formatDate, formatDistanceToNowStrict } from "date-fns";
+import { shortenUrl } from "./shortenUrl";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -86,4 +87,33 @@ export function DateFormat(dateISO: string) {
   const year = date.getUTCFullYear();
 
   return `${day} de ${month} de ${year}`;
+}
+
+export function generateReviewShareText(
+  reviewId: string,
+  username: string,
+  rating: number | null,
+  movie: {
+    movieId: string | undefined;
+    title: string;
+    year: string;
+  },
+): string {
+  let icons = "";
+
+  if (rating !== null) {
+    const fullIcons = Math.floor(rating);
+    const halfIcon = rating % 1 === 0.5 ? "½" : "";
+
+    icons = "🍿".repeat(fullIcons) + halfIcon;
+  }
+
+  const encodedTitle = encodeURIComponent(movie.title);
+  const encodedUsername = encodeURIComponent(username);
+  const encodedMovieId = encodeURIComponent(movie.movieId || "");
+
+  const reviewUrl = `${process.env.NEXT_PUBLIC_DEPLOY_URL}/pelicula/review/${reviewId}?title=${encodedTitle}&date=${movie.year}&username=${encodedUsername}&movieId=${encodedMovieId}`;
+
+  const shareText = `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year})<br /><br />Léela completa aquí:<br /> ${reviewUrl}`;
+  return shareText;
 }
