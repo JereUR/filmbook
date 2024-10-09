@@ -1,58 +1,67 @@
+"use client";
+
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Edit2, MoreHorizontal, Trash2, Share2 } from "lucide-react";
+import {
+  Edit2,
+  MoreHorizontal,
+  Trash2,
+  Share2,
+  MessageSquare,
+  Twitter,
+} from "lucide-react";
 
 import { ReviewInfo, ReviewData } from "@/lib/types";
 import DeleteReviewDialog from "./DeleteReviewDialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/app/(main)/SessionProvider";
 import EditReviewDialog from "./EditReviewDialog";
 import { useRouter } from "next/navigation";
+import SharePostReviewDialog from "./SharePostReviewDialog";
+import { getYear } from "@/lib/utils";
 
 interface ReviewMoreButtonProps {
   review: ReviewInfo;
-  reviewWasChanged: boolean
-  setReviewWasChanged: Dispatch<SetStateAction<boolean>>
   className?: string;
 }
 
 export default function ReviewMoreButton({
   review,
-  reviewWasChanged,
-  setReviewWasChanged,
   className,
 }: ReviewMoreButtonProps) {
-  const { user } = useSession()
+  const { user } = useSession();
   const [reviewState, setReviewState] = useState<ReviewData>({
     id: review.id,
     rating: review.rating || null,
     review: review.review || "",
     watched: review.watched || false,
     liked: review.liked || false,
-  })
-  const [showReviewEditor, setShowReviewEditor] = useState<boolean>(false)
+  });
+  const [showReviewEditor, setShowReviewEditor] = useState<boolean>(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [showSharePostDialog, setShowSharePostDialog] =
+    useState<boolean>(false);
 
-  const { movieId } = review
-  const router = useRouter()
-
-  async function fetchNewReview() {
-    const response = await fetch(`/api/movie/review/movie/${movieId}`)
-    const data = await response.json()
-
-    if (data as ReviewData) {
-      setReviewState(data)
-    }
-  }
-
-  useEffect(() => {
-    if (reviewWasChanged) {
-      fetchNewReview().then(() => setReviewWasChanged(false));
-    }
-  }, [reviewWasChanged]);
+  const { movieId } = review;
+  const movie = {
+    movieId,
+    title: review.movie?.title || "",
+    year: getYear(
+      review.movie.releaseDate ? review.movie.releaseDate.toString() : "",
+    ),
+  };
+  const router = useRouter();
 
   return (
-    <div>
+    <div className="mb-2">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size="icon" variant="ghost" className={className}>
@@ -60,32 +69,59 @@ export default function ReviewMoreButton({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem
-            className="cursor-pointer"
-          >
-            <span className="flex items-center gap-3 font-bold text-foreground">
-              <Share2 className="size-4" />
-              Compartir
-            </span>
-          </DropdownMenuItem>
-          {user.id === review.userId && (<div><DropdownMenuItem
-            onClick={() => setShowReviewEditor(true)}
-            className="cursor-pointer"
-          >
-            <span className="flex items-center gap-3 font-bold text-foreground">
-              <Edit2 className="size-4 text-sky-600" />
-              Editar
-            </span>
-          </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => setShowDeleteDialog(true)}
-              className="cursor-pointer"
-            >
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger className="cursor-pointer">
               <span className="flex items-center gap-3 font-bold text-foreground">
-                <Trash2 className="size-4 text-destructive" />
-                Borrar
+                <Share2 className="size-4" />
+                Compartir
               </span>
-            </DropdownMenuItem></div>)}
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => setShowSharePostDialog(true)}
+              >
+                <span className="flex items-center gap-3 font-bold text-foreground">
+                  <MessageSquare className="size-4" />
+                  Postear
+                </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <span className="flex items-center gap-3 font-bold text-foreground">
+                  <Twitter className="size-4" />
+                  Twitter
+                </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
+                <span className="flex items-center gap-3 font-bold text-foreground">
+                  <MessageSquare className="size-4" />
+                  Chat
+                </span>
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+          {user.id === review.userId && (
+            <>
+              <DropdownMenuItem
+                onClick={() => setShowReviewEditor(true)}
+                className="cursor-pointer"
+              >
+                <span className="flex items-center gap-3 font-bold text-foreground">
+                  <Edit2 className="size-4 text-sky-600" />
+                  Editar
+                </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => setShowDeleteDialog(true)}
+                className="cursor-pointer"
+              >
+                <span className="flex items-center gap-3 font-bold text-foreground">
+                  <Trash2 className="size-4 text-destructive" />
+                  Borrar
+                </span>
+              </DropdownMenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
       <DeleteReviewDialog
@@ -93,7 +129,21 @@ export default function ReviewMoreButton({
         open={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}
       />
-      <EditReviewDialog reviewState={reviewState} movieId={movieId || ''} activateRefresh={() => router.refresh()} onClose={() => setShowReviewEditor(false)} open={showReviewEditor} />
+      <EditReviewDialog
+        reviewState={reviewState}
+        movieId={movieId || ""}
+        activateRefresh={() => router.refresh()}
+        onClose={() => setShowReviewEditor(false)}
+        open={showReviewEditor}
+      />
+      <SharePostReviewDialog
+        open={showSharePostDialog}
+        onClose={() => setShowSharePostDialog(false)}
+        username={review.user ? review.user.username : ""}
+        rating={review.rating}
+        movie={movie}
+        reviewId={review.id}
+      />
     </div>
   );
 }
