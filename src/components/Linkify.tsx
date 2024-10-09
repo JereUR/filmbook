@@ -11,7 +11,7 @@ export default function Linkify({ children }: LinkifyProps) {
   return (
     <LinkifyUsername>
       <LinkifyHashtag>
-        <LinkifyUrl>{children}</LinkifyUrl>
+          <LinkifyUrl>{children}</LinkifyUrl>
       </LinkifyHashtag>
     </LinkifyUsername>
   );
@@ -48,6 +48,21 @@ function LinkifyHashtag({ children }: LinkifyProps) {
           href={`/hashtag/${match.slice(1)}`}
           className="text-primary hover:underline"
         >
+          {match}
+        </Link>
+      )}
+    >
+      {children}
+    </LinkIt>
+  );
+}
+
+function LinkifyRebrandly({ children }: LinkifyProps) {
+  return (
+    <LinkIt
+      regex={/(rebrand\.ly\/[^\s]+)/} 
+      component={(match: string, key: number) => (
+        <Link key={key} href={`https://${match}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
           {match}
         </Link>
       )}
