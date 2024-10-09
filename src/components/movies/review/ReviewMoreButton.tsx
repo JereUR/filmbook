@@ -140,6 +140,7 @@ export default function ReviewMoreButton({
         open={showSharePostDialog}
         onClose={() => setShowSharePostDialog(false)}
         username={review.user ? review.user.username : ""}
+        displayName={review.user ? review.user.displayName : ""}
         rating={review.rating}
         movie={movie}
         reviewId={review.id}
