@@ -10,18 +10,20 @@ interface ReviewEditorProps {
   ownRating: number | null;
   reviewText: string | null | undefined
   activateRefresh:()=>void
+  edit?: boolean
 }
 
 export default function ReviewEditor({
   movieId,
   ownRating,
   reviewText,
-  activateRefresh
+  activateRefresh,
+  edit=false
 }: ReviewEditorProps) {
   const [rating, setRating] = useState<number>(ownRating || 0);
   const [review, setReview] = useState(reviewText || '')
   const [halfRating, setHalfRating] = useState<boolean>(false);
-  const [onEdit, setOnEdit] = useState<boolean>(false);
+  const [onEdit, setOnEdit] = useState<boolean>(edit);
   const { toast } = useToast();
   const mutation = useSubmitRatingMutation();
 

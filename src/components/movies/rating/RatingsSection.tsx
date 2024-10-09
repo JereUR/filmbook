@@ -135,8 +135,6 @@ export default function RatingsSection({
           className="pl-5 md:pl-0 md:pt-1"
         />
       </div>
-
-
     </div>
   );
 }

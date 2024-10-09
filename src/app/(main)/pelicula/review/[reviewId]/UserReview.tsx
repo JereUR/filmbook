@@ -19,6 +19,7 @@ interface UserReviewProps {
 
 export default function UserReview({ reviewId }: UserReviewProps) {
   const [review, setReview] = useState<ReviewInfo | null>(null);
+  const [reviewWasChanged, setReviewWasChanged] = useState(false)
   const { toast } = useToast()
 
   async function getReview() {
@@ -30,7 +31,7 @@ export default function UserReview({ reviewId }: UserReviewProps) {
 
   useEffect(() => {
     getReview();
-  }, [])
+  }, [reviewWasChanged])
 
   if (!review) {
     return (
@@ -45,15 +46,15 @@ export default function UserReview({ reviewId }: UserReviewProps) {
       return undefined
     } else {
       if (review.rating >= index + 1) {
-        return <Popcorn className="icon-thick h-4 w-4 md:h-5 md:w-5 cursor-pointer text-primary" />
+        return <Popcorn className="icon-thick h-5 w-5 md:h-6 md:w-6 cursor-pointer text-primary" />
       } else if (review.rating >= index + 0.5) {
         return (
-          <div className="relative h-4 w-4 md:h-5 md:w-5">
+          <div className="relative h-5 w-5 md:h-6 md:w-6">
             <div className="absolute inset-0 w-1/2 overflow-hidden">
-              <Popcorn className="icon-thick h-4 w-4 md:h-5 md:w-5 text-primary" />
+              <Popcorn className="icon-thick h-5 w-5 md:h-6 md:w-6 text-primary" />
             </div>
             <div className="absolute inset-0 left-1/2 w-1/2 overflow-hidden">
-              <Popcorn className="icon-thick h-4 w-4 md:h-5 md:w-5 text-transparent" />
+              <Popcorn className="icon-thick h-5 w-5 md:h-6 md:w-6 text-transparent" />
             </div>
           </div>
         )
@@ -93,7 +94,7 @@ export default function UserReview({ reviewId }: UserReviewProps) {
           </div>
         </div>
         <div className='flex flex-col items-end mr-5'>
-          <ReviewMoreButton review={review} className=''/>
+          <ReviewMoreButton review={review} reviewWasChanged={reviewWasChanged} setReviewWasChanged={setReviewWasChanged}/>
           <Link href={`/pelicula/${review.movieId}?title=${review.movie.title}&date=${getYear(review.movie.releaseDate ? review.movie.releaseDate?.toString() : '')}`}>
             <Image
               className="h-32 w-20 md:h-40 md:w-28 rounded cursor-pointer"
