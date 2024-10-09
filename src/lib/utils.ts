@@ -92,7 +92,9 @@ export function DateFormat(dateISO: string) {
 export function generateReviewShareText(
   reviewId: string,
   username: string,
+  displayName: string,
   rating: number | null,
+  own: boolean,
   movie: {
     movieId: string | undefined;
     title: string;
@@ -114,6 +116,9 @@ export function generateReviewShareText(
 
   const reviewUrl = `${process.env.NEXT_PUBLIC_DEPLOY_URL}/pelicula/review/${reviewId}?title=${encodedTitle}&date=${movie.year}&username=${encodedUsername}&movieId=${encodedMovieId}`;
 
-  const shareText = `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year})<br /><br />Léela completa aquí:<br /> ${reviewUrl}`;
-  return shareText;
+  if (own) {
+    return `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year})<br /><br />Léela completa aquí:<br /> ${reviewUrl}`;
+  } else {
+    return `Este es la review de ${icons} de ${movie.title} (${movie.year}) hecha por @${displayName}<br /><br />Léela completa aquí:<br /> ${reviewUrl}`;
+  }
 }

@@ -9,11 +9,13 @@ import {
 } from "@/components/ui/dialog";
 import PostEditor from "@/components/posts/editor/PostEditor";
 import { generateReviewShareText } from "@/lib/utils";
+import { useSession } from "@/app/(main)/SessionProvider";
 
 interface SharePostReviewDialogProps {
   open: boolean;
   onClose: () => void;
   username: string;
+  displayName: string
   reviewId: string;
   rating: number | null;
   movie: {
@@ -29,28 +31,27 @@ export default function SharePostReviewDialog({
   reviewId,
   rating,
   username,
+  displayName,
   movie,
 }: SharePostReviewDialogProps) {
-    const text = generateReviewShareText(
-    reviewId,
-    username,
-    rating,
-    movie,
-  );
+  const { user } = useSession();
+  const own = username === user.username;
+
+  const text = generateReviewShareText(reviewId, username, displayName, rating, own, movie);
 
   function handleOpenChange(open: boolean) {
     if (!open) {
       onClose();
     }
   }
-  console.log(text)
+  console.log(text);
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="w-full max-w-[800px]">
         <DialogHeader>
           <DialogTitle>Postear review</DialogTitle>
         </DialogHeader>
-          <PostEditor initialContent={text} />
+        <PostEditor initialContent={text} />
       </DialogContent>
     </Dialog>
   );
