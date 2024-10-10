@@ -37,7 +37,6 @@ export async function GET(req: NextRequest) {
       `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}&language=es-ES&page=${page}`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json;charset=utf-8",
         },
       },
@@ -63,7 +62,9 @@ export async function GET(req: NextRequest) {
         id: movie.id,
         title: movie.title,
         release_date: movie.release_date,
-        poster_path: movie.poster_path?`${BASE_IMG_TMDB}${movie.poster_path}`:undefined,
+        poster_path: movie.poster_path
+          ? `${BASE_IMG_TMDB}${movie.poster_path}`
+          : undefined,
         genre_names: genreNames,
       };
     });
