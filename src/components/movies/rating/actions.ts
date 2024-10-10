@@ -39,13 +39,22 @@ export async function submitReview(input: {
     newNumberOfRatings = movieRating.numberOfRatings;
 
     newAverageRating = previousRating
-      ? ((movieRating.averageRating * newNumberOfRatings) - previousRating + rating) / newNumberOfRatings
-      : ((movieRating.averageRating * newNumberOfRatings) + rating) / (newNumberOfRatings + 1);
+      ? (movieRating.averageRating * newNumberOfRatings -
+          previousRating +
+          rating) /
+        newNumberOfRatings
+      : (movieRating.averageRating * newNumberOfRatings + rating) /
+        (newNumberOfRatings + 1);
 
-    newNumberOfRatings += previousRating ? 0 : 1; 
+    newNumberOfRatings += previousRating ? 0 : 1;
   }
 
-  const [newReview] = await prisma.$transaction([
+  const followers = await prisma.follow.findMany({
+    where: { followingId: user.id },
+    select: { followerId: true },
+  });
+
+  const [newReview, updatedMovieRating] = await prisma.$transaction([
     prisma.review.upsert({
       where: {
         userId_movieId: {
@@ -82,8 +91,22 @@ export async function submitReview(input: {
       },
     }),
   ]);
+  
+  const notifications = followers.map((follower) =>
+    prisma.notification.create({
+      data: {
+        issuerId: user.id,
+        recipientId: follower.followerId,
+        reviewId: newReview.id, 
+        type: "REVIEW",
+      },
+    })
+  );
+  
+  await prisma.$transaction(notifications);
+  
+  return newReview;
+  
 
   return newReview;
 }
-
-
