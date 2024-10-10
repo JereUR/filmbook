@@ -26,7 +26,7 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import EditReviewDialog from "./EditReviewDialog";
 import { useRouter } from "next/navigation";
 import SharePostReviewDialog from "./SharePostReviewDialog";
-import { getYear } from "@/lib/utils";
+import { generateReviewShareTextForTwitter, getYear } from "@/lib/utils";
 
 interface ReviewMoreButtonProps {
   review: ReviewInfo;
@@ -86,16 +86,23 @@ export default function ReviewMoreButton({
                   Postear
                 </span>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  const twitterUrl = generateReviewShareTextForTwitter(
+                    review.id,
+                    review.user ? review.user.username : "",
+                    review.user && review.user.displayName ? review.user.displayName : "",
+                    review.rating,
+                    user.id === review.userId,
+                    movie
+                  );
+                  window.open(twitterUrl, "_blank");
+                }}
+              >
                 <span className="flex items-center gap-3 font-bold text-foreground">
                   <Twitter className="size-4" />
                   Twitter
-                </span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <span className="flex items-center gap-3 font-bold text-foreground">
-                  <MessageSquare className="size-4" />
-                  Chat
                 </span>
               </DropdownMenuItem>
             </DropdownMenuSubContent>
