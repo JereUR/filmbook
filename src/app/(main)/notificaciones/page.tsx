@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Notifications from "./Notifications";
 
 export const metadata: Metadata = {
-  title: "Marcadores",
+  title: "Notificaciones",
 };
 
 export default function NotificationsPage() {
