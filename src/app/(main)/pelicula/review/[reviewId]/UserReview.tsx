@@ -19,24 +19,33 @@ interface UserReviewProps {
 
 export default function UserReview({ reviewId }: UserReviewProps) {
   const [review, setReview] = useState<ReviewInfo | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const { toast } = useToast();
 
   async function getReview() {
+    setLoading(true);
     const response = await fetch(`/api/movie/review/${reviewId}`);
     if (!response.ok)
       toast({ variant: "destructive", title: response.statusText });
     const data = await response.json();
     setReview(data);
+    setLoading(false);
   }
 
   useEffect(() => {
     getReview();
   }, []);
 
-  if (!review) {
+  if (loading) {
     return (
       <div className="space-y-3 rounded-2xl bg-card p-2 md:space-y-5 md:p-5">
         <Loader2 className="mx-auto animate-spin" />
+      </div>
+    );
+  } else if (!review) {
+    return (
+      <div className="space-y-3 rounded-2xl bg-card p-2 text-center italic text-foreground/40 md:space-y-5 md:p-5">
+        <p>Review no encontrada.</p>
       </div>
     );
   }
@@ -127,9 +136,7 @@ export default function UserReview({ reviewId }: UserReviewProps) {
           </div>
         </div>
         <div className="mr-5 flex flex-col items-end">
-          <ReviewMoreButton
-            review={review}
-          />
+          <ReviewMoreButton review={review} />
           <Link
             href={`/pelicula/${review.movieId}?title=${review.movie.title}&date=${getYear(review.movie.releaseDate ? review.movie.releaseDate?.toString() : "")}`}
           >
