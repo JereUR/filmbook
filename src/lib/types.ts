@@ -99,7 +99,15 @@ export const notificationsInclude = {
     select: { content: true },
   },
   review: {
-    select: { review: true },
+    select: {
+      review: true,
+      movie: {
+        select: {
+          title: true,
+          id: true,
+        },
+      },
+    },
   },
 } satisfies Prisma.NotificationInclude;
 
