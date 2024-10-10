@@ -39,7 +39,6 @@ export async function GET(
       user: {
         select: {
           username: true,
-          displayName: true,
         },
       },
     },

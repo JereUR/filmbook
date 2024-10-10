@@ -235,24 +235,24 @@ export interface ReviewInfo {
     backdropPath?: string | null;
     posterPath?: string | null;
     releaseDate?: Date | null;
-    directors?: any
+    directors?: any;
     overview?: string | null;
     runtime?: number | null;
     voteAverage?: number | null;
     updatedAt?: Date;
   };
   user?: {
-    username: string
-    avatarUrl?: string | null
-    displayName: string
-  }
+    username: string;
+    avatarUrl?: string | null;
+    displayName?: string;
+  };
   rating: number | null;
   review?: string | null;
   createdAt: Date;
   updatedAt?: Date;
   liked: boolean;
   watched?: boolean;
-  likesData?: LikeInfo
+  likesData?: LikeInfo;
 }
 
 export interface ReviewResumeInfo {
@@ -260,26 +260,26 @@ export interface ReviewResumeInfo {
   userId?: string;
   movieId?: string;
   movie?: {
-    title?: string
-    releaseDate?: string
-  }
+    title?: string;
+    releaseDate?: string;
+  };
   user?: {
-    username: string
-    avatarUrl?: string | null
-  }
+    username: string;
+    avatarUrl?: string | null;
+  };
   rating: number | null;
-  liked: boolean
+  liked: boolean;
   review?: string | null;
   createdAt: Date;
 }
 
-export interface ReviewResumeInfoPage{
-  reviews: ReviewResumeInfo[]
+export interface ReviewResumeInfoPage {
+  reviews: ReviewResumeInfo[];
   nextCursor: string | null;
 }
 
-export interface ReviewSinglePage{
-  reviews: ReviewInfo[]
+export interface ReviewSinglePage {
+  reviews: ReviewInfo[];
 }
 
 export interface ReviewsPage {
@@ -299,8 +299,8 @@ export interface LikedInfo {
   isLikedByUser: boolean;
 }
 
-export interface ReviewData{
-  id: string
+export interface ReviewData {
+  id: string;
   rating: number | null;
   review: string | null;
   liked: boolean;
