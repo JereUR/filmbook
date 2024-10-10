@@ -122,3 +122,39 @@ export function generateReviewShareText(
     return `Este es la review de ${icons} de ${movie.title} (${movie.year}) hecha por @${displayName}<br /><br />Léela completa aquí:<br /> ${reviewUrl}`;
   }
 }
+
+export function generateReviewShareTextForTwitter(
+  reviewId: string,
+  username: string,
+  displayName: string,
+  rating: number | null,
+  own: boolean,
+  movie: {
+    movieId: string | undefined;
+    title: string;
+    year: string;
+  },
+): string {
+  let icons = "";
+
+  if (rating !== null) {
+    const fullIcons = Math.floor(rating);
+    const halfIcon = rating % 1 === 0.5 ? "½" : "";
+
+    icons = "🍿".repeat(fullIcons) + halfIcon;
+  }
+
+  const encodedTitle = encodeURIComponent(movie.title);
+  const encodedUsername = encodeURIComponent(username);
+  const encodedMovieId = encodeURIComponent(movie.movieId || "");
+
+  const reviewUrl = `${process.env.NEXT_PUBLIC_DEPLOY_URL}/pelicula/review/${reviewId}?title=${encodedTitle}&date=${movie.year}&username=${encodedUsername}&movieId=${encodedMovieId}`;
+
+  const tweetText = own
+    ? `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year}). Léela completa aquí:`
+    : `Este es la review de ${icons} de ${movie.title} (${movie.year}) hecha por @${displayName}. Léela completa aquí:`;
+
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(reviewUrl)}`;
+
+  return tweetUrl;
+}
