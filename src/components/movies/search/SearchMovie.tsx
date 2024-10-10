@@ -22,7 +22,7 @@ export default function SearchMovie() {
   const [page, setPage] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(false);
 
-  const {toast}=useToast()
+  const { toast } = useToast()
 
   const searchMovies = async (pageNumber: number = 1) => {
     if (!searchTerm) return;
