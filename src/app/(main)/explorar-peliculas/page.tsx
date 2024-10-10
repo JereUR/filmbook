@@ -15,9 +15,6 @@ export default function MoviesPage() {
         <div className="rounded-2xl bg-card p-5 shadow-sm">
           <h1 className="text-center text-2xl font-bold">Explorar películas</h1>
         </div>
-        <div className='flex items-center justify-around gap-2 w-full border border-w-4 p-4 border-primary mb-4 rounded-2xl'>
-          <TriangleAlert className="text-yellow-500 h-6 w-6"/> <span className='text-2xl font-bold'>WORK IN PROGRESS...</span> <TriangleAlert className="text-yellow-500 h-6 w-6"/>
-        </div>
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
           <SearchMovie />
         </Suspense>
