@@ -1,4 +1,4 @@
-import { Heart, MessageCircle, User2 } from "lucide-react";
+import { Heart, MessageCircle, Popcorn, User2 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -36,7 +36,7 @@ export default function Notification({ notification }: NotificationProps) {
     },
     REVIEW: {
       message: `${notification.issuer.displayName} ha publicado una nueva review de "${notification.review?.movie?.title}".`,
-      icon: <MessageCircle className="size-7 fill-primary text-primary" />,
+      icon: <Popcorn className="size-7 fill-primary text-primary" />,
       href: notification.reviewId
         ? `/pelicula/review/${notification.reviewId}?title=${encodeURIComponent(notification.review ? notification.review?.movie?.title : '')}&date=${new Date(notification.createdAt).getFullYear()}&username=${notification.issuer.username}&movieId=${notification.review?.movie?.id}`
         : '/',
