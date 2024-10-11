@@ -151,8 +151,8 @@ export function generateReviewShareTextForTwitter(
   const reviewUrl = `${process.env.NEXT_PUBLIC_DEPLOY_URL}/pelicula/review/${reviewId}?title=${encodedTitle}&date=${movie.year}&username=${encodedUsername}&movieId=${encodedMovieId}`;
 
   const tweetText = own
-    ? `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year}). Léela completa aquí:`
-    : `Este es la review de ${icons} de ${movie.title} (${movie.year}) hecha por @${displayName}. Léela completa aquí:`;
+    ? `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year}) en Filmbook. Léela completa aquí:`
+    : `Este es la review de ${icons} de ${movie.title} (${movie.year}) hecha por '${displayName}' en Filmbook. Léela completa aquí:`;
 
   const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(reviewUrl)}`;
 
