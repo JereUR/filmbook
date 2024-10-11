@@ -44,7 +44,7 @@ export default function OtherReviews({ movieId, reviewId }: OtherReviewsProps) {
   const reviews = data?.pages.flatMap((page) => page.reviews) || [];
 
   return (
-    <div className='flex flex-col gap-2 p-2 md:p-5 bg-card rounded-2xl'>
+    <div className='flex flex-col gap-2 p-5 bg-card rounded-2xl'>
       <div className="text-xl font-bold">Otras reviews</div>
       {status === "pending" || isFetching || isRefetching ? (
         <Loader2 className="animate-spin mx-auto" />

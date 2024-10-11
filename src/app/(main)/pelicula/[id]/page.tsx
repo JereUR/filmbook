@@ -27,7 +27,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
 export default function MoviePage({ params }: PageProps) {
   return (
     <main className="flex flex-col md:flex-row w-full min-w-0 gap-5">
-      <div className="flex-grow md:w-3/4">
+      <div className="md:flex-grow md:w-3/4">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
           <MovieShow id={params.id} />
         </Suspense>
