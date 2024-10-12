@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { JsonObject } from "@prisma/client/runtime/library";
 import { StaticImageData } from "next/image";
 
 export function getUserDataSelect(loggedInUserId: string) {
@@ -313,4 +314,26 @@ export interface ReviewData {
   review: string | null;
   liked: boolean;
   watched: boolean;
+}
+
+export interface WatchlistData {
+  id: string;
+  movieId: string;
+  movie: {
+    id: string;
+    title: string;
+    overview: string | null;
+    genres: any;
+    directors: any;
+    posterPath: string | null;
+    releaseDate: Date | null;
+    voteAverage: number | null;
+    providers: any;
+  };
+  voteApp: number | null;
+}
+
+export interface WatchlistPage {
+  watchlist: WatchlistData[];
+  nextCursor: string | null;
 }
