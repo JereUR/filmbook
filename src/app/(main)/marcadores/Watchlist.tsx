@@ -36,8 +36,6 @@ export default function Watchlist({ userId }: WatchlistProps) {
 
   const watchlist = data?.pages.flatMap((page) => page.watchlist) || [];
 
-  console.log(watchlist)
-
   if (status === "pending") {
     return <WatchlistsLoadingSkeleton />;
   }
@@ -63,7 +61,7 @@ export default function Watchlist({ userId }: WatchlistProps) {
       className="space-y-5"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      <div className='flex justify-start gap-2 w-full rounded-2xl bg-card p-5 shadow-sm'>
+      <div className="flex justify-start gap-2 w-full rounded-2xl bg-card p-5 shadow-sm">
         {watchlist.map((item) => (
           <WatchlistItem key={item.id} item={item} />
         ))}
