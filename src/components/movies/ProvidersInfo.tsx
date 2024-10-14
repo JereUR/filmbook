@@ -45,7 +45,7 @@ interface CountryOption {
   name: string;
 }
 
-export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
+export default function ProvidersInfo({ providersList }: ProvidersInfoProps | any) {
   const [open, setOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(
     countryOptions && countryOptions.length > 0 ? countryOptions[1] : null,
@@ -108,7 +108,7 @@ export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
           </PopoverTrigger>
           <PopoverContent className="w-[250px] p-2" >
             <Command className="max-h-[300px]"  >
-              <CommandInput placeholder="Buscar país..."  />
+              <CommandInput placeholder="Buscar país..." />
               <CommandList className="scrollbar-thin overflow-auto">
                 <CommandEmpty>Sin resultados.</CommandEmpty>
                 <CommandGroup heading="Paises">
