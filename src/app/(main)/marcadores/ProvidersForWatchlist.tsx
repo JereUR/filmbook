@@ -67,7 +67,7 @@ export default function ProvidersForWatchlist({ providersList, onClose }: Provid
         <Button
           onClick={onClose}
           variant='ghost'
-          className="cursor-pointer p-1"
+          className="cursor-pointer p-0"
         >
           <span className="flex items-center gap-3 font-bold text-destructive">
             <X className="size-5 text-destructive" />
