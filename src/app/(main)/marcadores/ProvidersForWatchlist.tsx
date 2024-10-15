@@ -63,7 +63,7 @@ export default function ProvidersForWatchlist({ providersList, onClose }: Provid
   }
   return (
     <div className='relative p-2'>
-      <div className='absolute -top-5 -right-2'>
+      <div className='absolute -top-2 -right-2'>
         <span className="flex items-center gap-3 font-bold text-destructive cursor-pointer" onClick={onClose}>
           <X className="size-5 text-destructive" />
         </span>
