@@ -64,15 +64,9 @@ export default function ProvidersForWatchlist({ providersList, onClose }: Provid
   return (
     <div className='relative p-2'>
       <div className='absolute -top-5 -right-2'>
-        <Button
-          onClick={onClose}
-          variant='ghost'
-          className="cursor-pointer p-0"
-        >
-          <span className="flex items-center gap-3 font-bold text-destructive">
-            <X className="size-5 text-destructive" />
-          </span>
-        </Button>
+        <span className="flex items-center gap-3 font-bold text-destructive cursor-pointer" onClick={onClose}>
+          <X className="size-5 text-destructive" />
+        </span>
       </div>
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between mb-2 md:mb-4">
         <h3 className="md:text-lg font-semibold">
