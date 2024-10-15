@@ -29,6 +29,7 @@ export async function GET(
           id: true,
           overview: true,
           genres: true,
+          runtime: true,
           directors: true,
           posterPath: true,
           title: true,

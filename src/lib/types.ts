@@ -322,6 +322,7 @@ export interface WatchlistData {
   movie: {
     id: string;
     title: string;
+    runtime: number | null
     overview: string | null;
     genres: any;
     directors: any;
