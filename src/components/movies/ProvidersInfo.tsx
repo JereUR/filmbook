@@ -45,7 +45,7 @@ interface CountryOption {
   name: string;
 }
 
-export default function ProvidersInfo({ providersList }: ProvidersInfoProps | any) {
+export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
   const [open, setOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(
     countryOptions && countryOptions.length > 0 ? countryOptions[1] : null,
