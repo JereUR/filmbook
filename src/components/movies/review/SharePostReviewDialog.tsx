@@ -44,7 +44,7 @@ export default function SharePostReviewDialog({
       onClose();
     }
   }
-  console.log(text);
+
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="w-full max-w-[800px]">
