@@ -4,12 +4,13 @@ import { Popcorn } from "lucide-react";
 import { useSubmitRatingMutation } from "./mutations";
 import LoadingButton from "@/components/LoadingButton";
 import { useToast } from "@/components/ui/use-toast";
+import { useSearchParams } from "next/navigation";
 
 interface ReviewEditorProps {
   movieId: string;
   ownRating: number | null;
   reviewText: string | null | undefined
-  activateRefresh:()=>void
+  activateRefresh: () => void
   edit?: boolean
 }
 
@@ -18,14 +19,22 @@ export default function ReviewEditor({
   ownRating,
   reviewText,
   activateRefresh,
-  edit=false
+  edit = false
 }: ReviewEditorProps) {
   const [rating, setRating] = useState<number>(ownRating || 0);
   const [review, setReview] = useState(reviewText || '')
   const [halfRating, setHalfRating] = useState<boolean>(false);
   const [onEdit, setOnEdit] = useState<boolean>(edit);
+  const [diary, setDiary] = useState<boolean | null>(null);
+
   const { toast } = useToast();
   const mutation = useSubmitRatingMutation();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const diaryParam = searchParams.get("diary") === "true";
+    setDiary(diaryParam);
+  }, [searchParams]);
 
   useEffect(() => {
     if (ownRating !== null) {
@@ -78,7 +87,7 @@ export default function ReviewEditor({
 
   const handleSubmit = () => {
     mutation.mutate(
-      { rating, movieId, review},
+      { rating, movieId, review, diary },
       {
         onSuccess: () => {
           activateRefresh()

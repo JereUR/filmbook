@@ -14,7 +14,7 @@ interface SearchMoviesResponse {
   error?: string;
 }
 
-export default function SearchMovie() {
+export default function SearchMovie({ toDiary = false }: { toDiary?: boolean }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [movies, setMovies] = useState<SearchMovie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -78,7 +78,7 @@ export default function SearchMovie() {
       {movies.length > 0 && (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           {movies.map((movie) => (
-            <MovieItem key={movie.id} movie={movie} />
+            <MovieItem key={movie.id} movie={movie} toDiary={toDiary} />
           ))}
         </div>
       )}
