@@ -8,9 +8,12 @@ export async function submitReview(input: {
   rating: number;
   movieId: string;
   review: string | undefined | null;
+  diary: boolean | null;
 }) {
   const { user } = await validateRequest();
   if (!user) throw new Error("No autorizado.");
+
+  console.log("Diary: ", input.diary);
 
   const { rating, movieId, review } = createReviewSchema.parse(input);
 
@@ -91,22 +94,30 @@ export async function submitReview(input: {
       },
     }),
   ]);
-  
+
+  if (input.diary) {
+    await prisma.diary.create({
+      data: {
+        userId: user.id,
+        movieId,
+        reviewId: newReview.id,
+        watchedOn: new Date(),
+      },
+    });
+  }
+
   const notifications = followers.map((follower) =>
     prisma.notification.create({
       data: {
         issuerId: user.id,
         recipientId: follower.followerId,
-        reviewId: newReview.id, 
+        reviewId: newReview.id,
         type: "REVIEW",
       },
-    })
+    }),
   );
-  
+
   await prisma.$transaction(notifications);
-  
-  return newReview;
-  
 
   return newReview;
 }
