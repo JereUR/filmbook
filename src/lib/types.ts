@@ -151,6 +151,12 @@ export interface SearchMovie {
   genre_names: string[];
 }
 
+export interface SearchMoviesResponse {
+  movies: SearchMovie[];
+  nextPage: number | null;
+  error?: string;
+}
+
 export interface TMDBSearchResponse {
   results: SearchMovie[];
 }
@@ -322,7 +328,7 @@ export interface WatchlistData {
   movie: {
     id: string;
     title: string;
-    runtime: number | null
+    runtime: number | null;
     overview: string | null;
     genres: any;
     directors: any;
