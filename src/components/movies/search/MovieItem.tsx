@@ -7,14 +7,13 @@ import noImage from "@/assets/no-image-film.jpg";
 
 interface MovieItemProps {
   movie: SearchMovie;
-  toDiary?: boolean
 }
 
-export default function MovieItem({ movie, toDiary = false }: MovieItemProps) {
+export default function MovieItem({ movie }: MovieItemProps) {
   const { id, poster_path, title, release_date, genre_names } = movie;
 
   return (
-    <Link href={`/pelicula/${id}?title=${title}&date=${getYear(release_date)}&diary=${toDiary}`}>
+    <Link href={`/pelicula/${id}?title=${title}&date=${getYear(release_date)}`}>
       <div className="flex h-full cursor-pointer items-start space-x-4 overflow-hidden rounded-2xl border p-5 shadow-lg hover:bg-card/70 transition-colors duration-300 ease-in-out">
         <div className="relative h-40 w-28 flex-shrink-0">
           <Image

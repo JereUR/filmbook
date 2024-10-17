@@ -25,16 +25,9 @@ export default function ReviewEditor({
   const [review, setReview] = useState(reviewText || '')
   const [halfRating, setHalfRating] = useState<boolean>(false);
   const [onEdit, setOnEdit] = useState<boolean>(edit);
-  const [diary, setDiary] = useState<boolean | null>(null);
 
   const { toast } = useToast();
   const mutation = useSubmitRatingMutation();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const diaryParam = searchParams.get("diary") === "true";
-    setDiary(diaryParam);
-  }, [searchParams]);
 
   useEffect(() => {
     if (ownRating !== null) {
@@ -87,7 +80,7 @@ export default function ReviewEditor({
 
   const handleSubmit = () => {
     mutation.mutate(
-      { rating, movieId, review, diary },
+      { rating, movieId, review },
       {
         onSuccess: () => {
           activateRefresh()

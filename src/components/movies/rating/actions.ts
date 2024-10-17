@@ -8,12 +8,10 @@ export async function submitReview(input: {
   rating: number;
   movieId: string;
   review: string | undefined | null;
-  diary: boolean | null;
+  diary?: boolean | null;
 }) {
   const { user } = await validateRequest();
   if (!user) throw new Error("No autorizado.");
-
-  console.log("Diary: ", input.diary);
 
   const { rating, movieId, review } = createReviewSchema.parse(input);
 

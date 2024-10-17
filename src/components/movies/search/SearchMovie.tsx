@@ -5,16 +5,10 @@ import { Loader2 } from "lucide-react";
 
 import SearchForm from "./SearchForm";
 import MovieItem from "./MovieItem";
-import type { SearchMovie } from "@/lib/types";
+import type { SearchMovie, SearchMoviesResponse } from "@/lib/types";
 import { useToast } from "@/components/ui/use-toast";
 
-interface SearchMoviesResponse {
-  movies: SearchMovie[];
-  nextPage: number | null;
-  error?: string;
-}
-
-export default function SearchMovie({ toDiary = false }: { toDiary?: boolean }) {
+export default function SearchMovie() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [movies, setMovies] = useState<SearchMovie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -78,7 +72,7 @@ export default function SearchMovie({ toDiary = false }: { toDiary?: boolean }) 
       {movies.length > 0 && (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           {movies.map((movie) => (
-            <MovieItem key={movie.id} movie={movie} toDiary={toDiary} />
+            <MovieItem key={movie.id} movie={movie} />
           ))}
         </div>
       )}
