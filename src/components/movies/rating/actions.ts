@@ -9,6 +9,7 @@ export async function submitReview(input: {
   movieId: string;
   review: string | undefined | null;
   diary?: boolean | null;
+  liked?: boolean;
 }) {
   const { user } = await validateRequest();
   if (!user) throw new Error("No autorizado.");
@@ -21,6 +22,10 @@ export async function submitReview(input: {
         userId: user.id,
         movieId,
       },
+    },
+    select: {
+      rating: true,
+      liked: true,
     },
   });
 
@@ -67,6 +72,7 @@ export async function submitReview(input: {
         rating,
         watched: true,
         review,
+        liked: input.liked ? input.liked : existingReview?.liked,
       },
       create: {
         rating,
@@ -74,6 +80,7 @@ export async function submitReview(input: {
         movieId,
         watched: true,
         review,
+        liked: input.liked ? input.liked : false,
       },
       include: {
         movie: true,

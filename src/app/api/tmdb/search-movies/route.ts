@@ -16,7 +16,6 @@ export async function GET(req: NextRequest) {
   const title = req.nextUrl.searchParams.get("title") || "";
   const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
   const apiKey = process.env.MOVIE_API_KEY;
-  const accessToken = process.env.MOVIE_ACCESS_TOKEN;
 
   const { user } = await validateRequest();
 
