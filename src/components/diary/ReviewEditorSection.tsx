@@ -26,7 +26,6 @@ export default function ReviewEditorSection({
   const [likedState, setLikedState] = useState<boolean>(liked || false)
   const [halfRating, setHalfRating] = useState<boolean>(false);
 
-
   const { toast } = useToast();
   const mutation = useSubmitRatingMutation();
 
@@ -43,6 +42,10 @@ export default function ReviewEditorSection({
   useEffect(() => {
     setReview(reviewText || '');
   }, [reviewText]);
+
+  useEffect(() => {
+    setLikedState(liked || false);
+  }, [liked]);
 
   const handleClick = (index: number) => {
     if (rating === index + 1 && !halfRating) {
