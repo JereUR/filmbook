@@ -83,7 +83,7 @@ export default function ReviewEditorSection({
 
   const handleSubmit = () => {
     mutation.mutate(
-      { rating, movieId, review, diary: true, liked },
+      { rating, movieId, review, diary: true, liked: likedState },
       {
         onSuccess: () => {
           handleOpenChange(false)
