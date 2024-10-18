@@ -32,7 +32,7 @@ export default function MovieItem({ movie }: MovieItemProps) {
           <h2 className="mb-2 text-xl font-semibold">
             {title} ({getYear(release_date)})
           </h2>
-          <p className="text-gray-500">Géneros: {genre_names.join(", ")}</p>
+          <p className="text-gray-500">{genre_names.join(", ")}</p>
         </div>
       </div>
     </Link>
