@@ -65,6 +65,15 @@ export function ratingColorFilmbook(rating: number) {
   }
 }
 
+export function formatArgDate(date: string) {
+  return new Intl.DateTimeFormat("es-AR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "America/Argentina/Buenos_Aires",
+  }).format(new Date(date));
+}
+
 export function DateFormat(dateISO: string) {
   const date = new Date(dateISO);
 
