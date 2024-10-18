@@ -4,7 +4,6 @@ import { Popcorn } from "lucide-react";
 import { useSubmitRatingMutation } from "./mutations";
 import LoadingButton from "@/components/LoadingButton";
 import { useToast } from "@/components/ui/use-toast";
-import { useSearchParams } from "next/navigation";
 
 interface ReviewEditorProps {
   movieId: string;
