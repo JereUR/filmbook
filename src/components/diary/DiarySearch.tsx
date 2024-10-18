@@ -76,7 +76,7 @@ export default function DiarySearch({ changeState, movies, setMovies, setMovieTo
       />
       {error && <p className="text-center text-red-500">{error}</p>}
       {movies.length > 0 && (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-2 md:gap-4 sm:grid-cols-2">
           {movies.map((movie) => (
             <DiarySearchMovieItem key={movie.id} movie={movie} changeState={changeState} setMovieToAdd={setMovieToAdd} />
           ))}

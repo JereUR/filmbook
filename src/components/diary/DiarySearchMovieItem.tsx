@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction} from "react"
+import { Dispatch, SetStateAction } from "react"
 
 import type { SearchMovie } from "@/lib/types";
 import { getYear } from "@/lib/utils";
@@ -20,8 +20,8 @@ export default function DiarySearchMovieItem({ movie, setMovieToAdd, changeState
   }
 
   return (
-    <div className="flex h-full cursor-pointer items-start space-x-4 overflow-hidden rounded-2xl border p-5 shadow-lg hover:bg-card/70 transition-colors duration-300 ease-in-out" onClick={handleClick}>
-      <div className="relative h-40 w-28 flex-shrink-0">
+    <div className="flex h-full cursor-pointer items-start  overflow-hidden rounded-2xl border p-2 shadow-lg hover:bg-card/70 transition-colors duration-300 ease-in-out" onClick={handleClick}>
+      <div className="relative h-20 w-12">
         <Image
           src={
             poster_path
@@ -34,11 +34,11 @@ export default function DiarySearchMovieItem({ movie, setMovieToAdd, changeState
           className="rounded"
         />
       </div>
-      <div className="p-4">
-        <h2 className="mb-2 text-xl font-semibold">
+      <div className="flex flex-col gap-1 px-4">
+        <h2 className="text-base md:text-lg font-semibold">
           {title} ({getYear(release_date)})
         </h2>
-        <p className="text-gray-500">Géneros: {genre_names.join(", ")}</p>
+        <p className="text-xs md:text-sm text-muted-foreground/40">{genre_names.join(", ")}</p>
       </div>
     </div>
   );
