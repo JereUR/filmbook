@@ -1,4 +1,4 @@
-"use server";
+"use server"
 
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
@@ -101,6 +101,7 @@ export async function submitReview(input: {
   ]);
 
   if (input.diary) {
+
     await prisma.diary.create({
       data: {
         userId: user.id,

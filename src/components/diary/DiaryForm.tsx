@@ -63,7 +63,7 @@ export default function DiaryForm({ movie, changeState, handleOpenChange }: Movi
       <div className="flex justify-between">
         <div className="flex flex-col gap-2">
           <h1 className="text-lg md:text-xl font-semibold">{title} ({getYear(release_date)})</h1>
-          <span className='text-sm md:text-base text-foreground/40'>Día: {formatArgDate(new Date().toISOString())}</span>
+          <span className='text-sm md:text-base text-foreground/40'>Día: {formatArgDate(new Date().toISOString())} (USA)</span>
         </div>
         <div className="relative h-28 w-16">
           <Image
