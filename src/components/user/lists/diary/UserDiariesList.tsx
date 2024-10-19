@@ -2,6 +2,7 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import kyInstance from "@/lib/ky";
 import { DiariesPage } from "@/lib/types";
@@ -61,7 +62,7 @@ export default function UserDiariesList({ userId }: UserDiariesListProps) {
     >
       <div className='flex justify-start gap-2 w-full rounded-2xl bg-card p-5 shadow-sm'>
         {diaries.map((diary) => (
-          <p key={diary.id}>{ diary.movie.title }</p>
+          <p key={diary.id}>{diary.movie.title}</p>
         ))}
       </div>
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
