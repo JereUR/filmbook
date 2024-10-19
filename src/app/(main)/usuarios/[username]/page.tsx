@@ -1,14 +1,13 @@
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { cache} from "react";
+import { cache } from "react";
 import { Metadata } from "next";
-import { formatDate } from "date-fns";
 
 import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
 import { validateRequest } from "@/auth";
 import TrendsSidebar from "@/components/TrendsSidebar";
 import UserAvatar from "@/components/UserAvatar";
-import { formatNumber } from "@/lib/utils";
+import { dateFormat, formatNumber } from "@/lib/utils";
 import FollowerCount from "@/components/FollowerCount";
 import FollowButton from "@/components/FollowButton";
 import UserPosts from "./UserPosts";
@@ -72,12 +71,16 @@ export default async function UserPage({
           <TabsList className="rounded-md bg-card-child p-1 text-muted-foreground shadow-sm">
             <TabsTrigger value="posts" className="text-xs sm:text-sm">Publicaciones</TabsTrigger>
             <TabsTrigger value="reviews" className="text-xs sm:text-sm">Reviews</TabsTrigger>
+            <TabsTrigger value="diary" className="text-xs sm:text-sm">Bitácora</TabsTrigger>
           </TabsList>
           <TabsContent value="posts">
             <UserPosts userId={user.id} />
           </TabsContent>
           <TabsContent value="reviews">
             <ReviewList userId={user.id} />
+          </TabsContent>
+          <TabsContent value="diary">
+            <div>To do...</div>
           </TabsContent>
         </Tabs>
 
@@ -113,9 +116,9 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
             <h1 className="text-3xl font-bold">{user.displayName}</h1>
             <div className="text-muted-foreground">@{user.username}</div>
           </div>
-          <div>Miembro desde {formatDate(user.createdAt, "MMM d, yyyy")}</div>
+          <div className='text-foreground/40'>Miembro desde el {dateFormat(user.createdAt.toISOString())}</div>
           <div className="flex items-center gap-3">
-            <span>
+            <span className='py-2 px-4 bg-card/40 border rounded-2xl border-primary/70'>
               Posts: {""}
               <span className="font-semibold">
                 {formatNumber(user._count.posts)}
