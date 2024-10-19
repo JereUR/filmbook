@@ -344,3 +344,27 @@ export interface WatchlistPage {
   watchlist: WatchlistData[];
   nextCursor: string | null;
 }
+
+export interface DiaryInfo {
+  id: string;
+  userId: string;
+  movieId: string;
+  movie: {
+    id: string;
+    title: string;
+    posterPath: string | null;
+    releaseDate: Date | null;
+  };
+  reviewId: string | null;
+  review: {
+    liked: boolean;
+    reviewText: string | null;
+    rating: number | null;
+  };
+  watchedOn: Date;
+}
+
+export interface DiariesPage {
+  diaries: DiaryInfo[];
+  nextCursor: string | null;
+}
