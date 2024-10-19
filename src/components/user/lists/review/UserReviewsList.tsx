@@ -8,11 +8,11 @@ import { ReviewsPage } from "@/lib/types";
 import ReviewItem from "./ReviewItem";
 import ReviewsLoadingSkeleton from './ReviewsLoadingSkeleton'
 
-interface UserReviewListProps {
+interface UserReviewsListProps {
   userId: string;
 }
 
-export default function UserReviews({ userId }: UserReviewListProps) {
+export default function UserReviewsList({ userId }: UserReviewsListProps) {
   const {
     data,
     fetchNextPage,
