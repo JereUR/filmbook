@@ -25,7 +25,7 @@ export default function WatchlistItem({ item }: WatchlistItemProps) {
 
   return (
     <div
-      className="relative m-1 cursor-pointer items-start gap-3 rounded-2xl border bg-background border-primary/40  p-2 md:p-4 transition-colors duration-300 ease-in-out hover:bg-background/40"
+      className="relative m-1 cursor-pointer items-start gap-3 rounded-2xl border bg-background border-primary/40 p-2 md:p-4 transition-colors duration-300 ease-in-out hover:bg-background/40"
     >
       <div className='absolute top-2 right-2'>
         <Button
