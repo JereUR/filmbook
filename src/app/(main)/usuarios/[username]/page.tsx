@@ -14,7 +14,8 @@ import UserPosts from "./UserPosts";
 import Linkify from "@/components/Linkify";
 import EditProfileButton from "./EditProfileButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ReviewList from "@/components/user/lists/review/ReviewList";
+import UserReviewsList from "@/components/user/lists/review/UserReviewsList";
+import UserDiariesList from "@/components/user/lists/diary/UserDiariesList";
 
 interface UserPageProps {
   params: { username: string };
@@ -77,10 +78,10 @@ export default async function UserPage({
             <UserPosts userId={user.id} />
           </TabsContent>
           <TabsContent value="reviews">
-            <ReviewList userId={user.id} />
+            <UserReviewsList userId={user.id} />
           </TabsContent>
           <TabsContent value="diary">
-            <div>To do...</div>
+            <UserDiariesList userId={user.id} />
           </TabsContent>
         </Tabs>
 
