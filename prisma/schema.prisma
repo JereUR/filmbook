@@ -241,7 +241,7 @@ model Watchlist {
   movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
-  @@unique([userId, movieId]) // Un usuario solo puede agregar una película una vez a su watchlist
+  @@unique([userId, movieId])
   @@map("watchlist")
 }
 
