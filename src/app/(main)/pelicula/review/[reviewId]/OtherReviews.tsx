@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import kyInstance from "@/lib/ky";
 import { ReviewResumeInfoPage } from "@/lib/types";
 import Link from "next/link";
-import { DateFormat } from "@/lib/utils";
+import { dateFormat } from "@/lib/utils";
 import CircularImage from "@/components/movies/CircularImage";
 import { useEffect } from "react";
 
@@ -73,7 +73,7 @@ export default function OtherReviews({ movieId, reviewId }: OtherReviewsProps) {
               <div className="flex flex-col">
                 <span className="text-sm md:text-base font-medium">{review.user?.username}</span>
                 <span className="text-xs md:text-sm font-light text-foreground/40">
-                  {DateFormat(review.createdAt.toISOString())}
+                  {dateFormat(review.createdAt.toISOString())}
                 </span>
               </div>
             </div>

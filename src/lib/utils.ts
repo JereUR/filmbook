@@ -74,7 +74,7 @@ export function formatArgDate(date: string) {
   }).format(new Date(date));
 }
 
-export function DateFormat(dateISO: string) {
+export function dateFormat(dateISO: string) {
   const date = new Date(dateISO);
 
   const day = date.getUTCDate();

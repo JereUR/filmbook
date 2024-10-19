@@ -8,7 +8,7 @@ import Link from "next/link";
 
 import { CrewMember, ReviewInfo } from "@/lib/types";
 import CircularImage from "@/components/movies/CircularImage";
-import { DateFormat, getYear } from "@/lib/utils";
+import { dateFormat, getYear } from "@/lib/utils";
 import noImage from "@/assets/no-image-film.jpg";
 import LikeReviewButton from "@/components/movies/LikeReviewButton";
 import ReviewMoreButton from "@/components/movies/review/ReviewMoreButton";
@@ -126,10 +126,10 @@ export default function UserReview({ reviewId }: UserReviewProps) {
               </div>
             </div>
             <span className="text-sm font-light text-foreground/40 md:text-base">
-              Vista el {DateFormat(review.createdAt.toString())}{" "}
+              Vista el {dateFormat(review.createdAt.toString())}{" "}
               {review.updatedAt && review.updatedAt !== review.createdAt && (
                 <span className="text-xs italic md:text-sm">
-                  (Actualizada el {DateFormat(review.updatedAt.toString())})
+                  (Actualizada el {dateFormat(review.updatedAt.toString())})
                 </span>
               )}
             </span>
