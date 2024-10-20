@@ -276,40 +276,53 @@ model Tournament {
 }
 
 model TournamentParticipant {
-  id                String            @id @default(cuid())
-  name              String
-  username          String
-  tournamentId      String?
-  tournament        Tournament?       @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
-  tournamentEntries TournamentEntry[]
-  createdAt         DateTime          @default(now())
+  id                      String                       @id @default(cuid())
+  name                    String
+  username                String
+  tournament              Tournament[]
+  tournamentEntriesPoints TournamentEntryParticipant[]
+  createdAt               DateTime                     @default(now())
+  TournamentEntry         TournamentEntry[]
 
   @@map("tournament_participant")
 }
 
 model TournamentMovie {
-  id                String           @id @default(cuid())
+  id                String            @id @default(cuid())
   movieId           String
-  movie             Movie            @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  matchWeek         Int
-  points            Int
-  createdAt         DateTime         @default(now())
-  TournamentEntry   TournamentEntry? @relation(fields: [tournamentEntryId], references: [id])
-  tournamentEntryId String?
+  movie             Movie             @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  createdAt         DateTime          @default(now())
+  tournamentEntries TournamentEntry[]
 
   @@map("tournament_movie")
 }
 
 model TournamentEntry {
-  id               String                @id @default(cuid())
-  participantId    String
-  tournamentId     String
-  tournament       Tournament            @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
-  participant      TournamentParticipant @relation(fields: [participantId], references: [id], onDelete: Cascade)
-  tournamentMovies TournamentMovie[]
-  totalPoints      Int
-  createdAt        DateTime              @default(now())
+  id                           String                     @id @default(cuid())
+  tournamentId                 String
+  tournament                   Tournament                 @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  tournamentMovieId            String
+  tournamentMovie              TournamentMovie?           @relation(fields: [tournamentMovieId], references: [id])
+  tournamentParticipantId      String
+  tournamentParticipant        TournamentParticipant      @relation(fields: [tournamentParticipantId], references: [id], onDelete: Cascade)
+  tournamentEntryParticipantId String
+  tournamentEntryParticipant   TournamentEntryParticipant @relation(fields: [tournamentEntryParticipantId], references: [id], onDelete: Cascade)
+  createdAt                    DateTime                   @default(now())
 
-  @@unique([participantId, tournamentId])
+  @@unique([tournamentId, id])
   @@map("tournament_entry")
+}
+
+model TournamentEntryParticipant {
+  id            String                @id @default(cuid())
+  participantId String
+  participant   TournamentParticipant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  points        Int
+  entries       TournamentEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([participantId, id])
+  @@map("tournament_entry_participant")
 }
