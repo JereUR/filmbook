@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { validateAdmin } from "@/auth";
-import { TournamentData } from "@/lib/types";
+import { Tournament, ParticipantTournament, TournamentDate } from "@/lib/types";
 
 export async function GET(
   req: NextRequest,
@@ -20,42 +20,43 @@ export async function GET(
     select: {
       id: true,
       name: true,
-      description: true,
+      startDate: true,
+      endDate: true,
       createdAt: true,
       updatedAt: true,
       participants: {
         select: {
-          id: true,
-          name: true,
-          username: true,
-          tournamentEntries: {
+          participant: {
             select: {
               id: true,
-              tournamentId: true,
-              tournamentMovie: {
-                select: {
-                  id: true,
-                  movieId: true,
-                  createdAt: true,
-                },
-              },
-              createdAt: true,
+              name: true,
+              username: true,
             },
           },
         },
       },
-      entries: {
+      dates: {
         select: {
           id: true,
-          tournamentMovie: {
+          date: true,
+          movie: {
             select: {
               id: true,
-              movieId: true,
-              createdAt: true,
+              title: true,
             },
           },
-          tournamentParticipantId: true,
-          createdAt: true,
+          scores: {
+            select: {
+              participant: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+              points: true,
+              extraPoints: true,
+            },
+          },
         },
       },
     },
@@ -65,41 +66,38 @@ export async function GET(
     return NextResponse.json(null);
   }
 
-  const tournamentData: TournamentData = {
+  const participants: ParticipantTournament[] = tournament.participants.map(
+    (p) => ({
+      participantId: p.participant.id,
+      participantName: p.participant.name,
+      participantUsername: p.participant.username,
+    }),
+  );
+
+  const dates: TournamentDate[] = tournament.dates.map((d) => ({
+    id: d.id,
+    date: d.date,
+    movie: {
+      id: d.movie.id,
+      title: d.movie.title,
+    },
+    scores: d.scores.map((s) => ({
+      participantId: s.participant.id,
+      participantName: s.participant.name,
+      points: s.points,
+      extraPoints: s.extraPoints || 0,
+    })),
+  }));
+
+  const tournamentData: Tournament = {
     id: tournament.id,
     name: tournament.name,
-    description: tournament.description,
+    startDate: tournament.startDate,
+    endDate: tournament.endDate,
+    participants,
+    dates,
     createdAt: tournament.createdAt,
     updatedAt: tournament.updatedAt,
-    participants: tournament.participants.map((participant) => ({
-      id: participant.id,
-      name: participant.name,
-      username: participant.username,
-      tournamentEntries: participant.tournamentEntries.map((entry) => ({
-        id: entry.id,
-        tournamentId: entry.tournamentId,
-        tournamentMovie: entry.tournamentMovie
-          ? {
-              id: entry.tournamentMovie.id,
-              movieId: entry.tournamentMovie.movieId,
-              createdAt: entry.tournamentMovie.createdAt,
-            }
-          : null,
-        createdAt: entry.createdAt,
-      })),
-    })),
-    entries: tournament.entries.map((entry) => ({
-      id: entry.id,
-      tournamentMovie: entry.tournamentMovie
-        ? {
-            id: entry.tournamentMovie.id,
-            movieId: entry.tournamentMovie.movieId,
-            createdAt: entry.tournamentMovie.createdAt,
-          }
-        : null,
-      tournamentId: params.tournamentId,
-      createdAt: entry.createdAt,
-    })),
   };
 
   return NextResponse.json(tournamentData);
