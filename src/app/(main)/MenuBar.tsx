@@ -1,4 +1,4 @@
-import { Bookmark, Home, Popcorn } from "lucide-react";
+import { Bookmark, Home, Popcorn, Trophy } from "lucide-react";
 import Link from "next/link";
 
 import { validateRequest } from "@/auth";
@@ -48,6 +48,17 @@ export default async function MenuBar({ className }: MenuBarProps) {
         <Link href="/explorar-peliculas">
           <Popcorn />{" "}
           <span className="hidden lg:inline">Explorar películas</span>
+        </Link>
+      </Button>
+      <Button
+        variant="ghost"
+        className="flex items-center justify-start gap-3"
+        title="Explorar películas"
+        asChild
+      >
+        <Link href="/torneos">
+          <Trophy />{" "}
+          <span className="hidden lg:inline">Torneos</span>
         </Link>
       </Button>
       <NotificationsButton
