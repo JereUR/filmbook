@@ -57,6 +57,7 @@ export async function signUp(
         data: {
           id: userId,
           username,
+          admin: false,
           displayName: username,
           email,
           passwordHash,
