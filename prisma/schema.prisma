@@ -195,7 +195,7 @@ model Movie {
   reviews         Review[]
   watchlist       Watchlist[]
   diary           Diary[]
-  tournamentMovie TournamentMovie[]
+  tournamentMovie TournamentDate[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -266,63 +266,57 @@ model Diary {
 model Tournament {
   id           String                  @id @default(cuid())
   name         String
-  description  String?
+  startDate    DateTime
+  endDate      DateTime
+  participants ParticipantTournament[]
+  dates        TournamentDate[]
   createdAt    DateTime                @default(now())
   updatedAt    DateTime                @updatedAt
-  entries      TournamentEntry[]
-  participants TournamentParticipant[]
 
   @@map("tournament")
 }
 
-model TournamentParticipant {
-  id                      String                       @id @default(cuid())
-  name                    String
-  username                String
-  tournament              Tournament[]
-  tournamentEntriesPoints TournamentEntryParticipant[]
-  createdAt               DateTime                     @default(now())
-  tournamentEntries       TournamentEntry[]
+model TournamentDate {
+  id           String             @id @default(cuid())
+  date         Int
+  movie        Movie              @relation(fields: [movieId], references: [id])
+  movieId      String
+  tournament   Tournament         @relation(fields: [tournamentId], references: [id])
+  tournamentId String
+  scores       ParticipantScore[]
 
-  @@map("tournament_participant")
+  @@map("tournament_date")
 }
 
-model TournamentMovie {
-  id                String            @id @default(cuid())
-  movieId           String
-  movie             Movie             @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  createdAt         DateTime          @default(now())
-  tournamentEntries TournamentEntry[]
+model Participant {
+  id          String                  @id @default(cuid())
+  name        String
+  username    String
+  tournaments ParticipantTournament[]
+  scores      ParticipantScore[]
 
-  @@map("tournament_movie")
+  @@map("participant")
 }
 
-model TournamentEntry {
-  id                           String                     @id @default(cuid())
-  tournamentId                 String
-  tournament                   Tournament                 @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
-  tournamentMovieId            String
-  tournamentMovie              TournamentMovie?           @relation(fields: [tournamentMovieId], references: [id])
-  tournamentParticipantId      String
-  tournamentParticipant        TournamentParticipant      @relation(fields: [tournamentParticipantId], references: [id], onDelete: Cascade)
-  tournamentEntryParticipantId String
-  tournamentEntryParticipant   TournamentEntryParticipant @relation(fields: [tournamentEntryParticipantId], references: [id], onDelete: Cascade)
-  createdAt                    DateTime                   @default(now())
-
-  @@unique([tournamentId, id])
-  @@map("tournament_entry")
-}
-
-model TournamentEntryParticipant {
-  id            String                @id @default(cuid())
+model ParticipantTournament {
   participantId String
-  participant   TournamentParticipant @relation(fields: [participantId], references: [id], onDelete: Cascade)
-  points        Int
-  entries       TournamentEntry[]
+  tournamentId  String
+  participant   Participant @relation(fields: [participantId], references: [id])
+  tournament    Tournament  @relation(fields: [tournamentId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  @@id([participantId, tournamentId])
+  @@map("participant_tournament")
+}
 
-  @@unique([participantId, id])
-  @@map("tournament_entry_participant")
+model ParticipantScore {
+  id               String         @id @default(cuid())
+  points           Int
+  extraPoints      Int?
+  participant      Participant    @relation(fields: [participantId], references: [id])
+  participantId    String
+  tournamentDate   TournamentDate @relation(fields: [tournamentDateId], references: [id])
+  tournamentDateId String
+
+  @@unique([participantId, tournamentDateId])
+  @@map("participant_score")
 }
