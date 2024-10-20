@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-
 import { validateAdmin } from "@/auth";
 import prisma from "@/lib/prisma";
 import { TournamentsPage } from "@/lib/types";
@@ -7,7 +6,6 @@ import { TournamentsPage } from "@/lib/types";
 export async function GET(req: NextRequest) {
   try {
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
-
     const pageSize = 10;
 
     const { user, admin } = await validateAdmin();
@@ -20,13 +18,24 @@ export async function GET(req: NextRequest) {
       orderBy: { createdAt: "desc" },
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
+      include: {
+        participants: true,
+        dates: true,
+      },
     });
 
     const nextCursor =
       tournaments.length > pageSize ? tournaments[pageSize].id : null;
 
     const data: TournamentsPage = {
-      tournaments: tournaments.slice(0, pageSize),
+      tournaments: tournaments.slice(0, pageSize).map((tournament) => ({
+        id: tournament.id,
+        name: tournament.name,
+        participants: tournament.participants.length,
+        dates: tournament.dates.length,
+        createdAt: tournament.createdAt,
+        updatedAt: tournament.updatedAt,
+      })),
       nextCursor,
     };
 
