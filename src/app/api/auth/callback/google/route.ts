@@ -71,6 +71,7 @@ export async function GET(req: NextRequest) {
       await tx.user.create({
         data: {
           id: userId,
+          admin: false,
           username,
           displayName: googleUser.name,
           googleID: googleUser.id,
