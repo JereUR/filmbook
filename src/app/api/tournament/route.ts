@@ -31,6 +31,7 @@ export async function GET(req: NextRequest) {
       tournaments: tournaments.slice(0, pageSize).map((tournament) => ({
         id: tournament.id,
         name: tournament.name,
+        description: tournament.description,
         participants: tournament.participants.length,
         dates: tournament.dates.length,
         createdAt: tournament.createdAt,
