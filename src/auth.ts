@@ -84,3 +84,24 @@ export const validateRequest = cache(
     return result;
   },
 );
+
+export const validateAdmin = cache(
+  async (): Promise<{ user: User | null; admin: boolean }> => {
+    const { user: loggedInUser } = await validateRequest();
+
+    const user = await prisma.user.findFirst({
+      where: {
+        id: loggedInUser?.id,
+      },
+      select: {
+        admin: true,
+      },
+    });
+
+    if (!loggedInUser || !user) {
+      return { user: null, admin: false };
+    }
+
+    return { user: loggedInUser, admin: user.admin };
+  },
+);
