@@ -282,7 +282,7 @@ model TournamentParticipant {
   tournament              Tournament[]
   tournamentEntriesPoints TournamentEntryParticipant[]
   createdAt               DateTime                     @default(now())
-  TournamentEntry         TournamentEntry[]
+  tournamentEntries       TournamentEntry[]
 
   @@map("tournament_participant")
 }

@@ -26,25 +26,20 @@ export async function GET(
       participants: {
         select: {
           id: true,
-          tournamentId: true,
           name: true,
           username: true,
           tournamentEntries: {
             select: {
               id: true,
               tournamentId: true,
-              participantId: true,
-              totalPoints: true,
-              createdAt: true,
-              tournamentMovies: {
+              tournamentMovie: {
                 select: {
                   id: true,
                   movieId: true,
-                  matchWeek: true,
-                  points: true,
                   createdAt: true,
                 },
               },
+              createdAt: true,
             },
           },
         },
@@ -52,19 +47,15 @@ export async function GET(
       entries: {
         select: {
           id: true,
-          participantId: true,
-          tournamentId: true,
-          totalPoints: true,
-          createdAt: true,
-          tournamentMovies: {
+          tournamentMovie: {
             select: {
               id: true,
               movieId: true,
-              matchWeek: true,
-              points: true,
               createdAt: true,
             },
           },
+          tournamentParticipantId: true,
+          createdAt: true,
         },
       },
     },
@@ -75,7 +66,7 @@ export async function GET(
   }
 
   const tournamentData: TournamentData = {
-    id: params.tournamentId,
+    id: tournament.id,
     name: tournament.name,
     description: tournament.description,
     createdAt: tournament.createdAt,
@@ -84,35 +75,30 @@ export async function GET(
       id: participant.id,
       name: participant.name,
       username: participant.username,
-      tournamentId: participant.tournamentId,
       tournamentEntries: participant.tournamentEntries.map((entry) => ({
         id: entry.id,
-        participantId: entry.participantId,
         tournamentId: entry.tournamentId,
-        totalPoints: entry.totalPoints,
+        tournamentMovie: entry.tournamentMovie
+          ? {
+              id: entry.tournamentMovie.id,
+              movieId: entry.tournamentMovie.movieId,
+              createdAt: entry.tournamentMovie.createdAt,
+            }
+          : null,
         createdAt: entry.createdAt,
-        tournamentMovies: entry.tournamentMovies.map((movie) => ({
-          id: movie.id,
-          movieId: movie.movieId,
-          matchWeek: movie.matchWeek,
-          points: movie.points,
-          createdAt: movie.createdAt,
-        })),
       })),
     })),
     entries: tournament.entries.map((entry) => ({
       id: entry.id,
-      participantId: entry.participantId,
-      tournamentId: entry.tournamentId,
-      totalPoints: entry.totalPoints,
+      tournamentMovie: entry.tournamentMovie
+        ? {
+            id: entry.tournamentMovie.id,
+            movieId: entry.tournamentMovie.movieId,
+            createdAt: entry.tournamentMovie.createdAt,
+          }
+        : null,
+      tournamentId: params.tournamentId,
       createdAt: entry.createdAt,
-      tournamentMovies: entry.tournamentMovies.map((movie) => ({
-        id: movie.id,
-        movieId: movie.movieId,
-        matchWeek: movie.matchWeek,
-        points: movie.points,
-        createdAt: movie.createdAt,
-      })),
     })),
   };
 
