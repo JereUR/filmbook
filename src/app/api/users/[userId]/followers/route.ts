@@ -1,138 +1,132 @@
-import { validateRequest } from "@/auth";
-import prisma from "@/lib/prisma";
-import { FollowerInfo } from "@/lib/types";
+import { validateRequest } from '@/auth'
+import prisma from '@/lib/prisma'
+import { FollowerInfo } from '@/lib/types'
 
 export async function GET(
-  req: Request,
-  { params: { userId } }: { params: { userId: string } },
+	req: Request,
+	{ params: { userId } }: { params: { userId: string } }
 ) {
-  try {
-    const { user: loggedInUser } = await validateRequest();
+	try {
+		const { user: loggedInUser } = await validateRequest()
 
-    if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
-    }
+		if (!loggedInUser) {
+			return Response.json({ error: 'No autorizado.' }, { status: 401 })
+		}
 
-    const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        followers: {
-          where: {
-            followerId: loggedInUser.id,
-          },
-          select: {
-            followerId: true,
-          },
-        },
-        _count: {
-          select: {
-            followers: true,
-          },
-        },
-      },
-    });
+		const user = await prisma.user.findUnique({
+			where: {
+				id: userId
+			},
+			select: {
+				followers: {
+					where: {
+						followerId: loggedInUser.id
+					},
+					select: {
+						followerId: true
+					}
+				},
+				_count: {
+					select: {
+						followers: true
+					}
+				}
+			}
+		})
 
-    if (!user) {
-      return Response.json(
-        { error: "Usuario no encontrado." },
-        { status: 404 },
-      );
-    }
+		if (!user) {
+			return Response.json({ error: 'Usuario no encontrado.' }, { status: 404 })
+		}
 
-    const data: FollowerInfo = {
-      followers: user._count.followers,
-      isFollowedByUser: !!user.followers.length,
-    };
+		const data: FollowerInfo = {
+			followers: user._count.followers,
+			isFollowedByUser: !!user.followers.length
+		}
 
-    return Response.json(data);
-  } catch (error) {
-    console.error(error);
-    return Response.json(
-      { error: "Error Interno del Servidor." },
-      { status: 500 },
-    );
-  }
+		return Response.json(data)
+	} catch {
+		return Response.json(
+			{ error: 'Error Interno del Servidor.' },
+			{ status: 500 }
+		)
+	}
 }
 
 export async function POST(
-  req: Request,
-  { params: { userId } }: { params: { userId: string } },
+	req: Request,
+	{ params: { userId } }: { params: { userId: string } }
 ) {
-  try {
-    const { user: loggedInUser } = await validateRequest();
+	try {
+		const { user: loggedInUser } = await validateRequest()
 
-    if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
-    }
+		if (!loggedInUser) {
+			return Response.json({ error: 'No autorizado.' }, { status: 401 })
+		}
 
-    await prisma.$transaction([
-      prisma.follow.upsert({
-        where: {
-          followerId_followingId: {
-            followerId: loggedInUser.id,
-            followingId: userId,
-          },
-        },
-        create: {
-          followerId: loggedInUser.id,
-          followingId: userId,
-        },
-        update: {},
-      }),
-      prisma.notification.create({
-        data: {
-          issuerId: loggedInUser.id,
-          recipientId: userId,
-          type: "FOLLOW",
-        },
-      }),
-    ]);
+		await prisma.$transaction([
+			prisma.follow.upsert({
+				where: {
+					followerId_followingId: {
+						followerId: loggedInUser.id,
+						followingId: userId
+					}
+				},
+				create: {
+					followerId: loggedInUser.id,
+					followingId: userId
+				},
+				update: {}
+			}),
+			prisma.notification.create({
+				data: {
+					issuerId: loggedInUser.id,
+					recipientId: userId,
+					type: 'FOLLOW'
+				}
+			})
+		])
 
-    return new Response();
-  } catch (error) {
-    console.error(error);
-    return Response.json(
-      { error: "Error Interno del Servidor." },
-      { status: 500 },
-    );
-  }
+		return new Response()
+	} catch {
+		return Response.json(
+			{ error: 'Error Interno del Servidor.' },
+			{ status: 500 }
+		)
+	}
 }
 
 export async function DELETE(
-  req: Request,
-  { params: { userId } }: { params: { userId: string } },
+	req: Request,
+	{ params: { userId } }: { params: { userId: string } }
 ) {
-  try {
-    const { user: loggedInUser } = await validateRequest();
+	try {
+		const { user: loggedInUser } = await validateRequest()
 
-    if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
-    }
+		if (!loggedInUser) {
+			return Response.json({ error: 'No autorizado.' }, { status: 401 })
+		}
 
-    await prisma.$transaction([
-      prisma.follow.deleteMany({
-        where: {
-          followerId: loggedInUser.id,
-          followingId: userId,
-        },
-      }),
-      prisma.notification.deleteMany({
-        where: {
-          issuerId: loggedInUser.id,
-          recipientId: userId,
-          type: "FOLLOW",
-        },
-      }),
-    ]);
+		await prisma.$transaction([
+			prisma.follow.deleteMany({
+				where: {
+					followerId: loggedInUser.id,
+					followingId: userId
+				}
+			}),
+			prisma.notification.deleteMany({
+				where: {
+					issuerId: loggedInUser.id,
+					recipientId: userId,
+					type: 'FOLLOW'
+				}
+			})
+		])
 
-    return new Response();
-  } catch (error) {
-    console.error(error);
-    return Response.json(
-      { error: "Error Interno del Servidor." },
-      { status: 500 },
-    );
-  }
+		return new Response()
+	} catch {
+		return Response.json(
+			{ error: 'Error Interno del Servidor.' },
+			{ status: 500 }
+		)
+	}
 }

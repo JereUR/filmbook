@@ -1,28 +1,29 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
-import { Button } from "@/components/ui/button";
-import { UserData } from "@/lib/types";
-import EditProfileDialog from "./EditProfileDialog";
+import EditProfileDialog from './EditProfileDialog'
+
+import { Button } from '@/components/ui/button'
+import { UserData } from '@/lib/types'
 
 interface EditProfileButtonProps {
-  user: UserData;
+	user: UserData
 }
 
 export default function EditProfileButton({ user }: EditProfileButtonProps) {
-  const [showDialog, setShowDialog] = useState<boolean>(false);
+	const [showDialog, setShowDialog] = useState<boolean>(false)
 
-  return (
-    <>
-      <Button variant="outline" onClick={() => setShowDialog(true)}>
-        Editar perfil
-      </Button>
-      <EditProfileDialog
-        user={user}
-        open={showDialog}
-        onOpenChange={setShowDialog}
-      />
-    </>
-  );
+	return (
+		<>
+			<Button variant="outline" onClick={() => setShowDialog(true)}>
+				Editar perfil
+			</Button>
+			<EditProfileDialog
+				user={user}
+				open={showDialog}
+				onOpenChange={setShowDialog}
+			/>
+		</>
+	)
 }

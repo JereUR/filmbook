@@ -1,0 +1,19 @@
+{
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "useTabs": true,
+  "overrides": [
+    {
+      "files": "Routes.*",
+      "options": {
+        "printWidth": 999
+      }
+    }
+  ],
+  "tailwindConfig": "./tailwind.config.ts",
+  "plugins": ["prettier-plugin-tailwindcss"]
+}

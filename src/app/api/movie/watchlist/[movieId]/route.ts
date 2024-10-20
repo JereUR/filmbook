@@ -1,97 +1,94 @@
-import { validateRequest } from "@/auth";
-import prisma from "@/lib/prisma";
-import { WatchlistInfo } from "@/lib/types";
+import { validateRequest } from '@/auth'
+import prisma from '@/lib/prisma'
+import { WatchlistInfo } from '@/lib/types'
 
 export async function GET(
-  req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+	req: Request,
+	{ params: { movieId } }: { params: { movieId: string } }
 ) {
-  try {
-    const { user: loggedInUser } = await validateRequest();
+	try {
+		const { user: loggedInUser } = await validateRequest()
 
-    if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
-    }
+		if (!loggedInUser) {
+			return Response.json({ error: 'No autorizado.' }, { status: 401 })
+		}
 
-    const watchlist = await prisma.watchlist.findUnique({
-      where: {
-        userId_movieId: {
-          userId: loggedInUser.id,
-          movieId,
-        },
-      },
-    });
+		const watchlist = await prisma.watchlist.findUnique({
+			where: {
+				userId_movieId: {
+					userId: loggedInUser.id,
+					movieId
+				}
+			}
+		})
 
-    const data: WatchlistInfo = {
-      isAddToWatchlistByUser: !!watchlist,
-    };
+		const data: WatchlistInfo = {
+			isAddToWatchlistByUser: !!watchlist
+		}
 
-    return Response.json(data);
-  } catch (error) {
-    console.error(error);
-    return Response.json(
-      { error: "Error Interno del Servidor." },
-      { status: 500 },
-    );
-  }
+		return Response.json(data)
+	} catch {
+		return Response.json(
+			{ error: 'Error Interno del Servidor.' },
+			{ status: 500 }
+		)
+	}
 }
 
 export async function POST(
-  req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+	req: Request,
+	{ params: { movieId } }: { params: { movieId: string } }
 ) {
-  try {
-    const { user: loggedInUser } = await validateRequest();
+	try {
+		const { user: loggedInUser } = await validateRequest()
 
-    if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
-    }
+		if (!loggedInUser) {
+			return Response.json({ error: 'No autorizado.' }, { status: 401 })
+		}
 
-    await prisma.watchlist.upsert({
-      where: {
-        userId_movieId: {
-          userId: loggedInUser.id,
-          movieId,
-        },
-      },
-      create: { userId: loggedInUser.id, movieId },
-      update: {},
-    });
+		await prisma.watchlist.upsert({
+			where: {
+				userId_movieId: {
+					userId: loggedInUser.id,
+					movieId
+				}
+			},
+			create: { userId: loggedInUser.id, movieId },
+			update: {}
+		})
 
-    return new Response();
-  } catch (error) {
-    console.error(error);
-    return Response.json(
-      { error: "Error Interno del Servidor." },
-      { status: 500 },
-    );
-  }
+		return new Response()
+	} catch {
+		return Response.json(
+			{ error: 'Error Interno del Servidor.' },
+			{ status: 500 }
+		)
+	}
 }
 
 export async function DELETE(
-  req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+	req: Request,
+	{ params: { movieId } }: { params: { movieId: string } }
 ) {
-  try {
-    const { user: loggedInUser } = await validateRequest();
+	try {
+		const { user: loggedInUser } = await validateRequest()
 
-    if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
-    }
+		if (!loggedInUser) {
+			return Response.json({ error: 'No autorizado.' }, { status: 401 })
+		}
 
-    await prisma.watchlist.deleteMany({
-      where: {
-        userId: loggedInUser.id,
-        movieId,
-      },
-    });
+		await prisma.watchlist.deleteMany({
+			where: {
+				userId: loggedInUser.id,
+				movieId
+			}
+		})
 
-    return new Response();
-  } catch (error) {
-    console.error(error);
-    return Response.json(
-      { error: "Error Interno del Servidor." },
-      { status: 500 },
-    );
-  }
+		return new Response()
+	} catch {
+		return Response.json(
+			{ error: 'Error Interno del Servidor.' },
+			{ status: 500 }
+		)
+	}
 }

@@ -1,79 +1,80 @@
-"use client";
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState, useTransition } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { login } from "./actions";
+import { login } from './actions'
+
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import LoadingButton from "@/components/LoadingButton";
-import { PasswordInput } from "@/components/PasswordInput";
-import ErrorText from "@/components/ErrorText";
-import { Input } from "@/components/ui/input";
-import { loginSchema, LoginValues } from "@/lib/validation";
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage
+} from '@/components/ui/form'
+import LoadingButton from '@/components/LoadingButton'
+import { PasswordInput } from '@/components/PasswordInput'
+import ErrorText from '@/components/ErrorText'
+import { Input } from '@/components/ui/input'
+import { loginSchema, LoginValues } from '@/lib/validation'
 
 export default function LoginForm() {
-  const [error, setError] = useState<string>();
+	const [error, setError] = useState<string>()
 
-  const [isPending, startTransition] = useTransition();
+	const [isPending, startTransition] = useTransition()
 
-  const form = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      username: "",
-      password: "",
-    },
-  });
+	const form = useForm<LoginValues>({
+		resolver: zodResolver(loginSchema),
+		defaultValues: {
+			username: '',
+			password: ''
+		}
+	})
 
-  async function onSubmit(values: LoginValues) {
-    setError(undefined);
-    startTransition(async () => {
-      const { error } = await login(values);
-      if (error) setError(error);
-    });
-  }
+	async function onSubmit(values: LoginValues) {
+		setError(undefined)
+		startTransition(async () => {
+			const { error } = await login(values)
+			if (error) setError(error)
+		})
+	}
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-        {error && <ErrorText errorText={error} />}
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nombre de usuario</FormLabel>
-              <FormControl>
-                <Input placeholder="Nombre de usuario" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Contraseña</FormLabel>
-              <FormControl>
-                <PasswordInput placeholder="Contraseña" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <LoadingButton loading={isPending} type="submit" className="w-full">
-          Iniciar sesión
-        </LoadingButton>
-      </form>
-    </Form>
-  );
+	return (
+		<Form {...form}>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+				{error && <ErrorText errorText={error} />}
+				<FormField
+					control={form.control}
+					name="username"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Nombre de usuario</FormLabel>
+							<FormControl>
+								<Input placeholder="Nombre de usuario" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="password"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Contraseña</FormLabel>
+							<FormControl>
+								<PasswordInput placeholder="Contraseña" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<LoadingButton loading={isPending} type="submit" className="w-full">
+					Iniciar sesión
+				</LoadingButton>
+			</form>
+		</Form>
+	)
 }
