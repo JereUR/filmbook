@@ -368,3 +368,42 @@ export interface DiariesPage {
   diaries: DiaryInfo[];
   nextCursor: string | null;
 }
+
+export interface TournamentMovie {
+  id: string;
+  movieId: string;
+  tournamentEntryId?: string;
+  matchWeek: number;
+  points: number;
+}
+
+export interface TournamentEntry {
+  id: string;
+  participantId: string;
+  tournamentId: string;
+  tournamentMovies: TournamentMovie[];
+  totalPoints: number;
+}
+
+export interface TournamentParticipant {
+  id: string;
+  name: string;
+  username: string;
+  tournamentId?: string | null;
+  tournamentEntries: TournamentEntry[];
+}
+
+export interface TournamentData {
+  id: string;
+  name: string;
+  description?: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+  participants?: TournamentParticipant[];
+  entries?: TournamentEntry[];
+}
+
+export interface TournamentsPage {
+  tournaments: TournamentData[];
+  nextCursor: string | null;
+}
