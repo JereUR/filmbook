@@ -372,8 +372,9 @@ export interface DiariesPage {
 export interface Tournament {
   id: string;
   name: string;
+  description?: string | null;
   startDate: Date;
-  endDate: Date;
+  endDate?: Date | null;
   participants: ParticipantTournament[];
   dates: TournamentDate[];
   createdAt: Date;
@@ -384,6 +385,14 @@ export interface ParticipantTournament {
   participantId: string;
   participantName: string;
   participantUsername: string;
+  tournaments: TournamentPosition[];
+}
+
+export interface TournamentPosition {
+  tournamentId: string;
+  tournamentName: string;
+  totalPoints: number;
+  position: number;
 }
 
 export interface TournamentDate {
@@ -406,6 +415,7 @@ export interface ParticipantScore {
 export interface TournamentData {
   id: string;
   name: string;
+  description?: string | null;
   participants: number;
   dates: number;
   createdAt: Date;
