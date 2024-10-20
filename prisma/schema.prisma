@@ -266,8 +266,9 @@ model Diary {
 model Tournament {
   id           String                  @id @default(cuid())
   name         String
+  description  String?
   startDate    DateTime
-  endDate      DateTime
+  endDate      DateTime?
   participants ParticipantTournament[]
   dates        TournamentDate[]
   createdAt    DateTime                @default(now())
