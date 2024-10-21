@@ -34,7 +34,7 @@ export async function deleteReview(id: string) {
       newNumberOfRatings;
   }
 
-  await prisma.$transaction([
+  const [reviewDelete] = await prisma.$transaction([
     prisma.review.delete({ where: { id } }),
     newNumberOfRatings > 0
       ? prisma.movieRating.update({
@@ -46,6 +46,16 @@ export async function deleteReview(id: string) {
         })
       : prisma.movieRating.delete({ where: { movieId: review.movieId } }),
   ]);
+
+  const diary = await prisma.diary.findFirst({
+    where: {
+      reviewId: reviewDelete.id,
+    },
+  });
+
+  if (diary) {
+    await prisma.diary.delete({ where: { id: diary.id } });
+  }
 
   return review;
 }
