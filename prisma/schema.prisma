@@ -254,12 +254,11 @@ model Diary {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   movieId   String
   movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  reviewId  String?
-  review    Review?  @relation(fields: [reviewId], references: [id], onDelete: SetNull)
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   watchedOn DateTime
   createdAt DateTime @default(now())
 
-  @@unique([userId, movieId, watchedOn])
   @@map("movie_watches")
 }
 
