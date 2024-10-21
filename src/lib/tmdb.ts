@@ -43,7 +43,7 @@ const headers = {
   "Content-Type": "application/json;charset=utf-8",
 };
 
-export async function getMovieById(id: string): Promise<Movie | null> {
+export async function getMovieById(id: string ): Promise<Movie | null> {
   try {
     const response = await fetch(`/api/tmdb/movie?id=${id}`);
     if (!response.ok) {
