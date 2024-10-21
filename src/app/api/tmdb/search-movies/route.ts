@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
           : ["Desconocido"];
 
       return {
-        id: movie.id,
+        id: movie.id.toString(),
         title: movie.title,
         release_date: movie.release_date,
         poster_path: movie.poster_path
