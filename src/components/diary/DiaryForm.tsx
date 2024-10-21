@@ -3,11 +3,12 @@ import Image from "next/image";
 
 import '@/components/movies/rating/styles.css'
 import noImage from "@/assets/no-image-film.jpg";
-import { ReviewInfo, SearchMovie } from "@/lib/types";
+import { Movie, ReviewInfo, SearchMovie } from "@/lib/types";
 import { formatArgDate, getYear } from "@/lib/utils";
 import { useEffect, useState } from "react";
-import { toast } from "../ui/use-toast";
+import { toast, useToast } from "../ui/use-toast";
 import ReviewEditorSection from "./ReviewEditorSection";
+import { getMovieById } from "@/lib/tmdb";
 
 interface MovieItemProps {
   movie: SearchMovie | null;
@@ -18,6 +19,33 @@ interface MovieItemProps {
 export default function DiaryForm({ movie, changeState, handleOpenChange }: MovieItemProps) {
   const [reviewState, setReviewState] = useState<ReviewInfo | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  const [movieFromDb, setMovieFromDb] = useState<Movie | null>(null);
+  const [loadingMovie, setLoadingMovie] = useState<boolean>(true)
+
+  const { toast } = useToast();
+
+  useEffect(() => {
+    async function getMovie() {
+      setLoadingMovie(true)
+      if (movie) {
+        try {
+          const data = await getMovieById(movie.id);
+          setMovieFromDb(data);
+        } catch (error) {
+          console.error(error);
+          setMovieFromDb(null);
+          toast({
+            variant: "destructive",
+            description: "Error al obtener los datos de la película. Por favor vuelve a intentarlo.",
+          });
+        } finally {
+          setLoadingMovie(false);
+        }
+      }
+    }
+
+    getMovie();
+  }, [movie, toast]);
 
   const searchReview = async () => {
     setLoading(true);
@@ -59,7 +87,7 @@ export default function DiaryForm({ movie, changeState, handleOpenChange }: Movi
         Volver
       </span>
     </button>
-    <div className="m-5 md:m-10">
+    {loadingMovie ? <Loader2 className="mx-auto animate-spin" /> : <div className="m-5 md:m-10">
       <div className="flex justify-between">
         <div className="flex flex-col gap-2">
           <h1 className="text-lg md:text-xl font-semibold">{title} ({getYear(release_date)})</h1>
@@ -87,6 +115,7 @@ export default function DiaryForm({ movie, changeState, handleOpenChange }: Movi
           </span>
           : <ReviewEditorSection movieId={id.toString()} ownRating={reviewState ? reviewState.rating : 0} reviewText={reviewState ? reviewState.review : ''} liked={reviewState ? reviewState.liked : false} handleOpenChange={handleOpenChange} />}
       </div>
-    </div>
+    </div>}
+
   </div>
 }
