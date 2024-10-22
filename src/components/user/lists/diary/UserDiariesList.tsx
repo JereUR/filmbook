@@ -1,16 +1,34 @@
-"use client";
+'use client'
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { Loader2 } from "lucide-react"
 
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import kyInstance from "@/lib/ky";
-import { DiariesPage } from "@/lib/types";
-import ReviewsLoadingSkeleton from "../review/ReviewsLoadingSkeleton";
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
+import kyInstance from "@/lib/ky"
+import { DiariesPage, DiaryInfo } from "@/lib/types"
+import DiariesLoadingSkeleton from './DiariesLoadingSkeleton'
+import DiaryItem from './DiaryItem'
 
 interface UserDiariesListProps {
-  userId: string;
+  userId: string
 }
+
+const groupDiariesByDate = (diaries: DiaryInfo[]) => {
+  const groupedDiaries = diaries.reduce((acc: Record<string, DiaryInfo[]>, diary: DiaryInfo) => {
+    const date = new Date(diary.watchedOn);
+    const month = date.toLocaleString("es-ES", { month: "long" });
+
+    if (!acc[month]) {
+      acc[month] = [];
+    }
+
+    acc[month].push(diary);
+
+    return acc;
+  }, {});
+
+  return groupedDiaries;
+};
 
 export default function UserDiariesList({ userId }: UserDiariesListProps) {
   const {
@@ -34,9 +52,10 @@ export default function UserDiariesList({ userId }: UserDiariesListProps) {
   });
 
   const diaries = data?.pages.flatMap((page) => page.diaries) || [];
+  const groupedDiaries = groupDiariesByDate(diaries);
 
   if (status === "pending") {
-    return <ReviewsLoadingSkeleton />;
+    return <DiariesLoadingSkeleton />;
   }
 
   if (status === "success" && !diaries.length && !hasNextPage) {
@@ -60,11 +79,26 @@ export default function UserDiariesList({ userId }: UserDiariesListProps) {
       className="space-y-5"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      <div className='flex justify-start gap-2 w-full rounded-2xl bg-card p-5 shadow-sm'>
-        {diaries.map((diary) => (
-          <p key={diary.id}>{diary.movie.title}</p>
-        ))}
-      </div>
+      {Object.entries(groupedDiaries).map(([month, monthDiaries]) => (
+        <div key={month}>
+          <h2 className="text-xl font-bold text-primary mb-4">{month.toUpperCase()}</h2>
+          <div className="space-y-4">
+            {monthDiaries.reduce((acc: JSX.Element[], diary, index) => {
+              const date = new Date(diary.watchedOn);
+              const day = date.getDate().toString();
+
+              if (index === 0 || (index > 0 && new Date(monthDiaries[index - 1].watchedOn).getDate().toString() !== day)) {
+                acc.push(
+                  <h3 key={day} className="text-lg font-semibold text-muted-foreground mb-2">Día {day}</h3>
+                );
+              }
+              acc.push(<DiaryItem key={diary.id} diary={diary} />);
+
+              return acc;
+            }, [] as JSX.Element[])}
+          </div>
+        </div>
+      ))}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
   );
