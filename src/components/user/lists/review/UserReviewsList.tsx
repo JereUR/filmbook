@@ -25,7 +25,7 @@ export default function UserReviewsList({ userId }: UserReviewsListProps) {
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          `/api/movie/review/user/${userId}`,
+          `/api/users/${userId}/reviews`,
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<ReviewsPage>(),
