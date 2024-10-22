@@ -1,6 +1,6 @@
-import { Prisma } from "@prisma/client";
-import { JsonObject } from "@prisma/client/runtime/library";
-import { StaticImageData } from "next/image";
+import { Prisma } from "@prisma/client"
+import { JsonObject } from "@prisma/client/runtime/library"
+import { StaticImageData } from "next/image"
 
 export function getUserDataSelect(loggedInUserId: string) {
   return {
@@ -24,12 +24,12 @@ export function getUserDataSelect(loggedInUserId: string) {
         followers: true,
       },
     },
-  } satisfies Prisma.UserSelect;
+  } satisfies Prisma.UserSelect
 }
 
 export type UserData = Prisma.UserGetPayload<{
-  select: ReturnType<typeof getUserDataSelect>;
-}>;
+  select: ReturnType<typeof getUserDataSelect>
+}>
 
 export function getPostDataInclude(loggedInUserId: string) {
   return {
@@ -59,16 +59,16 @@ export function getPostDataInclude(loggedInUserId: string) {
         comments: true,
       },
     },
-  } satisfies Prisma.PostInclude;
+  } satisfies Prisma.PostInclude
 }
 
 export type PostData = Prisma.PostGetPayload<{
-  include: ReturnType<typeof getPostDataInclude>;
-}>;
+  include: ReturnType<typeof getPostDataInclude>
+}>
 
 export interface PostsPage {
-  posts: PostData[];
-  nextCursor: string | null;
+  posts: PostData[]
+  nextCursor: string | null
 }
 
 export function getCommentDataInclude(loggedInUserId: string) {
@@ -76,16 +76,16 @@ export function getCommentDataInclude(loggedInUserId: string) {
     user: {
       select: getUserDataSelect(loggedInUserId),
     },
-  } satisfies Prisma.CommentInclude;
+  } satisfies Prisma.CommentInclude
 }
 
 export type CommentData = Prisma.CommentGetPayload<{
-  include: ReturnType<typeof getCommentDataInclude>;
-}>;
+  include: ReturnType<typeof getCommentDataInclude>
+}>
 
 export interface CommentsPage {
-  comments: CommentData[];
-  previousCursor: string | null;
+  comments: CommentData[]
+  previousCursor: string | null
 }
 
 export const notificationsInclude = {
@@ -110,319 +110,320 @@ export const notificationsInclude = {
       },
     },
   },
-} satisfies Prisma.NotificationInclude;
+} satisfies Prisma.NotificationInclude
 
 export type NotificationData = Prisma.NotificationGetPayload<{
-  include: typeof notificationsInclude;
-}>;
+  include: typeof notificationsInclude
+}>
 
 export interface NotificationsPage {
-  notifications: NotificationData[];
-  nextCursor: string | null;
+  notifications: NotificationData[]
+  nextCursor: string | null
 }
 
 export interface FollowerInfo {
-  followers: number;
-  isFollowedByUser: boolean;
+  followers: number
+  isFollowedByUser: boolean
 }
 
 export interface LikeInfo {
-  likes: number;
-  isLikedByUser: boolean;
+  likes: number
+  isLikedByUser: boolean
 }
 
 export interface BookmarkInfo {
-  isBookmarkedByUser: boolean;
+  isBookmarkedByUser: boolean
 }
 
 export interface NotificationCountInfo {
-  unreadCount: number;
+  unreadCount: number
 }
 
 export interface MessageCountInfo {
-  unreadCount: number;
+  unreadCount: number
 }
 
 export interface SearchMovie {
-  id: string;
-  title: string;
-  release_date: string;
-  poster_path?: string;
-  genre_names: string[];
+  id: string
+  title: string
+  release_date: string
+  poster_path?: string
+  genre_names: string[]
 }
 
 export interface SearchMoviesResponse {
-  movies: SearchMovie[];
-  nextPage: number | null;
-  error?: string;
+  movies: SearchMovie[]
+  nextPage: number | null
+  error?: string
 }
 
 export interface TMDBSearchResponse {
-  results: SearchMovie[];
+  results: SearchMovie[]
 }
 
 export interface Movie {
-  id: string;
-  title: string;
-  backdropPath?: string;
-  posterPath?: string;
-  releaseDate?: Date;
-  overview: string;
-  runtime: number;
-  voteAverage?: number;
-  voteCount?: number;
-  productionCompanies?: any;
-  spokenLanguages?: any;
-  productionCountries?: any;
-  genres?: any;
-  directors?: any;
-  crew?: any;
-  cast?: any;
-  recommendations?: any;
-  providers?: any;
-  rating?: any;
-  reviews?: any;
-  watchlist?: any;
-  createdAt?: Date;
-  updatedAt?: Date;
+  id: string
+  title: string
+  backdropPath?: string
+  posterPath?: string
+  releaseDate?: Date
+  overview: string
+  runtime: number
+  voteAverage?: number
+  voteCount?: number
+  productionCompanies?: any
+  spokenLanguages?: any
+  productionCountries?: any
+  genres?: any
+  directors?: any
+  crew?: any
+  cast?: any
+  recommendations?: any
+  providers?: any
+  rating?: any
+  reviews?: any
+  watchlist?: any
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export interface TMDBResponse {
-  page: number;
-  total_results: number;
-  total_pages: number;
+  page: number
+  total_results: number
+  total_pages: number
   results: Array<{
-    id: number;
-    title: string;
-    release_date: string;
-    poster_path: string;
-    genre_ids: number[];
-  }>;
+    id: number
+    title: string
+    release_date: string
+    poster_path: string
+    genre_ids: number[]
+  }>
 }
 
 export interface Genre {
-  id: number;
-  name: string;
+  id: number
+  name: string
 }
 
 export interface CrewMember {
-  id?: number;
-  job: string;
-  name: string;
-  profilePath: string | null;
+  id?: number
+  job: string
+  name: string
+  profilePath: string | null
 }
 
 export interface CreditsData {
-  crew: CrewMember[];
+  crew: CrewMember[]
 }
 
 export interface Recommendation {
-  id: string;
-  title: string;
-  poster_path: string | null;
-  release_date: string;
-  vote_average: number;
+  id: string
+  title: string
+  poster_path: string | null
+  release_date: string
+  vote_average: number
 }
 
 export interface RecommendationsResponse {
-  results: Recommendation[];
+  results: Recommendation[]
 }
 
 export interface CastMember {
-  id?: number;
-  name: string;
-  character?: string;
-  profilePath: string;
+  id?: number
+  name: string
+  character?: string
+  profilePath: string
 }
 
 export interface ImageInfo {
-  src: string | StaticImageData;
-  name: string;
+  src: string | StaticImageData
+  name: string
 }
 
 export interface ReviewInfo {
-  id: string;
-  userId?: string;
-  movieId?: string;
+  id: string
+  userId?: string
+  movieId?: string
   movie: {
-    id?: string;
-    title?: string;
-    backdropPath?: string | null;
-    posterPath?: string | null;
-    releaseDate?: Date | null;
-    directors?: any;
-    overview?: string | null;
-    runtime?: number | null;
-    voteAverage?: number | null;
-    updatedAt?: Date;
-  };
+    id?: string
+    title?: string
+    backdropPath?: string | null
+    posterPath?: string | null
+    releaseDate?: Date | null
+    directors?: any
+    overview?: string | null
+    runtime?: number | null
+    voteAverage?: number | null
+    updatedAt?: Date
+  }
   user?: {
-    username: string;
-    avatarUrl?: string | null;
-    displayName?: string;
-  };
-  rating: number | null;
-  review?: string | null;
-  createdAt: Date;
-  updatedAt?: Date;
-  liked: boolean;
-  watched?: boolean;
-  likesData?: LikeInfo;
+    username: string
+    avatarUrl?: string | null
+    displayName?: string
+  }
+  rating: number | null
+  review?: string | null
+  createdAt: Date
+  updatedAt?: Date
+  liked: boolean
+  watched?: boolean
+  likesData?: LikeInfo
 }
 
 export interface ReviewResumeInfo {
-  id: string;
-  userId?: string;
-  movieId?: string;
+  id: string
+  userId?: string
+  movieId?: string
   movie?: {
-    title?: string;
-    releaseDate?: string;
-  };
+    title?: string
+    releaseDate?: string
+  }
   user?: {
-    username: string;
-    avatarUrl?: string | null;
-  };
-  rating: number | null;
-  liked: boolean;
-  review?: string | null;
-  createdAt: Date;
+    username: string
+    avatarUrl?: string | null
+  }
+  rating: number | null
+  liked: boolean
+  review?: string | null
+  createdAt: Date
 }
 
 export interface ReviewResumeInfoPage {
-  reviews: ReviewResumeInfo[];
-  nextCursor: string | null;
+  reviews: ReviewResumeInfo[]
+  nextCursor: string | null
 }
 
 export interface ReviewSinglePage {
-  reviews: ReviewInfo[];
+  reviews: ReviewInfo[]
 }
 
 export interface ReviewsPage {
-  reviews: ReviewInfo[];
-  nextCursor: string | null;
+  reviews: ReviewInfo[]
+  nextCursor: string | null
 }
 
 export interface WatchlistInfo {
-  isAddToWatchlistByUser: boolean;
+  isAddToWatchlistByUser: boolean
 }
 
 export interface WatchedInfo {
-  isWatchedByUser: boolean;
+  isWatchedByUser: boolean
 }
 
 export interface LikedInfo {
-  isLikedByUser: boolean;
+  isLikedByUser: boolean
 }
 
 export interface ReviewData {
-  id: string;
-  rating: number | null;
-  review: string | null;
-  liked: boolean;
-  watched: boolean;
+  id: string
+  rating: number | null
+  review: string | null
+  liked: boolean
+  watched: boolean
 }
 
 export interface WatchlistData {
-  id: string;
-  movieId: string;
+  id: string
+  movieId: string
   movie: {
-    id: string;
-    title: string;
-    runtime: number | null;
-    overview: string | null;
-    genres: any;
-    directors: any;
-    posterPath: string | null;
-    releaseDate: Date | null;
-    voteAverage: number | null;
-    providers: any;
-  };
-  voteApp: number | null;
+    id: string
+    title: string
+    runtime: number | null
+    overview: string | null
+    genres: any
+    directors: any
+    posterPath: string | null
+    releaseDate: Date | null
+    voteAverage: number | null
+    providers: any
+  }
+  voteApp: number | null
 }
 
 export interface WatchlistPage {
-  watchlist: WatchlistData[];
-  nextCursor: string | null;
+  watchlist: WatchlistData[]
+  nextCursor: string | null
 }
 
 export interface DiaryInfo {
-  id: string;
-  userId: string;
-  movieId: string;
+  id: string
+  userId: string
+  movieId: string
   movie: {
-    id: string;
-    title: string;
-    posterPath: string | null;
-    releaseDate: Date | null;
-  };
-  reviewId: string | null;
+    id: string
+    title: string
+    posterPath: string | null
+    releaseDate: Date | null
+  }
+  reviewId: string | null
   review: {
-    liked: boolean;
-    reviewText: string | null;
-    rating: number | null;
-  };
-  watchedOn: Date;
+    liked: boolean
+    reviewText: string | null
+    rating: number | null
+  }
+  user: { username: string }
+  watchedOn: Date
 }
 
 export interface DiariesPage {
-  diaries: DiaryInfo[];
-  nextCursor: string | null;
+  diaries: DiaryInfo[]
+  nextCursor: string | null
 }
 
 export interface Tournament {
-  id: string;
-  name: string;
-  description?: string | null;
-  startDate: Date;
-  endDate?: Date | null;
-  participants: ParticipantTournament[];
-  dates: TournamentDate[];
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  name: string
+  description?: string | null
+  startDate: Date
+  endDate?: Date | null
+  participants: ParticipantTournament[]
+  dates: TournamentDate[]
+  createdAt: Date
+  updatedAt: Date
 }
 
 export interface ParticipantTournament {
-  participantId: string;
-  participantName: string;
-  participantUsername: string;
-  tournaments: TournamentPosition[];
+  participantId: string
+  participantName: string
+  participantUsername: string
+  tournaments: TournamentPosition[]
 }
 
 export interface TournamentPosition {
-  tournamentId: string;
-  tournamentName: string;
-  totalPoints: number;
-  position: number;
+  tournamentId: string
+  tournamentName: string
+  totalPoints: number
+  position: number
 }
 
 export interface TournamentDate {
-  id: string;
-  date: number;
+  id: string
+  date: number
   movie: {
-    id: string;
-    title: string;
-  };
-  scores: ParticipantScore[];
+    id: string
+    title: string
+  }
+  scores: ParticipantScore[]
 }
 
 export interface ParticipantScore {
-  participantId: string;
-  participantName: string;
-  points: number;
-  extraPoints: number;
+  participantId: string
+  participantName: string
+  points: number
+  extraPoints: number
 }
 
 export interface TournamentData {
-  id: string;
-  name: string;
-  description?: string | null;
-  participants: number;
-  dates: number;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  name: string
+  description?: string | null
+  participants: number
+  dates: number
+  createdAt: Date
+  updatedAt: Date
 }
 
 export interface TournamentsPage {
-  tournaments: TournamentData[];
-  nextCursor: string | null;
+  tournaments: TournamentData[]
+  nextCursor: string | null
 }
