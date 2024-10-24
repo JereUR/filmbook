@@ -1,22 +1,22 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { formatDate, formatDistanceToNowStrict } from "date-fns";
-import { shortenUrl } from "./shortenUrl";
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+import { formatDate, formatDistanceToNowStrict } from "date-fns"
+import { shortenUrl } from "./shortenUrl"
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 
 export function formatRelativeDate(from: Date) {
-  const currentDate = new Date();
+  const currentDate = new Date()
 
   if (currentDate.getTime() - from.getTime() < 24 * 60 * 60 * 1000) {
-    return formatDistanceToNowStrict(from, { addSuffix: true });
+    return formatDistanceToNowStrict(from, { addSuffix: true })
   } else {
     if (currentDate.getFullYear() === from.getFullYear()) {
-      return formatDate(from, "MMM d");
+      return formatDate(from, "MMM d")
     } else {
-      return formatDate(from, "MMMM d, yyy");
+      return formatDate(from, "MMMM d, yyy")
     }
   }
 }
@@ -25,43 +25,43 @@ export function formatNumber(n: number): string {
   return Intl.NumberFormat("en-US", {
     notation: "compact",
     maximumFractionDigits: 1,
-  }).format(n);
+  }).format(n)
 }
 
 export function slugify(input: string): string {
   return input
     .toLowerCase()
     .replace(/ /g, "-")
-    .replace(/[^a-z0-9-]/g, "");
+    .replace(/[^a-z0-9-]/g, "")
 }
 
 export function getYear(input: string): string {
-  const year = input.substring(0, 4);
+  const year = input.substring(0, 4)
 
-  return year;
+  return year
 }
 
 export function ratingColor(rating: number) {
   if (rating < 4.0) {
-    return "text-red-600";
+    return "text-red-600"
   } else if (rating < 6.0) {
-    return "text-yellow-600";
+    return "text-yellow-600"
   } else if (rating < 9.0) {
-    return "text-green-600";
+    return "text-green-600"
   } else {
-    return "text-primary";
+    return "text-primary"
   }
 }
 
 export function ratingColorFilmbook(rating: number) {
   if (rating < 2.5) {
-    return "text-red-600";
+    return "text-red-600"
   } else if (rating < 4.0) {
-    return "text-yellow-600";
+    return "text-yellow-600"
   } else if (rating < 7.0) {
-    return "text-green-600";
+    return "text-green-600"
   } else {
-    return "text-primary";
+    return "text-primary"
   }
 }
 
@@ -71,13 +71,13 @@ export function formatArgDate(date: string) {
     month: "long",
     year: "numeric",
     timeZone: "America/Argentina/Buenos_Aires",
-  }).format(new Date(date));
+  }).format(new Date(date))
 }
 
 export function dateFormat(dateISO: string) {
-  const date = new Date(dateISO);
+  const date = new Date(dateISO)
 
-  const day = date.getUTCDate();
+  const day = date.getUTCDate()
   const months = [
     "Enero",
     "Febrero",
@@ -91,11 +91,11 @@ export function dateFormat(dateISO: string) {
     "Octubre",
     "Noviembre",
     "Diciembre",
-  ];
-  const month = months[date.getUTCMonth()];
-  const year = date.getUTCFullYear();
+  ]
+  const month = months[date.getUTCMonth()]
+  const year = date.getUTCFullYear()
 
-  return `${day} de ${month} de ${year}`;
+  return `${day} de ${month} de ${year}`
 }
 
 export function generateReviewShareText(
@@ -105,30 +105,30 @@ export function generateReviewShareText(
   rating: number | null,
   own: boolean,
   movie: {
-    movieId: string | undefined;
-    title: string;
-    year: string;
+    movieId: string | undefined
+    title: string
+    year: string
   },
 ): string {
-  let icons = "";
+  let icons = ""
 
   if (rating !== null) {
-    const fullIcons = Math.floor(rating);
-    const halfIcon = rating % 1 === 0.5 ? "½" : "";
+    const fullIcons = Math.floor(rating)
+    const halfIcon = rating % 1 === 0.5 ? "½" : ""
 
-    icons = "🍿".repeat(fullIcons) + halfIcon;
+    icons = "🍿".repeat(fullIcons) + halfIcon
   }
 
-  const encodedTitle = encodeURIComponent(movie.title);
-  const encodedUsername = encodeURIComponent(username);
-  const encodedMovieId = encodeURIComponent(movie.movieId || "");
+  const encodedTitle = encodeURIComponent(movie.title)
+  const encodedUsername = encodeURIComponent(username)
+  const encodedMovieId = encodeURIComponent(movie.movieId || "")
 
-  const reviewUrl = `${process.env.NEXT_PUBLIC_DEPLOY_URL}/pelicula/review/${reviewId}?title=${encodedTitle}&date=${movie.year}&username=${encodedUsername}&movieId=${encodedMovieId}`;
+  const reviewUrl = `${process.env.NEXT_PUBLIC_DEPLOY_URL}/pelicula/review/${reviewId}?title=${encodedTitle}&date=${movie.year}&username=${encodedUsername}&movieId=${encodedMovieId}`
 
   if (own) {
-    return `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year})<br /><br />Léela completa aquí:<br /> ${reviewUrl}`;
+    return `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year})<br /><br />Léela completa aquí:<br /> ${reviewUrl}`
   } else {
-    return `Este es la review de ${icons} de ${movie.title} (${movie.year}) hecha por @${displayName}<br /><br />Léela completa aquí:<br /> ${reviewUrl}`;
+    return `Este es la review de ${icons} de ${movie.title} (${movie.year}) hecha por @${displayName}<br /><br />Léela completa aquí:<br /> ${reviewUrl}`
   }
 }
 
@@ -139,31 +139,31 @@ export function generateReviewShareTextForTwitter(
   rating: number | null,
   own: boolean,
   movie: {
-    movieId: string | undefined;
-    title: string;
-    year: string;
+    movieId: string | undefined
+    title: string
+    year: string
   },
 ): string {
-  let icons = "";
+  let icons = ""
 
   if (rating !== null) {
-    const fullIcons = Math.floor(rating);
-    const halfIcon = rating % 1 === 0.5 ? "½" : "";
+    const fullIcons = Math.floor(rating)
+    const halfIcon = rating % 1 === 0.5 ? "½" : ""
 
-    icons = "🍿".repeat(fullIcons) + halfIcon;
+    icons = "🍿".repeat(fullIcons) + halfIcon
   }
 
-  const encodedTitle = encodeURIComponent(movie.title);
-  const encodedUsername = encodeURIComponent(username);
-  const encodedMovieId = encodeURIComponent(movie.movieId || "");
+  const encodedTitle = encodeURIComponent(movie.title)
+  const encodedUsername = encodeURIComponent(username)
+  const encodedMovieId = encodeURIComponent(movie.movieId || "")
 
-  const reviewUrl = `${process.env.NEXT_PUBLIC_DEPLOY_URL}/pelicula/review/${reviewId}?title=${encodedTitle}&date=${movie.year}&username=${encodedUsername}&movieId=${encodedMovieId}`;
+  const reviewUrl = `${process.env.NEXT_PUBLIC_DEPLOY_URL}/pelicula/review/${reviewId}?title=${encodedTitle}&date=${movie.year}&username=${encodedUsername}&movieId=${encodedMovieId}`
 
   const tweetText = own
     ? `Esta es mi review de ${icons} sobre ${movie.title} (${movie.year}) en Filmbook. Léela completa aquí:`
-    : `Esta es la review de ${icons} de ${movie.title} (${movie.year}) hecha por '${displayName}' en Filmbook. Léela completa aquí:`;
+    : `Esta es la review de ${icons} de ${movie.title} (${movie.year}) hecha por '${displayName}' en Filmbook. Léela completa aquí:`
 
-  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(reviewUrl)}`;
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(reviewUrl)}`
 
-  return tweetUrl;
+  return tweetUrl
 }
