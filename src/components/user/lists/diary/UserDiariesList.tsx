@@ -1,16 +1,16 @@
-'use client'
+'use client';
 
-import { useInfiniteQuery } from "@tanstack/react-query"
-import { Loader2 } from "lucide-react"
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { Calendar, Loader2 } from "lucide-react";
 
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
-import kyInstance from "@/lib/ky"
-import { DiariesPage, DiaryInfo } from "@/lib/types"
-import DiariesLoadingSkeleton from './DiariesLoadingSkeleton'
-import DiaryItem from './DiaryItem'
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
+import kyInstance from "@/lib/ky";
+import { DiariesPage, DiaryInfo } from "@/lib/types";
+import DiariesLoadingSkeleton from './DiariesLoadingSkeleton';
+import DiaryItem from './DiaryItem';
 
 interface UserDiariesListProps {
-  userId: string
+  userId: string;
 }
 
 const groupDiariesByDate = (diaries: DiaryInfo[]) => {
@@ -31,20 +31,13 @@ const groupDiariesByDate = (diaries: DiaryInfo[]) => {
 };
 
 export default function UserDiariesList({ userId }: UserDiariesListProps) {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ["diaries", userId],
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
           `/api/users/${userId}/diaries`,
-          pageParam ? { searchParams: { cursor: pageParam } } : {},
+          pageParam ? { searchParams: { cursor: pageParam } } : {}
         )
         .json<DiariesPage>(),
     initialPageParam: null as string | null,
@@ -59,19 +52,11 @@ export default function UserDiariesList({ userId }: UserDiariesListProps) {
   }
 
   if (status === "success" && !diaries.length && !hasNextPage) {
-    return (
-      <p className="text-center text-muted-foreground">
-        Este usuario todavía no cuenta con entradas en su bitácora.
-      </p>
-    );
+    return <p className="text-center text-muted-foreground">Este usuario todavía no cuenta con entradas en su bitácora.</p>;
   }
 
   if (status === "error") {
-    return (
-      <p className="text-center text-destructive">
-        Ocurrió un error al cargar la bitácora
-      </p>
-    );
+    return <p className="text-center text-destructive">Ocurrió un error al cargar la bitácora</p>;
   }
 
   return (
@@ -80,16 +65,19 @@ export default function UserDiariesList({ userId }: UserDiariesListProps) {
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {Object.entries(groupedDiaries).map(([month, monthDiaries]) => (
-        <div key={month}>
-          <h2 className="text-xl font-bold text-primary mb-4">{month.toUpperCase()}</h2>
-          <div className="space-y-4">
+        <div key={month} className='bg-card/50 p-2 md:p-4 my-2 md:my-4 rounded-2xl '>
+          <h2 className="flex items-center gap-2 md:text-lg font-extrabold text-primary p-2 md:p-4 border border-primary/50 rounded-2xl mb-2 md:mb-4"><Calendar />{month.toUpperCase()}</h2>
+          <div className="space-y-3 ml-2 md:ml-4">
             {monthDiaries.reduce((acc: JSX.Element[], diary, index) => {
               const date = new Date(diary.watchedOn);
               const day = date.getDate().toString();
 
               if (index === 0 || (index > 0 && new Date(monthDiaries[index - 1].watchedOn).getDate().toString() !== day)) {
                 acc.push(
-                  <h3 key={day} className="text-lg font-semibold text-muted-foreground mb-2">Día {day}</h3>
+                  <div key={day}>
+                    <h3 className="text-lg font-bold text-foreground/40 mb-3 italic">Día {day}</h3>
+                    <hr className='w-[95%] text-foreground/40 h-[1px] mx-auto md:my-2'/>
+                  </div>
                 );
               }
               acc.push(<DiaryItem key={diary.id} diary={diary} />);
@@ -99,7 +87,7 @@ export default function UserDiariesList({ userId }: UserDiariesListProps) {
           </div>
         </div>
       ))}
-      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin text-primary" />}
     </InfiniteScrollContainer>
   );
 }
