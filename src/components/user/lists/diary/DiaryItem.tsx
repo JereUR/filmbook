@@ -2,14 +2,15 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Heart, Text, Popcorn, Trash2 } from "lucide-react"
+import { Heart, Text, Popcorn} from "lucide-react"
+import { useState } from "react"
 
 import { DiaryInfo } from "@/lib/types"
 import noImage from '@/assets/no-image-film.jpg'
 import { getYear } from "@/lib/utils"
 import { useSession } from "@/app/(main)/SessionProvider"
-import { useState } from "react"
 import DeleteDiaryItemDialog from "./DeleteDiaryItemDialog"
+import DeleteDiaryItemButton from "./DeleteDiaryItemButton"
 
 interface DiaryItemProps {
   diary: DiaryInfo
@@ -44,7 +45,7 @@ export default function DiaryItem({ diary }: DiaryItemProps) {
 
   return (
     <div className='relative p-2 md:p-4 bg-background rounded-2xl w-full transition duration-300 ease-in-out'>
-      {diary.userId === user.id && <button className='absolute top-5 right-5 p-2 hover:bg-card-child/40 rounded' onClick={() => setShowDeleteDialog(true)}><Trash2 className="text-destructive h-3 w-3 md:h-4 md:w-4" /></button>}
+      {diary.userId === user.id && <DeleteDiaryItemButton diary={diary} />}
       <Link href={`/pelicula/review/${diary.reviewId}?title=${diary.movie.title}&date=${getYear(diary.movie.releaseDate ? diary.movie.releaseDate.toString() : '')}&username=${diary.user.username}&movieId=${diary.movieId}`} className="flex gap-4 cursor-pointer">
         <Image
           src={diary.movie.posterPath || noImage}
