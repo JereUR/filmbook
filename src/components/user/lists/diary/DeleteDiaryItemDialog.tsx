@@ -1,5 +1,3 @@
-
-
 import { DiaryInfo } from "@/lib/types";
 import { useDeleteDiaryItemMutation } from "./mutation";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -41,14 +39,14 @@ export default function DeleteDiaryItemDialog({
             onClick={() => mutation.mutate(diaryItem.id, { onSuccess: onClose })}
             loading={mutation.isPending}
           >
-            Borrar
+            Remover
           </LoadingButton>
           <Button
             variant="outline"
             onClick={onClose}
             disabled={mutation.isPending}
           >
-            Remover
+            Cancelar
           </Button>
         </DialogFooter>
       </DialogContent>
