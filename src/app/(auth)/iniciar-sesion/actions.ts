@@ -1,19 +1,19 @@
-"use server";
+"use server"
 
-import { isRedirectError } from "next/dist/client/components/redirect";
-import { verify } from "@node-rs/argon2";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect"
+import { verify } from "@node-rs/argon2"
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 
-import prisma from "@/lib/prisma";
-import { loginSchema, LoginValues } from "@/lib/validation";
-import { lucia } from "@/auth";
+import prisma from "@/lib/prisma"
+import { loginSchema, LoginValues } from "@/lib/validation"
+import { lucia } from "@/auth"
 
 export async function login(
   credentials: LoginValues,
 ): Promise<{ error: string }> {
   try {
-    const { username, password } = loginSchema.parse(credentials);
+    const { username, password } = loginSchema.parse(credentials)
 
     const existingUser = await prisma.user.findFirst({
       where: {
@@ -22,10 +22,10 @@ export async function login(
           mode: "insensitive",
         },
       },
-    });
+    })
 
     if (!existingUser || !existingUser.passwordHash) {
-      return { error: "Credenciales incorrectas." };
+      return { error: "Credenciales incorrectas." }
     }
 
     const validPassword = await verify(existingUser.passwordHash, password, {
@@ -33,24 +33,23 @@ export async function login(
       timeCost: 2,
       outputLen: 32,
       parallelism: 1,
-    });
+    })
 
     if (!validPassword) {
-      return { error: "Credenciales incorrectas." };
+      return { error: "Credenciales incorrectas." }
     }
 
-    const session = await lucia.createSession(existingUser.id, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
+    const session = await lucia.createSession(existingUser.id, {})
+    const sessionCookie = lucia.createSessionCookie(session.id)
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
       sessionCookie.attributes,
-    );
+    )
 
-    return redirect("/");
+    return redirect("/")
   } catch (error) {
-    if (isRedirectError(error)) throw error;
-    console.error(error);
-    return { error: "Algo salió mal. Por favor inténtalo de nuevo." };
+    if (isRedirectError(error)) throw error
+    return { error: "Algo salió mal. Por favor inténtalo de nuevo." }
   }
 }

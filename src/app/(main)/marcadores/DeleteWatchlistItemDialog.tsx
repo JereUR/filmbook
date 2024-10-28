@@ -1,14 +1,13 @@
-
-import { WatchlistData } from "@/lib/types";
-import { useDeleteWatchlistItemMutation } from "./mutation";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import LoadingButton from "@/components/LoadingButton";
-import { Button } from "@/components/ui/button";
+import { WatchlistData } from "@/lib/types"
+import { useDeleteWatchlistItemMutation } from "./mutation"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import LoadingButton from "@/components/LoadingButton"
+import { Button } from "@/components/ui/button"
 
 interface DeleteWatchlistItemDialogProps {
   item: WatchlistData
-  open: boolean;
-  onClose: () => void;
+  open: boolean
+  onClose: () => void
 }
 
 export default function DeleteWatchlistItemDialog({
@@ -16,11 +15,11 @@ export default function DeleteWatchlistItemDialog({
   open,
   onClose,
 }: DeleteWatchlistItemDialogProps) {
-  const mutation = useDeleteWatchlistItemMutation();
+  const mutation = useDeleteWatchlistItemMutation()
 
   function handleOpenChange(open: boolean) {
     if (!open || !mutation.isPending) {
-      onClose();
+      onClose()
     }
   }
 
@@ -52,5 +51,5 @@ export default function DeleteWatchlistItemDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { Loader2 } from "lucide-react"
 
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import Post from "@/components/posts/Post";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
-import kyInstance from "@/lib/ky";
-import { PostsPage } from "@/lib/types";
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
+import Post from "@/components/posts/Post"
+import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton"
+import kyInstance from "@/lib/ky"
+import { PostsPage } from "@/lib/types"
 
 interface SearchResultsProps {
-  query: string;
+  query: string
 }
 
 export default function SearchResults({ query }: SearchResultsProps) {
@@ -35,20 +35,20 @@ export default function SearchResults({ query }: SearchResultsProps) {
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     gcTime: 0,
-  });
+  })
 
-  const posts = data?.pages.flatMap((page) => page.posts) || [];
+  const posts = data?.pages.flatMap((page) => page.posts) || []
 
   if (status === "pending") {
-    return <PostsLoadingSkeleton />;
+    return <PostsLoadingSkeleton />
   }
 
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="line-clamp-2 break-all text-center text-muted-foreground">
-        No se encontraron resultados para &quot;{query}&quot;.
+        No se encontraron resultados para &quot{query}&quot.
       </p>
-    );
+    )
   }
 
   if (status === "error") {
@@ -56,7 +56,7 @@ export default function SearchResults({ query }: SearchResultsProps) {
       <p className="text-center text-destructive">
         Ocurrió un error al cargar los resultados.
       </p>
-    );
+    )
   }
 
   return (
@@ -69,5 +69,5 @@ export default function SearchResults({ query }: SearchResultsProps) {
       ))}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function WatchlistsLoadingSkeleton() {
   return (
@@ -7,7 +7,7 @@ export default function WatchlistsLoadingSkeleton() {
       <WatchlistLoadingSkeleton />
       <WatchlistLoadingSkeleton />
     </div>
-  );
+  )
 }
 
 function WatchlistLoadingSkeleton() {
@@ -29,5 +29,5 @@ function WatchlistLoadingSkeleton() {
         </div>
       </div>
     </div>
-  );
+  )
 }

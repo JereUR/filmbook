@@ -1,22 +1,22 @@
-import { Metadata } from "next";
+import { Metadata } from "next"
 
-import Bookmarks from "./Bookmarks";
-import TrendsSidebar from "@/components/TrendsSidebar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { validateRequest } from "@/auth";
-import Watchlist from "./Watchlist";
+import Bookmarks from "./Bookmarks"
+import TrendsSidebar from "@/components/TrendsSidebar"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { validateRequest } from "@/auth"
+import Watchlist from "./Watchlist"
 
 export const metadata: Metadata = {
   title: "Marcadores",
-};
+}
 
 export default async function BookmarksPage() {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
     return (
       <p className="text-destructive">No estas autorizado a ver esta página.</p>
-    );
+    )
   }
 
   return (
@@ -38,5 +38,5 @@ export default async function BookmarksPage() {
       </div>
       <TrendsSidebar />
     </main>
-  );
+  )
 }

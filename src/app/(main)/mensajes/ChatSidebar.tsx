@@ -3,48 +3,48 @@ import {
   ChannelPreviewMessenger,
   ChannelPreviewUIComponentProps,
   useChatContext,
-} from "stream-chat-react";
-import { useQueryClient } from "@tanstack/react-query";
-import { MailPlus, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+} from "stream-chat-react"
+import { useQueryClient } from "@tanstack/react-query"
+import { MailPlus, X } from "lucide-react"
+import { useCallback, useEffect, useState } from "react"
 
-import { useSession } from "../SessionProvider";
-import { Button } from "@/components/ui/button";
-import NewChatDialog from "./NewChatDialog";
+import { cn } from "@/lib/utils"
+import { useSession } from "../SessionProvider"
+import { Button } from "@/components/ui/button"
+import NewChatDialog from "./NewChatDialog"
 
 interface ChatSidebarProps {
-  open: boolean;
-  onClose: () => void;
+  open: boolean
+  onClose: () => void
 }
 
 export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
-  const { user } = useSession();
+  const { user } = useSession()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
-  const { channel } = useChatContext();
+  const { channel } = useChatContext()
 
   useEffect(() => {
     if (channel?.id) {
       queryClient.invalidateQueries({
         queryKey: ["unread-messages-count"],
-      });
+      })
     }
-  }, [channel?.id, queryClient]);
+  }, [channel?.id, queryClient])
 
   const ChannelPreviewCustom = useCallback(
     (props: ChannelPreviewUIComponentProps) => (
       <ChannelPreviewMessenger
         {...props}
         onSelect={() => {
-          props.setActiveChannel?.(props.channel, props.watchers);
-          onClose();
+          props.setActiveChannel?.(props.channel, props.watchers)
+          onClose()
         }}
       />
     ),
     [onClose],
-  );
+  )
 
   return (
     <div
@@ -73,15 +73,15 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
         Preview={ChannelPreviewCustom}
       />
     </div>
-  );
+  )
 }
 
 interface MenuHeaderProps {
-  onClose: () => void;
+  onClose: () => void
 }
 
 function MenuHeader({ onClose }: MenuHeaderProps) {
-  const [showNewChatDialog, setShowNewChatDialog] = useState<boolean>(false);
+  const [showNewChatDialog, setShowNewChatDialog] = useState<boolean>(false)
 
   return (
     <>
@@ -105,11 +105,11 @@ function MenuHeader({ onClose }: MenuHeaderProps) {
         <NewChatDialog
           onOpenChange={setShowNewChatDialog}
           onChatCreated={() => {
-            setShowNewChatDialog(false);
-            onClose();
+            setShowNewChatDialog(false)
+            onClose()
           }}
         />
       )}
     </>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import { Metadata } from "next";
-import { Loader2, TriangleAlert } from "lucide-react";
-import { Suspense } from "react";
+import { Metadata } from "next"
+import { Loader2 } from "lucide-react"
+import { Suspense } from "react"
 
-import SearchMovie from "@/components/movies/search/SearchMovie";
+import SearchMovie from "@/components/movies/search/SearchMovie"
 
 export const metadata: Metadata = {
   title: "Explorar películas",
-};
+}
 
 export default function MoviesPage() {
   return (
@@ -20,5 +20,5 @@ export default function MoviesPage() {
         </Suspense>
       </div>
     </main>
-  );
+  )
 }

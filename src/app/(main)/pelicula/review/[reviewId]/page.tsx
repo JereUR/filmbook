@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Loader2 } from "lucide-react";
-import { Suspense } from 'react';
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { Loader2 } from "lucide-react"
+import { Suspense } from 'react'
 
 import UserReview from './UserReview'
-import OtherReviews from './OtherReviews';
+import OtherReviews from './OtherReviews'
 
 interface PageProps {
   params: { reviewId: string },
@@ -12,17 +12,17 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
-  const title = searchParams.title || 'Sin título';
-  const date = searchParams.date || '';
-  const username = searchParams.username || '';
+  const title = searchParams.title || 'Sin título'
+  const date = searchParams.date || ''
+  const username = searchParams.username || ''
 
   if (!title) {
-    return notFound();
+    return notFound()
   }
 
   return {
     title: `${username} | ${title} (${date})`,
-  };
+  }
 }
 
 export default function ReviewPage({ params, searchParams }: PageProps) {
@@ -41,7 +41,7 @@ export default function ReviewPage({ params, searchParams }: PageProps) {
         </Suspense>
       </div>
     </main>
-  );
+  )
 }
 
 function OtherReviewsContainer({ movieId, reviewId }: { movieId: string, reviewId: string }) {
@@ -49,5 +49,5 @@ function OtherReviewsContainer({ movieId, reviewId }: { movieId: string, reviewI
     <div className="h-fit w-full px-2 flex-none space-y-5 md:block">
       <OtherReviews movieId={movieId} reviewId={reviewId} />
     </div>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { Loader2 } from "lucide-react"
 
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import kyInstance from "@/lib/ky";
-import { WatchlistPage } from "@/lib/types";
-import WatchlistItem from "./WatchlistItem";
-import WatchlistsLoadingSkeleton from "./WatchlistLoadingSkeleton";
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
+import kyInstance from "@/lib/ky"
+import { WatchlistPage } from "@/lib/types"
+import WatchlistItem from "./WatchlistItem"
+import WatchlistsLoadingSkeleton from "./WatchlistLoadingSkeleton"
 
 interface WatchlistProps {
-  userId: string;
+  userId: string
 }
 
 export default function Watchlist({ userId }: WatchlistProps) {
@@ -32,12 +32,12 @@ export default function Watchlist({ userId }: WatchlistProps) {
         .json<WatchlistPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
+  })
 
-  const watchlist = data?.pages.flatMap((page) => page.watchlist) || [];
+  const watchlist = data?.pages.flatMap((page) => page.watchlist) || []
 
   if (status === "pending") {
-    return <WatchlistsLoadingSkeleton />;
+    return <WatchlistsLoadingSkeleton />
   }
 
   if (status === "success" && !watchlist.length && !hasNextPage) {
@@ -45,7 +45,7 @@ export default function Watchlist({ userId }: WatchlistProps) {
       <p className="text-center text-muted-foreground">
         Todavía no tienes ninguna pelicula en tu watchlist.
       </p>
-    );
+    )
   }
 
   if (status === "error") {
@@ -53,7 +53,7 @@ export default function Watchlist({ userId }: WatchlistProps) {
       <p className="text-center text-destructive">
         Ocurrió un error al cargar la watchlist.
       </p>
-    );
+    )
   }
 
   return (
@@ -68,5 +68,5 @@ export default function Watchlist({ userId }: WatchlistProps) {
       </div>
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
-  );
+  )
 }

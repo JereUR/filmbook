@@ -1,25 +1,25 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowBigDownDashIcon, ArrowBigUpDashIcon, X, CrossIcon } from "lucide-react";
-import { useState } from "react";
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowBigDownDashIcon, ArrowBigUpDashIcon, X } from "lucide-react"
+import { useState } from "react"
 
-import { WatchlistData } from "@/lib/types";
-import { getYear, ratingColor } from "@/lib/utils";
-import noImage from "@/assets/no-image-film.jpg";
-import TmdbLogo from "@/assets/TMDB.png";
+import { WatchlistData } from "@/lib/types"
+import { getYear, ratingColor } from "@/lib/utils"
+import noImage from "@/assets/no-image-film.jpg"
+import TmdbLogo from "@/assets/TMDB.png"
 import AppLogo from '@/assets/logo.png'
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import ProvidersForWatchlist from "./ProvidersForWatchlist";
-import DeleteWatchlistItemDialog from "./DeleteWatchlistItemDialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+import ProvidersForWatchlist from "./ProvidersForWatchlist"
+import DeleteWatchlistItemDialog from "./DeleteWatchlistItemDialog"
 
 interface WatchlistItemProps {
   item: WatchlistData
 }
 
 export default function WatchlistItem({ item }: WatchlistItemProps) {
-  const [open, setOpen] = useState(false);
-  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [open, setOpen] = useState(false)
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
   const { title, releaseDate, posterPath, genres, voteAverage, overview, providers, directors, runtime } = item.movie
   const { voteApp } = item
 

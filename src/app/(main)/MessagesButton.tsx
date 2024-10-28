@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import { useQuery } from "@tanstack/react-query";
-import { Mail } from "lucide-react";
-import Link from "next/link";
+import { useQuery } from "@tanstack/react-query"
+import { Mail } from "lucide-react"
+import Link from "next/link"
 
-import { Button } from "@/components/ui/button";
-import kyInstance from "@/lib/ky";
-import { MessageCountInfo } from "@/lib/types";
+import { Button } from "@/components/ui/button"
+import kyInstance from "@/lib/ky"
+import { MessageCountInfo } from "@/lib/types"
 
 interface MessagesButtonProps {
-  initialState: MessageCountInfo;
+  initialState: MessageCountInfo
 }
 
 export default function MessagesButton({ initialState }: MessagesButtonProps) {
@@ -18,8 +18,8 @@ export default function MessagesButton({ initialState }: MessagesButtonProps) {
     queryFn: () =>
       kyInstance.get("/api/messages/unread-count").json<MessageCountInfo>(),
     initialData: initialState,
-    refetchInterval: 60 * 1000, // Every minute
-  });
+    refetchInterval: 60 * 1000,
+  })
 
   return (
     <Button
@@ -40,5 +40,5 @@ export default function MessagesButton({ initialState }: MessagesButtonProps) {
         <span className="hidden lg:inline">Mensajes</span>
       </Link>
     </Button>
-  );
+  )
 }

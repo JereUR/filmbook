@@ -1,21 +1,21 @@
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
+import { Suspense } from "react"
+import { Loader2 } from "lucide-react"
 
-import { validateRequest } from "@/auth";
-import SessionProvider from "./SessionProvider";
-import Navbar from "./Navbar";
-import MenuBar from "./MenuBar";
-import PopularMovies from "./PopularMovies";
-import { Suspense } from "react";
-import { Loader2 } from "lucide-react";
+import { validateRequest } from "@/auth"
+import SessionProvider from "./SessionProvider"
+import Navbar from "./Navbar"
+import MenuBar from "./MenuBar"
+import PopularMovies from "./PopularMovies"
 
 export default async function Layout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const session = await validateRequest();
+  const session = await validateRequest()
 
-  if (!session.user) redirect("/iniciar-sesion");
+  if (!session.user) redirect("/iniciar-sesion")
 
   return (
     <SessionProvider value={session}>
@@ -33,5 +33,5 @@ export default async function Layout({
         <MenuBar className="sticky bottom-0 flex w-full justify-center gap-3 border-t bg-card p-3 sm:hidden z-50" />
       </div>
     </SessionProvider>
-  );
+  )
 }

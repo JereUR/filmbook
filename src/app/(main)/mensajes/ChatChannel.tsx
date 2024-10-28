@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { Menu } from "lucide-react"
 import {
   Channel,
   ChannelHeader,
@@ -6,14 +6,14 @@ import {
   MessageList,
   Window,
   ChannelHeaderProps,
-} from "stream-chat-react";
+} from "stream-chat-react"
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface ChatChannelProps {
-  open: boolean;
-  openSidebar: () => void;
+  open: boolean
+  openSidebar: () => void
 }
 
 export default function ChatChannel({ open, openSidebar }: ChatChannelProps) {
@@ -27,11 +27,11 @@ export default function ChatChannel({ open, openSidebar }: ChatChannelProps) {
         </Window>
       </Channel>
     </div>
-  );
+  )
 }
 
 interface CustomChannelHeaderProps extends ChannelHeaderProps {
-  openSidebar: () => void;
+  openSidebar: () => void
 }
 
 function CustomChannelHeader({
@@ -47,5 +47,5 @@ function CustomChannelHeader({
       </div>
       <ChannelHeader {...props} />
     </div>
-  );
+  )
 }

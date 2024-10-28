@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { Loader2 } from "lucide-react"
 
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import Post from "@/components/posts/Post";
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
-import kyInstance from "@/lib/ky";
-import { PostsPage } from "@/lib/types";
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
+import Post from "@/components/posts/Post"
+import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton"
+import kyInstance from "@/lib/ky"
+import { PostsPage } from "@/lib/types"
 
 export default function Bookmarks() {
   const {
@@ -28,12 +28,12 @@ export default function Bookmarks() {
         .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
+  })
 
-  const posts = data?.pages.flatMap((page) => page.posts) || [];
+  const posts = data?.pages.flatMap((page) => page.posts) || []
 
   if (status === "pending") {
-    return <PostsLoadingSkeleton />;
+    return <PostsLoadingSkeleton />
   }
 
   if (status === "success" && !posts.length && !hasNextPage) {
@@ -41,7 +41,7 @@ export default function Bookmarks() {
       <p className="text-center text-muted-foreground">
         Todavía no tienes ningún marcador.
       </p>
-    );
+    )
   }
 
   if (status === "error") {
@@ -49,7 +49,7 @@ export default function Bookmarks() {
       <p className="text-center text-destructive">
         Ocurrió un error al cargar los marcadores
       </p>
-    );
+    )
   }
 
   return (
@@ -62,5 +62,5 @@ export default function Bookmarks() {
       ))}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
-  );
+  )
 }

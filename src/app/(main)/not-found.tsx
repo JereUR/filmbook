@@ -4,5 +4,5 @@ export default function NotFound() {
       <h1 className="text-3xl font-bold">No encontrado</h1>
       <p>La página que buscas no existe.</p>
     </main>
-  );
+  )
 }

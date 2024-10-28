@@ -1,20 +1,20 @@
-import { Loader2 } from "lucide-react";
-import { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { cache, Suspense } from "react";
+import { Loader2 } from "lucide-react"
+import { Metadata } from "next"
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import { cache, Suspense } from "react"
 
-import { validateRequest } from "@/auth";
-import FollowButton from "@/components/FollowButton";
-import Linkify from "@/components/Linkify";
-import Post from "@/components/posts/Post";
-import UserAvatar from "@/components/UserAvatar";
-import UserTooltip from "@/components/UserTooltip";
-import prisma from "@/lib/prisma";
-import { getPostDataInclude, UserData } from "@/lib/types";
+import { validateRequest } from "@/auth"
+import FollowButton from "@/components/FollowButton"
+import Linkify from "@/components/Linkify"
+import Post from "@/components/posts/Post"
+import UserAvatar from "@/components/UserAvatar"
+import UserTooltip from "@/components/UserTooltip"
+import prisma from "@/lib/prisma"
+import { getPostDataInclude, UserData } from "@/lib/types"
 
 interface PageProps {
-  params: { postId: string };
+  params: { postId: string }
 }
 
 const getPost = cache(async (postId: string, loggedInUserId: string) => {
@@ -23,37 +23,37 @@ const getPost = cache(async (postId: string, loggedInUserId: string) => {
       id: postId,
     },
     include: getPostDataInclude(loggedInUserId),
-  });
+  })
 
-  if (!post) notFound();
+  if (!post) notFound()
 
-  return post;
-});
+  return post
+})
 
 export async function generateMetadata({
   params: { postId },
 }: PageProps): Promise<Metadata> {
-  const { user } = await validateRequest();
+  const { user } = await validateRequest()
 
-  if (!user) return {};
+  if (!user) return {}
 
-  const post = await getPost(postId, user.id);
+  const post = await getPost(postId, user.id)
 
   return {
     title: `${post.user.displayName}: ${post.content.slice(0, 50)}...`,
-  };
+  }
 }
 
 export default async function Page({ params: { postId } }: PageProps) {
-  const { user } = await validateRequest();
+  const { user } = await validateRequest()
 
   if (!user) {
     return (
       <p className="text-destructive">No estas autorizado a ver esta página.</p>
-    );
+    )
   }
 
-  const post = await getPost(postId, user.id);
+  const post = await getPost(postId, user.id)
 
   return (
     <main className="flex w-full min-w-0 gap-5">
@@ -66,17 +66,17 @@ export default async function Page({ params: { postId } }: PageProps) {
         </Suspense>
       </div>
     </main>
-  );
+  )
 }
 
 interface UserInfoSidebarProps {
-  user: UserData;
+  user: UserData
 }
 
 async function UserInfoSidebar({ user }: UserInfoSidebarProps) {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
-  if (!loggedInUser) return null;
+  if (!loggedInUser) return null
 
   return (
     <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
@@ -116,5 +116,5 @@ async function UserInfoSidebar({ user }: UserInfoSidebarProps) {
         </div>
       </Linkify>
     </div>
-  );
+  )
 }

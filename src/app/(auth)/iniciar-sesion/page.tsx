@@ -1,16 +1,16 @@
-import { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
+import { Metadata } from "next"
+import Link from "next/link"
+import Image from "next/image"
 
-import LoginForm from "./LoginForm";
-import loginImage from "@/assets/login-image.jpg";
-import GoogleSignInButton from "./google/GoogleSignInButton";
+import LoginForm from "./LoginForm"
+import loginImage from "@/assets/login-image.jpg"
+import GoogleSignInButton from "./google/GoogleSignInButton"
 
 export const metadata: Metadata = {
   title: "Iniciar sesión",
   description:
     "Inicia sesión en filmbook para compartir tus películas favoritas y comentar.",
-};
+}
 
 export default function LoginPage() {
   return (
@@ -41,5 +41,5 @@ export default function LoginPage() {
         />
       </div>
     </main>
-  );
+  )
 }

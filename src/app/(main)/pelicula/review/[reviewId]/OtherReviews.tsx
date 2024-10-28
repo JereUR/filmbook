@@ -1,14 +1,14 @@
 'use client'
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { Loader2 } from "lucide-react"
+import { useEffect } from "react"
+import Link from "next/link"
 
-import kyInstance from "@/lib/ky";
-import { ReviewResumeInfoPage } from "@/lib/types";
-import Link from "next/link";
-import { dateFormat } from "@/lib/utils";
-import CircularImage from "@/components/movies/CircularImage";
-import { useEffect } from "react";
+import kyInstance from "@/lib/ky"
+import { ReviewResumeInfoPage } from "@/lib/types"
+import { dateFormat } from "@/lib/utils"
+import CircularImage from "@/components/movies/CircularImage"
 
 interface OtherReviewsProps {
   movieId: string
@@ -17,10 +17,8 @@ interface OtherReviewsProps {
 export default function OtherReviews({ movieId, reviewId }: OtherReviewsProps) {
   const {
     data,
-    fetchNextPage,
     hasNextPage,
     isFetching,
-    isFetchingNextPage,
     status,
     refetch,
     isRefetching
@@ -35,13 +33,13 @@ export default function OtherReviews({ movieId, reviewId }: OtherReviewsProps) {
         .json<ReviewResumeInfoPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
+  })
 
   useEffect(() => {
-    refetch();
-  }, [reviewId, refetch]);
+    refetch()
+  }, [reviewId, refetch])
 
-  const reviews = data?.pages.flatMap((page) => page.reviews) || [];
+  const reviews = data?.pages.flatMap((page) => page.reviews) || []
 
   return (
     <div className='flex flex-col gap-2 p-5 bg-card rounded-2xl'>
@@ -81,5 +79,5 @@ export default function OtherReviews({ movieId, reviewId }: OtherReviewsProps) {
         ))
       )}
     </div>
-  );
+  )
 }

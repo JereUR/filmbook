@@ -1,10 +1,10 @@
-import { Metadata } from "next";
+import { Metadata } from "next"
 
-import TournamentView from "@/components/tournaments/TournamentView";
+import TournamentView from "@/components/tournaments/TournamentView"
 
 export const metadata: Metadata = {
   title: "Torneos",
-};
+}
 
 export default function TournamentPage() {
   return (

@@ -1,21 +1,21 @@
-import { Bookmark, Home, Popcorn, Trophy } from "lucide-react";
-import Link from "next/link";
+import { Bookmark, Home, Popcorn, Trophy } from "lucide-react"
+import Link from "next/link"
 
-import { validateRequest } from "@/auth";
-import { Button } from "@/components/ui/button";
-import prisma from "@/lib/prisma";
-import NotificationsButton from "./NotificationsButton";
-import MessagesButton from "./MessagesButton";
-import streamServerClient from "@/lib/stream";
+import { validateRequest } from "@/auth"
+import { Button } from "@/components/ui/button"
+import prisma from "@/lib/prisma"
+import NotificationsButton from "./NotificationsButton"
+import MessagesButton from "./MessagesButton"
+import streamServerClient from "@/lib/stream"
 
 interface MenuBarProps {
-  className?: string;
+  className?: string
 }
 
 export default async function MenuBar({ className }: MenuBarProps) {
-  const { user } = await validateRequest();
+  const { user } = await validateRequest()
 
-  if (!user) return null;
+  if (!user) return null
 
   const [unreadNotificationCount, unreadMessagesCount] = await Promise.all([
     prisma.notification.count({
@@ -25,7 +25,7 @@ export default async function MenuBar({ className }: MenuBarProps) {
       },
     }),
     (await streamServerClient.getUnreadCount(user.id)).total_unread_count,
-  ]);
+  ])
 
   return (
     <div className={className}>
@@ -76,5 +76,5 @@ export default async function MenuBar({ className }: MenuBarProps) {
         </Link>
       </Button>
     </div>
-  );
+  )
 }

@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState, useTransition } from "react"
+import { useForm } from "react-hook-form"
 
-import { login } from "./actions";
+import { login } from "./actions"
 import {
   Form,
   FormControl,
@@ -12,17 +12,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import LoadingButton from "@/components/LoadingButton";
-import { PasswordInput } from "@/components/PasswordInput";
-import ErrorText from "@/components/ErrorText";
-import { Input } from "@/components/ui/input";
-import { loginSchema, LoginValues } from "@/lib/validation";
+} from "@/components/ui/form"
+import LoadingButton from "@/components/LoadingButton"
+import { PasswordInput } from "@/components/PasswordInput"
+import ErrorText from "@/components/ErrorText"
+import { Input } from "@/components/ui/input"
+import { loginSchema, LoginValues } from "@/lib/validation"
 
 export default function LoginForm() {
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<string>()
 
-  const [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
@@ -30,14 +30,14 @@ export default function LoginForm() {
       username: "",
       password: "",
     },
-  });
+  })
 
   async function onSubmit(values: LoginValues) {
-    setError(undefined);
+    setError(undefined)
     startTransition(async () => {
-      const { error } = await login(values);
-      if (error) setError(error);
-    });
+      const { error } = await login(values)
+      if (error) setError(error)
+    })
   }
 
   return (
@@ -75,5 +75,5 @@ export default function LoginForm() {
         </LoadingButton>
       </form>
     </Form>
-  );
+  )
 }

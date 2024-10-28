@@ -1,9 +1,9 @@
-import Image, { StaticImageData } from "next/image";
-import { useRef, useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Camera } from "lucide-react";
-import Resizer from "react-image-file-resizer";
+import Image, { StaticImageData } from "next/image"
+import { useRef, useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { Camera } from "lucide-react"
+import Resizer from "react-image-file-resizer"
 
 import {
   Dialog,
@@ -11,13 +11,13 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { UserData } from "@/lib/types";
+} from "@/components/ui/dialog"
+import { UserData } from "@/lib/types"
 import {
   updateUserProfileSchema,
   UpdateUserProfileValues,
-} from "@/lib/validation";
-import { useUpdateProfileMutation } from "./mutations";
+} from "@/lib/validation"
+import { useUpdateProfileMutation } from "./mutations"
 import {
   Form,
   FormControl,
@@ -25,18 +25,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import LoadingButton from "@/components/LoadingButton";
-import { Label } from "@/components/ui/label";
-import avatarPlaceholder from "@/assets/avatar-placeholder.png";
-import CropImageDialog from "@/components/CropImageDialog";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import LoadingButton from "@/components/LoadingButton"
+import { Label } from "@/components/ui/label"
+import avatarPlaceholder from "@/assets/avatar-placeholder.png"
+import CropImageDialog from "@/components/CropImageDialog"
 
 interface EditProfileDialogProps {
-  user: UserData;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  user: UserData
+  open: boolean
+  onOpenChange: (open: boolean) => void
 }
 
 export default function EditProfileDialog({
@@ -50,16 +50,16 @@ export default function EditProfileDialog({
       displayName: user.displayName,
       bio: user.bio || "",
     },
-  });
+  })
 
-  const mutation = useUpdateProfileMutation();
+  const mutation = useUpdateProfileMutation()
 
-  const [croppedAvatar, setCroppedAvatar] = useState<Blob | null>(null);
+  const [croppedAvatar, setCroppedAvatar] = useState<Blob | null>(null)
 
   async function onSubmit(values: UpdateUserProfileValues) {
     const newAvatarFile = croppedAvatar
       ? new File([croppedAvatar], `avatar_${user.id}.webp`)
-      : undefined;
+      : undefined
 
     mutation.mutate(
       {
@@ -68,11 +68,11 @@ export default function EditProfileDialog({
       },
       {
         onSuccess: () => {
-          setCroppedAvatar(null);
-          onOpenChange(false);
+          setCroppedAvatar(null)
+          onOpenChange(false)
         },
       },
-    );
+    )
   }
 
   return (
@@ -134,21 +134,21 @@ export default function EditProfileDialog({
         </Form>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
 
 interface AvatarInputProps {
-  src: string | StaticImageData;
-  onImageCropped: (blob: Blob | null) => void;
+  src: string | StaticImageData
+  onImageCropped: (blob: Blob | null) => void
 }
 
 function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
-  const [imageToCrop, setImageToCrop] = useState<File>();
+  const [imageToCrop, setImageToCrop] = useState<File>()
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   function onImageSelected(image: File | undefined) {
-    if (!image) return;
+    if (!image) return
 
     Resizer.imageFileResizer(
       image,
@@ -159,7 +159,7 @@ function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
       0,
       (uri) => setImageToCrop(uri as File),
       "file",
-    );
+    )
   }
 
   return (
@@ -193,13 +193,13 @@ function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
           cropAspectRatio={1}
           onCropped={onImageCropped}
           onClose={() => {
-            setImageToCrop(undefined);
+            setImageToCrop(undefined)
             if (fileInputRef.current) {
-              fileInputRef.current.value = "";
+              fileInputRef.current.value = ""
             }
           }}
         />
       )}
     </>
-  );
+  )
 }

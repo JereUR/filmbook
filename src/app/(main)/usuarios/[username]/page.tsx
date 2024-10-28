@@ -1,24 +1,24 @@
-import prisma from "@/lib/prisma";
-import { notFound } from "next/navigation";
-import { cache } from "react";
-import { Metadata } from "next";
+import prisma from "@/lib/prisma"
+import { notFound } from "next/navigation"
+import { cache } from "react"
+import { Metadata } from "next"
 
-import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
-import { validateRequest } from "@/auth";
-import TrendsSidebar from "@/components/TrendsSidebar";
-import UserAvatar from "@/components/UserAvatar";
-import { dateFormat, formatNumber } from "@/lib/utils";
-import FollowerCount from "@/components/FollowerCount";
-import FollowButton from "@/components/FollowButton";
-import UserPosts from "./UserPosts";
-import Linkify from "@/components/Linkify";
-import EditProfileButton from "./EditProfileButton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import UserReviewsList from "@/components/user/lists/review/UserReviewsList";
-import UserDiariesList from "@/components/user/lists/diary/UserDiariesList";
+import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types"
+import { validateRequest } from "@/auth"
+import TrendsSidebar from "@/components/TrendsSidebar"
+import UserAvatar from "@/components/UserAvatar"
+import { dateFormat, formatNumber } from "@/lib/utils"
+import FollowerCount from "@/components/FollowerCount"
+import FollowButton from "@/components/FollowButton"
+import UserPosts from "./UserPosts"
+import Linkify from "@/components/Linkify"
+import EditProfileButton from "./EditProfileButton"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import UserReviewsList from "@/components/user/lists/review/UserReviewsList"
+import UserDiariesList from "@/components/user/lists/diary/UserDiariesList"
 
 interface UserPageProps {
-  params: { username: string };
+  params: { username: string }
 }
 
 const getUser = cache(async (username: string, loggedInUserId: string) => {
@@ -30,39 +30,39 @@ const getUser = cache(async (username: string, loggedInUserId: string) => {
       },
     },
     select: getUserDataSelect(loggedInUserId),
-  });
+  })
 
-  if (!user) notFound();
+  if (!user) notFound()
 
-  return user;
-});
+  return user
+})
 
 export async function generateMetadata({
   params: { username },
 }: UserPageProps): Promise<Metadata> {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
-  if (!loggedInUser) return {};
+  if (!loggedInUser) return {}
 
-  const user = await getUser(username, loggedInUser.id);
+  const user = await getUser(username, loggedInUser.id)
 
   return {
     title: `${user.displayName} (@${user.username})`,
-  };
+  }
 }
 
 export default async function UserPage({
   params: { username },
 }: UserPageProps) {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
     return (
       <p className="text-destructive">No estas autorizado a ver esta página.</p>
-    );
+    )
   }
 
-  const user = await getUser(username, loggedInUser.id);
+  const user = await getUser(username, loggedInUser.id)
 
   return (
     <main className="flex w-full min-w-0 gap-5">
@@ -88,12 +88,12 @@ export default async function UserPage({
       </div>
       <TrendsSidebar />
     </main>
-  );
+  )
 }
 
 interface UserProfileProps {
-  user: UserData;
-  loggedInUserId: string;
+  user: UserData
+  loggedInUserId: string
 }
 
 async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
@@ -102,7 +102,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
     isFollowedByUser: user.followers.some(
       ({ followerId }) => followerId === loggedInUserId,
     ),
-  };
+  }
 
   return (
     <div className="h-fit w-full space-y-5 rounded-2xl bg-card p-5 shadow-sm">
@@ -145,5 +145,5 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
         </div>
       )}
     </div>
-  );
+  )
 }

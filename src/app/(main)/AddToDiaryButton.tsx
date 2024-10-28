@@ -9,15 +9,15 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import DiarySearch from "@/components/diary/DiarySearch";
-import DiaryForm from "@/components/diary/DiaryForm";
-import { SearchMovie } from "@/lib/types";
+} from "@/components/ui/dialog"
+import DiarySearch from "@/components/diary/DiarySearch"
+import DiaryForm from "@/components/diary/DiaryForm"
+import { SearchMovie } from "@/lib/types"
 
 export default function AddToDiaryButton() {
   const [open, setOpen] = useState<boolean>(false)
   const [onForm, setOnForm] = useState<boolean>(false)
-  const [movies, setMovies] = useState<SearchMovie[]>([]);
+  const [movies, setMovies] = useState<SearchMovie[]>([])
   const [movieToAdd, setMovieToAdd] = useState<SearchMovie | null>(null)
 
   function handleOpenChange(open: boolean) {

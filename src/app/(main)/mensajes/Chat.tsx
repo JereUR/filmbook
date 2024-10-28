@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
-import { Loader2 } from "lucide-react";
-import { Chat as StreamChat } from "stream-chat-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react"
+import { Chat as StreamChat } from "stream-chat-react"
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 
-import useInitializeChatClient from "./useInitializeChatClient";
-import ChatSidebar from "./ChatSidebar";
-import ChatChannel from "./ChatChannel";
+import useInitializeChatClient from "./useInitializeChatClient"
+import ChatSidebar from "./ChatSidebar"
+import ChatChannel from "./ChatChannel"
 
 export default function Chat() {
-  const [isClient, setIsClient] = useState<boolean>(false);
+  const [isClient, setIsClient] = useState<boolean>(false)
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    setIsClient(true)
+  }, [])
 
-  const chatClient = useInitializeChatClient();
-  const { resolvedTheme } = useTheme();
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const chatClient = useInitializeChatClient()
+  const { resolvedTheme } = useTheme()
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
 
-  if (!isClient) return null;
+  if (!isClient) return null
 
-  if (!chatClient) return <Loader2 className="mx-auto my-3 animate-spin" />;
+  if (!chatClient) return <Loader2 className="mx-auto my-3 animate-spin" />
 
   return (
     <main className="relative w-full overflow-hidden rounded-2xl bg-card shadow-sm">
@@ -46,5 +46,5 @@ export default function Chat() {
         </StreamChat>
       </div>
     </main>
-  );
+  )
 }

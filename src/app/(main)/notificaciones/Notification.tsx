@@ -1,10 +1,10 @@
-import { Heart, MessageCircle, Popcorn, User2 } from "lucide-react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { Heart, MessageCircle, Popcorn, User2 } from "lucide-react"
+import Link from "next/link"
 
-import UserAvatar from "@/components/UserAvatar";
-import { NotificationData } from "@/lib/types";
-import { NotificationType } from "@prisma/client";
+import { cn } from "@/lib/utils"
+import UserAvatar from "@/components/UserAvatar"
+import { NotificationData } from "@/lib/types"
+import { NotificationType } from "@prisma/client"
 
 interface NotificationProps {
   notification: NotificationData;
@@ -41,7 +41,7 @@ export default function Notification({ notification }: NotificationProps) {
         ? `/pelicula/review/${notification.reviewId}?title=${encodeURIComponent(notification.review ? notification.review?.movie?.title : '')}&date=${new Date(notification.createdAt).getFullYear()}&username=${notification.issuer.username}&movieId=${notification.review?.movie?.id}`
         : '/',
     },
-  };
+  }
 
   const { message, icon, href } = notificationTypeMap[notification.type];
 
@@ -68,5 +68,5 @@ export default function Notification({ notification }: NotificationProps) {
         </div>
       </article>
     </Link>
-  );
+  )
 }

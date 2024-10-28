@@ -1,63 +1,63 @@
-"use client";
+"use client"
 
-import { useToast } from "@/components/ui/use-toast";
-import { useEffect, useState } from "react";
-import { Heart, Loader2, Popcorn } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState } from "react"
+import { Heart, Loader2, Popcorn } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
 
-import { CrewMember, ReviewInfo } from "@/lib/types";
-import CircularImage from "@/components/movies/CircularImage";
-import { dateFormat, getYear } from "@/lib/utils";
-import noImage from "@/assets/no-image-film.jpg";
-import LikeReviewButton from "@/components/movies/LikeReviewButton";
-import ReviewMoreButton from "@/components/movies/review/ReviewMoreButton";
+import { CrewMember, ReviewInfo } from "@/lib/types"
+import CircularImage from "@/components/movies/CircularImage"
+import { dateFormat, getYear } from "@/lib/utils"
+import noImage from "@/assets/no-image-film.jpg"
+import { useToast } from "@/components/ui/use-toast"
+import LikeReviewButton from "@/components/movies/LikeReviewButton"
+import ReviewMoreButton from "@/components/movies/review/ReviewMoreButton"
 
 interface UserReviewProps {
-  reviewId: string;
+  reviewId: string
 }
 
 export default function UserReview({ reviewId }: UserReviewProps) {
-  const [review, setReview] = useState<ReviewInfo | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const { toast } = useToast();
+  const [review, setReview] = useState<ReviewInfo | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const { toast } = useToast()
 
   async function getReview() {
-    setLoading(true);
-    const response = await fetch(`/api/movie/review/${reviewId}`);
+    setLoading(true)
+    const response = await fetch(`/api/movie/review/${reviewId}`)
     if (!response.ok)
-      toast({ variant: "destructive", title: response.statusText });
-    const data = await response.json();
-    setReview(data);
-    setLoading(false);
+      toast({ variant: "destructive", title: response.statusText })
+    const data = await response.json()
+    setReview(data)
+    setLoading(false)
   }
 
   useEffect(() => {
-    getReview();
-  }, []);
+    getReview()
+  }, [])
 
   if (loading) {
     return (
       <div className="space-y-3 rounded-2xl bg-card p-2 md:space-y-5 md:p-5">
         <Loader2 className="mx-auto animate-spin" />
       </div>
-    );
+    )
   } else if (!review) {
     return (
       <div className="space-y-3 rounded-2xl bg-card p-2 text-center italic text-foreground/40 md:space-y-5 md:p-5">
         <p>Review no encontrada.</p>
       </div>
-    );
+    )
   }
 
   const renderPopcorn = (index: number) => {
     if (!review.rating) {
-      return undefined;
+      return undefined
     } else {
       if (review.rating >= index + 1) {
         return (
           <Popcorn className="icon-thick h-5 w-5 cursor-pointer text-primary md:h-6 md:w-6" />
-        );
+        )
       } else if (review.rating >= index + 0.5) {
         return (
           <div className="relative h-5 w-5 md:h-6 md:w-6">
@@ -68,12 +68,12 @@ export default function UserReview({ reviewId }: UserReviewProps) {
               <Popcorn className="icon-thick h-5 w-5 text-transparent md:h-6 md:w-6" />
             </div>
           </div>
-        );
+        )
       } else {
-        return undefined;
+        return undefined
       }
     }
-  };
+  }
 
   return (
     <div className="space-y-3 rounded-2xl bg-card p-2 md:space-y-5 md:p-5">
@@ -161,5 +161,5 @@ export default function UserReview({ reviewId }: UserReviewProps) {
         initialState={review.likesData || { likes: 0, isLikedByUser: false }}
       />
     </div>
-  );
+  )
 }

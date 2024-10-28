@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { UserResponse } from "stream-chat";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Check, Loader2, SearchIcon, X } from "lucide-react";
-import { DefaultStreamChatGenerics, useChatContext } from "stream-chat-react";
+import { useState } from "react"
+import { UserResponse } from "stream-chat"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { Check, Loader2, SearchIcon, X } from "lucide-react"
+import { DefaultStreamChatGenerics, useChatContext } from "stream-chat-react"
 
 import {
   Dialog,
@@ -10,34 +10,34 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
-import { useSession } from "../SessionProvider";
-import useDebounce from "@/hooks/useDebounce";
-import UserAvatar from "@/components/UserAvatar";
-import LoadingButton from "@/components/LoadingButton";
+} from "@/components/ui/dialog"
+import { useToast } from "@/components/ui/use-toast"
+import { useSession } from "../SessionProvider"
+import useDebounce from "@/hooks/useDebounce"
+import UserAvatar from "@/components/UserAvatar"
+import LoadingButton from "@/components/LoadingButton"
 
 interface NewChatDialogProps {
-  onOpenChange: (open: boolean) => void;
-  onChatCreated: () => void;
+  onOpenChange: (open: boolean) => void
+  onChatCreated: () => void
 }
 
 export default function NewChatDialog({
   onOpenChange,
   onChatCreated,
 }: NewChatDialogProps) {
-  const { client, setActiveChannel } = useChatContext();
+  const { client, setActiveChannel } = useChatContext()
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
-  const { user: loggedInUser } = useSession();
+  const { user: loggedInUser } = useSession()
 
-  const [searchInput, setSearchInput] = useState("");
-  const searchInputDebounced = useDebounce(searchInput);
+  const [searchInput, setSearchInput] = useState("")
+  const searchInputDebounced = useDebounce(searchInput)
 
   const [selectedUsers, setSelectedUsers] = useState<
     UserResponse<DefaultStreamChatGenerics>[]
-  >([]);
+  >([])
 
   const { data, isFetching, isError, isSuccess } = useQuery({
     queryKey: ["stream-users", searchInputDebounced],
@@ -48,17 +48,17 @@ export default function NewChatDialog({
           role: { $ne: "admin" },
           ...(searchInputDebounced
             ? {
-                $or: [
-                  { name: { $autocomplete: searchInputDebounced } },
-                  { username: { $autocomplete: searchInputDebounced } },
-                ],
-              }
+              $or: [
+                { name: { $autocomplete: searchInputDebounced } },
+                { username: { $autocomplete: searchInputDebounced } },
+              ],
+            }
             : {}),
         },
         { name: 1, username: 1 },
         { limit: 15 },
       ),
-  });
+  })
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -68,23 +68,22 @@ export default function NewChatDialog({
           selectedUsers.length > 1
             ? `Chat con ${selectedUsers.map((user) => user.username).join(", ")}`
             : undefined,
-      });
+      })
 
-      await channel.create();
-      return channel;
+      await channel.create()
+      return channel
     },
     onSuccess: (channel) => {
-      setActiveChannel(channel);
-      onChatCreated();
+      setActiveChannel(channel)
+      onChatCreated()
     },
     onError(error) {
-      console.error("Error al iniciar el chat", error);
       toast({
         variant: "destructive",
         description: "Error al iniciar el chat. Por favor vuelve a intentarlo.",
-      });
+      })
     },
-  });
+  })
 
   return (
     <Dialog open onOpenChange={onOpenChange}>
@@ -130,7 +129,7 @@ export default function NewChatDialog({
                       prev.some((u) => u.id === user.id)
                         ? prev.filter((u) => u.id !== user.id)
                         : [...prev, user],
-                    );
+                    )
                   }}
                 />
               ))}
@@ -154,19 +153,19 @@ export default function NewChatDialog({
             loading={mutation.isPending}
             onClick={() => mutation.mutate()}
           >
-            
+
             Iniciar chat
           </LoadingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
 
 interface UserResultProps {
-  user: UserResponse<DefaultStreamChatGenerics>;
-  selected: boolean;
-  onClick: () => void;
+  user: UserResponse<DefaultStreamChatGenerics>
+  selected: boolean
+  onClick: () => void
 }
 
 function UserResult({ user, selected, onClick }: UserResultProps) {
@@ -184,12 +183,12 @@ function UserResult({ user, selected, onClick }: UserResultProps) {
       </div>
       {selected && <Check className="size-5 text-green-600" />}
     </button>
-  );
+  )
 }
 
 interface SelectedUserTagProps {
-  user: UserResponse<DefaultStreamChatGenerics>;
-  onRemove: () => void;
+  user: UserResponse<DefaultStreamChatGenerics>
+  onRemove: () => void
 }
 
 function SelectedUserTag({ user, onRemove }: SelectedUserTagProps) {
@@ -202,5 +201,5 @@ function SelectedUserTag({ user, onRemove }: SelectedUserTagProps) {
       <p className="font-bold">{user.name}</p>
       <X className="mx-2 size-5 text-muted-foreground" />
     </button>
-  );
+  )
 }

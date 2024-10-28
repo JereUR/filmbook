@@ -1,15 +1,15 @@
 'use client'
 
-import { Bell } from "lucide-react";
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
+import { Bell } from "lucide-react"
+import Link from "next/link"
+import { useQuery } from "@tanstack/react-query"
 
-import { Button } from "@/components/ui/button";
-import { NotificationCountInfo } from "@/lib/types";
-import kyInstance from "@/lib/ky";
+import { Button } from "@/components/ui/button"
+import { NotificationCountInfo } from "@/lib/types"
+import kyInstance from "@/lib/ky"
 
 interface NotificationsButtonProps {
-  initialState: NotificationCountInfo;
+  initialState: NotificationCountInfo
 }
 
 export default function NotificationsButton({
@@ -22,8 +22,8 @@ export default function NotificationsButton({
         .get("/api/notifications/unread-count")
         .json<NotificationCountInfo>(),
     initialData: initialState,
-    refetchInterval: 60 * 1000, // Every minute
-  });
+    refetchInterval: 60 * 1000,
+  })
 
   return (
     <Button
@@ -44,5 +44,5 @@ export default function NotificationsButton({
         <span className="hidden lg:inline">Notificaciones</span>
       </Link>
     </Button>
-  );
+  )
 }

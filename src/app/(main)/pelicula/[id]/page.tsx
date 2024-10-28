@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Loader2, TriangleAlert } from "lucide-react";
-import { Suspense } from 'react';
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { Loader2 } from "lucide-react"
+import { Suspense } from 'react'
 
-import MovieShow from '@/components/movies/MovieShow';
-import Recommendations from '@/components/movies/Recommendations';
+import MovieShow from '@/components/movies/MovieShow'
+import Recommendations from '@/components/movies/Recommendations'
 
 interface PageProps {
   params: { id: string },
@@ -12,16 +12,16 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
-  const title = searchParams.title || 'Sin título';
-  const date = searchParams.date || '';
+  const title = searchParams.title || 'Sin título'
+  const date = searchParams.date || ''
 
   if (!title) {
-    return notFound();
+    return notFound()
   }
 
   return {
     title: `${title} (${date})`,
-  };
+  }
 }
 
 export default function MoviePage({ params }: PageProps) {
@@ -38,7 +38,7 @@ export default function MoviePage({ params }: PageProps) {
         </Suspense>
       </div>
     </main>
-  );
+  )
 }
 
 function RecommendationsContainer({ id }: { id: string }) {
@@ -46,5 +46,5 @@ function RecommendationsContainer({ id }: { id: string }) {
     <div className="h-fit w-full px-2 flex-none space-y-5 md:block">
       <Recommendations id={id} />
     </div>
-  );
+  )
 }

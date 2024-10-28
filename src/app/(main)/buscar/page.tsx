@@ -1,10 +1,10 @@
-import { Metadata } from "next";
+import { Metadata } from "next"
 
-import TrendsSidebar from "@/components/TrendsSidebar";
-import SearchResults from "./SearchResults";
+import TrendsSidebar from "@/components/TrendsSidebar"
+import SearchResults from "./SearchResults"
 
 interface SearchPageProps {
-  searchParams: { q: string };
+  searchParams: { q: string }
 }
 
 export function generateMetadata({
@@ -12,7 +12,7 @@ export function generateMetadata({
 }: SearchPageProps): Metadata {
   return {
     title: `Resultado de búsqueda para "${q}"`,
-  };
+  }
 }
 
 export default function SearchPage({ searchParams: { q } }: SearchPageProps) {
@@ -28,5 +28,5 @@ export default function SearchPage({ searchParams: { q } }: SearchPageProps) {
       </div>
       <TrendsSidebar />
     </main>
-  );
+  )
 }

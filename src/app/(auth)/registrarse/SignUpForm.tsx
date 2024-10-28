@@ -1,10 +1,10 @@
-"use client";
+"use client"
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState, useTransition } from "react"
 
-import { signUpSchema, SignUpValues } from "@/lib/validation";
+import { signUpSchema, SignUpValues } from "@/lib/validation"
 import {
   Form,
   FormControl,
@@ -12,16 +12,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { signUp } from "./actions";
-import { PasswordInput } from "@/components/PasswordInput";
-import ErrorText from "@/components/ErrorText";
-import LoadingButton from "@/components/LoadingButton";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { signUp } from "./actions"
+import { PasswordInput } from "@/components/PasswordInput"
+import ErrorText from "@/components/ErrorText"
+import LoadingButton from "@/components/LoadingButton"
 
 export default function SignUpForm() {
-  const [error, setError] = useState<string>();
-  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string>()
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
@@ -30,14 +30,14 @@ export default function SignUpForm() {
       email: "",
       password: "",
     },
-  });
+  })
 
   async function onSubmit(values: SignUpValues) {
-    setError(undefined);
+    setError(undefined)
     startTransition(async () => {
-      const { error } = await signUp(values);
-      if (error) setError(error);
-    });
+      const { error } = await signUp(values)
+      if (error) setError(error)
+    })
   }
 
   return (
@@ -92,5 +92,5 @@ export default function SignUpForm() {
         </LoadingButton>
       </form>
     </Form>
-  );
+  )
 }

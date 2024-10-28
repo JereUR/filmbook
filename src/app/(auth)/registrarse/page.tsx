@@ -1,15 +1,15 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import { Metadata } from "next"
+import Image from "next/image"
+import Link from "next/link"
 
-import signUpImage from "@/assets/signup-image.jpg";
-import SignUpForm from "./SignUpForm";
+import signUpImage from "@/assets/signup-image.jpg"
+import SignUpForm from "./SignUpForm"
 
 export const metadata: Metadata = {
   title: "Registro",
   description:
     "Crea una cuenta gratuita para compartir tus películas favoritas",
-};
+}
 
 export default function SignUpPage() {
   return (
@@ -40,5 +40,5 @@ export default function SignUpPage() {
         />
       </div>
     </main>
-  );
+  )
 }
