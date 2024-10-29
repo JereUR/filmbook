@@ -1,27 +1,27 @@
-"use client";
+"use client"
 
-import { CirclePlus } from "lucide-react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { CirclePlus } from "lucide-react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
-import "./styles.css";
-import ShowAppRating from "./ShowAppRating";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { getYear } from "@/lib/utils";
-import ButtonActions from "./ButtonsActions";
-import { ReviewInfo } from "@/lib/types";
-import { useSession } from "@/app/(main)/SessionProvider";
-import ReviewEditor from "./ReviewEditor";
+import "./styles.css"
+import ShowAppRating from "./ShowAppRating"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
+import { getYear } from "@/lib/utils"
+import ButtonActions from "./ButtonsActions"
+import { ReviewInfo } from "@/lib/types"
+import { useSession } from "@/app/(main)/SessionProvider"
+import ReviewEditor from "./ReviewEditor"
 
 interface RatingsSectionProps {
-  movieId: string;
-  title: string;
-  releaseDate: Date | undefined;
-  rating: any;
-  voteAverage?: number;
-  voteCount?: number;
-  watchlist: { userId: string; movieId: string }[];
-  reviews: ReviewInfo[];
-  ratingWasChanged: boolean;
+  movieId: string
+  title: string
+  releaseDate: Date | undefined
+  rating: any
+  voteAverage?: number
+  voteCount?: number
+  watchlist: { userId: string; movieId: string }[]
+  reviews: ReviewInfo[]
+  ratingWasChanged: boolean
   setRatingWasChanged: Dispatch<SetStateAction<boolean>>
 }
 
@@ -39,17 +39,17 @@ export default function RatingsSection({
 }: RatingsSectionProps) {
   const [showRatingEditor, setShowRatingEditor] = useState<boolean>(false)
   const [appRating, setAppRating] = useState<{ averageRating: number, numberOfRatings: number } | null>(null)
-  const [ownRating, setOwnRating] = useState<number | null>(null);
-  const [reviewText, setReviewText] = useState<string | null | undefined>(null);
+  const [ownRating, setOwnRating] = useState<number | null>(null)
+  const [reviewText, setReviewText] = useState<string | null | undefined>(null)
   const { user } = useSession()
 
   useEffect(() => {
     if (user && reviews) {
-      const foundReview = reviews.find(review => review.movieId === movieId && review.userId === user.id);
-      setOwnRating(foundReview ? foundReview.rating : null);
-      setReviewText(foundReview ? foundReview.review : null);
+      const foundReview = reviews.find(review => review.movieId === movieId && review.userId === user.id)
+      setOwnRating(foundReview ? foundReview.rating : null)
+      setReviewText(foundReview ? foundReview.review : null)
     }
-  }, [reviews, movieId, user]);
+  }, [reviews, movieId, user])
 
   async function fetchNewReview() {
     const response = await fetch(`/api/movie/review/movie/${movieId}`)
@@ -75,9 +75,9 @@ export default function RatingsSection({
   useEffect(() => {
     if (ratingWasChanged) {
       fetchNewRating()
-      fetchNewReview().then(() => setRatingWasChanged(false));
+      fetchNewReview().then(() => setRatingWasChanged(false))
     }
-  }, [ratingWasChanged]);
+  }, [ratingWasChanged])
 
   return (
     <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">
@@ -91,7 +91,7 @@ export default function RatingsSection({
             <CirclePlus
               className="icon-fine h-10 w-10 cursor-pointer fill-green-600 text-muted transition duration-300 ease-in-out hover:scale-110"
               onClick={() => {
-                setShowRatingEditor(true);
+                setShowRatingEditor(true)
               }}
             />
           </DialogTitle>
@@ -136,5 +136,5 @@ export default function RatingsSection({
         />
       </div>
     </div>
-  );
+  )
 }
