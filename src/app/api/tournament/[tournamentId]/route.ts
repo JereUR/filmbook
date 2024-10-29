@@ -1,16 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { validateAdmin } from "@/auth";
-import { Tournament, ParticipantTournament, TournamentDate } from "@/lib/types";
+import { NextRequest, NextResponse } from "next/server"
+
+import prisma from "@/lib/prisma"
+import { validateAdmin } from "@/auth"
+import { Tournament, TournamentDate } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { tournamentId: string } },
 ) {
-  const { user: loggedInUser, admin } = await validateAdmin();
+  const { user: loggedInUser, admin } = await validateAdmin()
 
   if (!loggedInUser && !admin) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
   const tournament = await prisma.tournament.findUnique({
@@ -72,16 +73,16 @@ export async function GET(
         },
       },
     },
-  });
+  })
 
   if (!tournament) {
-    return NextResponse.json(null);
+    return NextResponse.json(null)
   }
 
   const participantsWithPoints = tournament.participants.map((p) => {
     const totalPoints = p.participant.scores.reduce((acc, score) => {
-      return acc + score.points + (score.extraPoints || 0);
-    }, 0);
+      return acc + score.points + (score.extraPoints || 0)
+    }, 0)
 
     return {
       participantId: p.participant.id,
@@ -96,8 +97,8 @@ export async function GET(
           position: 0,
         },
       ],
-    };
-  });
+    }
+  })
 
   const sortedParticipants = participantsWithPoints
     .sort((a, b) => b.totalPoints - a.totalPoints)
@@ -107,7 +108,7 @@ export async function GET(
         ...tournamentData,
         position: index + 1,
       })),
-    }));
+    }))
 
   const dates: TournamentDate[] = tournament.dates.map((d) => ({
     id: d.id,
@@ -122,7 +123,7 @@ export async function GET(
       points: s.points,
       extraPoints: s.extraPoints || 0,
     })),
-  }));
+  }))
 
   const tournamentData: Tournament = {
     id: tournament.id,
@@ -134,7 +135,7 @@ export async function GET(
     dates,
     createdAt: tournament.createdAt,
     updatedAt: tournament.updatedAt,
-  };
+  }
 
-  return NextResponse.json(tournamentData);
+  return NextResponse.json(tournamentData)
 }

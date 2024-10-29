@@ -1,13 +1,13 @@
-import { Search } from "lucide-react";
+import { Search } from "lucide-react"
 
-import LoadingButton from "@/components/LoadingButton";
-import { Input } from "@/components/ui/input";
+import LoadingButton from "@/components/LoadingButton"
+import { Input } from "@/components/ui/input"
 
 interface SearchFormProps {
-  searchTerm: string;
-  setSearchTerm: (searchTerm: string) => void;
-  searchMovies: () => void;
-  loading: boolean;
+  searchTerm: string
+  setSearchTerm: (searchTerm: string) => void
+  searchMovies: () => void
+  loading: boolean
 }
 
 export default function SearchForm({
@@ -18,10 +18,10 @@ export default function SearchForm({
 }: SearchFormProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      e.preventDefault();
-      searchMovies();
+      e.preventDefault()
+      searchMovies()
     }
-  };
+  }
 
   return (
     <div className="mb-8 flex items-center justify-center space-x-2">
@@ -46,5 +46,5 @@ export default function SearchForm({
         Buscar
       </LoadingButton>
     </div>
-  );
+  )
 }

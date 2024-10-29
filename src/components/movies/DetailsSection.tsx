@@ -1,30 +1,30 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { translateCountryToSpanish, translateLanguageToSpanish } from "@/lib/translations";
-import noLogoImage from "@/assets/no-image-film.jpg";
+import { translateCountryToSpanish, translateLanguageToSpanish } from "@/lib/translations"
+import noLogoImage from "@/assets/no-image-film.jpg"
 
 interface Companies {
-  id: number;
-  name: string;
-  logo_path: string | null;
-  origin_country: string;
+  id: number
+  name: string
+  logo_path: string | null
+  origin_country: string
 }
 
 interface Countries {
-  iso_3166_1: string;
-  name: string;
+  iso_3166_1: string
+  name: string
 }
 
 type Language = {
-  iso_639_1: string;
-  name: string;
-  english_name: string;
-};
+  iso_639_1: string
+  name: string
+  english_name: string
+}
 
 interface DetailsSectionProps {
-  productionCompanies: Companies[];
-  productionCountries: Countries[];
-  spokenLanguages: Language[];
+  productionCompanies: Companies[]
+  productionCountries: Countries[]
+  spokenLanguages: Language[]
 }
 
 export default function DetailsSection({
@@ -102,5 +102,5 @@ export default function DetailsSection({
         </div>
       </div>
     </>
-  );
+  )
 }

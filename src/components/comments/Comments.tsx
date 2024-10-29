@@ -1,14 +1,14 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { Loader2 } from "lucide-react"
 
-import { CommentsPage, PostData } from "@/lib/types";
-import CommentInput from "./CommentInput";
-import kyInstance from "@/lib/ky";
-import Comment from "./Comment";
-import { Button } from "../ui/button";
+import { CommentsPage, PostData } from "@/lib/types"
+import CommentInput from "./CommentInput"
+import kyInstance from "@/lib/ky"
+import Comment from "./Comment"
+import { Button } from "../ui/button"
 
 interface CommentsProps {
-  post: PostData;
+  post: PostData
 }
 
 export default function Comments({ post }: CommentsProps) {
@@ -28,9 +28,9 @@ export default function Comments({ post }: CommentsProps) {
         pages: [...data.pages].reverse(),
         pageParams: [...data.pageParams].reverse(),
       }),
-    });
+    })
 
-  const comments = data?.pages.flatMap((page) => page.comments) || [];
+  const comments = data?.pages.flatMap((page) => page.comments) || []
 
   return (
     <div className="space-y-3">
@@ -62,5 +62,5 @@ export default function Comments({ post }: CommentsProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }

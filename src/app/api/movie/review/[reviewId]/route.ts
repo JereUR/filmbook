@@ -1,16 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { validateRequest } from "@/auth";
-import { LikeInfo, ReviewInfo } from "@/lib/types";
+import { NextRequest, NextResponse } from "next/server"
+
+import prisma from "@/lib/prisma"
+import { validateRequest } from "@/auth"
+import { LikeInfo, ReviewInfo } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { reviewId: string } },
 ) {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
   const reviewData = await prisma.review.findUnique({
@@ -56,16 +57,16 @@ export async function GET(
         },
       },
     },
-  });
+  })
 
   if (!reviewData) {
-    return NextResponse.json(null);
+    return NextResponse.json(null)
   }
 
   const likesData: LikeInfo = {
     likes: reviewData._count.likes,
     isLikedByUser: !!reviewData.likes.length,
-  };
+  }
 
   const review: ReviewInfo = {
     id: reviewData.id,
@@ -80,7 +81,7 @@ export async function GET(
     createdAt: reviewData.createdAt,
     updatedAt: reviewData.updatedAt,
     likesData,
-  };
+  }
 
-  return NextResponse.json(review);
+  return NextResponse.json(review)
 }

@@ -1,4 +1,4 @@
-import { useDeletePostMutation } from "./mutations";
+import { useDeletePostMutation } from "./mutations"
 import {
   Dialog,
   DialogContent,
@@ -6,15 +6,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "../ui/dialog";
-import LoadingButton from "../LoadingButton";
-import { Button } from "../ui/button";
-import { PostData } from "@/lib/types";
+} from "../ui/dialog"
+import LoadingButton from "../LoadingButton"
+import { Button } from "../ui/button"
+import { PostData } from "@/lib/types"
 
 interface DeletePostDialogProps {
-  post: PostData;
-  open: boolean;
-  onClose: () => void;
+  post: PostData
+  open: boolean
+  onClose: () => void
 }
 
 export default function DeletePostDialog({
@@ -22,11 +22,11 @@ export default function DeletePostDialog({
   open,
   onClose,
 }: DeletePostDialogProps) {
-  const mutation = useDeletePostMutation();
+  const mutation = useDeletePostMutation()
 
   function handleOpenChange(open: boolean) {
     if (!open || !mutation.isPending) {
-      onClose();
+      onClose()
     }
   }
 
@@ -58,5 +58,5 @@ export default function DeletePostDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

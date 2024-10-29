@@ -1,5 +1,5 @@
-import { CommentData } from "@/lib/types";
-import { useDeleteCommentMutation } from "./mutations";
+import { CommentData } from "@/lib/types"
+import { useDeleteCommentMutation } from "./mutations"
 import {
   Dialog,
   DialogContent,
@@ -7,14 +7,14 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "../ui/dialog";
-import LoadingButton from "../LoadingButton";
-import { Button } from "../ui/button";
+} from "../ui/dialog"
+import LoadingButton from "../LoadingButton"
+import { Button } from "../ui/button"
 
 interface DeleteCommentDialogProps {
-  comment: CommentData;
-  open: boolean;
-  onClose: () => void;
+  comment: CommentData
+  open: boolean
+  onClose: () => void
 }
 
 export default function DeleteCommentDialog({
@@ -22,11 +22,11 @@ export default function DeleteCommentDialog({
   open,
   onClose,
 }: DeleteCommentDialogProps) {
-  const mutation = useDeleteCommentMutation();
+  const mutation = useDeleteCommentMutation()
 
   function handleOpenChange(open: boolean) {
     if (!open || !mutation.isPending) {
-      onClose();
+      onClose()
     }
   }
 
@@ -58,5 +58,5 @@ export default function DeleteCommentDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

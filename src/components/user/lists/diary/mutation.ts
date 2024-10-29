@@ -42,8 +42,7 @@ export function useDeleteDiaryItemMutation() {
         description: "Película removida de tu bitácora.",
       })
     },
-    onError: (error) => {
-      console.error(error)
+    onError: () => {
       toast({
         variant: "destructive",
         description:

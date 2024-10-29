@@ -1,22 +1,22 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from "next/server"
 
-import { validateRequest } from "@/auth";
-import prisma from "@/lib/prisma";
-import { getPostDataInclude, PostsPage } from "@/lib/types";
+import { validateRequest } from "@/auth"
+import prisma from "@/lib/prisma"
+import { getPostDataInclude, PostsPage } from "@/lib/types"
 
 export async function GET(req: NextRequest) {
   try {
-    const q = req.nextUrl.searchParams.get("q") || "";
-    const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
+    const q = req.nextUrl.searchParams.get("q") || ""
+    const cursor = req.nextUrl.searchParams.get("cursor") || undefined
 
-    const searchQuery = q.split(" ").join(" & ");
+    const searchQuery = q.split(" ").join(" & ")
 
-    const pageSize = 10;
+    const pageSize = 10
 
-    const { user } = await validateRequest();
+    const { user } = await validateRequest()
 
     if (!user) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
+      return Response.json({ error: "No autorizado." }, { status: 401 })
     }
 
     const posts = await prisma.post.findMany({
@@ -47,21 +47,20 @@ export async function GET(req: NextRequest) {
       orderBy: { createdAt: "desc" },
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
-    });
+    })
 
-    const nextCursor = posts.length > pageSize ? posts[pageSize].id : null;
+    const nextCursor = posts.length > pageSize ? posts[pageSize].id : null
 
     const data: PostsPage = {
       posts: posts.slice(0, pageSize),
       nextCursor,
-    };
+    }
 
-    return Response.json(data);
+    return Response.json(data)
   } catch (error) {
-    console.error(error);
     return Response.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
-    );
+    )
   }
 }

@@ -3,28 +3,28 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-} from "@tanstack/react-query";
-import { cn } from "@/lib/utils";
-import { Bookmark } from "lucide-react";
+} from "@tanstack/react-query"
+import { Bookmark } from "lucide-react"
 
-import { useToast } from "../ui/use-toast";
-import { BookmarkInfo } from "@/lib/types";
-import kyInstance from "@/lib/ky";
+import { useToast } from "../ui/use-toast"
+import { BookmarkInfo } from "@/lib/types"
+import kyInstance from "@/lib/ky"
+import { cn } from "@/lib/utils"
 
 interface BookmarkButtonProps {
-  postId: string;
-  initialState: BookmarkInfo;
+  postId: string
+  initialState: BookmarkInfo
 }
 
 export default function BookmarkButton({
   postId,
   initialState,
 }: BookmarkButtonProps) {
-  const { toast } = useToast();
+  const { toast } = useToast()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
-  const queryKey: QueryKey = ["bookmark-info", postId];
+  const queryKey: QueryKey = ["bookmark-info", postId]
 
   const { data } = useQuery({
     queryKey,
@@ -32,7 +32,7 @@ export default function BookmarkButton({
       kyInstance.get(`/api/posts/${postId}/bookmark`).json<BookmarkInfo>(),
     initialData: initialState,
     staleTime: Infinity,
-  });
+  })
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -42,28 +42,28 @@ export default function BookmarkButton({
     onMutate: async () => {
       toast({
         description: `Publicación ${data.isBookmarkedByUser ? "eliminada de marcadores" : "agregada a marcadores"}`,
-      });
+      })
 
-      await queryClient.cancelQueries({ queryKey });
+      await queryClient.cancelQueries({ queryKey })
 
-      const previousState = queryClient.getQueryData<BookmarkInfo>(queryKey);
+      const previousState = queryClient.getQueryData<BookmarkInfo>(queryKey)
 
       queryClient.setQueryData<BookmarkInfo>(queryKey, () => ({
         isBookmarkedByUser: !previousState?.isBookmarkedByUser,
-      }));
+      }))
 
-      return { previousState };
+      return { previousState }
     },
     onError(error, variables, context) {
-      queryClient.setQueryData(queryKey, context?.previousState);
-      console.error(error);
+      queryClient.setQueryData(queryKey, context?.previousState)
+
       toast({
         variant: "destructive",
         description:
           "Error al intentar agregar la publicación a tus marcadores.",
-      });
+      })
     },
-  });
+  })
 
   return (
     <button onClick={() => mutate()} className="flex items-center gap-2">
@@ -74,5 +74,5 @@ export default function BookmarkButton({
         )}
       />
     </button>
-  );
+  )
 }

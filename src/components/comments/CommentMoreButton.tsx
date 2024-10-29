@@ -1,26 +1,26 @@
-import { CommentData } from "@/lib/types";
-import { useState } from "react";
-import { MoreHorizontal, Trash2 } from "lucide-react";
+import { useState } from "react"
+import { MoreHorizontal, Trash2 } from "lucide-react"
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import DeleteCommentDialog from "./DeleteCommentDialog";
+} from "../ui/dropdown-menu"
+import { Button } from "../ui/button"
+import DeleteCommentDialog from "./DeleteCommentDialog"
+import { CommentData } from "@/lib/types"
 
 interface CommentMoreButtonProps {
-  comment: CommentData;
-  className?: string;
+  comment: CommentData
+  className?: string
 }
 
 export default function CommentMoreButton({
   comment,
   className,
 }: CommentMoreButtonProps) {
-  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
 
   return (
     <>
@@ -48,5 +48,5 @@ export default function CommentMoreButton({
         onClose={() => setShowDeleteDialog(false)}
       />
     </>
-  );
+  )
 }

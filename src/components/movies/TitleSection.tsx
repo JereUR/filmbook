@@ -1,27 +1,27 @@
-import Image from "next/image";
-import { Eye, Heart, MessageSquareHeart } from "lucide-react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Link from "next/link";
+import Image from "next/image"
+import { Eye, Heart, MessageSquareHeart } from "lucide-react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import Link from "next/link"
 
-import { CrewMember, ImageInfo, ReviewData } from "@/lib/types";
-import { getYear } from "@/lib/utils";
-import noImagePath from "@/assets/no-image-film.jpg";
-import CrewMemberShow from "./CrewMemberShow";
+import { CrewMember, ImageInfo, ReviewData } from "@/lib/types"
+import { getYear } from "@/lib/utils"
+import noImagePath from "@/assets/no-image-film.jpg"
+import CrewMemberShow from "./CrewMemberShow"
 
 interface TitleSectionProps {
   movieId: string
   reviewId: string | undefined
   username: string
-  posterPath: string | undefined;
-  title: string;
-  releaseDate: Date | undefined;
-  runtime: number;
-  genres: any[];
-  directors: CrewMember[];
-  watched: boolean;
-  liked: boolean;
-  handleImageClick: (image: ImageInfo) => void;
-  ratingWasChanged: boolean;
+  posterPath: string | undefined
+  title: string
+  releaseDate: Date | undefined
+  runtime: number
+  genres: any[]
+  directors: CrewMember[]
+  watched: boolean
+  liked: boolean
+  handleImageClick: (image: ImageInfo) => void
+  ratingWasChanged: boolean
   setRatingWasChanged: Dispatch<SetStateAction<boolean>>
 }
 
@@ -46,8 +46,8 @@ export default function TitleSection({
   const image: ImageInfo = {
     src: posterPath ? posterPath : noImagePath,
     name: title,
-  };
-  const year = releaseDate ? getYear(releaseDate.toString()) : null;
+  }
+  const year = releaseDate ? getYear(releaseDate.toString()) : null
 
   async function fetchNewReview() {
     const response = await fetch(`/api/movie/review/movie/${movieId}`)
@@ -58,10 +58,10 @@ export default function TitleSection({
     }
 
   }
-  
+
   useEffect(() => {
-    fetchNewReview().then(() => setRatingWasChanged(false));
-  }, [ratingWasChanged]);
+    fetchNewReview().then(() => setRatingWasChanged(false))
+  }, [ratingWasChanged])
 
   return (
     <div className="flex items-start gap-4 md:gap-8">
@@ -134,5 +134,5 @@ export default function TitleSection({
         </p>
       </div>
     </div>
-  );
+  )
 }

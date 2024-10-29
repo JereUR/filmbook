@@ -1,20 +1,20 @@
-import { isAfter, subWeeks } from "date-fns";
-import { NextRequest, NextResponse } from "next/server";
+import { isAfter, subWeeks } from "date-fns"
+import { NextRequest, NextResponse } from "next/server"
 
-import prisma from "@/lib/prisma";
-import { fetchMovieFromTMDB } from "@/lib/tmdb";
-import { Movie } from "@/lib/types";
+import prisma from "@/lib/prisma"
+import { fetchMovieFromTMDB } from "@/lib/tmdb"
+import { Movie } from "@/lib/types"
 
-const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original";
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original"
 
 export async function GET(req: NextRequest) {
-  const movieId = req.nextUrl.searchParams.get("id") || "";
+  const movieId = req.nextUrl.searchParams.get("id") || ""
 
   if (!movieId) {
     return NextResponse.json(
       { error: "ID de película no proporcionado" },
       { status: 400 },
-    );
+    )
   }
 
   let movie = await prisma.movie.findUnique({
@@ -64,13 +64,13 @@ export async function GET(req: NextRequest) {
         },
       },
     },
-  });
+  })
 
   if (movie) {
-    const oneWeekAgo = subWeeks(new Date(), 1);
+    const oneWeekAgo = subWeeks(new Date(), 1)
 
     if (isAfter(oneWeekAgo, movie.updatedAt)) {
-      const movieData = await fetchMovieFromTMDB(movieId);
+      const movieData = await fetchMovieFromTMDB(movieId)
 
       movie = await prisma.movie.update({
         where: { id: movieId },
@@ -129,14 +129,14 @@ export async function GET(req: NextRequest) {
             },
           },
         },
-      });
+      })
     }
 
-    return NextResponse.json(movie);
+    return NextResponse.json(movie)
   }
 
   try {
-    const movieData = await fetchMovieFromTMDB(movieId);
+    const movieData = await fetchMovieFromTMDB(movieId)
 
     const {
       title,
@@ -155,7 +155,7 @@ export async function GET(req: NextRequest) {
       crew,
       cast,
       providers,
-    } = movieData;
+    } = movieData
 
     const newMovie: Movie = {
       id: movieId,
@@ -182,21 +182,18 @@ export async function GET(req: NextRequest) {
       crew: crew,
       cast: cast,
       providers: providers,
-    };
+    }
 
     const createdMovie = await prisma.movie.create({
       data: newMovie,
-    });
+    })
 
-    return NextResponse.json(createdMovie);
+    return NextResponse.json(createdMovie)
   } catch (error) {
-    console.error(
-      "Error al obtener los datos de la película desde TMDB",
-      error,
-    );
+    console.error("Error al obtener los datos de la película desde TMDB", error)
     return NextResponse.json(
       { error: "Error al obtener la película" },
       { status: 500 },
-    );
+    )
   }
 }

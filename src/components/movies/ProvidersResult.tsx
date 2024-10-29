@@ -1,10 +1,10 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { Provider, ProvidersByCountry } from "./ProvidersInfo";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Provider, ProvidersByCountry } from "./ProvidersInfo"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 
 interface ProvidersResultProps {
-  providers: ProvidersByCountry | null;
+  providers: ProvidersByCountry | null
 }
 
 export default function ProvidersResult({ providers }: ProvidersResultProps) {
@@ -30,12 +30,12 @@ export default function ProvidersResult({ providers }: ProvidersResultProps) {
         </TabsContent>
       </Tabs>
     </div>
-  );
+  )
 }
 
 interface ProvidersProps {
-  providers: Provider[] | undefined;
-  noDataText: string;
+  providers: Provider[] | undefined
+  noDataText: string
 }
 
 function Providers({ providers, noDataText }: ProvidersProps) {
@@ -65,5 +65,5 @@ function Providers({ providers, noDataText }: ProvidersProps) {
         <p className="text-center text-sm leading-relaxed text-foreground/40 md:text-base">No hay proveedores para {noDataText}.</p>
       )}
     </div>
-  );
+  )
 }

@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { Heart, Popcorn } from "lucide-react";
+import { useEffect, useState } from "react"
+import { Heart, Popcorn } from "lucide-react"
 
-import LoadingButton from "@/components/LoadingButton";
-import { useToast } from "@/components/ui/use-toast";
-import { useSubmitRatingMutation } from "../movies/rating/mutations";
-import { cn } from "@/lib/utils";
+import LoadingButton from "@/components/LoadingButton"
+import { useToast } from "@/components/ui/use-toast"
+import { useSubmitRatingMutation } from "../movies/rating/mutations"
+import { cn } from "@/lib/utils"
 
 interface ReviewEditorSectionProps {
-  movieId: string;
-  ownRating: number | null;
+  movieId: string
+  ownRating: number | null
   reviewText: string | null | undefined
   liked: boolean
-  handleOpenChange: (open: boolean) => void;
+  handleOpenChange: (open: boolean) => void
 }
 
 export default function ReviewEditorSection({
@@ -21,65 +21,65 @@ export default function ReviewEditorSection({
   liked,
   handleOpenChange
 }: ReviewEditorSectionProps) {
-  const [rating, setRating] = useState<number>(ownRating || 0);
+  const [rating, setRating] = useState<number>(ownRating || 0)
   const [review, setReview] = useState(reviewText || '')
   const [likedState, setLikedState] = useState<boolean>(liked || false)
-  const [halfRating, setHalfRating] = useState<boolean>(false);
+  const [halfRating, setHalfRating] = useState<boolean>(false)
 
-  const { toast } = useToast();
-  const mutation = useSubmitRatingMutation();
+  const { toast } = useToast()
+  const mutation = useSubmitRatingMutation()
 
   useEffect(() => {
     if (ownRating !== null) {
-      setRating(ownRating);
-      setHalfRating(ownRating % 1 !== 0);
+      setRating(ownRating)
+      setHalfRating(ownRating % 1 !== 0)
     } else {
-      setRating(0);
-      setHalfRating(false);
+      setRating(0)
+      setHalfRating(false)
     }
-  }, [ownRating]);
+  }, [ownRating])
 
   useEffect(() => {
-    setReview(reviewText || '');
-  }, [reviewText]);
+    setReview(reviewText || '')
+  }, [reviewText])
 
   useEffect(() => {
-    setLikedState(liked || false);
-  }, [liked]);
+    setLikedState(liked || false)
+  }, [liked])
 
   const handleClick = (index: number) => {
     if (rating === index + 1 && !halfRating) {
-      setHalfRating(true);
-      setRating(index + 0.5);
+      setHalfRating(true)
+      setRating(index + 0.5)
     } else if (rating === index + 0.5) {
-      setHalfRating(false);
-      setRating(index);
+      setHalfRating(false)
+      setRating(index)
     } else {
-      setHalfRating(false);
-      setRating(index + 1);
+      setHalfRating(false)
+      setRating(index + 1)
     }
-  };
+  }
 
   const renderPopcorn = (index: number) => {
-    const iconIndex = index + 1;
+    const iconIndex = index + 1
 
     if (rating >= iconIndex) {
       return (
         <Popcorn className="icon-thick h-10 w-10 cursor-pointer text-primary" />
-      );
+      )
     } else if (rating === iconIndex - 0.5 && halfRating) {
       return (
         <div className="relative h-10 w-10 cursor-pointer overflow-hidden">
           <Popcorn className="clip-half-left icon-thick absolute inset-0 h-10 w-10 text-primary" />
           <Popcorn className="clip-half-right icon-thick absolute inset-0 h-10 w-10 text-gray-300" />
         </div>
-      );
+      )
     } else {
       return (
         <Popcorn className="icon-thick h-10 w-10 cursor-pointer text-gray-300" />
-      );
+      )
     }
-  };
+  }
 
   const handleSubmit = () => {
     mutation.mutate(
@@ -89,11 +89,11 @@ export default function ReviewEditorSection({
           handleOpenChange(false)
           toast({
             description: "Película agregada a bitácora.",
-          });
+          })
         },
       },
-    );
-  };
+    )
+  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-4">
@@ -145,5 +145,5 @@ export default function ReviewEditorSection({
         Agregar
       </LoadingButton>
     </div>
-  );
+  )
 }

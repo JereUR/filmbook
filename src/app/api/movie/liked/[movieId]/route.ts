@@ -1,16 +1,17 @@
-import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { validateRequest } from "@/auth";
-import { LikedInfo } from "@/lib/types";
+import { NextResponse } from "next/server"
+
+import prisma from "@/lib/prisma"
+import { validateRequest } from "@/auth"
+import { LikedInfo } from "@/lib/types"
 
 export async function GET(
   req: Request,
   { params }: { params: { movieId: string } },
 ) {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
   const movie = await prisma.review.findFirst({
@@ -21,17 +22,17 @@ export async function GET(
     select: {
       liked: true,
     },
-  });
+  })
 
   if (!movie) {
-    return NextResponse.json({ isLikedByUser: false });
+    return NextResponse.json({ isLikedByUser: false })
   }
 
   const data: LikedInfo = {
     isLikedByUser: !!movie?.liked,
-  };
+  }
 
-  return NextResponse.json(data);
+  return NextResponse.json(data)
 }
 
 export async function POST(
@@ -39,10 +40,10 @@ export async function POST(
   { params: { movieId } }: { params: { movieId: string } },
 ) {
   try {
-    const { user: loggedInUser } = await validateRequest();
+    const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
+      return Response.json({ error: "No autorizado." }, { status: 401 })
     }
 
     await prisma.review.upsert({
@@ -54,15 +55,14 @@ export async function POST(
       },
       create: { userId: loggedInUser.id, movieId, liked: true },
       update: { liked: true },
-    });
+    })
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
-    console.error(error);
     return NextResponse.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
-    );
+    )
   }
 }
 
@@ -71,10 +71,10 @@ export async function DELETE(
   { params: { movieId } }: { params: { movieId: string } },
 ) {
   try {
-    const { user: loggedInUser } = await validateRequest();
+    const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
+      return Response.json({ error: "No autorizado." }, { status: 401 })
     }
 
     await prisma.review.upsert({
@@ -86,14 +86,13 @@ export async function DELETE(
       },
       create: { userId: loggedInUser.id, movieId, liked: false },
       update: { liked: false },
-    });
+    })
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
-    console.error(error);
     return NextResponse.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
-    );
+    )
   }
 }

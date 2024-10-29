@@ -1,19 +1,19 @@
-"use server";
+"use server"
 
-import { validateRequest } from "@/auth";
-import prisma from "@/lib/prisma";
-import { getPostDataInclude } from "@/lib/types";
-import { createPostSchema } from "@/lib/validation";
+import { validateRequest } from "@/auth"
+import prisma from "@/lib/prisma"
+import { getPostDataInclude } from "@/lib/types"
+import { createPostSchema } from "@/lib/validation"
 
 export async function submitPost(input: {
-  content: string;
-  mediaIds: string[];
+  content: string
+  mediaIds: string[]
 }) {
-  const { user } = await validateRequest();
+  const { user } = await validateRequest()
 
-  if (!user) throw Error("No autorizado.");
+  if (!user) throw Error("No autorizado.")
 
-  const { content, mediaIds } = createPostSchema.parse(input);
+  const { content, mediaIds } = createPostSchema.parse(input)
 
   const newPost = await prisma.post.create({
     data: {
@@ -24,7 +24,7 @@ export async function submitPost(input: {
       },
     },
     include: getPostDataInclude(user.id),
-  });
+  })
 
-  return newPost;
+  return newPost
 }

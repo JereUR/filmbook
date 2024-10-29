@@ -2,17 +2,17 @@ import {
   QueryFilters,
   useMutation,
   useQueryClient,
-} from "@tanstack/react-query";
+} from "@tanstack/react-query"
 
-import { useToast } from "@/components/ui/use-toast"; 
-import { useSession } from "@/app/(main)/SessionProvider";
-import { ReviewSinglePage } from "@/lib/types"; 
-import { submitReview } from "./actions";
+import { useToast } from "@/components/ui/use-toast"
+import { useSession } from "@/app/(main)/SessionProvider"
+import { ReviewSinglePage } from "@/lib/types"
+import { submitReview } from "./actions"
 
 export function useSubmitRatingMutation() {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const { user } = useSession();
+  const { toast } = useToast()
+  const queryClient = useQueryClient()
+  const { user } = useSession()
 
   const mutation = useMutation({
     mutationFn: submitReview,
@@ -24,46 +24,42 @@ export function useSubmitRatingMutation() {
             query.queryKey.includes("movie-reviews") ||
             (query.queryKey.includes("user-reviews") &&
               query.queryKey.includes(user.id))
-          );
+          )
         },
-      } satisfies QueryFilters;
+      } satisfies QueryFilters
 
-      await queryClient.cancelQueries(queryFilter);
+      await queryClient.cancelQueries(queryFilter)
 
-      queryClient.setQueriesData<ReviewSinglePage>(
-        queryFilter,
-        (oldData) => {
-          if (oldData) {
-            return {
-              reviews: oldData.reviews.map((review) =>
-                review.id === updatedReview.id ? updatedReview : review
-              ),
-            };
+      queryClient.setQueriesData<ReviewSinglePage>(queryFilter, (oldData) => {
+        if (oldData) {
+          return {
+            reviews: oldData.reviews.map((review) =>
+              review.id === updatedReview.id ? updatedReview : review,
+            ),
           }
-          return oldData;
         }
-      );
-      
+        return oldData
+      })
+
       queryClient.invalidateQueries({
         queryKey: queryFilter.queryKey,
         predicate(query) {
-          return queryFilter.predicate(query) && !query.state.data;
+          return queryFilter.predicate(query) && !query.state.data
         },
-      });
+      })
 
       toast({
         description: "Review actualizada.",
-      });
+      })
     },
     onError: (error) => {
-      console.error("Error detalles:", error); 
-  toast({
-    variant: "destructive",
-    description:
-      "Error al actualizar la review: " + error.message, 
-  });
+      console.error("Error detalles:", error)
+      toast({
+        variant: "destructive",
+        description: "Error al actualizar la review: " + error.message,
+      })
     },
-  });
+  })
 
-  return mutation;
+  return mutation
 }

@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import { useRouter } from "next/navigation";
-import { SearchIcon } from "lucide-react";
+import { useRouter } from "next/navigation"
+import { SearchIcon } from "lucide-react"
 
-import { Input } from "./ui/input";
+import { Input } from "./ui/input"
 
 export default function SearchField() {
-  const router = useRouter();
+  const router = useRouter()
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault()
 
-    const form = e.currentTarget;
-    const q = (form.q as HTMLInputElement).value.trim();
+    const form = e.currentTarget
+    const q = (form.q as HTMLInputElement).value.trim()
 
-    if (!q) return;
+    if (!q) return
 
-    router.push(`/buscar?q=${encodeURIComponent(q)}`);
+    router.push(`/buscar?q=${encodeURIComponent(q)}`)
   }
 
   return (
@@ -26,5 +26,5 @@ export default function SearchField() {
         <SearchIcon className="absolute right-3 top-1/2 size-5 -translate-y-1/2 transform text-muted-foreground" />
       </div>
     </form>
-  );
+  )
 }

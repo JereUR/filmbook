@@ -1,12 +1,11 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import { useQueryClient } from "@tanstack/react-query";
-import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react";
+import { useTheme } from "next-themes"
+import Link from "next/link"
+import { useQueryClient } from "@tanstack/react-query"
+import { Check, LogOutIcon, Monitor, Moon, Sun, UserIcon } from "lucide-react"
 
-import { useSession } from "@/app/(main)/SessionProvider";
+import { useSession } from "@/app/(main)/SessionProvider"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,20 +17,21 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import UserAvatar from "./UserAvatar";
-import { logout } from "@/app/(auth)/actions";
+} from "./ui/dropdown-menu"
+import UserAvatar from "./UserAvatar"
+import { logout } from "@/app/(auth)/actions"
+import { cn } from "@/lib/utils"
 
 interface UserButtonProps {
-  className?: string;
+  className?: string
 }
 
 export default function UserButton({ className }: UserButtonProps) {
-  const { user } = useSession();
+  const { user } = useSession()
 
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
   return (
     <DropdownMenu >
@@ -91,8 +91,8 @@ export default function UserButton({ className }: UserButtonProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
-            queryClient.clear();
-            logout();
+            queryClient.clear()
+            logout()
           }}
           className="cursor-pointer hover:bg-[hsl(var(--button-hover))] focus:bg-[hsl(var(--button-hover))]"
         >
@@ -101,5 +101,5 @@ export default function UserButton({ className }: UserButtonProps) {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

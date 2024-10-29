@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { formatDate, formatDistanceToNowStrict } from "date-fns"
-import { shortenUrl } from "./shortenUrl"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

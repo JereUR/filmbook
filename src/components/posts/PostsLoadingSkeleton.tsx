@@ -1,4 +1,4 @@
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../ui/skeleton"
 
 export default function PostsLoadingSkeleton() {
   return (
@@ -7,7 +7,7 @@ export default function PostsLoadingSkeleton() {
       <PostLoadingSkeleton />
       <PostLoadingSkeleton />
     </div>
-  );
+  )
 }
 
 function PostLoadingSkeleton() {
@@ -22,5 +22,5 @@ function PostLoadingSkeleton() {
       </div>
       <Skeleton className="h-16 rounded" />
     </div>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import avatarPlaceholder from "@/assets/avatar-placeholder.png";
-import { cn } from "@/lib/utils";
+import avatarPlaceholder from "@/assets/avatar-placeholder.png"
+import { cn } from "@/lib/utils"
 
 interface UserAvatarProps {
-  avatarUrl: string | null | undefined;
-  size?: number;
-  className?: string;
+  avatarUrl: string | null | undefined
+  size?: number
+  className?: string
 }
 
 export default function UserAvatar({
@@ -25,5 +25,5 @@ export default function UserAvatar({
         className,
       )}
     />
-  );
+  )
 }

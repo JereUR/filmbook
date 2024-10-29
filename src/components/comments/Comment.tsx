@@ -1,18 +1,18 @@
-import Link from "next/link";
+import Link from "next/link"
 
-import UserAvatar from "../UserAvatar";
-import { formatRelativeDate } from "@/lib/utils";
-import { useSession } from "@/app/(main)/SessionProvider";
-import CommentMoreButton from "./CommentMoreButton";
-import { CommentData } from "@/lib/types";
-import UserTooltip from "../UserTooltip";
+import UserAvatar from "../UserAvatar"
+import { formatRelativeDate } from "@/lib/utils"
+import { useSession } from "@/app/(main)/SessionProvider"
+import CommentMoreButton from "./CommentMoreButton"
+import { CommentData } from "@/lib/types"
+import UserTooltip from "../UserTooltip"
 
 interface CommentProps {
-  comment: CommentData;
+  comment: CommentData
 }
 
 export default function Comment({ comment }: CommentProps) {
-  const { user } = useSession();
+  const { user } = useSession()
 
   return (
     <div className="group/comment flex gap-3 py-3">
@@ -46,5 +46,5 @@ export default function Comment({ comment }: CommentProps) {
         />
       )}
     </div>
-  );
+  )
 }

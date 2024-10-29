@@ -1,18 +1,18 @@
-import Image from "next/image";
+import Image from "next/image"
 import { Dispatch, SetStateAction } from "react"
 
-import type { SearchMovie } from "@/lib/types";
-import { getYear } from "@/lib/utils";
-import noImage from "@/assets/no-image-film.jpg";
+import type { SearchMovie } from "@/lib/types"
+import { getYear } from "@/lib/utils"
+import noImage from "@/assets/no-image-film.jpg"
 
 interface DiarySearchMovieItemProps {
-  movie: SearchMovie;
+  movie: SearchMovie
   setMovieToAdd: Dispatch<SetStateAction<SearchMovie | null>>
   changeState: () => void
 }
 
 export default function DiarySearchMovieItem({ movie, setMovieToAdd, changeState }: DiarySearchMovieItemProps) {
-  const { poster_path, title, release_date, genre_names } = movie;
+  const { poster_path, title, release_date, genre_names } = movie
 
   function handleClick() {
     setMovieToAdd(movie)
@@ -41,5 +41,5 @@ export default function DiarySearchMovieItem({ movie, setMovieToAdd, changeState
         <p className="text-xs md:text-sm text-muted-foreground/40">{genre_names.join(", ")}</p>
       </div>
     </div>
-  );
+  )
 }

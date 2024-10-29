@@ -1,15 +1,15 @@
-import prisma from "@/lib/prisma";
-import { Suspense } from "react";
-import { Loader2 } from "lucide-react";
-import Link from "next/link";
-import { unstable_cache } from "next/cache";
+import { Suspense } from "react"
+import { Loader2 } from "lucide-react"
+import Link from "next/link"
+import { unstable_cache } from "next/cache"
 
-import { validateRequest } from "@/auth";
-import UserAvatar from "./UserAvatar";
-import { formatNumber } from "@/lib/utils";
-import FollowButton from "./FollowButton";
-import { getUserDataSelect } from "@/lib/types";
-import UserTooltip from "./UserTooltip";
+import prisma from "@/lib/prisma"
+import { validateRequest } from "@/auth"
+import UserAvatar from "./UserAvatar"
+import { formatNumber } from "@/lib/utils"
+import FollowButton from "./FollowButton"
+import { getUserDataSelect } from "@/lib/types"
+import UserTooltip from "./UserTooltip"
 
 export default function TrendsSidebar() {
   return (
@@ -19,13 +19,13 @@ export default function TrendsSidebar() {
         <TrendingTopics />
       </Suspense>
     </div>
-  );
+  )
 }
 
 async function WhoToFollow() {
-  const { user } = await validateRequest();
+  const { user } = await validateRequest()
 
-  if (!user) return null;
+  if (!user) return null
 
   const usersToFollow = await prisma.user.findMany({
     where: {
@@ -38,7 +38,7 @@ async function WhoToFollow() {
     },
     select: getUserDataSelect(user.id),
     take: 5,
-  });
+  })
 
   return (
     <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
@@ -73,7 +73,7 @@ async function WhoToFollow() {
         </div>
       ))}
     </div>
-  );
+  )
 }
 
 const getTrendingTopics = unstable_cache(
@@ -84,27 +84,27 @@ const getTrendingTopics = unstable_cache(
     GROUP BY (hashtag)
     ORDER BY count DESC, hashtag ASC
     LIMIT 10
-  `;
+  `
 
     return result.map((row) => ({
       hashtag: row.hashtag,
       count: Number(row.count),
-    }));
+    }))
   },
   ["trending_topics"],
   {
     revalidate: 3 * 60 * 60,
   },
-);
+)
 
 async function TrendingTopics() {
-  const trendingTopics = await getTrendingTopics();
+  const trendingTopics = await getTrendingTopics()
 
   return (
     <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="text-xl font-bold">De qué se está hablando</div>
       {trendingTopics.map(({ hashtag, count }) => {
-        const title = hashtag.split("#")[1];
+        const title = hashtag.split("#")[1]
         return (
           <Link key={title} href={`/hashtag/${title}`} className="block">
             <p
@@ -117,8 +117,8 @@ async function TrendingTopics() {
               {formatNumber(count)} {count === 1 ? "post" : "posts"}
             </p>
           </Link>
-        );
+        )
       })}
     </div>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import React, { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
 
-import { Input, InputProps } from "./ui/input";
-import { cn } from "@/lib/utils";
+import { Input, InputProps } from "./ui/input"
+import { cn } from "@/lib/utils"
 
 const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false)
 
     return (
       <div className="relative">
@@ -29,10 +29,10 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
           )}
         </button>
       </div>
-    );
+    )
   },
-);
+)
 
-PasswordInput.displayName = "PasswordInput";
+PasswordInput.displayName = "PasswordInput"
 
-export { PasswordInput };
+export { PasswordInput }

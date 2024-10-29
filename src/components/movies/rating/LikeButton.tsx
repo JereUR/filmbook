@@ -3,18 +3,18 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-} from "@tanstack/react-query";
-import { Heart, Loader2 } from "lucide-react";
+} from "@tanstack/react-query"
+import { Heart, Loader2 } from "lucide-react"
 
-import { LikedInfo } from "@/lib/types";
-import kyInstance from "@/lib/ky";
-import { useToast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
+import { LikedInfo } from "@/lib/types"
+import kyInstance from "@/lib/ky"
+import { useToast } from "@/components/ui/use-toast"
+import { cn } from "@/lib/utils"
 
 interface LikeButtonProps {
-  movieId: string;
-  initialState: LikedInfo;
-  activateRefresh:()=>void
+  movieId: string
+  initialState: LikedInfo
+  activateRefresh: () => void
 }
 
 export default function LikeButton({
@@ -22,10 +22,10 @@ export default function LikeButton({
   initialState,
   activateRefresh
 }: LikeButtonProps) {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
+  const { toast } = useToast()
+  const queryClient = useQueryClient()
 
-  const queryKey: QueryKey = ["like-info", movieId];
+  const queryKey: QueryKey = ["like-info", movieId]
 
   const { data: likeData, isLoading } = useQuery({
     queryKey,
@@ -33,7 +33,7 @@ export default function LikeButton({
       kyInstance.get(`/api/movie/liked/${movieId}`).json<LikedInfo>(),
     initialData: initialState,
     staleTime: Infinity,
-  });
+  })
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -42,38 +42,37 @@ export default function LikeButton({
         : kyInstance.post(`/api/movie/liked/${movieId}`),
     onMutate: async () => {
       toast({
-        description: `Película ${
-          likeData?.isLikedByUser
-            ? "desmarcada como favorita"
-            : "marcada como favorita"
-        }`,
-      });
+        description: `Película ${likeData?.isLikedByUser
+          ? "desmarcada como favorita"
+          : "marcada como favorita"
+          }`,
+      })
 
-      await queryClient.cancelQueries({ queryKey });
+      await queryClient.cancelQueries({ queryKey })
 
-      const previousState = queryClient.getQueryData<LikedInfo>(queryKey);
+      const previousState = queryClient.getQueryData<LikedInfo>(queryKey)
 
       queryClient.setQueryData<LikedInfo>(queryKey, () => ({
         isLikedByUser: !previousState?.isLikedByUser,
-      }));
+      }))
 
-      return { previousState };
+      return { previousState }
     },
     onError: (error, variables, context) => {
-      queryClient.setQueryData(queryKey, context?.previousState);
-      console.error(error);
+      queryClient.setQueryData(queryKey, context?.previousState)
+
       toast({
         variant: "destructive",
         description: "Error al intentar actualizar tu watchlist.",
-      });
+      })
     },
     onSuccess: () => {
-      activateRefresh(); 
+      activateRefresh()
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey })
     },
-  });
+  })
 
   return (
     <div className="flex flex-col items-center">
@@ -92,5 +91,5 @@ export default function LikeButton({
         <span className="mt-1 text-sm font-semibold">Me gusta</span>
       )}
     </div>
-  );
+  )
 }

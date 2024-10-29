@@ -1,26 +1,26 @@
-import Link from "next/link";
-import { LinkIt, LinkItUrl } from "react-linkify-it";
+import Link from "next/link"
+import { LinkIt, LinkItUrl } from "react-linkify-it"
 
-import UserLinkWithTooltip from "./UserLinkWithTooltip";
+import UserLinkWithTooltip from "./UserLinkWithTooltip"
 
 interface LinkifyProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function Linkify({ children }: LinkifyProps) {
   return (
     <LinkifyUsername>
       <LinkifyHashtag>
-          <LinkifyUrl>{children}</LinkifyUrl>
+        <LinkifyUrl>{children}</LinkifyUrl>
       </LinkifyHashtag>
     </LinkifyUsername>
-  );
+  )
 }
 
 function LinkifyUrl({ children }: LinkifyProps) {
   return (
     <LinkItUrl className="text-primary hover:underline">{children}</LinkItUrl>
-  );
+  )
 }
 
 function LinkifyUsername({ children }: LinkifyProps) {
@@ -35,7 +35,7 @@ function LinkifyUsername({ children }: LinkifyProps) {
     >
       {children}
     </LinkIt>
-  );
+  )
 }
 
 function LinkifyHashtag({ children }: LinkifyProps) {
@@ -54,13 +54,13 @@ function LinkifyHashtag({ children }: LinkifyProps) {
     >
       {children}
     </LinkIt>
-  );
+  )
 }
 
 function LinkifyRebrandly({ children }: LinkifyProps) {
   return (
     <LinkIt
-      regex={/(rebrand\.ly\/[^\s]+)/} 
+      regex={/(rebrand\.ly\/[^\s]+)/}
       component={(match: string, key: number) => (
         <Link key={key} href={`https://${match}`} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
           {match}
@@ -69,5 +69,5 @@ function LinkifyRebrandly({ children }: LinkifyProps) {
     >
       {children}
     </LinkIt>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import ReviewEditor from "../rating/ReviewEditor";
-import WatchedButton from "../rating/WatchedButton";
-import LikeButton from "../rating/LikeButton";
-import { ReviewData } from "@/lib/types";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import ReviewEditor from "../rating/ReviewEditor"
+import WatchedButton from "../rating/WatchedButton"
+import LikeButton from "../rating/LikeButton"
+import { ReviewData } from "@/lib/types"
 import '../rating/styles.css'
 
 interface EditReviewDialogProps {
   reviewState: ReviewData
   movieId: string
   activateRefresh: () => void
-  open: boolean;
-  onClose: () => void;
+  open: boolean
+  onClose: () => void
 }
 
 export default function EditReviewDialog({
@@ -23,7 +23,7 @@ export default function EditReviewDialog({
 
   function handleOpenChange(open: boolean) {
     if (!open) {
-      onClose();
+      onClose()
     }
   }
 
@@ -58,5 +58,5 @@ export default function EditReviewDialog({
         />
       </DialogContent>
     </Dialog>
-  );
+  )
 }

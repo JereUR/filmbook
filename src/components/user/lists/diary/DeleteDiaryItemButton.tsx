@@ -1,19 +1,19 @@
-import { useState } from "react";
-import { Trash2 } from "lucide-react";
+import { useState } from "react"
+import { Trash2 } from "lucide-react"
 
-import { DiaryInfo } from "@/lib/types";
-import DeleteDiaryItemDialog from "./DeleteDiaryItemDialog";
+import { DiaryInfo } from "@/lib/types"
+import DeleteDiaryItemDialog from "./DeleteDiaryItemDialog"
 
 interface DeleteDiaryItemButtonProps {
-  diary: DiaryInfo;
-  className?: string;
+  diary: DiaryInfo
+  className?: string
 }
 
 export default function DeleteDiaryItemButton({
   diary,
   className,
 }: DeleteDiaryItemButtonProps) {
-  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
 
   return (
     <div>
@@ -24,5 +24,5 @@ export default function DeleteDiaryItemButton({
         onClose={() => setShowDeleteDialog(false)}
       />
     </div>
-  );
+  )
 }

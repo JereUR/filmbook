@@ -42,7 +42,7 @@ export function useDeletePostMutation() {
         description: "Torneo eliminado.",
       })
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         variant: "destructive",
         description:

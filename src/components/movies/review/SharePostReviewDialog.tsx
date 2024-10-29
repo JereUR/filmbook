@@ -1,28 +1,25 @@
-import { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
-
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import PostEditor from "@/components/posts/editor/PostEditor";
-import { generateReviewShareText } from "@/lib/utils";
-import { useSession } from "@/app/(main)/SessionProvider";
+} from "@/components/ui/dialog"
+import PostEditor from "@/components/posts/editor/PostEditor"
+import { generateReviewShareText } from "@/lib/utils"
+import { useSession } from "@/app/(main)/SessionProvider"
 
 interface SharePostReviewDialogProps {
-  open: boolean;
-  onClose: () => void;
-  username: string;
+  open: boolean
+  onClose: () => void
+  username: string
   displayName: string
-  reviewId: string;
-  rating: number | null;
+  reviewId: string
+  rating: number | null
   movie: {
-    movieId: string | undefined;
-    title: string;
-    year: string;
-  };
+    movieId: string | undefined
+    title: string
+    year: string
+  }
 }
 
 export default function SharePostReviewDialog({
@@ -34,14 +31,14 @@ export default function SharePostReviewDialog({
   displayName,
   movie,
 }: SharePostReviewDialogProps) {
-  const { user } = useSession();
-  const own = username === user.username;
+  const { user } = useSession()
+  const own = username === user.username
 
-  const text = generateReviewShareText(reviewId, username, displayName, rating, own, movie);
+  const text = generateReviewShareText(reviewId, username, displayName, rating, own, movie)
 
   function handleOpenChange(open: boolean) {
     if (!open) {
-      onClose();
+      onClose()
     }
   }
 
@@ -54,5 +51,5 @@ export default function SharePostReviewDialog({
         <PostEditor initialContent={text} />
       </DialogContent>
     </Dialog>
-  );
+  )
 }

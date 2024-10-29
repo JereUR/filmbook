@@ -1,14 +1,14 @@
 import { Calendar } from "lucide-react"
 
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function DiariesLoadingSkeleton() {
   return (
     <div className="w-full rounded-2xl bg-card p-5 shadow-sm">
-      <DiariesItemsLoadingSkeleton/>
-      <DiariesItemsLoadingSkeleton/>
+      <DiariesItemsLoadingSkeleton />
+      <DiariesItemsLoadingSkeleton />
     </div>
-  );
+  )
 }
 
 function DiariesItemsLoadingSkeleton() {
@@ -22,7 +22,7 @@ function DiariesItemsLoadingSkeleton() {
       <DiaryItemLoadingSkeleton />
       <DiaryItemLoadingSkeleton />
     </div>
-  );
+  )
 }
 
 function DiaryItemLoadingSkeleton() {
@@ -38,5 +38,5 @@ function DiaryItemLoadingSkeleton() {
         </div>
       </div>
     </div>
-  );
+  )
 }

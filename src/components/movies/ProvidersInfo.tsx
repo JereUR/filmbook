@@ -1,15 +1,15 @@
-import { useState, useMemo } from "react";
-import Image from "next/image";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { useState, useMemo } from "react"
+import Image from "next/image"
+import { Check, ChevronsUpDown } from "lucide-react"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { countryOptions } from "@/lib/countries";
-import { Card } from "../ui/card";
+} from "@/components/ui/popover"
+import { countryOptions } from "@/lib/countries"
+import { Card } from "../ui/card"
 import {
   Command,
   CommandEmpty,
@@ -17,44 +17,44 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../ui/command";
-import ProvidersResult from "./ProvidersResult";
+} from "../ui/command"
+import ProvidersResult from "./ProvidersResult"
 
 export interface Provider {
-  logo_path: string;
-  provider_name: string;
-  display_priority: number;
+  logo_path: string
+  provider_name: string
+  display_priority: number
 }
 
 export interface ProvidersByCountry {
-  flatrate?: Provider[];
-  rent?: Provider[];
-  buy?: Provider[];
+  flatrate?: Provider[]
+  rent?: Provider[]
+  buy?: Provider[]
 }
 
 interface FormattedResults {
-  [key: string]: ProvidersByCountry;
+  [key: string]: ProvidersByCountry
 }
 
 interface ProvidersInfoProps {
-  providersList: FormattedResults;
+  providersList: FormattedResults
 }
 
 interface CountryOption {
-  code: string;
-  name: string;
+  code: string
+  name: string
 }
 
 export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(
     countryOptions && countryOptions.length > 0 ? countryOptions[1] : null,
-  );
+  )
 
   const handleCountryChange = (country: CountryOption) => {
-    setSelectedCountry(country);
-    setOpen(false);
-  };
+    setSelectedCountry(country)
+    setOpen(false)
+  }
 
   const providers = useMemo(
     () =>
@@ -62,14 +62,14 @@ export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
         ? providersList[selectedCountry.code]
         : null,
     [providersList, selectedCountry],
-  );
+  )
 
   if (!countryOptions || countryOptions.length === 0) {
     return (
       <p className="text-red-500">
         Error: No hay opciones de países disponibles.
       </p>
-    );
+    )
   }
 
   return (
@@ -147,5 +147,5 @@ export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
       </div>
       <ProvidersResult providers={providers} />
     </Card>
-  );
+  )
 }

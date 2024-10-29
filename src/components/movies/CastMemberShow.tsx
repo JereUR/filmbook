@@ -1,8 +1,8 @@
-import type { CastMember, ImageInfo } from "@/lib/types";
-import CircularImage from "./CircularImage";
+import type { CastMember, ImageInfo } from "@/lib/types"
+import CircularImage from "./CircularImage"
 
 interface CastMemberShowProps {
-  member: CastMember;
+  member: CastMember
   handleImageClick: (image: ImageInfo) => void
 }
 
@@ -19,5 +19,5 @@ export default function CastMemberShow({ member, handleImageClick }: CastMemberS
         </span>
       </div>
     </div>
-  );
+  )
 }

@@ -1,14 +1,15 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import type { Recommendation } from "@/lib/types";
-import { getRecomendationsMovieById } from "@/lib/tmdb";
-import RecommendationItem from "./RecommendationItem";
-import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react"
+import { Loader2 } from "lucide-react"
+
+import type { Recommendation } from "@/lib/types"
+import { getRecomendationsMovieById } from "@/lib/tmdb"
+import RecommendationItem from "./RecommendationItem"
 
 interface RecommendationsProps {
-  id: string;
-  className?: string;
+  id: string
+  className?: string
 }
 
 export default function Recommendations({
@@ -16,43 +17,43 @@ export default function Recommendations({
   className,
 }: RecommendationsProps) {
   const [loadingRecommendations, setLoadingRecommendations] =
-    useState<boolean>(true);
+    useState<boolean>(true)
   const [recommendations, setRecommendations] = useState<
     Recommendation[] | null
-  >(null);
-  const [counter, setCounter] = useState<number>(10);
+  >(null)
+  const [counter, setCounter] = useState<number>(10)
 
   useEffect(() => {
-    let countdownInterval: NodeJS.Timeout;
+    let countdownInterval: NodeJS.Timeout
 
     if (id) {
       countdownInterval = setInterval(() => {
         setCounter((prevCounter) => {
           if (prevCounter === 1) {
-            clearInterval(countdownInterval);
-            fetchRecommendations();
-            return 0;
+            clearInterval(countdownInterval)
+            fetchRecommendations()
+            return 0
           }
-          return prevCounter - 1;
-        });
-      }, 1000);
+          return prevCounter - 1
+        })
+      }, 1000)
 
-      return () => clearInterval(countdownInterval);
+      return () => clearInterval(countdownInterval)
     }
 
-    return () => clearInterval(countdownInterval);
-  }, [id]);
+    return () => clearInterval(countdownInterval)
+  }, [id])
 
-   async function fetchRecommendations() {
-    setLoadingRecommendations(true);
+  async function fetchRecommendations() {
+    setLoadingRecommendations(true)
     try {
-      const data = await getRecomendationsMovieById(id);
-      setRecommendations(data);
+      const data = await getRecomendationsMovieById(id)
+      setRecommendations(data)
     } catch (error) {
-      console.error(error);
-      setRecommendations(null);
+
+      setRecommendations(null)
     } finally {
-      setLoadingRecommendations(false);
+      setLoadingRecommendations(false)
     }
   }
 
@@ -91,5 +92,5 @@ export default function Recommendations({
         </p>
       )}
     </div>
-  );
+  )
 }

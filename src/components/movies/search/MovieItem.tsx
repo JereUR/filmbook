@@ -1,16 +1,16 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-import type { SearchMovie } from "@/lib/types";
-import { getYear } from "@/lib/utils";
-import noImage from "@/assets/no-image-film.jpg";
+import type { SearchMovie } from "@/lib/types"
+import { getYear } from "@/lib/utils"
+import noImage from "@/assets/no-image-film.jpg"
 
 interface MovieItemProps {
-  movie: SearchMovie;
+  movie: SearchMovie
 }
 
 export default function MovieItem({ movie }: MovieItemProps) {
-  const { id, poster_path, title, release_date, genre_names } = movie;
+  const { id, poster_path, title, release_date, genre_names } = movie
 
   return (
     <Link href={`/pelicula/${id}?title=${title}&date=${getYear(release_date)}`}>
@@ -36,5 +36,5 @@ export default function MovieItem({ movie }: MovieItemProps) {
         </div>
       </div>
     </Link>
-  );
+  )
 }

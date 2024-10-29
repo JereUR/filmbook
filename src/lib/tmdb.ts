@@ -1,22 +1,22 @@
-import { translateJobToSpanish } from "./translations";
-import { Movie, Recommendation } from "./types";
+import { translateJobToSpanish } from "./translations"
+import { Movie, Recommendation } from "./types"
 
-const API_KEY = process.env.MOVIE_API_KEY;
-const ACCESS_TOKEN = process.env.MOVIE_ACCESS_TOKEN;
-const BASE_URL = "https://api.themoviedb.org/3";
-const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original";
+const API_KEY = process.env.MOVIE_API_KEY
+const ACCESS_TOKEN = process.env.MOVIE_ACCESS_TOKEN
+const BASE_URL = "https://api.themoviedb.org/3"
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original"
 
 interface CastMember {
-  name: string;
-  character: string;
-  profile_path: string;
+  name: string
+  character: string
+  profile_path: string
 }
 
 interface CrewMember {
-  id: number;
-  job: string;
-  name: string;
-  profile_path: string | null;
+  id: number
+  job: string
+  name: string
+  profile_path: string | null
 }
 
 type JobType =
@@ -26,7 +26,7 @@ type JobType =
   | "Co-Producer"
   | "Director of Photography"
   | "Original Music Composer"
-  | "Visual Effects Producer";
+  | "Visual Effects Producer"
 
 const desiredJobsOrder: Record<JobType, number> = {
   Director: 1,
@@ -36,24 +36,23 @@ const desiredJobsOrder: Record<JobType, number> = {
   "Director of Photography": 5,
   "Original Music Composer": 6,
   "Visual Effects Producer": 7,
-};
+}
 
 const headers = {
   Authorization: `Bearer ${ACCESS_TOKEN}`,
   "Content-Type": "application/json;charset=utf-8",
-};
+}
 
-export async function getMovieById(id: string ): Promise<Movie | null> {
+export async function getMovieById(id: string): Promise<Movie | null> {
   try {
-    const response = await fetch(`/api/tmdb/movie?id=${id}`);
+    const response = await fetch(`/api/tmdb/movie?id=${id}`)
     if (!response.ok) {
-      throw new Error("Error al obtener los datos de la película");
+      throw new Error("Error al obtener los datos de la película")
     }
-    const data: Movie = await response.json();
-    return data;
+    const data: Movie = await response.json()
+    return data
   } catch (error) {
-    console.error(error);
-    return null;
+    return null
   }
 }
 
@@ -61,15 +60,14 @@ export async function getRecomendationsMovieById(
   id: string,
 ): Promise<Recommendation[] | null> {
   try {
-    const response = await fetch(`/api/tmdb/recommendations?id=${id}`);
+    const response = await fetch(`/api/tmdb/recommendations?id=${id}`)
     if (!response.ok) {
-      throw new Error("Error al obtener las recomendaciones de la película");
+      throw new Error("Error al obtener las recomendaciones de la película")
     }
-    const data: Recommendation[] = await response.json();
-    return data;
+    const data: Recommendation[] = await response.json()
+    return data
   } catch (error) {
-    console.error(error);
-    return null;
+    return null
   }
 }
 
@@ -77,38 +75,43 @@ export async function getPopularMovies(): Promise<Movie[] | null> {
   try {
     const response = await fetch(
       `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=es-ES`,
-    );
+    )
     if (!response.ok) {
-      throw new Error("Error al obtener las películas populares");
+      throw new Error("Error al obtener las películas populares")
     }
-    const data = await response.json();
+    const data = await response.json()
 
-    const movies:Movie[] = data.results.map((movie:any) => {
+    const movies: Movie[] = data.results.map((movie: any) => {
       return {
         id: movie.id,
         title: movie.title,
-        backdropPath: movie.backdrop_path? `${BASE_IMG_TMDB}${movie.backdrop_path}` : null,
-        posterPath: movie.poster_path? `${BASE_IMG_TMDB}${movie.poster_path}` : null,
-        poster_path: movie.poster_path? `${BASE_IMG_TMDB}${movie.poster_path}` : null,
+        backdropPath: movie.backdrop_path
+          ? `${BASE_IMG_TMDB}${movie.backdrop_path}`
+          : null,
+        posterPath: movie.poster_path
+          ? `${BASE_IMG_TMDB}${movie.poster_path}`
+          : null,
+        poster_path: movie.poster_path
+          ? `${BASE_IMG_TMDB}${movie.poster_path}`
+          : null,
         releaseDate: movie.release_date,
         overview: movie.overview,
         runtime: movie.runtime,
         voteAverage: movie.vote_average,
         voteCount: movie.vote_count,
-      };
+      }
     })
     return movies
   } catch (error) {
-    console.error(error);
-    return null;
+    return null
   }
 }
 
 const formatProviders = (results: any) => {
-  const formattedResults: { [key: string]: any } = {};
+  const formattedResults: { [key: string]: any } = {}
 
   Object.keys(results).forEach((countryCode) => {
-    const countryData = results[countryCode];
+    const countryData = results[countryCode]
 
     formattedResults[countryCode] = {
       flatrate: countryData.flatrate
@@ -132,16 +135,16 @@ const formatProviders = (results: any) => {
             display_priority: provider.display_priority,
           }))
         : [],
-    };
-  });
+    }
+  })
 
-  return formattedResults;
-};
+  return formattedResults
+}
 
 const filterCrew = (crew: any[]) => {
-  const desiredJobs = Object.keys(desiredJobsOrder) as JobType[];
-  return crew.filter((member) => desiredJobs.includes(member.job as JobType));
-};
+  const desiredJobs = Object.keys(desiredJobsOrder) as JobType[]
+  return crew.filter((member) => desiredJobs.includes(member.job as JobType))
+}
 
 export async function fetchMovieFromTMDB(movieId: string) {
   const movieResponse = await fetch(
@@ -149,13 +152,13 @@ export async function fetchMovieFromTMDB(movieId: string) {
     {
       headers,
     },
-  );
+  )
 
   if (!movieResponse.ok) {
-    throw new Error("Error al obtener los detalles de la película");
+    throw new Error("Error al obtener los detalles de la película")
   }
 
-  const movieData = await movieResponse.json();
+  const movieData = await movieResponse.json()
 
   // Fetch del cast y crew (director y elenco)
   const creditsResponse = await fetch(
@@ -163,28 +166,28 @@ export async function fetchMovieFromTMDB(movieId: string) {
     {
       headers,
     },
-  );
+  )
 
   if (!creditsResponse.ok) {
-    throw new Error("Error al obtener el cast y crew de la película");
+    throw new Error("Error al obtener el cast y crew de la película")
   }
 
-  const creditsData = await creditsResponse.json();
+  const creditsData = await creditsResponse.json()
 
   // Obtener el director (de los miembros del equipo de producción)
   const directors = creditsData.crew?.filter(
     (member: CrewMember) => member.job === "Director",
-  );
+  )
 
-  const filteredCrew = filterCrew(creditsData.crew);
+  const filteredCrew = filterCrew(creditsData.crew)
 
   // Ordena los miembros de la crew
   const sortedCrew = filteredCrew.sort((a: CrewMember, b: CrewMember) => {
     return (
       (desiredJobsOrder[a.job as JobType] || Infinity) -
       (desiredJobsOrder[b.job as JobType] || Infinity)
-    );
-  });
+    )
+  })
 
   const crew = sortedCrew.map((member: CrewMember) => ({
     id: member.id,
@@ -193,7 +196,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
     profilePath: member.profile_path
       ? `${BASE_IMG_TMDB}${member.profile_path}`
       : null,
-  }));
+  }))
 
   // Obtener el elenco principal (máximo 5 actores)
   const cast = creditsData.cast.slice(0, 10).map((actor: CastMember) => ({
@@ -202,7 +205,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
     profilePath: actor.profile_path
       ? `${BASE_IMG_TMDB}${actor.profile_path}`
       : null,
-  }));
+  }))
 
   // Fetch de las plataformas de streaming en Argentina
   const watchProvidersResponse = await fetch(
@@ -210,14 +213,14 @@ export async function fetchMovieFromTMDB(movieId: string) {
     {
       headers,
     },
-  );
+  )
 
   if (!watchProvidersResponse.ok) {
-    throw new Error("Error al obtener las plataformas de streaming");
+    throw new Error("Error al obtener las plataformas de streaming")
   }
 
-  const watchProvidersData = await watchProvidersResponse.json();
-  const providers = formatProviders(watchProvidersData.results);
+  const watchProvidersData = await watchProvidersResponse.json()
+  const providers = formatProviders(watchProvidersData.results)
 
   return {
     title: movieData.title,
@@ -243,7 +246,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
     crew,
     cast,
     providers,
-  };
+  }
 }
 
 export async function fetchMovieRecommendations(movieId: string) {
@@ -253,13 +256,13 @@ export async function fetchMovieRecommendations(movieId: string) {
       {
         headers,
       },
-    );
+    )
 
     if (!recommendationsResponse.ok) {
-      throw new Error("Error al obtener las recomendaciones de la película");
+      throw new Error("Error al obtener las recomendaciones de la película")
     }
 
-    const recommendationsData = await recommendationsResponse.json();
+    const recommendationsData = await recommendationsResponse.json()
 
     const recommendations = recommendationsData.results
       .slice(0, 8)
@@ -271,11 +274,10 @@ export async function fetchMovieRecommendations(movieId: string) {
           : undefined,
         release_date: movie.release_date,
         vote_average: movie.vote_average,
-      }));
+      }))
 
-    return { results: recommendations };
+    return { results: recommendations }
   } catch (error) {
-    console.error(error);
-    throw new Error("Error al obtener recomendaciones de la película");
+    throw new Error("Error al obtener recomendaciones de la película")
   }
 }

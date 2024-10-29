@@ -1,19 +1,19 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-import { Recommendation } from "@/lib/types";
-import noPoster from "@/assets/no-image-film.jpg";
-import TmdbLogo from "@/assets/TMDB.png";
-import { getYear, ratingColor } from "@/lib/utils";
+import { Recommendation } from "@/lib/types"
+import noPoster from "@/assets/no-image-film.jpg"
+import TmdbLogo from "@/assets/TMDB.png"
+import { getYear, ratingColor } from "@/lib/utils"
 
 interface RecommendationItemProps {
-  recommendation: Recommendation;
+  recommendation: Recommendation
 }
 
 export default function RecommendationItem({
   recommendation,
 }: RecommendationItemProps) {
-  const { id, title, poster_path, release_date, vote_average } = recommendation;
+  const { id, title, poster_path, release_date, vote_average } = recommendation
 
   return (
     <Link
@@ -52,5 +52,5 @@ export default function RecommendationItem({
         </div>
       </div>
     </Link>
-  );
+  )
 }

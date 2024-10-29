@@ -69,8 +69,7 @@ export function useSubmitTournamenttMutation() {
         description: "Torneo agregado.",
       })
     },
-    onError: (error) => {
-      console.error(error)
+    onError: () => {
       toast({
         variant: "destructive",
         description: "Error al crear torneo. Por favor vuelve a intentarlo.",

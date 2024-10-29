@@ -1,18 +1,18 @@
-import { CastMember, CrewMember, ImageInfo } from "@/lib/types";
+import { CastMember, CrewMember, ImageInfo } from "@/lib/types"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-} from "../ui/carousel";
-import CastMemberShow from "./CastMemberShow";
-import CrewMemberShow from "./CrewMemberShow";
+} from "../ui/carousel"
+import CastMemberShow from "./CastMemberShow"
+import CrewMemberShow from "./CrewMemberShow"
 
 interface CrewCastSectionProps {
-  cast: CastMember[];
-  crew: CrewMember[];
-  handleImageClick:(image:ImageInfo)=>void
+  cast: CastMember[]
+  crew: CrewMember[]
+  handleImageClick: (image: ImageInfo) => void
 }
 
 export default function CrewCastSection({ cast, crew, handleImageClick }: CrewCastSectionProps) {
@@ -37,7 +37,7 @@ export default function CrewCastSection({ cast, crew, handleImageClick }: CrewCa
                 key={`${index}-${member.name}`}
                 className="basis-1/2 md:basis-1/3"
               >
-                <CastMemberShow member={member} handleImageClick={handleImageClick}/>
+                <CastMemberShow member={member} handleImageClick={handleImageClick} />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -65,7 +65,7 @@ export default function CrewCastSection({ cast, crew, handleImageClick }: CrewCa
                 key={`${index}-${member.id}`}
                 className="basis-1/2 md:basis-1/3"
               >
-                <CrewMemberShow member={member} handleImageClick={handleImageClick}/>
+                <CrewMemberShow member={member} handleImageClick={handleImageClick} />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -74,5 +74,5 @@ export default function CrewCastSection({ cast, crew, handleImageClick }: CrewCa
         </Carousel>
       </div>
     </>
-  );
+  )
 }

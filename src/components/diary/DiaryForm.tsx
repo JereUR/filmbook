@@ -1,76 +1,76 @@
-import { ChevronLeft, Loader2 } from "lucide-react";
-import Image from "next/image";
+import { ChevronLeft, Loader2 } from "lucide-react"
+import Image from "next/image"
+import { useEffect, useState } from "react"
 
 import '@/components/movies/rating/styles.css'
-import noImage from "@/assets/no-image-film.jpg";
-import { Movie, ReviewInfo, SearchMovie } from "@/lib/types";
-import { formatArgDate, getYear } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { toast, useToast } from "../ui/use-toast";
-import ReviewEditorSection from "./ReviewEditorSection";
-import { getMovieById } from "@/lib/tmdb";
+import noImage from "@/assets/no-image-film.jpg"
+import { Movie, ReviewInfo, SearchMovie } from "@/lib/types"
+import { formatArgDate, getYear } from "@/lib/utils"
+import { useToast } from "../ui/use-toast"
+import ReviewEditorSection from "./ReviewEditorSection"
+import { getMovieById } from "@/lib/tmdb"
 
 interface MovieItemProps {
-  movie: SearchMovie | null;
-  changeState: () => void;
-  handleOpenChange: (open: boolean) => void;
+  movie: SearchMovie | null
+  changeState: () => void
+  handleOpenChange: (open: boolean) => void
 }
 
 export default function DiaryForm({ movie, changeState, handleOpenChange }: MovieItemProps) {
   const [reviewState, setReviewState] = useState<ReviewInfo | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [movieFromDb, setMovieFromDb] = useState<Movie | null>(null);
+  const [movieFromDb, setMovieFromDb] = useState<Movie | null>(null)
   const [loadingMovie, setLoadingMovie] = useState<boolean>(true)
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
   useEffect(() => {
     async function getMovie() {
       setLoadingMovie(true)
       if (movie) {
         try {
-          const data = await getMovieById(movie.id);
-          setMovieFromDb(data);
+          const data = await getMovieById(movie.id)
+          setMovieFromDb(data)
         } catch (error) {
-          console.error(error);
-          setMovieFromDb(null);
+
+          setMovieFromDb(null)
           toast({
             variant: "destructive",
             description: "Error al obtener los datos de la película. Por favor vuelve a intentarlo.",
-          });
+          })
         } finally {
-          setLoadingMovie(false);
+          setLoadingMovie(false)
         }
       }
     }
 
-    getMovie();
-  }, [movie, toast]);
+    getMovie()
+  }, [movie, toast])
 
   const searchReview = async () => {
-    setLoading(true);
+    setLoading(true)
 
     try {
       const response = await fetch(
         `/api/movie/review/movie/${id}`,
-      );
-      const data: ReviewInfo = await response.json();
+      )
+      const data: ReviewInfo = await response.json()
 
       if (data) {
-        setReviewState(data);
+        setReviewState(data)
       }
     } catch (error) {
       toast({
         variant: "destructive",
         description: `Error al obtener los datos: ${error}`,
-      });
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    searchReview();
+    searchReview()
   }, [])
 
   if (!movie) return null

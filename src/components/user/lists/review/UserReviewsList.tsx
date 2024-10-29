@@ -1,15 +1,16 @@
-"use client";
+"use client"
 
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import kyInstance from "@/lib/ky";
-import { ReviewsPage } from "@/lib/types";
-import ReviewItem from "./ReviewItem";
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { Loader2 } from "lucide-react"
+
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
+import kyInstance from "@/lib/ky"
+import { ReviewsPage } from "@/lib/types"
+import ReviewItem from "./ReviewItem"
 import ReviewsLoadingSkeleton from './ReviewsLoadingSkeleton'
 
 interface UserReviewsListProps {
-  userId: string;
+  userId: string
 }
 
 export default function UserReviewsList({ userId }: UserReviewsListProps) {
@@ -31,12 +32,12 @@ export default function UserReviewsList({ userId }: UserReviewsListProps) {
         .json<ReviewsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
+  })
 
-  const reviews = data?.pages.flatMap((page) => page.reviews) || [];
+  const reviews = data?.pages.flatMap((page) => page.reviews) || []
 
   if (status === "pending") {
-    return <ReviewsLoadingSkeleton />;
+    return <ReviewsLoadingSkeleton />
   }
 
   if (status === "success" && !reviews.length && !hasNextPage) {
@@ -44,7 +45,7 @@ export default function UserReviewsList({ userId }: UserReviewsListProps) {
       <p className="text-center text-muted-foreground">
         Este usuario todavía no cuenta con reviews.
       </p>
-    );
+    )
   }
 
   if (status === "error") {
@@ -52,7 +53,7 @@ export default function UserReviewsList({ userId }: UserReviewsListProps) {
       <p className="text-center text-destructive">
         Ocurrió un error al cargar las reviews
       </p>
-    );
+    )
   }
 
   return (
@@ -67,5 +68,5 @@ export default function UserReviewsList({ userId }: UserReviewsListProps) {
       </div>
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
-  );
+  )
 }

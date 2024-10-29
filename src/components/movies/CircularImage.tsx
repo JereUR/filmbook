@@ -1,14 +1,14 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { cn } from "@/lib/utils";
-import noImage from "@/assets/avatar-placeholder.png";
-import { ImageInfo } from "@/lib/types";
+import { cn } from "@/lib/utils"
+import noImage from "@/assets/avatar-placeholder.png"
+import { ImageInfo } from "@/lib/types"
 
 interface CircularImageProps {
-  src: string | null | undefined;
-  size?: number;
-  alt: string;
-  className?: string;
+  src: string | null | undefined
+  size?: number
+  alt: string
+  className?: string
   handleImageClick?: (image: ImageInfo) => void
   transform?: boolean
 }
@@ -44,5 +44,5 @@ export default function CircularImage({
         onClick={() => handleImageClick && handleImageClick(image)}
       />
     </div>
-  );
+  )
 }

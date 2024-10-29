@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query"
 
-import kyInstance from "@/lib/ky";
-import { FollowerInfo } from "@/lib/types";
+import kyInstance from "@/lib/ky"
+import { FollowerInfo } from "@/lib/types"
 
 export default function useFollowerInfo(
   userId: string,
@@ -13,7 +13,7 @@ export default function useFollowerInfo(
       kyInstance.get(`/api/users/${userId}/followers`).json<FollowerInfo>(),
     initialData: initialState,
     staleTime: Infinity,
-  });
+  })
 
-  return query;
+  return query
 }

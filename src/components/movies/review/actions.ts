@@ -1,37 +1,36 @@
-"use server";
+"use server"
 
-import { validateRequest } from "@/auth";
-import prisma from "@/lib/prisma";
+import { validateRequest } from "@/auth"
+import prisma from "@/lib/prisma"
 
 export async function deleteReview(id: string) {
-  const { user } = await validateRequest();
+  const { user } = await validateRequest()
 
-  if (!user) throw new Error("No autorizado.");
+  if (!user) throw new Error("No autorizado.")
 
   const review = await prisma.review.findUnique({
     where: { id },
-  });
+  })
 
-  if (!review) throw new Error("Review no encontrada.");
+  if (!review) throw new Error("Review no encontrada.")
   if (review.userId !== user.id)
-    throw new Error("No tienes permisos para eliminar esta review.");
+    throw new Error("No tienes permisos para eliminar esta review.")
 
   const movieRating = await prisma.movieRating.findUnique({
     where: { movieId: review.movieId },
-  });
+  })
 
-  if (!movieRating)
-    throw new Error("No se encontró el puntaje de la película.");
+  if (!movieRating) throw new Error("No se encontró el puntaje de la película.")
 
-  const newNumberOfRatings = movieRating.numberOfRatings - 1;
+  const newNumberOfRatings = movieRating.numberOfRatings - 1
 
-  let newAverageRating: number | null = null;
+  let newAverageRating: number | null = null
 
   if (newNumberOfRatings > 0) {
     newAverageRating =
       (movieRating.averageRating * movieRating.numberOfRatings -
         (review.rating || 0)) /
-      newNumberOfRatings;
+      newNumberOfRatings
   }
 
   const [reviewDelete] = await prisma.$transaction([
@@ -45,17 +44,17 @@ export async function deleteReview(id: string) {
           },
         })
       : prisma.movieRating.delete({ where: { movieId: review.movieId } }),
-  ]);
+  ])
 
   const diary = await prisma.diary.findFirst({
     where: {
       reviewId: reviewDelete.id,
     },
-  });
+  })
 
   if (diary) {
-    await prisma.diary.delete({ where: { id: diary.id } });
+    await prisma.diary.delete({ where: { id: diary.id } })
   }
 
-  return review;
+  return review
 }

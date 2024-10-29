@@ -1,15 +1,16 @@
-import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { validateRequest } from "@/auth";
+import { NextResponse } from "next/server"
+
+import prisma from "@/lib/prisma"
+import { validateRequest } from "@/auth"
 
 export async function GET(
   req: Request,
   { params }: { params: { movieId: string } },
 ) {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
   const review = await prisma.review.findFirst({
@@ -20,26 +21,26 @@ export async function GET(
     select: {
       rating: true,
     },
-  });
+  })
 
   if (!review) {
-    return NextResponse.json(null);
+    return NextResponse.json(null)
   }
 
-  return NextResponse.json(review.rating);
+  return NextResponse.json(review.rating)
 }
 
 export async function POST(
   req: Request,
-  { params: { movieId } }: { params: { movieId: string } }
+  { params: { movieId } }: { params: { movieId: string } },
 ) {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
-  const { rating } = await req.json(); 
+  const { rating } = await req.json()
 
   await prisma.review.upsert({
     where: {
@@ -50,7 +51,7 @@ export async function POST(
     },
     create: { userId: loggedInUser.id, movieId, rating },
     update: { rating },
-  });
+  })
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true })
 }

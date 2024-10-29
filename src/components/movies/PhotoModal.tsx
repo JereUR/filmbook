@@ -1,12 +1,12 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { Dialog, DialogContent} from "@/components/ui/dialog";
-import { ImageInfo } from "@/lib/types";
+import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { ImageInfo } from "@/lib/types"
 
 interface PhotoModalProps {
-  isOpen: boolean;
-  image: ImageInfo | null;
-  onClose: () => void;
+  isOpen: boolean
+  image: ImageInfo | null
+  onClose: () => void
 }
 
 export default function PhotoModal({
@@ -14,7 +14,7 @@ export default function PhotoModal({
   image,
   onClose,
 }: PhotoModalProps) {
-  if (!image) return null;
+  if (!image) return null
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -28,5 +28,5 @@ export default function PhotoModal({
         />
       </DialogContent>
     </Dialog>
-  );
+  )
 }

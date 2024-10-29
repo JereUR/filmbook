@@ -1,21 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { validateRequest } from "@/auth";
-import { ReviewResumeInfo } from "@/lib/types";
-import { getYear } from "@/lib/utils";
+import { NextRequest, NextResponse } from "next/server"
+
+import prisma from "@/lib/prisma"
+import { validateRequest } from "@/auth"
+import { ReviewResumeInfo } from "@/lib/types"
+import { getYear } from "@/lib/utils"
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { movieId: string; reviewId: string } },
 ) {
-  const { user: loggedInUser } = await validateRequest();
+  const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 });
+    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
-  const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
-  const pageSize = 80;
+  const cursor = req.nextUrl.searchParams.get("cursor") || undefined
+  const pageSize = 80
 
   const reviews = await prisma.review.findMany({
     where: {
@@ -47,9 +48,9 @@ export async function GET(
     take: pageSize + 1,
     cursor: cursor ? { id: cursor } : undefined,
     orderBy: { createdAt: "desc" },
-  });
+  })
 
-  const nextCursor = reviews.length > pageSize ? reviews[pageSize].id : null;
+  const nextCursor = reviews.length > pageSize ? reviews[pageSize].id : null
 
   const data: ReviewResumeInfo[] = reviews.slice(0, pageSize).map((review) => ({
     id: review.id,
@@ -66,7 +67,7 @@ export async function GET(
     liked: review.liked,
     review: review.review,
     createdAt: review.createdAt,
-  }));
+  }))
 
-  return NextResponse.json({ reviews: data, nextCursor });
+  return NextResponse.json({ reviews: data, nextCursor })
 }

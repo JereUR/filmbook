@@ -1,4 +1,4 @@
-import { Genre } from "./types";
+import { Genre } from "./types"
 
 export const genres: Genre[] = [
   { id: 28, name: "Acción" },
@@ -20,4 +20,4 @@ export const genres: Genre[] = [
   { id: 53, name: "Suspense" },
   { id: 10752, name: "Bélica" },
   { id: 37, name: "Western" },
-];
+]

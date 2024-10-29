@@ -1,16 +1,16 @@
-import { UTApi } from "uploadthing/server";
+import { UTApi } from "uploadthing/server"
 
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/prisma"
 
 export async function GET(req: Request) {
   try {
-    const authHeader = req.headers.get("Authorization");
+    const authHeader = req.headers.get("Authorization")
 
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
       return Response.json(
         { message: "Encabezado de autorización no válido." },
         { status: 401 },
-      );
+      )
     }
 
     const unusedMedia = await prisma.media.findMany({
@@ -19,7 +19,7 @@ export async function GET(req: Request) {
         ...(process.env.NODE_ENV === "production"
           ? {
               createdAt: {
-                lte: new Date(Date.now() - 60 * 60 * 1000 * 24), // 24 hours
+                lte: new Date(Date.now() - 60 * 60 * 1000 * 24),
               },
             }
           : {}),
@@ -28,7 +28,7 @@ export async function GET(req: Request) {
         id: true,
         url: true,
       },
-    });
+    })
 
     new UTApi().deleteFiles(
       unusedMedia.map(
@@ -37,7 +37,7 @@ export async function GET(req: Request) {
             `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`,
           )[1],
       ),
-    );
+    )
 
     await prisma.media.deleteMany({
       where: {
@@ -45,14 +45,13 @@ export async function GET(req: Request) {
           in: unusedMedia.map((media) => media.id),
         },
       },
-    });
+    })
 
-    return new Response();
+    return new Response()
   } catch (error) {
-    console.error(error);
     return Response.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
-    );
+    )
   }
 }

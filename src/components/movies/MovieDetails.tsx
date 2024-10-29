@@ -1,28 +1,27 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { useState } from "react";
+import Image from "next/image"
+import { useState } from "react"
 
-import type { ImageInfo, Movie } from "@/lib/types";
-import ProvidersInfo from "./ProvidersInfo";
-import CrewCastSection from "./CrewCastSection";
-import GeneralInfoSection from "./GeneralInfoSection";
-import DetailsSection from "./DetailsSection";
-
-import PhotoModal from "./PhotoModal";
+import type { ImageInfo, Movie } from "@/lib/types"
+import ProvidersInfo from "./ProvidersInfo"
+import CrewCastSection from "./CrewCastSection"
+import GeneralInfoSection from "./GeneralInfoSection"
+import DetailsSection from "./DetailsSection"
+import PhotoModal from "./PhotoModal"
 
 interface MovieDetailsProps {
-  movie: Movie;
+  movie: Movie
 }
 
 export default function MovieDetails({ movie }: MovieDetailsProps) {
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<ImageInfo | null>(null);
+  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [selectedImage, setSelectedImage] = useState<ImageInfo | null>(null)
 
   const handleImageClick = (image: ImageInfo) => {
-    setSelectedImage(image);
-    setOpenModal(true);
-  };
+    setSelectedImage(image)
+    setOpenModal(true)
+  }
 
   const {
     id,
@@ -45,7 +44,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
     rating,
     reviews,
     watchlist,
-  } = movie;
+  } = movie
   return (
     <div className="relative w-full">
       {backdropPath && (
@@ -97,5 +96,5 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
         image={selectedImage}
       />
     </div>
-  );
+  )
 }

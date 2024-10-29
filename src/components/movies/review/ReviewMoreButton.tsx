@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { useState } from "react";
+import { useState } from "react"
 import {
   Edit2,
   MoreHorizontal,
@@ -8,11 +8,11 @@ import {
   Share2,
   MessageSquare,
   Twitter,
-} from "lucide-react";
-import { useRouter } from "next/navigation";
+} from "lucide-react"
+import { useRouter } from "next/navigation"
 
-import { ReviewInfo, ReviewData } from "@/lib/types";
-import DeleteReviewDialog from "./DeleteReviewDialog";
+import { ReviewInfo, ReviewData } from "@/lib/types"
+import DeleteReviewDialog from "./DeleteReviewDialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,44 +21,44 @@ import {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { useSession } from "@/app/(main)/SessionProvider";
-import EditReviewDialog from "./EditReviewDialog";
-import SharePostReviewDialog from "./SharePostReviewDialog";
-import { generateReviewShareTextForTwitter, getYear } from "@/lib/utils";
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
+import { useSession } from "@/app/(main)/SessionProvider"
+import EditReviewDialog from "./EditReviewDialog"
+import SharePostReviewDialog from "./SharePostReviewDialog"
+import { generateReviewShareTextForTwitter, getYear } from "@/lib/utils"
 
 interface ReviewMoreButtonProps {
-  review: ReviewInfo;
-  className?: string;
+  review: ReviewInfo
+  className?: string
 }
 
 export default function ReviewMoreButton({
   review,
   className,
 }: ReviewMoreButtonProps) {
-  const { user } = useSession();
+  const { user } = useSession()
   const [reviewState, setReviewState] = useState<ReviewData>({
     id: review.id,
     rating: review.rating || null,
     review: review.review || "",
     watched: review.watched || false,
     liked: review.liked || false,
-  });
-  const [showReviewEditor, setShowReviewEditor] = useState<boolean>(false);
-  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  })
+  const [showReviewEditor, setShowReviewEditor] = useState<boolean>(false)
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
   const [showSharePostDialog, setShowSharePostDialog] =
-    useState<boolean>(false);
+    useState<boolean>(false)
 
-  const { movieId } = review;
+  const { movieId } = review
   const movie = {
     movieId,
     title: review.movie?.title || "",
     year: getYear(
       review.movie.releaseDate ? review.movie.releaseDate.toString() : "",
     ),
-  };
-  const router = useRouter();
+  }
+  const router = useRouter()
 
   return (
     <div className="mb-2">
@@ -96,8 +96,8 @@ export default function ReviewMoreButton({
                     review.rating,
                     user.id === review.userId,
                     movie
-                  );
-                  window.open(twitterUrl, "_blank");
+                  )
+                  window.open(twitterUrl, "_blank")
                 }}
               >
                 <span className="flex items-center gap-3 font-bold text-foreground">
@@ -155,5 +155,5 @@ export default function ReviewMoreButton({
         reviewId={review.id}
       />
     </div>
-  );
+  )
 }

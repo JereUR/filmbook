@@ -1,20 +1,20 @@
 "use server"
 
-import { validateRequest } from "@/auth";
-import prisma from "@/lib/prisma";
-import { createReviewSchema } from "@/lib/validation";
+import { validateRequest } from "@/auth"
+import prisma from "@/lib/prisma"
+import { createReviewSchema } from "@/lib/validation"
 
 export async function submitReview(input: {
-  rating: number;
-  movieId: string;
-  review: string | undefined | null;
-  diary?: boolean | null;
-  liked?: boolean;
+  rating: number
+  movieId: string
+  review: string | undefined | null
+  diary?: boolean | null
+  liked?: boolean
 }) {
-  const { user } = await validateRequest();
-  if (!user) throw new Error("No autorizado.");
+  const { user } = await validateRequest()
+  if (!user) throw new Error("No autorizado.")
 
-  const { rating, movieId, review } = createReviewSchema.parse(input);
+  const { rating, movieId, review } = createReviewSchema.parse(input)
 
   const existingReview = await prisma.review.findUnique({
     where: {
@@ -27,22 +27,22 @@ export async function submitReview(input: {
       rating: true,
       liked: true,
     },
-  });
+  })
 
-  const previousRating = existingReview ? existingReview.rating : null;
+  const previousRating = existingReview ? existingReview.rating : null
 
   const movieRating = await prisma.movieRating.findUnique({
     where: { movieId },
-  });
+  })
 
-  let newAverageRating: number;
-  let newNumberOfRatings: number;
+  let newAverageRating: number
+  let newNumberOfRatings: number
 
   if (!movieRating) {
-    newAverageRating = rating;
-    newNumberOfRatings = 1;
+    newAverageRating = rating
+    newNumberOfRatings = 1
   } else {
-    newNumberOfRatings = movieRating.numberOfRatings;
+    newNumberOfRatings = movieRating.numberOfRatings
 
     newAverageRating = previousRating
       ? (movieRating.averageRating * newNumberOfRatings -
@@ -50,15 +50,15 @@ export async function submitReview(input: {
           rating) /
         newNumberOfRatings
       : (movieRating.averageRating * newNumberOfRatings + rating) /
-        (newNumberOfRatings + 1);
+        (newNumberOfRatings + 1)
 
-    newNumberOfRatings += previousRating ? 0 : 1;
+    newNumberOfRatings += previousRating ? 0 : 1
   }
 
   const followers = await prisma.follow.findMany({
     where: { followingId: user.id },
     select: { followerId: true },
-  });
+  })
 
   const [newReview, updatedMovieRating] = await prisma.$transaction([
     prisma.review.upsert({
@@ -98,10 +98,9 @@ export async function submitReview(input: {
         numberOfRatings: newNumberOfRatings,
       },
     }),
-  ]);
+  ])
 
   if (input.diary) {
-
     await prisma.diary.create({
       data: {
         userId: user.id,
@@ -109,7 +108,7 @@ export async function submitReview(input: {
         reviewId: newReview.id,
         watchedOn: new Date(),
       },
-    });
+    })
   }
 
   const notifications = followers.map((follower) =>
@@ -121,9 +120,9 @@ export async function submitReview(input: {
         type: "REVIEW",
       },
     }),
-  );
+  )
 
-  await prisma.$transaction(notifications);
+  await prisma.$transaction(notifications)
 
-  return newReview;
+  return newReview
 }

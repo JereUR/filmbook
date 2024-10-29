@@ -1,30 +1,30 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
-import { MessageSquare } from "lucide-react";
-import { Media } from "@prisma/client";
+import Link from "next/link"
+import Image from "next/image"
+import { useState } from "react"
+import { MessageSquare } from "lucide-react"
 
-import { PostData } from "@/lib/types";
-import UserAvatar from "../UserAvatar";
-import { cn, formatRelativeDate } from "@/lib/utils";
-import { useSession } from "@/app/(main)/SessionProvider";
-import PostMoreButton from "./PostMoreButton";
-import Linkify from "../Linkify";
-import UserTooltip from "../UserTooltip";
-import LikeButton from "./LikeButton";
-import BookmarkButton from "./BookmarkButton";
-import Comments from "../comments/Comments";
+import { Media } from "@prisma/client"
+import { PostData } from "@/lib/types"
+import UserAvatar from "../UserAvatar"
+import { cn, formatRelativeDate } from "@/lib/utils"
+import { useSession } from "@/app/(main)/SessionProvider"
+import PostMoreButton from "./PostMoreButton"
+import Linkify from "../Linkify"
+import UserTooltip from "../UserTooltip"
+import LikeButton from "./LikeButton"
+import BookmarkButton from "./BookmarkButton"
+import Comments from "../comments/Comments"
 
 interface PostProps {
-  post: PostData;
+  post: PostData
 }
 
 export default function Post({ post }: PostProps) {
-  const { user } = useSession();
+  const { user } = useSession()
 
-  const [showComments, setShowComments] = useState<boolean>(false);
+  const [showComments, setShowComments] = useState<boolean>(false)
 
   return (
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm">
@@ -94,11 +94,11 @@ export default function Post({ post }: PostProps) {
       </div>
       {showComments && <Comments post={post} />}
     </article>
-  );
+  )
 }
 
 interface MediaPreviewsProps {
-  attachments: Media[];
+  attachments: Media[]
 }
 
 function MediaPreviews({ attachments }: MediaPreviewsProps) {
@@ -113,11 +113,11 @@ function MediaPreviews({ attachments }: MediaPreviewsProps) {
         <MediaPreview key={m.id} media={m} />
       ))}
     </div>
-  );
+  )
 }
 
 interface MediaPreviewProps {
-  media: Media;
+  media: Media
 }
 
 function MediaPreview({ media }: MediaPreviewProps) {
@@ -131,7 +131,7 @@ function MediaPreview({ media }: MediaPreviewProps) {
         className="mx-auto size-fit max-h-[30rem] rounded-2xl"
         priority
       />
-    );
+    )
   }
 
   if (media.type === "VIDEO") {
@@ -143,15 +143,15 @@ function MediaPreview({ media }: MediaPreviewProps) {
           className="mx-auto size-fit max-h-[30rem] rounded-2xl"
         />
       </div>
-    );
+    )
   }
 
-  return <p className="text-destructive">Tipo de archivo no soportado.</p>;
+  return <p className="text-destructive">Tipo de archivo no soportado.</p>
 }
 
 interface CommentButtonProps {
-  post: PostData;
-  onClick: () => void;
+  post: PostData
+  onClick: () => void
 }
 
 function CommentButton({ post, onClick }: CommentButtonProps) {
@@ -163,5 +163,5 @@ function CommentButton({ post, onClick }: CommentButtonProps) {
         <span className="hidden sm:inline">Comentarios</span>
       </span>
     </button>
-  );
+  )
 }

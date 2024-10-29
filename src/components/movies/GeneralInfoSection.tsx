@@ -1,24 +1,25 @@
-import { CrewMember, ImageInfo, ReviewInfo } from "@/lib/types";
-import TitleSection from "./TitleSection";
-import RatingsSection from "./rating/RatingsSection";
-import { useSession } from "@/app/(main)/SessionProvider";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
+
+import { CrewMember, ImageInfo, ReviewInfo } from "@/lib/types"
+import TitleSection from "./TitleSection"
+import RatingsSection from "./rating/RatingsSection"
+import { useSession } from "@/app/(main)/SessionProvider"
 
 interface GeneralInfoSectionProps {
-  id: string;
-  title: string;
-  releaseDate: Date | undefined;
-  posterPath: string | undefined;
-  runtime: number;
-  genres: any[];
-  directors: CrewMember[];
-  rating: any;
-  voteAverage?: number;
-  voteCount?: number;
-  overview: string;
-  watchlist: { userId: string; movieId: string }[];
-  reviews: ReviewInfo[];
-  handleImageClick: (image: ImageInfo) => void;
+  id: string
+  title: string
+  releaseDate: Date | undefined
+  posterPath: string | undefined
+  runtime: number
+  genres: any[]
+  directors: CrewMember[]
+  rating: any
+  voteAverage?: number
+  voteCount?: number
+  overview: string
+  watchlist: { userId: string; movieId: string }[]
+  reviews: ReviewInfo[]
+  handleImageClick: (image: ImageInfo) => void
 }
 
 export default function GeneralInfoSection({
@@ -40,7 +41,7 @@ export default function GeneralInfoSection({
   const [ratingWasChanged, setRatingWasChanged] = useState<boolean>(false)
   const { user } = useSession()
 
-  const foundUserReview = reviews && reviews.find(review => review.movieId === id && review.userId === user.id);
+  const foundUserReview = reviews && reviews.find(review => review.movieId === id && review.userId === user.id)
   let watched = foundUserReview?.watched || false
   let liked = foundUserReview?.liked || false
   let reviewId = foundUserReview?.id
@@ -58,8 +59,8 @@ export default function GeneralInfoSection({
   }
 
   useEffect(() => {
-    fetchNewReview().then(() => setRatingWasChanged(false));
-  }, [ratingWasChanged]);
+    fetchNewReview().then(() => setRatingWasChanged(false))
+  }, [ratingWasChanged])
 
   return (
     <div className="relative z-10 bg-card/50 p-4 text-foreground">
@@ -101,5 +102,5 @@ export default function GeneralInfoSection({
         </p>
       </div>
     </div>
-  );
+  )
 }

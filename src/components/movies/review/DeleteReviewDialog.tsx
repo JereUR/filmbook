@@ -1,13 +1,13 @@
-import LoadingButton from "@/components/LoadingButton";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ReviewInfo } from "@/lib/types";
-import { useDeleteReviewMutation } from "./mutation";
-import { Button } from "@/components/ui/button";
+import LoadingButton from "@/components/LoadingButton"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { ReviewInfo } from "@/lib/types"
+import { useDeleteReviewMutation } from "./mutation"
+import { Button } from "@/components/ui/button"
 
 interface DeleteReviewDialogProps {
-  review: ReviewInfo;
-  open: boolean;
-  onClose: () => void;
+  review: ReviewInfo
+  open: boolean
+  onClose: () => void
 }
 
 export default function DeleteReviewDialog({
@@ -15,11 +15,11 @@ export default function DeleteReviewDialog({
   open,
   onClose,
 }: DeleteReviewDialogProps) {
-  const mutation = useDeleteReviewMutation();
+  const mutation = useDeleteReviewMutation()
 
   function handleOpenChange(open: boolean) {
     if (!open || !mutation.isPending) {
-      onClose();
+      onClose()
     }
   }
 
@@ -51,5 +51,5 @@ export default function DeleteReviewDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

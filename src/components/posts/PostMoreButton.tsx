@@ -1,26 +1,26 @@
-import { useState } from "react";
-import { MoreHorizontal, Trash2 } from "lucide-react";
+import { useState } from "react"
+import { MoreHorizontal, Trash2 } from "lucide-react"
 
-import { PostData } from "@/lib/types";
-import DeletePostDialog from "./DeletePostDialog";
+import { PostData } from "@/lib/types"
+import DeletePostDialog from "./DeletePostDialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
+} from "../ui/dropdown-menu"
+import { Button } from "../ui/button"
 
 interface PostMoreButtonProps {
-  post: PostData;
-  className?: string;
+  post: PostData
+  className?: string
 }
 
 export default function PostMoreButton({
   post,
   className,
 }: PostMoreButtonProps) {
-  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
 
   return (
     <div>
@@ -48,5 +48,5 @@ export default function PostMoreButton({
         onClose={() => setShowDeleteDialog(false)}
       />
     </div>
-  );
+  )
 }

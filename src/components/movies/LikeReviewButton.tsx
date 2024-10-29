@@ -3,25 +3,25 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-} from "@tanstack/react-query";
-import { Heart } from "lucide-react";
-import { cn } from "@/lib/utils";
+} from "@tanstack/react-query"
+import { Heart } from "lucide-react"
 
-import { useToast } from "../ui/use-toast";
-import { LikeInfo } from "@/lib/types";
-import kyInstance from "@/lib/ky";
+import { cn } from "@/lib/utils"
+import { useToast } from "../ui/use-toast"
+import { LikeInfo } from "@/lib/types"
+import kyInstance from "@/lib/ky"
 
 interface LikeReviewButtonProps {
-  reviewId: string;
-  initialState: LikeInfo;
+  reviewId: string
+  initialState: LikeInfo
 }
 
 export default function LikeReviewButton({ reviewId, initialState }: LikeReviewButtonProps) {
-  const { toast } = useToast();
+  const { toast } = useToast()
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
 
-  const queryKey: QueryKey = ["like-review-info", reviewId];
+  const queryKey: QueryKey = ["like-review-info", reviewId]
 
   const { data } = useQuery({
     queryKey,
@@ -29,7 +29,7 @@ export default function LikeReviewButton({ reviewId, initialState }: LikeReviewB
       kyInstance.get(`/api/movie/review/${reviewId}/likes`).json<LikeInfo>(),
     initialData: initialState,
     staleTime: Infinity,
-  });
+  })
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -37,28 +37,28 @@ export default function LikeReviewButton({ reviewId, initialState }: LikeReviewB
         ? kyInstance.delete(`/api/movie/review/${reviewId}/likes`)
         : kyInstance.post(`/api/movie/review/${reviewId}/likes`),
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey });
+      await queryClient.cancelQueries({ queryKey })
 
-      const previousState = queryClient.getQueryData<LikeInfo>(queryKey);
+      const previousState = queryClient.getQueryData<LikeInfo>(queryKey)
 
       queryClient.setQueryData<LikeInfo>(queryKey, () => ({
         likes:
           (previousState?.likes || 0) +
           (previousState?.isLikedByUser ? -1 : +1),
         isLikedByUser: !previousState?.isLikedByUser,
-      }));
+      }))
 
-      return { previousState };
+      return { previousState }
     },
     onError(error, variables, context) {
-      queryClient.setQueryData(queryKey, context?.previousState);
-      console.error(error);
+      queryClient.setQueryData(queryKey, context?.previousState)
+
       toast({
         variant: "destructive",
         description: "Error al intentar dar 'Me gusta' a la review.",
-      });
+      })
     },
-  });
+  })
 
   return (
     <button onClick={() => mutate()} className="flex items-center gap-2">
@@ -72,5 +72,5 @@ export default function LikeReviewButton({ reviewId, initialState }: LikeReviewB
         {data.likes} <span className="hidden sm:inline">Me gustas</span>
       </span>
     </button>
-  );
+  )
 }

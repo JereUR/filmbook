@@ -1,12 +1,12 @@
-import { validateRequest } from "@/auth";
-import prisma from "@/lib/prisma";
+import { validateRequest } from "@/auth"
+import prisma from "@/lib/prisma"
 
 export async function PATCH() {
   try {
-    const { user } = await validateRequest();
+    const { user } = await validateRequest()
 
     if (!user) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
+      return Response.json({ error: "No autorizado." }, { status: 401 })
     }
 
     await prisma.notification.updateMany({
@@ -17,14 +17,13 @@ export async function PATCH() {
       data: {
         read: true,
       },
-    });
+    })
 
-    return new Response();
+    return new Response()
   } catch (error) {
-    console.error(error);
     return Response.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
-    );
+    )
   }
 }

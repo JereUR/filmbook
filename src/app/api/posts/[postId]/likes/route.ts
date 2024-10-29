@@ -1,16 +1,16 @@
-import { validateRequest } from "@/auth";
-import prisma from "@/lib/prisma";
-import { LikeInfo } from "@/lib/types";
+import { validateRequest } from "@/auth"
+import prisma from "@/lib/prisma"
+import { LikeInfo } from "@/lib/types"
 
 export async function GET(
   req: Request,
   { params: { postId } }: { params: { postId: string } },
 ) {
   try {
-    const { user: loggedInUser } = await validateRequest();
+    const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
+      return Response.json({ error: "No autorizado." }, { status: 401 })
     }
 
     const post = await prisma.post.findUnique({
@@ -30,24 +30,23 @@ export async function GET(
           },
         },
       },
-    });
+    })
 
     if (!post) {
-      return Response.json({ error: "Post no encontrado." }, { status: 404 });
+      return Response.json({ error: "Post no encontrado." }, { status: 404 })
     }
 
     const data: LikeInfo = {
       likes: post._count.likes,
       isLikedByUser: !!post.likes.length,
-    };
+    }
 
-    return Response.json(data);
+    return Response.json(data)
   } catch (error) {
-    console.error(error);
     return Response.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
-    );
+    )
   }
 }
 
@@ -56,10 +55,10 @@ export async function POST(
   { params: { postId } }: { params: { postId: string } },
 ) {
   try {
-    const { user: loggedInUser } = await validateRequest();
+    const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
+      return Response.json({ error: "No autorizado." }, { status: 401 })
     }
 
     const post = await prisma.post.findUnique({
@@ -67,10 +66,10 @@ export async function POST(
       select: {
         userId: true,
       },
-    });
+    })
 
     if (!post) {
-      return Response.json({ error: "Post no encontrado." }, { status: 404 });
+      return Response.json({ error: "Post no encontrado." }, { status: 404 })
     }
 
     await prisma.$transaction([
@@ -96,15 +95,14 @@ export async function POST(
             }),
           ]
         : []),
-    ]);
+    ])
 
-    return new Response();
+    return new Response()
   } catch (error) {
-    console.error(error);
     return Response.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
-    );
+    )
   }
 }
 
@@ -113,10 +111,10 @@ export async function DELETE(
   { params: { postId } }: { params: { postId: string } },
 ) {
   try {
-    const { user: loggedInUser } = await validateRequest();
+    const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
-      return Response.json({ error: "No autorizado." }, { status: 401 });
+      return Response.json({ error: "No autorizado." }, { status: 401 })
     }
 
     const post = await prisma.post.findUnique({
@@ -124,10 +122,10 @@ export async function DELETE(
       select: {
         userId: true,
       },
-    });
+    })
 
     if (!post) {
-      return Response.json({ error: "Post no encontrado." }, { status: 404 });
+      return Response.json({ error: "Post no encontrado." }, { status: 404 })
     }
 
     await prisma.$transaction([
@@ -145,14 +143,13 @@ export async function DELETE(
           type: "LIKE",
         },
       }),
-    ]);
+    ])
 
-    return new Response();
+    return new Response()
   } catch (error) {
-    console.error(error);
     return Response.json(
       { error: "Error Interno del Servidor." },
       { status: 500 },
-    );
+    )
   }
 }

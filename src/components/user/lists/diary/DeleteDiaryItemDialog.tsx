@@ -1,13 +1,13 @@
-import { DiaryInfo } from "@/lib/types";
-import { useDeleteDiaryItemMutation } from "./mutation";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import LoadingButton from "@/components/LoadingButton";
-import { Button } from "@/components/ui/button";
+import { DiaryInfo } from "@/lib/types"
+import { useDeleteDiaryItemMutation } from "./mutation"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import LoadingButton from "@/components/LoadingButton"
+import { Button } from "@/components/ui/button"
 
 interface DeleteDiaryItemDialogProps {
-  diaryItem: DiaryInfo;
-  open: boolean;
-  onClose: () => void;
+  diaryItem: DiaryInfo
+  open: boolean
+  onClose: () => void
 }
 
 export default function DeleteDiaryItemDialog({
@@ -15,11 +15,11 @@ export default function DeleteDiaryItemDialog({
   open,
   onClose,
 }: DeleteDiaryItemDialogProps) {
-  const mutation = useDeleteDiaryItemMutation();
+  const mutation = useDeleteDiaryItemMutation()
 
   function handleOpenChange(open: boolean) {
     if (!open || !mutation.isPending) {
-      onClose();
+      onClose()
     }
   }
 
@@ -51,5 +51,5 @@ export default function DeleteDiaryItemDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

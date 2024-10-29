@@ -140,14 +140,14 @@
 
 /* Barra de desplazamiento (thumb) */
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #6A1BE6;
+  background: #6a1be6;
   border-radius: 10px; /* Agregar border-radius al thumb */
   opacity: 0.8;
 }
 
 /* Hover en la barra de desplazamiento (thumb) */
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: #6A1BE6;
+  background: #6a1be6;
   opacity: 0.8;
   cursor: grab;
 }

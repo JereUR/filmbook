@@ -1,14 +1,14 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import TmdbLogo from "@/assets/TMDB.png";
-import AppLogo from "@/assets/logo.png";
-import { cn, ratingColor, ratingColorFilmbook } from "@/lib/utils";
+import TmdbLogo from "@/assets/TMDB.png"
+import AppLogo from "@/assets/logo.png"
+import { cn, ratingColor, ratingColorFilmbook } from "@/lib/utils"
 
 interface ShowAppRatingProps {
-  ownApp: boolean;
-  voteAverage: number | undefined;
-  voteCount: number | undefined;
-  className?: string;
+  ownApp: boolean
+  voteAverage: number | undefined
+  voteCount: number | undefined
+  className?: string
 }
 
 export default function ShowAppRating({
@@ -48,5 +48,5 @@ export default function ShowAppRating({
         </span>
       </div>
     </div>
-  );
+  )
 }
