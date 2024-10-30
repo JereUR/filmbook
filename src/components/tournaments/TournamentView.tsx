@@ -16,7 +16,7 @@ export default async function TournamentView() {
           <AsignPointsButton />
         </div>
       }
-      <TournamentList />
+      <TournamentList admin={admin} />
     </div>
   )
 }

@@ -9,7 +9,11 @@ import { TournamentsPage } from "@/lib/types"
 import WatchlistsLoadingSkeleton from "@/app/(main)/marcadores/WatchlistLoadingSkeleton"
 import TournamentItem from "./TournamentItem"
 
-export default function TournamentList() {
+interface TournamentListProps {
+  admin: boolean
+}
+
+export default function TournamentList({ admin }: TournamentListProps) {
   const {
     data,
     fetchNextPage,
@@ -60,7 +64,7 @@ export default function TournamentList() {
     >
       <div className='flex justify-start gap-2 w-full rounded-2xl bg-card p-5 shadow-sm'>
         {tournaments.map((tournament) => (
-          <TournamentItem key={tournament.id} tournament={tournament} />
+          <TournamentItem key={tournament.id} tournament={tournament} admin={admin} />
         ))}
       </div>
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
