@@ -9,7 +9,7 @@ import { TournamentsPage } from "@/lib/types"
 import { useToast } from "../ui/use-toast"
 import { deleteTournament } from "./actions"
 
-export function useDeletePostMutation() {
+export function useDeleteTournamentMutation() {
   const { toast } = useToast()
 
   const queryClient = useQueryClient()
