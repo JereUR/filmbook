@@ -53,6 +53,8 @@ export const createReviewSchema = z.object({
 })
 
 export const createTournamentSchema = z.object({
+  id: requiredString,
   name: requiredString,
   description: z.string().optional(),
+  onEdit: z.boolean(),
 })
