@@ -12,7 +12,7 @@ interface RequestBody {
 
 const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original"
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request) {
   try {
     const { user, admin } = await validateAdmin()
 
@@ -20,7 +20,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       return Response.json({ error: "No autorizado." }, { status: 401 })
     }
 
-    const { date, tournamentId, movieId } = req.body as RequestBody
+    const { date, tournamentId, movieId } = (await req.json()) as RequestBody
 
     const existedMovie = await prisma.movie.findFirst({
       where: { id: movieId },
@@ -103,10 +103,10 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       update: {},
     })
 
-    return Response.json({ success: true }, { status: 200 })
+    return new Response(JSON.stringify({ success: true }), { status: 200 })
   } catch (error) {
-    return Response.json(
-      { error: "Error Interno del Servidor." },
+    return new Response(
+      JSON.stringify({ error: "Error Interno del Servidor." }),
       { status: 500 },
     )
   }
