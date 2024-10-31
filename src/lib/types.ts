@@ -434,3 +434,29 @@ export interface InputDateTournamentProps {
   date: number
   movieId: string
 }
+
+export interface ParticipantScoreInfo {
+  id: string
+  points: number
+  extraPoints?: number | null
+  participant: {
+    id: string
+    name: string
+    username: string
+  }
+}
+
+export interface TournamentDateInfo {
+  id: string
+  date: number
+  movie: {
+    id: string
+    title: string
+  }
+  tournament: {
+    id: string
+    name: string
+  }
+  scores: ParticipantScoreInfo[]
+  visible: boolean
+}
