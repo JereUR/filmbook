@@ -419,6 +419,8 @@ export interface TournamentData {
   description?: string | null
   participants: number
   dates: number
+  startDate: Date
+  endDate?: Date
   createdAt: Date
   updatedAt: Date
 }
@@ -426,4 +428,9 @@ export interface TournamentData {
 export interface TournamentsPage {
   tournaments: TournamentData[]
   nextCursor: string | null
+}
+
+export interface InputDateTournamentProps {
+  date: number
+  movieId: string
 }
