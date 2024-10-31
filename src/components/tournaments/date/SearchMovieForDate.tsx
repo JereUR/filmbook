@@ -5,14 +5,15 @@ import { Loader2 } from "lucide-react"
 
 import type { SearchMovie, SearchMoviesResponse } from "@/lib/types"
 import { useToast } from "@/components/ui/use-toast"
-import SearchForm from "../movies/search/SearchForm"
+import SearchForm from "../../movies/search/SearchForm"
 import MovieItemForDate from "./MovieItemForDate"
 
 interface SearchMovieForDateProps {
-  setSelectedMovieId:Dispatch<React.SetStateAction<string>>
+  selectedMovieId: string
+  setSelectedMovieId: Dispatch<React.SetStateAction<string>>
 }
 
-export default function SearchMovieForDate({setSelectedMovieId}:SearchMovieForDateProps) {
+export default function SearchMovieForDate({ selectedMovieId, setSelectedMovieId }: SearchMovieForDateProps) {
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [movies, setMovies] = useState<SearchMovie[]>([])
   const [loading, setLoading] = useState<boolean>(false)
@@ -76,7 +77,7 @@ export default function SearchMovieForDate({setSelectedMovieId}:SearchMovieForDa
       {movies.length > 0 && (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           {movies.map((movie) => (
-            <MovieItemForDate key={movie.id} movie={movie} setSelectedMovieId={setSelectedMovieId}/>
+            <MovieItemForDate key={movie.id} movie={movie} setSelectedMovieId={setSelectedMovieId} />
           ))}
         </div>
       )}

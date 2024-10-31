@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from '@/components/ui/input'
 import LoadingButton from '@/components/LoadingButton'
-import { Button } from "../ui/button"
+import { Button } from "../../ui/button"
 import { InputDateTournamentProps } from "@/lib/types"
 import SearchMovieForDate from "./SearchMovieForDate"
 
@@ -62,7 +62,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
             placeholder="Número fecha"
             className="rounded-l-md border border-muted py-2 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40"
           />
-          <SearchMovieForDate setSelectedMovieId={setSelectedMovieId} />
+          <SearchMovieForDate selectedMovieId={selectedMovieId} setSelectedMovieId={setSelectedMovieId} />
           <div className="flex justify-end items-center gap-2">
             {/* <LoadingButton
               onClick={onEdit ? onSubmitEdit : onSubmitAdd}
