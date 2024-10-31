@@ -38,6 +38,8 @@ export function useSubmitTournamentMutation() {
             name: newTournament.name,
             description: newTournament.description,
             participants: newTournament.participants.length,
+            startDate: newTournament.startDate,
+            endDate: newTournament.endDate || undefined,
             dates: newTournament.dates.length,
             createdAt: newTournament.createdAt,
             updatedAt: newTournament.updatedAt,
@@ -87,6 +89,7 @@ export function useUpdateTournamentMutation() {
     onSuccess: async (updatedTournament) => {
       const simplifiedTournament = {
         ...updatedTournament,
+        endDate: updatedTournament.endDate || undefined,
         participants: updatedTournament.participants.length,
         dates: updatedTournament.dates.length,
       }
