@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Edit2, MoreHorizontal, Trash2 } from "lucide-react"
+import { CalendarPlus, Edit2, MoreHorizontal, Trash2 } from "lucide-react"
 
 import { TournamentData } from "@/lib/types"
 import DeleteTournamentDialog from "./DeleteTournamentDialog"
@@ -11,6 +11,8 @@ import {
 } from "../ui/dropdown-menu"
 import { Button } from "../ui/button"
 import AddEditTournamentDialog from "./AddEditTournamentDialog"
+import { InputTournamentProps } from "./editor/AddTournamentButton"
+import AddDateToTournamentDialog from "./AddDateToTournamentDialog"
 
 interface TournamentMoreButtonProps {
   tournament: TournamentData
@@ -23,6 +25,13 @@ export default function TournamentMoreButton({
 }: TournamentMoreButtonProps) {
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false)
+  const [showAddDateDialog, setShowAddDateDialog] = useState<boolean>(false)
+
+  const tournamentToEdit: InputTournamentProps = {
+    id: tournament.id,
+    name: tournament.name,
+    description: tournament.description || '',
+  }
 
   return (
     <div>
@@ -33,6 +42,15 @@ export default function TournamentMoreButton({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
+          <DropdownMenuItem
+            onClick={() => setShowAddDateDialog(true)}
+            className="cursor-pointer"
+          >
+            <span className="flex items-center gap-3 font-bold text-foreground">
+              <CalendarPlus className="size-4 text-green-500 dark:text-green-600" />
+              Agregar fecha
+            </span>
+          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => setShowEditDialog(true)}
             className="cursor-pointer"
@@ -58,7 +76,8 @@ export default function TournamentMoreButton({
         open={showDeleteDialog}
         onClose={() => setShowDeleteDialog(false)}
       />
-      <AddEditTournamentDialog openDialog={showEditDialog} setOpenDialog={setShowEditDialog} initialData={{ name: tournament.name, description: tournament.description || '', onEdit: true, id: '' }} onEdit={true}/>
+      <AddEditTournamentDialog openDialog={showEditDialog} setOpenDialog={setShowEditDialog} initialData={tournamentToEdit} onEdit={true} />
+      <AddDateToTournamentDialog tournamentId={tournament.id} openDialog={showAddDateDialog} setOpenDialog={setShowAddDateDialog} />
     </div>
   )
 }
