@@ -7,13 +7,11 @@ import {
 
 import { useToast } from "@/components/ui/use-toast"
 import { TournamentData, TournamentsPage } from "@/lib/types"
-import { useSession } from "@/app/(main)/SessionProvider"
-import { submitTournament } from "./action"
+import { submitTournament, updateTournament } from "./action"
 
-export function useSubmitTournamenttMutation() {
+export function useSubmitTournamentMutation() {
   const { toast } = useToast()
   const queryClient = useQueryClient()
-  const { user } = useSession()
 
   const mutation = useMutation({
     mutationFn: submitTournament,
@@ -73,6 +71,70 @@ export function useSubmitTournamenttMutation() {
       toast({
         variant: "destructive",
         description: "Error al crear torneo. Por favor vuelve a intentarlo.",
+      })
+    },
+  })
+
+  return mutation
+}
+
+export function useUpdateTournamentMutation() {
+  const { toast } = useToast()
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation({
+    mutationFn: updateTournament,
+    onSuccess: async (updatedTournament) => {
+      const simplifiedTournament = {
+        ...updatedTournament,
+        participants: updatedTournament.participants.length,
+        dates: updatedTournament.dates.length,
+      }
+
+      const queryFilter = {
+        queryKey: ["tournaments"],
+        predicate(query) {
+          return query.queryKey.includes("tournaments")
+        },
+      } satisfies QueryFilters
+
+      await queryClient.cancelQueries(queryFilter)
+
+      queryClient.setQueriesData<InfiniteData<TournamentsPage>>(
+        queryFilter,
+        (oldData) => {
+          if (!oldData) return
+
+          return {
+            pageParams: oldData.pageParams,
+            pages: oldData.pages.map((page) => ({
+              nextCursor: page.nextCursor,
+              tournaments: page.tournaments.map((tournament) =>
+                tournament.id === updatedTournament.id
+                  ? { ...tournament, ...simplifiedTournament }
+                  : tournament,
+              ),
+            })),
+          }
+        },
+      )
+
+      queryClient.invalidateQueries({
+        queryKey: queryFilter.queryKey,
+        predicate(query) {
+          return queryFilter.predicate(query) && !query.state.data
+        },
+      })
+
+      toast({
+        description: "Torneo actualizado.",
+      })
+    },
+    onError: () => {
+      toast({
+        variant: "destructive",
+        description:
+          "Error al actualizar torneo. Por favor vuelve a intentarlo.",
       })
     },
   })

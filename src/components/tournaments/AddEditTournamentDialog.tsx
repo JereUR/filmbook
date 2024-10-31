@@ -9,30 +9,29 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import LoadingButton from '@/components/LoadingButton'
-import { InputProps } from "./editor/AddTournamentButton"
-import { useSubmitTournamenttMutation } from "./editor/mutation"
+import { InputTournamentProps } from "./editor/AddTournamentButton"
 import { Button } from "../ui/button"
+import { useSubmitTournamentMutation, useUpdateTournamentMutation } from "./editor/mutation"
 
 interface AddEditTournamentDialogProps {
   openDialog: boolean
   setOpenDialog: Dispatch<React.SetStateAction<boolean>>
-  initialData?: InputProps
-  onEdit?: boolean
+  initialData?: InputTournamentProps
+  onEdit: boolean
 }
 
-const initialState: InputProps = {
+const initialState: InputTournamentProps = {
   name: '',
   description: '',
-  onEdit: false,
-  id: ''
 }
 
-export default function AddEditTournamentDialog({ openDialog, setOpenDialog, initialData, onEdit = false }: AddEditTournamentDialogProps) {
+export default function AddEditTournamentDialog({ openDialog, setOpenDialog, initialData, onEdit }: AddEditTournamentDialogProps) {
 
-  const [input, setInput] = useState<InputProps>(initialData || initialState)
+  const [input, setInput] = useState<InputTournamentProps>(initialData || initialState)
   const { name, description, id } = input
 
-  const mutation = useSubmitTournamenttMutation()
+  const mutationAdd = useSubmitTournamentMutation()
+  const mutationEdit = useUpdateTournamentMutation()
 
   useEffect(() => {
     if (initialData) {
@@ -42,13 +41,27 @@ export default function AddEditTournamentDialog({ openDialog, setOpenDialog, ini
     }
   }, [initialData])
 
-  function onSubmit() {
-    mutation.mutate(
+  function onSubmitAdd() {
+    mutationAdd.mutate(
       {
         name,
         description,
-        onEdit: input.onEdit,
+      },
+      {
+        onSuccess: () => {
+          setInput(initialState)
+          setOpenDialog(false)
+        },
+      },
+    )
+  }
+
+  function onSubmitEdit() {
+    mutationEdit.mutate(
+      {
         id,
+        name,
+        description,
       },
       {
         onSuccess: () => {
@@ -63,7 +76,7 @@ export default function AddEditTournamentDialog({ openDialog, setOpenDialog, ini
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogContent className="z-[150] max-w-[600px] max-h-[600px] overflow-y-auto scrollbar-thin">
         <DialogHeader>
-          <DialogTitle className="text-center mb-2 md:mb-4">{onEdit?'EDITAR TORNEO':'AGREGAR TORNEO'}</DialogTitle>
+          <DialogTitle className="text-center mb-2 md:mb-4">{onEdit ? 'EDITAR TORNEO' : 'AGREGAR TORNEO'}</DialogTitle>
         </DialogHeader>
         <div className="space-y-5">
           <Input
@@ -86,8 +99,8 @@ export default function AddEditTournamentDialog({ openDialog, setOpenDialog, ini
           />
           <div className="flex justify-end items-center gap-2">
             <LoadingButton
-              onClick={onSubmit}
-              loading={mutation.isPending}
+              onClick={onEdit ? onSubmitEdit : onSubmitAdd}
+              loading={onEdit ? mutationEdit.isPending : mutationAdd.isPending}
               disabled={!name.trim()}
               className={`min-w-20 ${onEdit ? 'bg-sky-500 dark:bg-sky-600 hover:bg-sky-600 dark:hover:bg-sky-700' : 'bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700'}`}
             >
