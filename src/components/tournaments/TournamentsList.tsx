@@ -13,7 +13,7 @@ interface TournamentListProps {
   admin: boolean
 }
 
-export default function TournamentList({ admin }: TournamentListProps) {
+export default function TournamentsList({ admin }: TournamentListProps) {
   const {
     data,
     fetchNextPage,
@@ -58,16 +58,19 @@ export default function TournamentList({ admin }: TournamentListProps) {
 
 
   return (
-    <InfiniteScrollContainer
-      className="space-y-5"
-      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
-    >
-      <div className='flex justify-start gap-2 w-full rounded-2xl bg-card p-5 shadow-sm'>
-        {tournaments.map((tournament) => (
-          <TournamentItem key={tournament.id} tournament={tournament} admin={admin} />
-        ))}
-      </div>
-      {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
-    </InfiniteScrollContainer>
+    <div className="flex flex-col gap-4 md:gap-8 px-5 pb-5">
+      <h2 className="text-2xl md:text-3xl font-semibold text-primary">Torneos disponibles:</h2>
+      <InfiniteScrollContainer
+        className="space-y-5"
+        onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
+      >
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+          {tournaments.map((tournament) => (
+            <TournamentItem key={tournament.id} tournament={tournament} admin={admin} />
+          ))}
+        </div>
+        {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
+      </InfiniteScrollContainer>
+    </div>
   )
 }

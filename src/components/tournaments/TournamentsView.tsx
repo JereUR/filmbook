@@ -1,10 +1,13 @@
+import { Suspense } from 'react'
+import { Loader2 } from 'lucide-react'
+
 import { validateAdmin } from '@/auth'
 import AddTournamentButton from './editor/AddTournamentButton'
-import TournamentList from './TournamentList'
+import TournamentsList from './TournamentsList'
 import AddParticipantButton from './participants/editor/AddParticipantButton'
 import AsignPointsButton from './points/editor/AsignPointsButton'
 
-export default async function TournamentView() {
+export default async function TournamentsView() {
   const { admin } = await validateAdmin()
 
   return (
@@ -16,7 +19,9 @@ export default async function TournamentView() {
           <AsignPointsButton />
         </div>
       }
-      <TournamentList admin={admin} />
+      <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+        <TournamentsList admin={admin} />
+      </Suspense>
     </div>
   )
 }
