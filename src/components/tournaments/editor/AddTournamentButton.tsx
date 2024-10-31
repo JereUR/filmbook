@@ -6,11 +6,10 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import AddEditTournamentDialog from '../AddEditTournamentDialog'
 
-export interface InputProps {
+export interface InputTournamentProps {
+  id?: string
   name: string
   description?: string
-  onEdit: boolean
-  id: string
 }
 
 export default function AddTournamentButton() {
@@ -21,7 +20,7 @@ export default function AddTournamentButton() {
       <Button className='flex items-center gap-2 md:gap-4 ' onClick={() => setOpenDialog(true)}>
         <BadgePlusIcon /> Agregar torneo
       </Button>
-      <AddEditTournamentDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+      <AddEditTournamentDialog openDialog={openDialog} setOpenDialog={setOpenDialog} onEdit={false} />
     </div>
   )
 }
