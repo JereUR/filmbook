@@ -34,6 +34,8 @@ export async function GET(req: NextRequest) {
         name: tournament.name,
         description: tournament.description,
         participants: tournament.participants.length,
+        startDate: tournament.startDate,
+        endDate: tournament.endDate || undefined,
         dates: tournament.dates.length,
         createdAt: tournament.createdAt,
         updatedAt: tournament.updatedAt,
