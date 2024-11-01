@@ -1,5 +1,4 @@
 import { Search } from "lucide-react"
-
 import LoadingButton from "@/components/LoadingButton"
 import { Input } from "@/components/ui/input"
 
@@ -8,6 +7,7 @@ interface SearchFormProps {
   setSearchTerm: (searchTerm: string) => void
   searchMovies: () => void
   loading: boolean
+  className?: string
 }
 
 export default function SearchForm({
@@ -15,6 +15,7 @@ export default function SearchForm({
   setSearchTerm,
   searchMovies,
   loading,
+  className,
 }: SearchFormProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -24,7 +25,7 @@ export default function SearchForm({
   }
 
   return (
-    <div className="mb-8 flex items-center justify-center space-x-2">
+    <div className={`mb-8 flex items-center space-x-0 ${className ? className : 'justify-center'}`}>
       <div className="relative max-w-md flex-grow">
         <Input
           type="text"
@@ -34,14 +35,14 @@ export default function SearchForm({
           }
           onKeyDown={handleKeyDown}
           placeholder="Ingresa el título de la película"
-          className="w-full rounded-l-md border border-muted py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full rounded-l-2xl rounded-r-none border border-muted py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary"
         />
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-500" />
       </div>
       <LoadingButton
         onClick={searchMovies}
         loading={loading}
-        className="rounded-r-md bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
+        className="rounded-r-2xl rounded-l-none bg-primary px-4 py-2 text-white transition-colors hover:primary/40"
       >
         Buscar
       </LoadingButton>
