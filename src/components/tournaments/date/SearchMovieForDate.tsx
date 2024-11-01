@@ -72,6 +72,7 @@ export default function SearchMovieForDate({ selectedMovieId, setSelectedMovieId
           searchMovies(1)
         }}
         loading={loading}
+        className='justify-start'
       />
       {error && <p className="text-center text-red-500">{error}</p>}
       {movies.length > 0 && (
