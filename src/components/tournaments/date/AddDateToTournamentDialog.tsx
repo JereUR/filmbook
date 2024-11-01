@@ -7,10 +7,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from '@/components/ui/input'
-import LoadingButton from '@/components/LoadingButton'
 import { Button } from "../../ui/button"
 import { InputDateTournamentProps } from "@/lib/types"
 import SearchMovieForDate from "./SearchMovieForDate"
+import { Label } from "@/components/ui/label"
 
 interface AddDateToTournamentDialogProps {
   tournamentId: string
@@ -26,53 +26,43 @@ const initialState: InputDateTournamentProps = {
 export default function AddDateToTournamentDialog({ tournamentId, openDialog, setOpenDialog }: AddDateToTournamentDialogProps) {
   const [input, setInput] = useState<InputDateTournamentProps>(initialState)
   const [selectedMovieId, setSelectedMovieId] = useState<string>("")
-  const { date, movieId } = input
-
-  /* const mutationAdd = useSubmitTournamentMutation() */
-
-  /* function onSubmitAdd() {
-    mutationAdd.mutate(
-      {
-        date,
-        tournamentId,
-        movieId,
-      },
-      {
-        onSuccess: () => {
-          setInput(initialState)
-          setOpenDialog(false)
-        },
-      },
-    )
-  } */
+  const { date } = input
 
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogContent className="z-[150] max-w-[600px] max-h-[600px] overflow-y-auto scrollbar-thin">
         <DialogHeader>
-          <DialogTitle className="text-center mb-2 md:mb-4">AGREGAR FECHA</DialogTitle>
+          <DialogTitle className="text-center mb-4 text-xl font-semibold">AGREGAR FECHA</DialogTitle>
         </DialogHeader>
-        <div className="space-y-5">
-          <Input
-            type="number"
-            value={date}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setInput({ ...input, date: parseInt(e.target.value) })
-            }
-            placeholder="Número fecha"
-            className="rounded-l-md border border-muted py-2 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40"
-          />
-          <SearchMovieForDate selectedMovieId={selectedMovieId} setSelectedMovieId={setSelectedMovieId} />
+        <div className="space-y-2">
+          <div>
+            <Label htmlFor="dateInput" className="block text-md font-medium text-gray-700 mb-1">
+              Número de Fecha
+            </Label>
+            <Input
+              id="dateInput"
+              type="number"
+              value={date}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setInput({ ...input, date: parseInt(e.target.value) })
+              }
+              placeholder="Número de fecha"
+              className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
+            />
+          </div>
+          <div>
+            <SearchMovieForDate selectedMovieId={selectedMovieId} setSelectedMovieId={setSelectedMovieId} />
+          </div>
           <div className="flex justify-end items-center gap-2">
-            {/* <LoadingButton
-              onClick={onEdit ? onSubmitEdit : onSubmitAdd}
-              loading={onEdit ? mutationEdit.isPending : mutationAdd.isPending}
-              disabled={!name.trim()}
-              className={`min-w-20 ${onEdit ? 'bg-sky-500 dark:bg-sky-600 hover:bg-sky-600 dark:hover:bg-sky-700' : 'bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700'}`}
-            >
-              {onEdit ? 'Editar' : 'Agregar'}
-            </LoadingButton> */}
             <Button variant='outline' onClick={() => setOpenDialog(false)}>Cancelar</Button>
+            {/* <LoadingButton
+              onClick={onSubmitAdd} // Reemplaza con tu función de submit
+              loading={loading}
+              disabled={!date || !selectedMovieId}
+              className="bg-green-500 text-white hover:bg-green-600"
+            >
+              Agregar
+            </LoadingButton> */}
           </div>
         </div>
       </DialogContent>
