@@ -286,7 +286,7 @@ model TournamentDate {
   scores       ParticipantScore[]
   visible      Boolean            @default(false)
 
-  @@unique([date, tournamentId, movieId])
+  @@unique([date, tournamentId])
   @@map("tournament_date")
 }
 
