@@ -55,7 +55,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
 
     setLoading(true)
     try {
-      const response = await fetch(`/api/tournament/date/add`, {
+      const response = await fetch(`/api/tournament/dates/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
