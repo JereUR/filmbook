@@ -62,7 +62,7 @@ export default function SearchMovieForDate({ selectedMovieId, setSelectedMovieId
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div>
       <SearchForm
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -76,9 +76,9 @@ export default function SearchMovieForDate({ selectedMovieId, setSelectedMovieId
       />
       {error && <p className="text-center text-red-500">{error}</p>}
       {movies.length > 0 && (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
           {movies.map((movie) => (
-            <MovieItemForDate key={movie.id} movie={movie} setSelectedMovieId={setSelectedMovieId} />
+            <MovieItemForDate key={movie.id} movie={movie} selectedMovieId={selectedMovieId} setSelectedMovieId={setSelectedMovieId} />
           ))}
         </div>
       )}
