@@ -460,3 +460,15 @@ export interface TournamentDateInfo {
   scores: ParticipantScoreInfo[]
   visible: boolean
 }
+
+export interface InputTournamentParticipantProps {
+  id: string
+  name: string
+  username?: string
+  tournamentsId: string[]
+}
+
+export interface ParticipantsPage {
+  participants: ParticipantTournament[]
+  nextCursor: string | null
+}
