@@ -57,3 +57,10 @@ export const createTournamentSchema = z.object({
   name: requiredString,
   description: z.string().optional(),
 })
+
+export const updateTournamentParticipantSchema = z.object({
+  id: requiredString,
+  name: requiredString,
+  username: z.string().optional(),
+  tournamentsId: z.string().array().optional(),
+})
