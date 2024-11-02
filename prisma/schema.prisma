@@ -297,14 +297,15 @@ model Participant {
   tournaments ParticipantTournament[]
   scores      ParticipantScore[]
 
+  @@unique([name])
   @@map("participant")
 }
 
 model ParticipantTournament {
   participantId String
   tournamentId  String
-  participant   Participant @relation(fields: [participantId], references: [id])
-  tournament    Tournament  @relation(fields: [tournamentId], references: [id])
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  tournament    Tournament  @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
 
   @@id([participantId, tournamentId])
   @@map("participant_tournament")
