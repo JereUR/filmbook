@@ -1,34 +1,44 @@
-import { validateAdmin } from "@/auth"
-import prisma from "@/lib/prisma"
-import { fetchMovieFromTMDB } from "@/lib/tmdb"
-import { Movie } from "@/lib/types"
-import { NextApiRequest, NextApiResponse } from "next"
+import { validateAdmin } from "@/auth";
+import prisma from "@/lib/prisma";
+import { fetchMovieFromTMDB } from "@/lib/tmdb";
+import { Movie } from "@/lib/types";
 
 interface RequestBody {
-  date: number
-  tournamentId: string
-  movieId: string
+  date: number;
+  tournamentId: string;
+  movieId: string;
 }
 
-const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original"
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original";
 
 export async function POST(req: Request) {
   try {
-    const { user, admin } = await validateAdmin()
+    const { user, admin } = await validateAdmin();
 
     if (!admin || !user) {
-      return Response.json({ error: "No autorizado." }, { status: 401 })
+      return new Response(JSON.stringify({ error: "No autorizado." }), { status: 401 });
     }
 
-    const { date, tournamentId, movieId } = (await req.json()) as RequestBody
+    const { date, tournamentId, movieId } = (await req.json()) as RequestBody;
+
+    const existingTournamentDate = await prisma.tournamentDate.findFirst({
+      where: { date, tournamentId },
+    });
+
+    if (existingTournamentDate) {
+      return new Response(
+        JSON.stringify({ error: "La fecha ya existe para este torneo." }),
+        { status: 400 }
+      );
+    }
 
     const existedMovie = await prisma.movie.findFirst({
       where: { id: movieId },
-    })
+    });
 
     if (!existedMovie) {
       try {
-        const movieData = await fetchMovieFromTMDB(movieId)
+        const movieData = await fetchMovieFromTMDB(movieId);
 
         const {
           title,
@@ -47,7 +57,7 @@ export async function POST(req: Request) {
           crew,
           cast,
           providers,
-        } = movieData
+        } = movieData;
 
         const newMovie: Movie = {
           id: movieId,
@@ -74,40 +84,32 @@ export async function POST(req: Request) {
           crew: crew,
           cast: cast,
           providers: providers,
-        }
+        };
 
         await prisma.movie.create({
           data: newMovie,
-        })
+        });
       } catch (error) {
-        return Response.json(
-          { error: "Error al obtener la película" },
-          { status: 500 },
-        )
+        return new Response(
+          JSON.stringify({ error: "Error al obtener la película" }),
+          { status: 500 }
+        );
       }
     }
 
-    const newTournamentDate = await prisma.tournamentDate.upsert({
-      where: {
-        date_tournamentId_movieId: {
-          date,
-          tournamentId,
-          movieId,
-        },
-      },
-      create: {
+    const newTournamentDate = await prisma.tournamentDate.create({
+      data: {
         date,
         tournamentId,
         movieId,
       },
-      update: {},
-    })
+    });
 
-    return new Response(JSON.stringify({ success: true }), { status: 200 })
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (error) {
     return new Response(
       JSON.stringify({ error: "Error Interno del Servidor." }),
-      { status: 500 },
-    )
+      { status: 500 }
+    );
   }
 }
