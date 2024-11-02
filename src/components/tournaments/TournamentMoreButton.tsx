@@ -12,7 +12,7 @@ import {
 import { Button } from "../ui/button"
 import AddEditTournamentDialog from "./AddEditTournamentDialog"
 import { InputTournamentProps } from "./editor/AddTournamentButton"
-import AddDateToTournamentDialog from "./date/AddDateToTournamentDialog"
+import AddDateToTournamentDialog from "./dates/AddDateToTournamentDialog"
 
 interface TournamentMoreButtonProps {
   tournament: TournamentData

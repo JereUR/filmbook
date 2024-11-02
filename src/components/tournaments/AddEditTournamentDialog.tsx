@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea'
 import LoadingButton from '@/components/LoadingButton'
 import { InputTournamentProps } from "./editor/AddTournamentButton"
 import { Button } from "../ui/button"
-import { useSubmitTournamentMutation, useUpdateTournamentMutation } from "./editor/mutation"
+import { useSubmitTournamentMutation, useUpdateTournamentMutation } from "./editor/mutations"
 
 interface AddEditTournamentDialogProps {
   openDialog: boolean
