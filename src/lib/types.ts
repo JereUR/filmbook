@@ -462,7 +462,7 @@ export interface TournamentDateInfo {
 }
 
 export interface InputTournamentParticipantProps {
-  id: string
+  id?: string
   name: string
   username?: string
   tournamentsId: string[]
