@@ -1,4 +1,5 @@
 import { Dispatch, useState } from "react"
+import { useQueryClient } from "@tanstack/react-query"
 
 import {
   Dialog,
@@ -14,7 +15,6 @@ import { Label } from "@/components/ui/label"
 import LoadingButton from "@/components/LoadingButton"
 import { useToast } from "@/components/ui/use-toast"
 import ErrorText from "@/components/ErrorText"
-import { useQueryClient } from "@tanstack/react-query"
 
 interface AddDateToTournamentDialogProps {
   tournamentId: string
