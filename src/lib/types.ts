@@ -472,3 +472,20 @@ export interface ParticipantsPage {
   participants: ParticipantTournament[]
   nextCursor: string | null
 }
+
+export interface TournamentParticipantData {
+  tournamentId: string
+  tournamentName: string
+  dates: TournamentDateData[]
+}
+
+export interface TournamentDateData {
+  dateId: string
+  date: number
+  points: number
+  extraPoints: number
+}
+
+export interface ParticipantResponse {
+  participant: TournamentParticipantData[]
+}
