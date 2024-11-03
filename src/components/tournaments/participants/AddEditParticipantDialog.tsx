@@ -1,5 +1,6 @@
 import { Dispatch, useEffect, useState } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
+import { useQueryClient } from "@tanstack/react-query"
 
 import {
   Dialog,
@@ -50,6 +51,7 @@ export default function AddEditParticipantDialog({ openDialog, setOpenDialog }: 
   const { name, username } = input
 
   const { toast } = useToast()
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     const fetchTournaments = async () => {
@@ -120,6 +122,9 @@ export default function AddEditParticipantDialog({ openDialog, setOpenDialog }: 
       toast({
         description: "Participante agregado.",
       })
+
+      await queryClient.invalidateQueries({ queryKey: ["tournaments"] })
+
       setOpenDialog(false)
       setInput(initialState)
       setTournamentsIdSelected([])
