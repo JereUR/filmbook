@@ -26,7 +26,7 @@ export default function TournamentsList({ admin }: TournamentListProps) {
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          `/api/tournament`,
+          `/api/tournaments`,
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<TournamentsPage>(),
