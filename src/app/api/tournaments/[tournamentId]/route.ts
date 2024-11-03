@@ -8,12 +8,13 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { tournamentId: string } },
 ) {
-  const { user: loggedInUser, admin } = await validateAdmin()
+  /* 
+  const { user, admin } = await validateAdmin()
 
-  if (!loggedInUser && !admin) {
+  if (!user && !admin) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
-
+ */
   const tournament = await prisma.tournament.findUnique({
     where: {
       id: params.tournamentId,
