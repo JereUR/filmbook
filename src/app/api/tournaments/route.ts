@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server"
 
-import { validateAdmin } from "@/auth"
 import prisma from "@/lib/prisma"
 import { TournamentsPage } from "@/lib/types"
 
@@ -8,12 +7,6 @@ export async function GET(req: NextRequest) {
   try {
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined
     const pageSize = 10
-
-    const { user, admin } = await validateAdmin()
-
-    if (!user && !admin) {
-      return Response.json({ error: "No autorizado." }, { status: 401 })
-    }
 
     const tournaments = await prisma.tournament.findMany({
       orderBy: { createdAt: "desc" },
