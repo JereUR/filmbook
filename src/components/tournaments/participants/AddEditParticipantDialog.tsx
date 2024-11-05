@@ -1,3 +1,5 @@
+'use client'
+
 import { Dispatch, useEffect, useState } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { useQueryClient } from "@tanstack/react-query"
@@ -143,13 +145,14 @@ export default function AddEditParticipantDialog({ openDialog, setOpenDialog }: 
 
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-      <DialogContent className="z-[150] min-w-[50vw] max-w-[900px] max-h-[600px] overflow-y-auto scrollbar-thin">
+      <DialogContent className="z-[150] min-w-[50vw] max-w-[900px] max-h-[600px] overflow-y-auto scrollbar-thin" aria-labelledby="add-participant-title"
+        aria-describedby="add-participant-description">
         <DialogHeader className='border-b border-primary/40 border-rounded'>
-          <DialogTitle className="text-center mb-4 text-xl font-semibold">AGREGAR PARTICIPANTE</DialogTitle>
+          <DialogTitle id="add-participant-title" className="text-center mb-4 text-xl font-semibold">AGREGAR PARTICIPANTE</DialogTitle>
         </DialogHeader>
         <div className="space-y-2 md:space-y-5">
           <div className="flex w-full gap-4">
-            <div>
+            <div className="flex-1">
               <div className="flex gap-2 items-center">
                 <Label htmlFor="nameInput" className="block text-md font-medium text-gray-700 mb-1">
                   Nombre (Usuario Instagram)
@@ -163,10 +166,10 @@ export default function AddEditParticipantDialog({ openDialog, setOpenDialog }: 
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setInput({ ...input, name: e.target.value })
                 }
-                className="w-[20vw] rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
+                className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
               />
             </div>
-            <div>
+            <div className="flex-1">
               <div className="flex gap-2 items-center">
                 <Label htmlFor="usernameInput" className="block text-md font-medium text-gray-700 mb-1">
                   Username (Si está registrado en Filmbook)
@@ -179,10 +182,11 @@ export default function AddEditParticipantDialog({ openDialog, setOpenDialog }: 
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setInput({ ...input, username: e.target.value })
                 }
-                className="w-[20vw] rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
+                className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
               />
             </div>
           </div>
+
           <div>
             <div className="flex gap-2 items-center">
               <Label htmlFor="tournamentsInput" className="block text-md font-medium text-gray-700 mb-1">
