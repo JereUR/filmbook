@@ -64,3 +64,11 @@ export const updateTournamentParticipantSchema = z.object({
   username: z.string().optional(),
   tournamentsId: z.string().array().optional(),
 })
+
+export const assignPointsSchema = z.object({
+  participantId: requiredString,
+  tournamentId: requiredString,
+  dateId: requiredString,
+  points: z.number().min(0, "Puntos deben ser 0 o más"),
+  extraPoints: z.number().optional(),
+})
