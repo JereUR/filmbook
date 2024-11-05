@@ -1,6 +1,6 @@
-import { Prisma } from "@prisma/client"
-import { JsonObject } from "@prisma/client/runtime/library"
 import { StaticImageData } from "next/image"
+
+import { Prisma } from "@prisma/client"
 
 export function getUserDataSelect(loggedInUserId: string) {
   return {
@@ -473,6 +473,8 @@ export interface ParticipantsPage {
   nextCursor: string | null
 }
 
+/* Tipado para asignación de puntos */
+
 export interface TournamentParticipantData {
   tournamentId: string
   tournamentName: string
@@ -488,4 +490,18 @@ export interface TournamentDateData {
 
 export interface ParticipantResponse {
   participant: TournamentParticipantData[]
+}
+
+export interface ParticipantsData {
+  id: string
+  name: string
+  username?: string
+}
+
+export interface InputAssignPointsProps {
+  participantId: string | null
+  tournamentId: string | null
+  dateId: string | null
+  points: number
+  extraPoints?: number
 }
