@@ -54,7 +54,6 @@ export default function RatingsSection({
   async function fetchNewReview() {
     const response = await fetch(`/api/movie/review/movie/${movieId}`)
     const data = await response.json()
-    console.log(data)
 
     if (data) {
       setOwnRating(data.rating)
