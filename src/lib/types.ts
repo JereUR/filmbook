@@ -484,12 +484,17 @@ export interface TournamentParticipantData {
 export interface TournamentDateData {
   dateId: string
   date: number
+  movie: {
+    id: string
+    title: string
+    posterPath: string | null
+  }
   points: number
   extraPoints: number
 }
 
-export interface ParticipantResponse {
-  participant: TournamentParticipantData[]
+export interface ParticipantTournamentsResponse {
+  tournaments: TournamentParticipantData[]
 }
 
 export interface ParticipantsData {
