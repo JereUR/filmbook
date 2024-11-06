@@ -60,7 +60,7 @@ export default function ParticipantPopover({ participants, loadingParticipants, 
             <CommandGroup heading="Participantes">
               {Array.isArray(participants) && participants.length > 0 ? (
                 participants.map((participant) => (
-                  <CommandItem key={participant.id} className={`data-[selected='true']:bg-transparent`}>
+                  <CommandItem key={participant.id} className={`cursor-pointer data-[selected='true']:bg-transparent`}>
                     <Button
                       variant="ghost"
                       className="w-full justify-start text-left"
