@@ -508,5 +508,5 @@ export interface InputAssignPointsProps {
   tournamentId: string | null
   dateId: string | null
   points: number
-  extraPoints?: number
+  extraPoints: number
 }
