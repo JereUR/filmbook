@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { InputAssignPointsProps, ParticipantsData, TournamentParticipantData } from "@/lib/types"
+import { InputAssignPointsProps, ParticipantsData } from "@/lib/types"
 import { Label } from "@/components/ui/label"
 import LoadingButton from "@/components/LoadingButton"
 import { useToast } from "@/components/ui/use-toast"
@@ -17,7 +17,6 @@ import ErrorText from "@/components/ErrorText"
 import { Button } from "@/components/ui/button"
 import ParticipantPopover from "./ParticipantPopover"
 import TournamentParticipantPopover from "./TournamentParticipantPopovers"
-import { ArrowUp } from "lucide-react"
 
 interface AssignPointsDialogProps {
   openDialog: boolean
@@ -32,22 +31,12 @@ const initialState: InputAssignPointsProps = {
   extraPoints: 0,
 }
 
-interface ErrorsForm {
-  points: string | null
-  extraPoints: string | null
-}
-
-const initialErrors: ErrorsForm = {
-  points: null,
-  extraPoints: null,
-}
-
 export default function AssignPointsDialog({ openDialog, setOpenDialog }: AssignPointsDialogProps) {
   const [input, setInput] = useState<InputAssignPointsProps>(initialState)
   const [participants, setParticipants] = useState<ParticipantsData[]>([])
   const [loadingParticipants, setLoadingParticipants] = useState<boolean>(false)
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false)
-  const [errorsForm, setErrorsForm] = useState<ErrorsForm>(initialErrors)
+  const [errorExtraPoints, setErrorExtraPoints] = useState<string | null>(null)
 
   const { participantId, tournamentId, dateId, points, extraPoints } = input
 
@@ -75,27 +64,59 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
     fetchParticipants()
   }, [toast])
 
+  function onCloseDialog() {
+    setOpenDialog(false)
+    setInput(initialState)
+    setErrorExtraPoints(null)
+  }
+
   function validations() {
-    const errors: ErrorsForm = initialErrors
-    if (points < 0) errors.points = "Los puntos no pueden ser negativos"
-    if (extraPoints && extraPoints < 0) errors.extraPoints = "Los puntos extra no pueden ser negativos"
+    let errors = null
+    if (extraPoints && extraPoints < 0) errors = "Los puntos extra no pueden ser negativos"
     return errors
   }
 
   async function onSubmit() {
     const error = validations()
-    if (error !== initialErrors) {
-      setErrorsForm(error)
+    if (error) {
+      setErrorExtraPoints(error)
       return
     }
-    setErrorsForm(initialErrors)
+    setErrorExtraPoints(null)
     setLoadingSubmit(true)
+    try {
+      const response = await fetch(`/api/tournaments/participants/assign-points`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ participantId, tournamentId, dateId, points, extraPoints }),
+      })
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Error al asignar puntos al participante");
+      }
+      toast({
+        description: "Puntos asignados.",
+      })
 
-    setLoadingSubmit(false)
+      setOpenDialog(false)
+      setInput(initialState)
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Error al asignar puntos al participante. Por favor vuelve a intentarlo.",
+      });
+    } finally {
+      setLoadingSubmit(false)
+    }
   }
 
   return (
-    <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+    <Dialog open={openDialog} onOpenChange={onCloseDialog}>
       <DialogContent className="z-[150] min-w-[50vw] max-w-[900px] max-h-[600px] overflow-y-auto scrollbar-thin">
         <DialogHeader className="border-b border-primary/40">
           <DialogTitle className="text-center mb-4 text-xl font-semibold">
@@ -105,12 +126,12 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
         <div className="text-sm text-gray-500 mb-4">
           Ingresa los puntos y puntos extras que deseas asignar al participante.
         </div>
-        <div className="space-y-2 md:space-y-5">
+        <div className="relative space-y-2 md:space-y-5">
           <ParticipantPopover participants={participants} loadingParticipants={loadingParticipants} participantIdSelected={participantId} setInput={setInput} />
-          {participantId ? <TournamentParticipantPopover participantId={participantId} tournamentIdSelected={tournamentId} dateIdSelected={dateId} setInput={setInput} /> : <span className="flex items-center gap-2">Seleccione un participante <ArrowUp /></span>}
+          {participantId && <TournamentParticipantPopover participantId={participantId} tournamentIdSelected={tournamentId} dateIdSelected={dateId} setInput={setInput} />}
           <div className="flex w-full gap-4">
             <div className="flex-1">
-              <Label htmlFor="pointsInput" className="block text-md font-medium text-gray-700">
+              <Label htmlFor="pointsInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
                 Puntos
               </Label>
               <Input
@@ -120,12 +141,15 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
                 onChange={(e) => setInput({ ...input, points: parseInt(e.target.value) || 0 })}
                 className="w-full rounded-md border border-gray-300"
               />
-              {errorsForm.points && <ErrorText errorText={errorsForm.points} />}
+
             </div>
             <div className="flex-1">
-              <Label htmlFor="extraPointsInput" className="block text-md font-medium text-gray-700">
-                Puntos extras
-              </Label>
+              <div className="flex gap-2 items-center">
+                <Label htmlFor="extraPointsInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+                  Puntos extras
+                </Label>
+                {errorExtraPoints && <ErrorText className="text-xs md:text-sm animate-pulse" errorText={errorExtraPoints} />}
+              </div>
               <Input
                 id="extraPointsInput"
                 type="number"
@@ -133,15 +157,15 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
                 onChange={(e) => setInput({ ...input, extraPoints: parseInt(e.target.value) || 0 })}
                 className="w-full rounded-md border border-gray-300"
               />
-              {errorsForm.extraPoints && <ErrorText errorText={errorsForm.extraPoints} />}
+
             </div>
           </div>
           <div className="flex justify-end gap-2">
             <LoadingButton
               onClick={onSubmit}
               loading={loadingSubmit}
-              disabled={!participantId || !tournamentId || !dateId || points === 0}
-              className="bg-green-500 text-white"
+              disabled={!participantId || !tournamentId || !dateId || points <= 0}
+              className="bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700"
             >
               Asignar
             </LoadingButton>
