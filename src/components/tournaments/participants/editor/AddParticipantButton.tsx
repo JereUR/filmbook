@@ -10,8 +10,8 @@ export default function AddParticipantButton() {
   const [openDialog, setOpenDialog] = useState<boolean>(false)
 
   return (
-    <div>
-      <Button className='flex items-center gap-2 bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700' onClick={() => setOpenDialog(true)}>
+    <div className="w-[80vw] md:w-auto">
+      <Button className='flex items-center w-full md:w-auto gap-2 bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700' onClick={() => setOpenDialog(true)}>
         <UserPlus /> Agregar participante
       </Button>
       <AddEditParticipantDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />

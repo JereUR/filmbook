@@ -13,7 +13,7 @@ export default async function TournamentsView() {
   return (
     <div className='w-full min-h-[80vh] flex flex-col gap-4 md:gap-10 p-2 md:p-5 rounded-2xl bg-card'>
       {admin &&
-        <div className='flex flex-col justify-center md:flex-row md:justify-end gap-2 md:gap-5'>
+        <div className="flex flex-col w-full my-2 md:my-0 justify-center items-center gap-2 md:gap-5 md:flex-row md:justify-end">
           <AddTournamentButton />
           <AddParticipantButton />
           <AssignPointsButton />

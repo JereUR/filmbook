@@ -16,8 +16,8 @@ export default function AddTournamentButton() {
   const [openDialog, setOpenDialog] = useState<boolean>(false)
 
   return (
-    <div>
-      <Button className='flex items-center gap-2 md:gap-4 ' onClick={() => setOpenDialog(true)}>
+    <div className="w-[80vw] md:w-auto">
+      <Button className='flex items-center w-full md:w-auto gap-2 md:gap-4 ' onClick={() => setOpenDialog(true)}>
         <BadgePlusIcon /> Agregar torneo
       </Button>
       <AddEditTournamentDialog openDialog={openDialog} setOpenDialog={setOpenDialog} onEdit={false} />
