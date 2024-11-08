@@ -12,7 +12,7 @@ export async function GET(
   { params }: { params: { participantId: string } },
 ): Promise<NextResponse<ParticipantTournamentsResponse | { error: string }>> {
   const { user, admin } = await validateAdmin()
-  if (!user && !admin) {
+  if (!user || !admin) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
