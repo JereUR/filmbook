@@ -510,3 +510,8 @@ export interface InputAssignPointsProps {
   points: number
   extraPoints: number
 }
+
+export interface TournamentsForParticipant {
+  id: string
+  name: string
+}
