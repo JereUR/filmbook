@@ -4,7 +4,7 @@ import { Loader2 } from 'lucide-react'
 import { validateAdmin } from '@/auth'
 import AddTournamentButton from './editor/AddTournamentButton'
 import TournamentsList from './TournamentsList'
-import AddParticipantButton from './participants/editor/AddParticipantButton'
+import AddAssignParticipantButton from './participants/editor/AddAssignParticipantButton'
 import AssignPointsButton from './points/editor/AssignPointsButton'
 
 export default async function TournamentsView() {
@@ -15,7 +15,7 @@ export default async function TournamentsView() {
       {admin &&
         <div className="flex flex-col w-full my-2 md:my-0 justify-center items-center gap-2 md:gap-5 md:flex-row md:justify-end">
           <AddTournamentButton />
-          <AddParticipantButton />
+          <AddAssignParticipantButton />
           <AssignPointsButton />
         </div>
       }
