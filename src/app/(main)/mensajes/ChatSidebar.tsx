@@ -46,6 +46,8 @@ export default function ChatSidebar({ open, onClose }: ChatSidebarProps) {
     [onClose],
   )
 
+  if (!user) return
+
   return (
     <div
       className={cn(
