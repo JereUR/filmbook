@@ -110,6 +110,7 @@ export default function AddPartcipantForm({ tournaments }: AddPartcipantFormProp
       })
 
       await queryClient.invalidateQueries({ queryKey: ["tournaments"] })
+      await queryClient.invalidateQueries({ queryKey: ["all-participants"] })
 
       setInput(initialState)
       setTournamentsIdSelected([])
