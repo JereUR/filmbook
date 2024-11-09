@@ -17,13 +17,13 @@ export async function GET(req: NextRequest) {
   const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10)
   const apiKey = process.env.MOVIE_API_KEY
 
-  const { user } = await validateRequest()
+  /*  const { user } = await validateRequest()
 
   if (!user) {
     return new Response(JSON.stringify({ error: "No autorizado." }), {
       status: 401,
     })
-  }
+  } */
 
   if (!title || typeof title !== "string") {
     return new Response(JSON.stringify({ error: "Parámetro sin valor." }), {
