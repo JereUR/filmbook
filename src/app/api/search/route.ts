@@ -15,9 +15,9 @@ export async function GET(req: NextRequest) {
 
     const { user } = await validateRequest()
 
-    /* if (!user) {
+    if (!user) {
       return Response.json({ error: "No autorizado." }, { status: 401 })
-    } */
+    }
 
     const posts = await prisma.post.findMany({
       where: {
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
           },
         ],
       },
-      include: getPostDataInclude(user ? user.id : null),
+      include: getPostDataInclude(user.id),
       orderBy: { createdAt: "desc" },
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
