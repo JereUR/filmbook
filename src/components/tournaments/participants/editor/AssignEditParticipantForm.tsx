@@ -159,6 +159,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
       await queryClient.invalidateQueries({ queryKey: ["tournaments"] })
 
       setInput(initialState)
+      setParticipantIdSelected(null)
       setTournamentsIdSelected([])
     } catch (error) {
       toast({
