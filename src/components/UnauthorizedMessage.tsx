@@ -31,8 +31,8 @@ export default function UnauthorizedMessage({ sectionMessage, trendsSidebar }: U
       </CardContent>
       <CardFooter>
         <Button asChild className="w-full">
-          <Link href="/iniciar-sesion">
-            <LogIn className="mr-2 h-4 w-4" /> Iniciar Sesión
+          <Link href="/iniciar-sesion" className='flex items-center gap-2'>
+            <LogIn className="h-4 w-4" /> Iniciar Sesión
           </Link>
         </Button>
       </CardFooter>
