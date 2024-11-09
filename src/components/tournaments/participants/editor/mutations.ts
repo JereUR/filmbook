@@ -9,46 +9,43 @@ import {
   deleteTournamentParticipant,
   updateTournamentParticipant,
 } from "./actions"
-import { ParticipantsPage, ParticipantTournament } from "@/lib/types"
+import {
+  ParticipantsData,
+  ParticipantsPage,
+  ParticipantTournament,
+} from "@/lib/types"
 
 export function useDeleteTournamentParticipantMutation() {
   const { toast } = useToast()
-
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
     mutationFn: deleteTournamentParticipant,
-    onSuccess: async (deletedTournamentParticipant) => {
-      const queryFilter: QueryFilters = { queryKey: ["participants"] }
+    onSuccess: async (deletedParticipant) => {
+      const queryFilter: QueryFilters = { queryKey: ["all-participants"] }
 
       await queryClient.cancelQueries(queryFilter)
 
-      queryClient.setQueriesData<InfiniteData<ParticipantsPage, string | null>>(
-        queryFilter,
+      queryClient.setQueryData<ParticipantsData[]>(
+        ["all-participants"],
         (oldData) => {
-          if (!oldData) return
+          if (!oldData) return []
 
-          return {
-            pageParams: oldData.pageParams,
-            pages: oldData.pages.map((page) => ({
-              nextCursor: page.nextCursor,
-              participants: page.participants.filter(
-                (p) => p.participantId !== deletedTournamentParticipant.id,
-              ),
-            })),
-          }
+          return oldData.filter(
+            (participant) => participant.id !== deletedParticipant.id,
+          )
         },
       )
 
       toast({
-        description: "usuario eliminado.",
+        description: "Participante eliminado exitosamente.",
       })
     },
-    onError: () => {
+    onError: (error) => {
       toast({
         variant: "destructive",
         description:
-          "Error al borrar el usuario. Por favor vuelve a intentarlo.",
+          "Error al eliminar el participante. Por favor intenta nuevamente.",
       })
     },
   })

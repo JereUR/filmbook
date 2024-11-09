@@ -315,7 +315,7 @@ model ParticipantScore {
   id               String         @id @default(cuid())
   points           Int
   extraPoints      Int?
-  participant      Participant    @relation(fields: [participantId], references: [id])
+  participant      Participant    @relation(fields: [participantId], references: [id], onDelete: Cascade)
   participantId    String
   tournamentDate   TournamentDate @relation(fields: [tournamentDateId], references: [id])
   tournamentDateId String

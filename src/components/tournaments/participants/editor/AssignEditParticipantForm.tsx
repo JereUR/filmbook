@@ -1,6 +1,6 @@
 'use client'
 
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -14,6 +14,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useToast } from "@/components/ui/use-toast";
 import { InputTournamentParticipantProps, ParticipantsData, TournamentData } from "@/lib/types";
 import ParticipantEditPopover from "./ParticipantEditPopover";
+import kyInstance from "@/lib/ky";
+import DeleteParticipantDialog from "./DeleteParticipantDialog";
 
 interface AssignEditParticipantFormProps {
   tournaments: TournamentData[]
@@ -47,29 +49,33 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
   const [loadingParticipantTournaments, setLoadingParticipantTournaments] = useState<boolean>(false)
   const [errorsForm, setErrorsForm] = useState<ErrorsForm>(initialErrors)
   const [open, setOpen] = useState(false)
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
+
   const { name, username } = input
 
   const { toast } = useToast()
   const queryClient = useQueryClient()
 
+  const {
+    data,
+    isFetching,
+    status,
+  } = useQuery({
+    queryKey: ["all-participants"],
+    queryFn: () =>
+      kyInstance
+        .get(
+          "/api/tournaments/participants",
+        )
+        .json<ParticipantsData[]>(),
+    initialData: [],
+  })
+
   useEffect(() => {
-    const fetchParticipants = async () => {
-      setLoadingParticipants(true)
-      try {
-        const response = await fetch("/api/tournaments/participants")
-        const data = await response.json()
-        setParticipants(data)
-      } catch (error) {
-        toast({
-          variant: 'destructive',
-          description: "Error al cargar los participantes"
-        })
-      } finally {
-        setLoadingParticipants(false)
-      }
+    if (data) {
+      setParticipants(data)
     }
-    fetchParticipants()
-  }, [])
+  }, [data])
 
   useEffect(() => {
     const fetchTournamentsForParticipants = async () => {
@@ -115,6 +121,12 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
     return error
   }
 
+  const clearData = () => {
+    setInput(initialState)
+    setParticipantIdSelected(null)
+    setTournamentsIdSelected([])
+  }
+
   const handleTournamentClick = (tournamentId: string) => {
     setTournamentsIdSelected(prevSelected =>
       prevSelected.includes(tournamentId)
@@ -131,7 +143,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
   };
 
 
-  async function onSubmit() {
+  async function onSubmitEdit() {
     const error = validations()
     if (error !== initialErrors) {
       setErrorsForm(error)
@@ -158,9 +170,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
 
       await queryClient.invalidateQueries({ queryKey: ["tournaments"] })
 
-      setInput(initialState)
-      setParticipantIdSelected(null)
-      setTournamentsIdSelected([])
+      clearData()
     } catch (error) {
       toast({
         variant: "destructive",
@@ -174,7 +184,15 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
     }
   }
 
-  if (loadingParticipants) {
+  if (status === 'error') {
+    toast({
+      variant: 'destructive',
+      description: "Error al cargar los participantes"
+    })
+    return null
+  }
+
+  if (isFetching) {
     return (
       <p className='flex text-xs md:text-sm text-muted-foreground/40 items-center gap-2'><Loader2 className='animate-spin' /> Cargando participantes...</p>
     )
@@ -287,14 +305,24 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
       </div>}
       <div className="flex justify-end items-center gap-2">
         <LoadingButton
-          onClick={onSubmit}
+          onClick={onSubmitEdit}
           loading={loading}
           disabled={!name || tournamentsIdSelected.length === 0}
           className="bg-sky-500 text-white hover:bg-sky-600"
         >
           Editar
         </LoadingButton>
+        {participantIdSelected && (
+          <Button
+            variant="outline"
+            onClick={() => setShowDeleteDialog(true)}
+            className="bg-red-500 dark:bg-red-600 hover:bg-red-600 dark:hover:bg-red-700"
+          >
+            Eliminar participante
+          </Button>
+        )}
       </div>
+      <DeleteParticipantDialog participantId={participantIdSelected} open={showDeleteDialog} onClose={() => setShowDeleteDialog(false)} clearData={clearData} />
     </div>
   )
 }

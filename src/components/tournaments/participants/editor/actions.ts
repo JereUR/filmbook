@@ -1,3 +1,5 @@
+"use server"
+
 import { validateAdmin } from "@/auth"
 import prisma from "@/lib/prisma"
 import {
@@ -143,17 +145,13 @@ export async function assignPointsToParticipant(
   }
 }
 
-export async function deleteTournamentParticipant(
-  input: InputTournamentParticipantProps,
-) {
+export async function deleteTournamentParticipant(participantId: string) {
   const { user, admin } = await validateAdmin()
 
-  if (!user || !admin) throw Error("No autorizado.")
-
-  const { id } = updateTournamentParticipantSchema.parse(input)
+  if (!user || !admin) throw new Error("No autorizado.")
 
   const deletedParticipant = await prisma.participant.delete({
-    where: { id },
+    where: { id: participantId },
   })
 
   return deletedParticipant

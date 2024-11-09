@@ -11,8 +11,9 @@ import {
 } from "@/components/ui/dialog"
 import { TournamentData } from "@/lib/types"
 import AddPartcipantForm from "./editor/AddParticipantForm"
-import { useToast } from "@/components/ui/use-toast"
 import AssignEditParticipantForm from "./editor/AssignEditParticipantForm"
+import { useQuery } from "@tanstack/react-query"
+import kyInstance from "@/lib/ky"
 
 interface AddEditParticipantDialogProps {
   openDialog: boolean
@@ -21,28 +22,27 @@ interface AddEditParticipantDialogProps {
 
 export default function AddEditAssignParticipantDialog({ openDialog, setOpenDialog }: AddEditParticipantDialogProps) {
   const [tournaments, setTournaments] = useState<TournamentData[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
 
-  const { toast } = useToast()
+  const {
+    data,
+    isFetching,
+    status,
+  } = useQuery({
+    queryKey: ["all-tournaments"],
+    queryFn: () =>
+      kyInstance
+        .get(
+          `/api/tournaments/all`,
+        )
+        .json<TournamentData[]>(),
+    initialData: [],
+  })
 
   useEffect(() => {
-    const fetchTournaments = async () => {
-      setLoading(true)
-      try {
-        const response = await fetch("/api/tournaments/all")
-        const data = await response.json()
-        setTournaments(data)
-      } catch (error) {
-        toast({
-          variant: 'destructive',
-          description: "Error al cargar los torneos"
-        })
-      } finally {
-        setLoading(false)
-      }
+    if (data && data.length > 0) {
+      setTournaments(data)
     }
-    fetchTournaments()
-  }, [])
+  }, [data])
 
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
@@ -51,12 +51,15 @@ export default function AddEditAssignParticipantDialog({ openDialog, setOpenDial
         <DialogHeader className='border-b border-primary/40 border-rounded'>
           <DialogTitle id="add-participant-title" className="text-center mb-4 text-xl font-semibold">AGREGAR/EDITAR PARTICIPANTE</DialogTitle>
         </DialogHeader>
-        {!loading ? <div>
+        {!isFetching ? <div>
           <AddPartcipantForm tournaments={tournaments} />
           <hr className='mx-2 md:mx-5 my-2 md:my-4 border-[1px] border-primary/40 rounded' />
           <AssignEditParticipantForm tournaments={tournaments} />
         </div> :
           <div className="flex items-center gap-2"><Loader2 className="animate-spin" />Cargando torneos...</div>}
+        {status === 'error' ? <div className="flex items-center gap-2">
+          Error al cargar los torneos
+        </div> : null}
       </DialogContent>
     </Dialog>
   )
