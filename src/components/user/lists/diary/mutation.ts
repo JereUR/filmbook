@@ -19,7 +19,9 @@ export function useDeleteDiaryItemMutation() {
   const mutation = useMutation({
     mutationFn: deleteDiaryItem,
     onSuccess: async (deletedDiaryItem) => {
-      const queryFilter: QueryFilters = { queryKey: ["diaries", user.id] }
+      const queryFilter: QueryFilters = {
+        queryKey: ["diaries", user ? user.id : null],
+      }
 
       await queryClient.cancelQueries(queryFilter)
 

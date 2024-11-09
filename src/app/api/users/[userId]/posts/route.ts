@@ -15,13 +15,13 @@ export async function GET(
 
     const { user } = await validateRequest()
 
-    if (!user) {
+    /* if (!user) {
       return Response.json({ error: "No autorizado." }, { status: 401 })
-    }
+    } */
 
     const posts = await prisma.post.findMany({
       where: { userId },
-      include: getPostDataInclude(user.id),
+      include: getPostDataInclude(user ? user.id : null),
       orderBy: { createdAt: "desc" },
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,

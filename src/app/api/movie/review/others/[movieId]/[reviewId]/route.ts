@@ -9,11 +9,11 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { movieId: string; reviewId: string } },
 ) {
-  const { user: loggedInUser } = await validateRequest()
+  /* const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 })
-  }
+  } */
 
   const cursor = req.nextUrl.searchParams.get("cursor") || undefined
   const pageSize = 80
