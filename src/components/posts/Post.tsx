@@ -53,7 +53,7 @@ export default function Post({ post }: PostProps) {
             </Link>
           </div>
         </div>
-        {post.user.id === user.id && (
+        {user && post.user.id === user.id && (
           <PostMoreButton
             post={post}
             className="opacity-0 transition-opacity group-hover/post:opacity-100"
@@ -69,7 +69,7 @@ export default function Post({ post }: PostProps) {
         <MediaPreviews attachments={post.attachments} />
       )}
       <hr className="text-muted-foreground" />
-      <div className="flex justify-between gap-5">
+      {user && <div className="flex justify-between gap-5">
         <div className="flex items-center gap-5">
           <LikeButton
             postId={post.id}
@@ -91,7 +91,7 @@ export default function Post({ post }: PostProps) {
             ),
           }}
         />
-      </div>
+      </div>}
       {showComments && <Comments post={post} />}
     </article>
   )

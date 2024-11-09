@@ -41,7 +41,8 @@ export default function GeneralInfoSection({
   const [ratingWasChanged, setRatingWasChanged] = useState<boolean>(false)
   const { user } = useSession()
 
-  const foundUserReview = reviews && reviews.find(review => review.movieId === id && review.userId === user.id)
+
+  const foundUserReview = user && reviews && reviews.find(review => review.movieId === id && review.userId === user.id)
   let watched = foundUserReview?.watched || false
   let liked = foundUserReview?.liked || false
   let reviewId = foundUserReview?.id
@@ -69,7 +70,7 @@ export default function GeneralInfoSection({
           <TitleSection
             movieId={id}
             reviewId={reviewId}
-            username={user.username}
+            username={user ? user.username : ''}
             title={title}
             releaseDate={releaseDate}
             posterPath={posterPath}

@@ -32,6 +32,9 @@ export default function SharePostReviewDialog({
   movie,
 }: SharePostReviewDialogProps) {
   const { user } = useSession()
+
+  if (!user) return
+
   const own = username === user.username
 
   const text = generateReviewShareText(reviewId, username, displayName, rating, own, movie)

@@ -87,6 +87,7 @@ export default function PostEditor({ initialContent = "", className }: PostEdito
     startUpload(files)
   }
 
+  if (!user) return
 
   return (
     <div className={`flex flex-col gap-5 bg-card p-5 shadow-sm ${className ? className : 'rounded-2xl'}`}>

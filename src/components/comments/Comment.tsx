@@ -14,6 +14,8 @@ interface CommentProps {
 export default function Comment({ comment }: CommentProps) {
   const { user } = useSession()
 
+  if (!user) return
+
   return (
     <div className="group/comment flex gap-3 py-3">
       <span className="hidden sm:inline">

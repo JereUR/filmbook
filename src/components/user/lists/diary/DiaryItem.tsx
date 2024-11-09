@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Heart, Text, Popcorn} from "lucide-react"
+import { Heart, Text, Popcorn } from "lucide-react"
 import { useState } from "react"
 
 import { DiaryInfo } from "@/lib/types"
@@ -45,7 +45,7 @@ export default function DiaryItem({ diary }: DiaryItemProps) {
 
   return (
     <div className='relative p-2 md:p-4 bg-background rounded-2xl w-full transition duration-300 ease-in-out'>
-      {diary.userId === user.id && <DeleteDiaryItemButton diary={diary} />}
+      {user && diary.userId === user.id && <DeleteDiaryItemButton diary={diary} />}
       <Link href={`/pelicula/review/${diary.reviewId}?title=${diary.movie.title}&date=${getYear(diary.movie.releaseDate ? diary.movie.releaseDate.toString() : '')}&username=${diary.user.username}&movieId=${diary.movieId}`} className="flex gap-4 cursor-pointer">
         <Image
           src={diary.movie.posterPath || noImage}

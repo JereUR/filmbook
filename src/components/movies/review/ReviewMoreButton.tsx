@@ -60,6 +60,8 @@ export default function ReviewMoreButton({
   }
   const router = useRouter()
 
+  if (!user) return
+
   return (
     <div className="mb-2">
       <DropdownMenu>

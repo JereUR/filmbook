@@ -19,6 +19,8 @@ export default function ButtonActions({
 }: ButtonActionsProps) {
   const { user } = useSession()
 
+  if (!user) return
+
   const isWatchedByUser = reviews
     ? reviews.some(
       (movie) =>

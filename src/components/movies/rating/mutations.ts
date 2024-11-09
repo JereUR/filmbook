@@ -23,7 +23,7 @@ export function useSubmitRatingMutation() {
           return (
             query.queryKey.includes("movie-reviews") ||
             (query.queryKey.includes("user-reviews") &&
-              query.queryKey.includes(user.id))
+              query.queryKey.includes(user ? user.id : null))
           )
         },
       } satisfies QueryFilters
