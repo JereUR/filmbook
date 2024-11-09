@@ -19,7 +19,9 @@ export function useDeleteWatchlistItemMutation() {
   const mutation = useMutation({
     mutationFn: deleteWatchlistItem,
     onSuccess: async (deletedPost) => {
-      const queryFilter: QueryFilters = { queryKey: ["watchlist", user.id] }
+      const queryFilter: QueryFilters = {
+        queryKey: ["watchlist", user ? user.id : null],
+      }
 
       await queryClient.cancelQueries(queryFilter)
 
