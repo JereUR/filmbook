@@ -13,7 +13,10 @@ export async function GET(req: NextRequest) {
     const { user } = await validateRequest()
 
     if (!user) {
-      return Response.json({ error: "No autorizado." }, { status: 401 })
+      return Response.json(
+        { error: "No autorizado" },
+        { status: 401 },
+      )
     }
 
     const posts = await prisma.post.findMany({

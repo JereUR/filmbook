@@ -10,6 +10,7 @@ import kyInstance from "@/lib/ky"
 import { PostsPage } from "@/lib/types"
 
 export default function ForYouFeed() {
+
   const {
     data,
     fetchNextPage,
@@ -17,20 +18,23 @@ export default function ForYouFeed() {
     isFetching,
     isFetchingNextPage,
     status,
+    error
   } = useInfiniteQuery({
     queryKey: ["post-feed", "for-you"],
-    queryFn: ({ pageParam }) =>
-      kyInstance
+    queryFn: async ({ pageParam }) => {
+      return await kyInstance
         .get(
           "/api/posts/for-you",
-          pageParam ? { searchParams: { cursor: pageParam } } : {},
+          pageParam ? { searchParams: { cursor: pageParam } } : {}
         )
-        .json<PostsPage>(),
+        .json<PostsPage>();
+    },
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-  })
+  });
 
   const posts = data?.pages.flatMap((page) => page.posts) || []
+  const errorMessage = (error as any)?.response?.status === 401 ? "Debes iniciar sesión para visualizar posts." : "Error inesperado al cargar las publicaciones.";
 
   if (status === "pending") {
     return <PostsLoadingSkeleton />
@@ -46,9 +50,7 @@ export default function ForYouFeed() {
 
   if (status === "error") {
     return (
-      <p className="text-center text-destructive">
-        Ocurrió un error al cargar las publicaciones
-      </p>
+      <p className="text-center text-destructive">{errorMessage}</p>
     )
   }
 

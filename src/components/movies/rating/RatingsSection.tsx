@@ -2,6 +2,7 @@
 
 import { CirclePlus } from "lucide-react"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { User } from "lucia"
 
 import "./styles.css"
 import ShowAppRating from "./ShowAppRating"
@@ -13,6 +14,7 @@ import { useSession } from "@/app/(main)/SessionProvider"
 import ReviewEditor from "./ReviewEditor"
 
 interface RatingsSectionProps {
+  user: User | null
   movieId: string
   title: string
   releaseDate: Date | undefined
@@ -26,6 +28,7 @@ interface RatingsSectionProps {
 }
 
 export default function RatingsSection({
+  user,
   movieId,
   title,
   releaseDate,
@@ -41,7 +44,6 @@ export default function RatingsSection({
   const [appRating, setAppRating] = useState<{ averageRating: number, numberOfRatings: number } | null>(null)
   const [ownRating, setOwnRating] = useState<number | null>(null)
   const [reviewText, setReviewText] = useState<string | null | undefined>(null)
-  const { user } = useSession()
 
   useEffect(() => {
     if (user && reviews) {
@@ -82,7 +84,7 @@ export default function RatingsSection({
     <div className="my-2 flex w-full flex-col gap-4 rounded-2xl border border-primary/50 p-2 md:my-4 md:w-1/4 md:gap-3 md:p-4">
       <div className="flex items-center justify-around gap-4">
         <h1 className="text-lg font-semibold md:text-xl">RATING</h1>
-        <Dialog
+        {user && <Dialog
           open={showRatingEditor}
           onOpenChange={() => setShowRatingEditor(false)}
         >
@@ -116,8 +118,7 @@ export default function RatingsSection({
               activateRefresh={() => setRatingWasChanged(!ratingWasChanged)}
             />
           </DialogContent>
-        </Dialog>
-
+        </Dialog>}
       </div>
       <div className="flex justify-center gap-2 md:flex-col">
         <div className="flex border-r pr-8 md:flex-col md:border-b md:border-r-0 md:pb-4 md:pr-0">

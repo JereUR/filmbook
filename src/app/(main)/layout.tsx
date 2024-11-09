@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation"
 import { Suspense } from "react"
 import { Loader2 } from "lucide-react"
 
@@ -13,12 +12,10 @@ export default async function Layout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await validateRequest()
-
-  if (!session.user) redirect("/iniciar-sesion")
+  const { user, session } = await validateRequest()
 
   return (
-    <SessionProvider value={session}>
+    <SessionProvider value={{ user, session }}>
       <div className="flex min-h-screen flex-col">
         <Navbar />
         <div className="mx-auto flex w-full max-w-[1500px] grow gap-5 p-2 md:p-5">

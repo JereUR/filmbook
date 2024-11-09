@@ -12,6 +12,7 @@ import UserAvatar from "@/components/UserAvatar"
 import UserTooltip from "@/components/UserTooltip"
 import prisma from "@/lib/prisma"
 import { getPostDataInclude, UserData } from "@/lib/types"
+import UnauthorizedMessage from "@/components/UnauthorizedMessage"
 
 interface PageProps {
   params: { postId: string }
@@ -49,7 +50,7 @@ export default async function Page({ params: { postId } }: PageProps) {
 
   if (!user) {
     return (
-      <p className="text-destructive">No estas autorizado a ver esta página.</p>
+      <UnauthorizedMessage sectionMessage="Necesitas iniciar sesión para ver este post." trendsSidebar={true} />
     )
   }
 

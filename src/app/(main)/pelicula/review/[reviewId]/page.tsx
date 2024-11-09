@@ -5,6 +5,8 @@ import { Suspense } from 'react'
 
 import UserReview from './UserReview'
 import OtherReviews from './OtherReviews'
+import { validateRequest } from '@/auth'
+import UnauthorizedMessage from '@/components/UnauthorizedMessage'
 
 interface PageProps {
   params: { reviewId: string },
@@ -25,8 +27,13 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   }
 }
 
-export default function ReviewPage({ params, searchParams }: PageProps) {
+export default async function ReviewPage({ params, searchParams }: PageProps) {
   const movieId = searchParams.movieId
+  const { user: loggedInUser } = await validateRequest()
+
+  if (!loggedInUser) {
+    return <UnauthorizedMessage sectionMessage='Necesitas iniciar sesión para ver reviews de usuarios.' trendsSidebar={false} />
+  }
 
   return (
     <main className="flex flex-col md:flex-row w-full min-w-0 gap-5">

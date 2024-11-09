@@ -11,7 +11,7 @@ export async function GET(
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
+    return NextResponse.json(null)
   }
 
   const review = await prisma.review.findFirst({

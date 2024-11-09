@@ -42,7 +42,7 @@ export default function GeneralInfoSection({
   const { user } = useSession()
 
 
-  const foundUserReview = user && reviews && reviews.find(review => review.movieId === id && review.userId === user.id)
+  const foundUserReview = user && reviews ? reviews.find(review => review.movieId === id && review.userId === user.id) : null
   let watched = foundUserReview?.watched || false
   let liked = foundUserReview?.liked || false
   let reviewId = foundUserReview?.id
@@ -68,6 +68,7 @@ export default function GeneralInfoSection({
       <div className="flex flex-col gap-3 md:flex-row">
         <div className="flex flex-col items-start gap-2 md:w-3/4 md:flex-row md:items-center md:gap-4">
           <TitleSection
+            user={user}
             movieId={id}
             reviewId={reviewId}
             username={user ? user.username : ''}
@@ -85,6 +86,7 @@ export default function GeneralInfoSection({
           />
         </div>
         <RatingsSection
+          user={user}
           movieId={id}
           title={title}
           releaseDate={releaseDate}

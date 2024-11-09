@@ -2,6 +2,7 @@ import Image from "next/image"
 import { Eye, Heart, MessageSquareHeart } from "lucide-react"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Link from "next/link"
+import { User } from "lucia"
 
 import { CrewMember, ImageInfo, ReviewData } from "@/lib/types"
 import { getYear } from "@/lib/utils"
@@ -9,6 +10,7 @@ import noImagePath from "@/assets/no-image-film.jpg"
 import CrewMemberShow from "./CrewMemberShow"
 
 interface TitleSectionProps {
+  user: User | null
   movieId: string
   reviewId: string | undefined
   username: string
@@ -26,6 +28,7 @@ interface TitleSectionProps {
 }
 
 export default function TitleSection({
+  user,
   movieId,
   reviewId,
   username,
@@ -75,7 +78,7 @@ export default function TitleSection({
             className="cursor-pointer rounded"
             onClick={() => handleImageClick(image)}
           />
-          <div className="absolute inset-0 flex items-end justify-center mb-1">
+          {user && <div className="absolute inset-0 flex items-end justify-center mb-1">
             <div className="bg-black/70 p-1 rounded flex space-x-2">
               {appReview ? <Eye
                 className={`h-5 w-5 text-foreground/70 ${appReview.watched ? "fill-primary" : "fill-white/50"
@@ -92,7 +95,7 @@ export default function TitleSection({
                   }`}
               />}
             </div>
-          </div>
+          </div>}
         </div>
         {appReview ? (
           <Link
@@ -115,8 +118,6 @@ export default function TitleSection({
             </Link>
           )
         )}
-
-
       </div>
       <div className="flex flex-col space-y-3">
         <h1 className="text-2xl font-bold md:text-3xl lg:text-4xl">

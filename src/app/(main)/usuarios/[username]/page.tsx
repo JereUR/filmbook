@@ -16,6 +16,7 @@ import EditProfileButton from "./EditProfileButton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import UserReviewsList from "@/components/user/lists/review/UserReviewsList"
 import UserDiariesList from "@/components/user/lists/diary/UserDiariesList"
+import UnauthorizedMessage from "@/components/UnauthorizedMessage"
 
 interface UserPageProps {
   params: { username: string }
@@ -58,7 +59,7 @@ export default async function UserPage({
 
   if (!loggedInUser) {
     return (
-      <p className="text-destructive">No estas autorizado a ver esta página.</p>
+      <UnauthorizedMessage sectionMessage='Necesitas iniciar sesión para ver perfiles de usuarios.' trendsSidebar={true} />
     )
   }
 
