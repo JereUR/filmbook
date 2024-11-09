@@ -31,7 +31,8 @@ export type UserData = Prisma.UserGetPayload<{
   select: ReturnType<typeof getUserDataSelect>
 }>
 
-export function getPostDataInclude(loggedInUserId: string) {
+export function getPostDataInclude(loggedInUserId: string | null) {
+  if (!loggedInUserId) return
   return {
     user: {
       select: getUserDataSelect(loggedInUserId),
