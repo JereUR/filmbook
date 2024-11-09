@@ -1,6 +1,7 @@
 import { StaticImageData } from "next/image"
 
 import { Prisma } from "@prisma/client"
+import { StringDecoder } from "string_decoder"
 
 export function getUserDataSelect(loggedInUserId: string) {
   return {
@@ -31,8 +32,7 @@ export type UserData = Prisma.UserGetPayload<{
   select: ReturnType<typeof getUserDataSelect>
 }>
 
-export function getPostDataInclude(loggedInUserId: string | null) {
-  if (!loggedInUserId) return
+export function getPostDataInclude(loggedInUserId: string) {
   return {
     user: {
       select: getUserDataSelect(loggedInUserId),
