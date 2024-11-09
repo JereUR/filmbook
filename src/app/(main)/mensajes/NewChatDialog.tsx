@@ -44,7 +44,7 @@ export default function NewChatDialog({
     queryFn: async () =>
       client.queryUsers(
         {
-          id: { $ne: loggedInUser.id },
+          id: { $ne: loggedInUser ? loggedInUser.id : null },
           role: { $ne: "admin" },
           ...(searchInputDebounced
             ? {
@@ -62,6 +62,9 @@ export default function NewChatDialog({
 
   const mutation = useMutation({
     mutationFn: async () => {
+      if (!loggedInUser) {
+        throw new Error("Debes iniciar sesión para crear un chat.")
+      }
       const channel = client.channel("messaging", {
         members: [loggedInUser.id, ...selectedUsers.map((user) => user.id)],
         name:

@@ -9,6 +9,8 @@ export default function useInitializeChatClient() {
   const [chatClient, setChatClient] = useState<StreamChat | null>(null)
 
   useEffect(() => {
+    if (!user) return
+
     const client = StreamChat.getInstance(process.env.NEXT_PUBLIC_STREAM_KEY!)
 
     client
@@ -35,7 +37,7 @@ export default function useInitializeChatClient() {
         .catch((error) => console.error("Error al desconectar usuario", error))
         .then(() => console.log("Conexión cerrada"))
     }
-  }, [user.id, user.username, user.displayName, user.avatarUrl])
+  }, [user])
 
   return chatClient
 }
