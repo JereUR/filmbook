@@ -31,7 +31,7 @@ export const initialState: InputDateTournamentProps = {
 
 export default function AddDateToTournamentDialog({ tournamentId, openDialog, setOpenDialog }: AddDateToTournamentDialogProps) {
   const [input, setInput] = useState<InputDateTournamentProps>(initialState)
-  const [selectedMovieId, setSelectedMovieId] = useState<string>("")
+  const [selectedMovieId, setSelectedMovieId] = useState<string | null>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [errorDate, setErrorDate] = useState<string | null>(null)
   const { date, visible } = input
