@@ -1,18 +1,18 @@
 'use client'
 
-import { useQueryClient } from "@tanstack/react-query";
-import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query"
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react"
+import { useState } from "react"
 
-import ErrorText from "@/components/ErrorText";
-import LoadingButton from "@/components/LoadingButton";
-import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useToast } from "@/components/ui/use-toast";
-import { InputTournamentParticipantProps, TournamentData } from "@/lib/types";
+import ErrorText from "@/components/ErrorText"
+import LoadingButton from "@/components/LoadingButton"
+import { Button } from "@/components/ui/button"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useToast } from "@/components/ui/use-toast"
+import { InputTournamentParticipantProps, TournamentData } from "@/lib/types"
 
 interface AddPartcipantFormProps {
   tournaments: TournamentData[]
@@ -73,15 +73,15 @@ export default function AddPartcipantForm({ tournaments }: AddPartcipantFormProp
       prevSelected.includes(tournamentId)
         ? prevSelected.filter(id => id !== tournamentId)
         : [...prevSelected, tournamentId]
-    );
-  };
+    )
+  }
 
   const getSelectedTournamentsNames = () => {
     return tournaments
       .filter(tournament => tournamentsIdSelected.includes(tournament.id))
       .map(tournament => tournament.name)
-      .join(', ');
-  };
+      .join(', ')
+  }
 
 
   async function onSubmit() {
@@ -102,8 +102,8 @@ export default function AddPartcipantForm({ tournaments }: AddPartcipantFormProp
         body: JSON.stringify({ name, username, tournamentsId: tournamentsIdSelected }),
       })
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Error al agregar participante");
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Error al agregar participante")
       }
       toast({
         description: "Participante agregado.",
@@ -121,7 +121,7 @@ export default function AddPartcipantForm({ tournaments }: AddPartcipantFormProp
           error instanceof Error
             ? error.message
             : "Error al agregar participante. Por favor vuelve a intentarlo.",
-      });
+      })
     } finally {
       setLoading(false)
     }

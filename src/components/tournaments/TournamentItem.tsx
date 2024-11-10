@@ -1,10 +1,10 @@
 'use client'
 
-import { TournamentData } from "@/lib/types";
-import TournamentMoreButton from "./TournamentMoreButton";
-import { dateFormat } from "@/lib/utils";
-import Link from "next/link";
-import { Button } from "../ui/button";
+import { TournamentData } from "@/lib/types"
+import TournamentMoreButton from "./TournamentMoreButton"
+import { dateFormat } from "@/lib/utils"
+import Link from "next/link"
+import { Button } from "../ui/button"
 
 interface TournamentItemProps {
   tournament: TournamentData
@@ -12,7 +12,7 @@ interface TournamentItemProps {
 }
 
 export default function TournamentItem({ tournament, admin }: TournamentItemProps) {
-  const { id, name, description, dates, participants, createdAt, endDate } = tournament;
+  const { id, name, description, dates, participants, createdAt, endDate } = tournament
 
   return (
     <div className="relative p-2 md:p-5 border border-primary/40 rounded-2xl bg-background transition-colors duration-300 ease-in-out">
@@ -41,5 +41,5 @@ export default function TournamentItem({ tournament, admin }: TournamentItemProp
       <p className='text-light text-xs md:text-sm italic text-muted-foreground/40'>Creado: {dateFormat(createdAt.toISOString())}</p>
 
     </div>
-  );
+  )
 }

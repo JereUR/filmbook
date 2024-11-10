@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Heart, Popcorn, Text } from 'lucide-react'
 import Link from 'next/link'
 
-import { getYear } from "@/lib/utils";
+import { getYear } from "@/lib/utils"
 import { ReviewInfo } from '@/lib/types'
 import noImage from '@/assets/no-image-film.jpg'
 

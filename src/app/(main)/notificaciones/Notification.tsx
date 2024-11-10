@@ -7,7 +7,7 @@ import { NotificationData } from "@/lib/types"
 import { NotificationType } from "@prisma/client"
 
 interface NotificationProps {
-  notification: NotificationData;
+  notification: NotificationData
 }
 
 export default function Notification({ notification }: NotificationProps) {
@@ -43,7 +43,7 @@ export default function Notification({ notification }: NotificationProps) {
     },
   }
 
-  const { message, icon, href } = notificationTypeMap[notification.type];
+  const { message, icon, href } = notificationTypeMap[notification.type]
 
   return (
     <Link href={href} className="block">

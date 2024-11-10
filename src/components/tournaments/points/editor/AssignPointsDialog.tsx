@@ -86,8 +86,8 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
         body: JSON.stringify({ participantId, tournamentId, dateId, points, extraPoints }),
       })
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Error al asignar puntos al participante");
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Error al asignar puntos al participante")
       }
       toast({
         description: "Puntos asignados.",
@@ -102,7 +102,7 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
           error instanceof Error
             ? error.message
             : "Error al asignar puntos al participante. Por favor vuelve a intentarlo.",
-      });
+      })
     } finally {
       setLoadingSubmit(false)
     }

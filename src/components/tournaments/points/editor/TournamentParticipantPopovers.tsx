@@ -53,7 +53,7 @@ export default function TournamentParticipantPopover({
         }
         const data = await response.json()
         if (data.tournaments) {
-          setTournaments(data.tournaments);
+          setTournaments(data.tournaments)
         }
       } catch (error) {
         toast({

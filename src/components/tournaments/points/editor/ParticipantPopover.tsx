@@ -1,11 +1,11 @@
-import { Dispatch, useState } from "react";
+import { Dispatch, useState } from "react"
 
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { InputAssignPointsProps, ParticipantsData } from "@/lib/types";
-import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { Label } from "@/components/ui/label";
+import { InputAssignPointsProps, ParticipantsData } from "@/lib/types"
+import { Button } from "@/components/ui/button"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { Label } from "@/components/ui/label"
 
 interface ParticipantPopoverProps {
   participants: ParticipantsData[]
@@ -20,7 +20,7 @@ export default function ParticipantPopover({ participants, loadingParticipants, 
   const handleParticipantClick = (participantId: string) => {
     setInput((prevInput) => ({ ...prevInput, participantId }))
     setOpen(false)
-  };
+  }
 
   if (loadingParticipants) {
     return (
@@ -32,7 +32,7 @@ export default function ParticipantPopover({ participants, loadingParticipants, 
           </CommandList>
         </Command>
       </PopoverContent>
-    );
+    )
   }
 
   return (

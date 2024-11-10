@@ -65,8 +65,8 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
         body: JSON.stringify({ date, tournamentId, movieId: selectedMovieId, visible }),
       })
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Error al agregar la fecha");
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Error al agregar la fecha")
       }
       toast({
         description: "Fecha agregada al torneo.",
@@ -83,7 +83,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
           error instanceof Error
             ? error.message
             : "Error al agregar la fecha al torneo. Por favor vuelve a intentarlo.",
-      });
+      })
     } finally {
       setLoading(false)
     }

@@ -27,14 +27,14 @@ export default function ForYouFeed() {
           "/api/posts/for-you",
           pageParam ? { searchParams: { cursor: pageParam } } : {}
         )
-        .json<PostsPage>();
+        .json<PostsPage>()
     },
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
-  });
+  })
 
   const posts = data?.pages.flatMap((page) => page.posts) || []
-  const errorMessage = (error as any)?.response?.status === 401 ? "Debes iniciar sesión para visualizar posts." : "Error inesperado al cargar las publicaciones.";
+  const errorMessage = (error as any)?.response?.status === 401 ? "Debes iniciar sesión para visualizar posts." : "Error inesperado al cargar las publicaciones."
 
   if (status === "pending") {
     return <PostsLoadingSkeleton />

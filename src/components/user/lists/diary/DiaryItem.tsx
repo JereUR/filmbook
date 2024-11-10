@@ -17,8 +17,8 @@ interface DiaryItemProps {
 }
 
 export default function DiaryItem({ diary }: DiaryItemProps) {
-  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
-  const { user } = useSession();
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
+  const { user } = useSession()
 
   const renderPopcorn = (index: number) => {
     if (!diary.review.rating) {

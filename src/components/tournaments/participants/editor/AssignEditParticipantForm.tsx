@@ -1,21 +1,21 @@
 'use client'
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react"
+import { useEffect, useState } from "react"
 
-import ErrorText from "@/components/ErrorText";
-import LoadingButton from "@/components/LoadingButton";
-import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useToast } from "@/components/ui/use-toast";
-import { InputTournamentParticipantProps, ParticipantsData, TournamentData } from "@/lib/types";
-import ParticipantEditPopover from "./ParticipantEditPopover";
-import kyInstance from "@/lib/ky";
-import DeleteParticipantDialog from "./DeleteParticipantDialog";
+import ErrorText from "@/components/ErrorText"
+import LoadingButton from "@/components/LoadingButton"
+import { Button } from "@/components/ui/button"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useToast } from "@/components/ui/use-toast"
+import { InputTournamentParticipantProps, ParticipantsData, TournamentData } from "@/lib/types"
+import ParticipantEditPopover from "./ParticipantEditPopover"
+import kyInstance from "@/lib/ky"
+import DeleteParticipantDialog from "./DeleteParticipantDialog"
 
 interface AssignEditParticipantFormProps {
   tournaments: TournamentData[]
@@ -132,15 +132,15 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
       prevSelected.includes(tournamentId)
         ? prevSelected.filter(id => id !== tournamentId)
         : [...prevSelected, tournamentId]
-    );
-  };
+    )
+  }
 
   const getSelectedTournamentsNames = () => {
     return tournaments
       .filter(tournament => tournamentsIdSelected.includes(tournament.id))
       .map(tournament => tournament.name)
-      .join(', ');
-  };
+      .join(', ')
+  }
 
 
   async function onSubmitEdit() {
@@ -161,8 +161,8 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
         body: JSON.stringify({ id: participantIdSelected, name, username, tournamentsId: tournamentsIdSelected }),
       })
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Error al editar participante");
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Error al editar participante")
       }
       toast({
         description: "Participante editado.",
@@ -179,7 +179,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
           error instanceof Error
             ? error.message
             : "Error al editar participante. Por favor vuelve a intentarlo.",
-      });
+      })
     } finally {
       setLoading(false)
     }

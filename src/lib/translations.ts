@@ -1,188 +1,188 @@
 export function translateJobToSpanish(job: string) {
   switch (job) {
     case "Director":
-      return "Director";
+      return "Director"
     case "Writer":
-      return "Guionista";
+      return "Guionista"
     case "Producer":
-      return "Productor";
+      return "Productor"
     case "Director of Photography":
-      return "Director de Fotografía";
+      return "Director de Fotografía"
     case "Casting":
-      return "Casting";
+      return "Casting"
     case "Co-Producer":
-      return "Co-Productor";
+      return "Co-Productor"
     case "Original Music Composer":
-      return "Compositor de Música Original";
+      return "Compositor de Música Original"
     case "Visual Effects Produce":
-      return "Productor de Efectos Visuales";
+      return "Productor de Efectos Visuales"
     default:
-      return job;
+      return job
   }
 }
 
 export function translateLanguageToSpanish(language: string): string {
   switch (language.toLowerCase()) {
     case "english":
-      return "Inglés";
+      return "Inglés"
     case "french":
-      return "Francés";
+      return "Francés"
     case "spanish":
-      return "Español";
+      return "Español"
     case "german":
-      return "Alemán";
+      return "Alemán"
     case "japanese":
-      return "Japonés";
+      return "Japonés"
     case "chinese":
-      return "Chino";
+      return "Chino"
     case "italian":
-      return "Italiano";
+      return "Italiano"
     case "korean":
-      return "Coreano";
+      return "Coreano"
     case "russian":
-      return "Ruso";
+      return "Ruso"
     case "portuguese":
-      return "Portugués";
+      return "Portugués"
     case "arabic":
-      return "Árabe";
+      return "Árabe"
     case "dutch":
-      return "Neerlandés";
+      return "Neerlandés"
     case "hindi":
-      return "Hindi";
+      return "Hindi"
     case "turkish":
-      return "Turco";
+      return "Turco"
     case "polish":
-      return "Polaco";
+      return "Polaco"
     case "swedish":
-      return "Sueco";
+      return "Sueco"
     case "greek":
-      return "Griego";
+      return "Griego"
     case "hebrew":
-      return "Hebreo";
+      return "Hebreo"
     case "thai":
-      return "Tailandés";
+      return "Tailandés"
     case "norwegian":
-      return "Noruego";
+      return "Noruego"
     case "finnish":
-      return "Finlandés";
+      return "Finlandés"
     case "danish":
-      return "Danés";
+      return "Danés"
     case "hungarian":
-      return "Húngaro";
+      return "Húngaro"
     case "czech":
-      return "Checo";
+      return "Checo"
     case "vietnamese":
-      return "Vietnamita";
+      return "Vietnamita"
     case "ukrainian":
-      return "Ucraniano";
+      return "Ucraniano"
     case "bengali":
-      return "Bengalí";
+      return "Bengalí"
     case "indonesian":
-      return "Indonesio";
+      return "Indonesio"
     case "romanian":
-      return "Rumano";
+      return "Rumano"
     case "persian":
-      return "Persa";
+      return "Persa"
     case "swahili":
-      return "Suajili";
+      return "Suajili"
     case "malay":
-      return "Malayo";
+      return "Malayo"
     case "filipino":
-      return "Filipino";
+      return "Filipino"
     case "icelandic":
-      return "Islandés";
+      return "Islandés"
     default:
-      return language;
+      return language
   }
 }
 
 export function translateCountryToSpanish(country: string): string {
   switch (country.toLowerCase()) {
     case "united states":
-      return "Estados Unidos";
+      return "Estados Unidos"
     case "canada":
-      return "Canadá";
+      return "Canadá"
     case "mexico":
-      return "México";
+      return "México"
     case "argentina":
-      return "Argentina";
+      return "Argentina"
     case "brazil":
-      return "Brasil";
+      return "Brasil"
     case "spain":
-      return "España";
+      return "España"
     case "france":
-      return "Francia";
+      return "Francia"
     case "germany":
-      return "Alemania";
+      return "Alemania"
     case "italy":
-      return "Italia";
+      return "Italia"
     case "united kingdom":
-      return "Reino Unido";
+      return "Reino Unido"
     case "china":
-      return "China";
+      return "China"
     case "japan":
-      return "Japón";
+      return "Japón"
     case "south korea":
-      return "Corea del Sur";
+      return "Corea del Sur"
     case "russia":
-      return "Rusia";
+      return "Rusia"
     case "india":
-      return "India";
+      return "India"
     case "portugal":
-      return "Portugal";
+      return "Portugal"
     case "australia":
-      return "Australia";
+      return "Australia"
     case "netherlands":
-      return "Países Bajos";
+      return "Países Bajos"
     case "greece":
-      return "Grecia";
+      return "Grecia"
     case "sweden":
-      return "Suecia";
+      return "Suecia"
     case "norway":
-      return "Noruega";
+      return "Noruega"
     case "finland":
-      return "Finlandia";
+      return "Finlandia"
     case "denmark":
-      return "Dinamarca";
+      return "Dinamarca"
     case "switzerland":
-      return "Suiza";
+      return "Suiza"
     case "poland":
-      return "Polonia";
+      return "Polonia"
     case "turkey":
-      return "Turquía";
+      return "Turquía"
     case "egypt":
-      return "Egipto";
+      return "Egipto"
     case "south africa":
-      return "Sudáfrica";
+      return "Sudáfrica"
     case "saudi arabia":
-      return "Arabia Saudita";
+      return "Arabia Saudita"
     case "iran":
-      return "Irán";
+      return "Irán"
     case "israel":
-      return "Israel";
+      return "Israel"
     case "thailand":
-      return "Tailandia";
+      return "Tailandia"
     case "vietnam":
-      return "Vietnam";
+      return "Vietnam"
     case "new zealand":
-      return "Nueva Zelanda";
+      return "Nueva Zelanda"
     case "indonesia":
-      return "Indonesia";
+      return "Indonesia"
     case "philippines":
-      return "Filipinas";
+      return "Filipinas"
     case "malaysia":
-      return "Malasia";
+      return "Malasia"
     case "iceland":
-      return "Islandia";
+      return "Islandia"
     case "romania":
-      return "Rumania";
+      return "Rumania"
     case "ukraine":
-      return "Ucrania";
+      return "Ucrania"
     case "hungary":
-      return "Hungría";
+      return "Hungría"
     case "czech republic":
-      return "República Checa";
+      return "República Checa"
     default:
-      return country;
+      return country
   }
 }
