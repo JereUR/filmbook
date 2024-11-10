@@ -432,6 +432,7 @@ export interface TournamentsPage {
 }
 
 export interface InputDateTournamentProps {
+  dateId?: string
   date: number
   movieId: string
   visible: boolean
