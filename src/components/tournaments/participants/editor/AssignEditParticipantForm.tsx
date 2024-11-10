@@ -40,7 +40,6 @@ const initialErrors: ErrorsForm = {
 }
 
 export default function AssignEditParticipantForm({ tournaments }: AssignEditParticipantFormProps) {
-  const [participants, setParticipants] = useState<ParticipantsData[]>([])
   const [participantIdSelected, setParticipantIdSelected] = useState<string | null>(null)
   const [input, setInput] = useState<InputTournamentParticipantProps>(initialState)
   const [tournamentsIdSelected, setTournamentsIdSelected] = useState<string[]>([])
@@ -57,7 +56,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
   const queryClient = useQueryClient()
 
   const {
-    data,
+    data: participants,
     isFetching,
     status,
   } = useQuery({
@@ -70,12 +69,6 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
         .json<ParticipantsData[]>(),
     initialData: [],
   })
-
-  useEffect(() => {
-    if (data) {
-      setParticipants(data)
-    }
-  }, [data])
 
   useEffect(() => {
     const fetchTournamentsForParticipants = async () => {
