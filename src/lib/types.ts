@@ -434,6 +434,7 @@ export interface TournamentsPage {
 export interface InputDateTournamentProps {
   date: number
   movieId: string
+  visible: boolean
 }
 
 export interface ParticipantScoreInfo {
@@ -515,4 +516,15 @@ export interface InputAssignPointsProps {
 export interface TournamentsForParticipant {
   id: string
   name: string
+}
+
+export interface DateForTournamentData {
+  dateId: string
+  date: number
+  movie: {
+    id: string
+    title: string
+    posterPath: string | null
+  }
+  visible: boolean
 }
