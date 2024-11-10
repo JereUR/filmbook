@@ -20,6 +20,7 @@ export default async function TournamentsView() {
         </div>
       }
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+        <h2 className="text-2xl md:text-3xl font-semibold text-primary">Torneos disponibles:</h2>
         <TournamentsList admin={admin} />
       </Suspense>
     </div>

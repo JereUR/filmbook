@@ -6,8 +6,8 @@ import { Loader2 } from "lucide-react"
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
 import kyInstance from "@/lib/ky"
 import { TournamentsPage } from "@/lib/types"
-import WatchlistsLoadingSkeleton from "@/app/(main)/marcadores/WatchlistLoadingSkeleton"
 import TournamentItem from "./TournamentItem"
+import TournamentsLoadingSkeleton from "./TournamentsLoadingSkeleton"
 
 interface TournamentListProps {
   admin: boolean
@@ -37,7 +37,7 @@ export default function TournamentsList({ admin }: TournamentListProps) {
   const tournaments = data?.pages.flatMap((page) => page.tournaments) || []
 
   if (status === "pending") {
-    return <WatchlistsLoadingSkeleton />
+    return <TournamentsLoadingSkeleton />
   }
 
   if (status === "success" && !tournaments.length && !hasNextPage) {
@@ -56,10 +56,8 @@ export default function TournamentsList({ admin }: TournamentListProps) {
     )
   }
 
-
   return (
     <div className="flex flex-col gap-4 md:gap-8 px-5 pb-5">
-      <h2 className="text-2xl md:text-3xl font-semibold text-primary">Torneos disponibles:</h2>
       <InfiniteScrollContainer
         className="space-y-5"
         onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
