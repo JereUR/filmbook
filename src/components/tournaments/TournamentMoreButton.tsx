@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { CalendarPlus, Edit2, MoreHorizontal, Trash2 } from "lucide-react"
+import { CalendarCog, CalendarPlus, Edit2, MoreHorizontal, Trash2 } from "lucide-react"
 
 import { TournamentData } from "@/lib/types"
 import DeleteTournamentDialog from "./DeleteTournamentDialog"
@@ -13,6 +13,7 @@ import { Button } from "../ui/button"
 import AddEditTournamentDialog from "./AddEditTournamentDialog"
 import { InputTournamentProps } from "./editor/AddTournamentButton"
 import AddDateToTournamentDialog from "./dates/AddDateToTournamentDialog"
+import EditDateToTournamentDialog from "./dates/EditDateToTournamentDialog"
 
 interface TournamentMoreButtonProps {
   tournament: TournamentData
@@ -26,6 +27,7 @@ export default function TournamentMoreButton({
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false)
   const [showAddDateDialog, setShowAddDateDialog] = useState<boolean>(false)
+  const [showEditDateDialog, setShowEditDateDialog] = useState<boolean>(false)
 
   const tournamentToEdit: InputTournamentProps = {
     id: tournament.id,
@@ -52,12 +54,21 @@ export default function TournamentMoreButton({
             </span>
           </DropdownMenuItem>
           <DropdownMenuItem
+            onClick={() => setShowEditDateDialog(true)}
+            className="cursor-pointer"
+          >
+            <span className="flex items-center gap-3 font-bold text-foreground">
+              <CalendarCog className="size-4 text-orange-500 dark:text-orange-600" />
+              Editar fecha
+            </span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
             onClick={() => setShowEditDialog(true)}
             className="cursor-pointer"
           >
             <span className="flex items-center gap-3 font-bold text-foreground">
               <Edit2 className="size-4 text-sky-500 dark:text-sky-600" />
-              Editar
+              Editar torneo
             </span>
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -78,6 +89,7 @@ export default function TournamentMoreButton({
       />
       <AddEditTournamentDialog openDialog={showEditDialog} setOpenDialog={setShowEditDialog} initialData={tournamentToEdit} onEdit={true} />
       <AddDateToTournamentDialog tournamentId={tournament.id} openDialog={showAddDateDialog} setOpenDialog={setShowAddDateDialog} />
+      <EditDateToTournamentDialog tournamentId={tournament.id} openDialog={showEditDateDialog} setOpenDialog={setShowEditDateDialog} />
     </div>
   )
 }
