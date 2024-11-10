@@ -8,8 +8,8 @@ import { Dispatch } from "react"
 
 interface MovieItemProps {
   movie: SearchMovie
-  selectedMovieId: string
-  setSelectedMovieId: Dispatch<React.SetStateAction<string>>
+  selectedMovieId: string | null
+  setSelectedMovieId: Dispatch<React.SetStateAction<string | null>>
 }
 
 export default function MovieItemForDate({ movie, selectedMovieId, setSelectedMovieId }: MovieItemProps) {
@@ -34,7 +34,7 @@ export default function MovieItemForDate({ movie, selectedMovieId, setSelectedMo
         <h2 className="text-sm md:text-base font-semibold">
           {title} ({getYear(release_date)})
         </h2>
-        <p className="text-xs md:tex-sm text-gray-500">{genre_names.join(", ")}</p>
+        <p className="text-xs md:tex-sm text-muted-foreground/50">{genre_names.join(", ")}</p>
       </div>
     </div>
   )

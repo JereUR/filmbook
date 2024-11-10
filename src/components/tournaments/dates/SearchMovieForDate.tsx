@@ -9,8 +9,8 @@ import SearchForm from "../../movies/search/SearchForm"
 import MovieItemForDate from "./MovieItemForDate"
 
 interface SearchMovieForDateProps {
-  selectedMovieId: string
-  setSelectedMovieId: Dispatch<React.SetStateAction<string>>
+  selectedMovieId: string | null
+  setSelectedMovieId: Dispatch<React.SetStateAction<string | null>>
 }
 
 export default function SearchMovieForDate({ selectedMovieId, setSelectedMovieId }: SearchMovieForDateProps) {
