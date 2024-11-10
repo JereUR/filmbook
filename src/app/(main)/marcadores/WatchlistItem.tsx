@@ -73,7 +73,7 @@ export default function WatchlistItem({ item }: WatchlistItemProps) {
                 {voteAverage ? <div className="flex gap-1"><span className={voteAverage ? ratingColor(voteAverage) : ''}>
                   {voteAverage ? voteAverage.toFixed(1) : "N/A"}
                 </span>
-                  <span className="text-gray-400">/10</span> </div> : <span className="text-center md:text-lg text-foreground/40">
+                  <span className="text-muted-foreground/70">/10</span> </div> : <span className="text-center md:text-lg text-foreground/40">
                   S/P
                 </span>}
               </div>
@@ -91,7 +91,7 @@ export default function WatchlistItem({ item }: WatchlistItemProps) {
                   <span className={voteApp ? ratingColor(voteApp) : ''}>
                     {voteApp ? voteApp.toFixed(1) : "N/A"}
                   </span>
-                  <span className="text-gray-400">/7</span>
+                  <span className="text-muted-foreground/70">/7</span>
                 </div> : <span className="text-center md:text-lg text-foreground/40">
                   S/P
                 </span>}

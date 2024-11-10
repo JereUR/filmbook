@@ -206,7 +206,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
         <div className="flex w-full gap-4">
           <div className="flex-1">
             <div className="flex gap-2 items-center">
-              <Label htmlFor="nameInput" className="block text-md font-medium text-gray-700 mb-1">
+              <Label htmlFor="nameInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
                 Nombre (Usuario Instagram)
               </Label>
               {errorsForm.name && <ErrorText errorText={errorsForm.name} className="text-xs md:text-sm animate-pulse" />}
@@ -223,7 +223,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
           </div>
           <div className="flex-1">
             <div className="flex gap-2 items-center">
-              <Label htmlFor="usernameInput" className="block text-md font-medium text-gray-700 mb-1">
+              <Label htmlFor="usernameInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
                 Username (Si está registrado en Filmbook)
               </Label>
             </div>
@@ -240,7 +240,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
         </div>
         <div>
           <div className="flex gap-2 items-center">
-            <Label htmlFor="tournamentsInput" className="block text-md font-medium text-gray-700 mb-1">
+            <Label htmlFor="tournamentsInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
               Torneos en los que participa
             </Label>
             {tournamentsIdSelected.length > 0 && (

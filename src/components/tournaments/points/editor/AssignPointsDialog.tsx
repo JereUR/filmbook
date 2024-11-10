@@ -124,7 +124,7 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
             ASIGNAR PUNTOS
           </DialogTitle>
         </DialogHeader>
-        <div className="text-sm text-gray-500 mb-4">
+        <div className="text-sm text-muted-foreground/40 mb-4">
           Ingresa los puntos y puntos extras que deseas asignar al participante.
         </div>
         <div className="relative space-y-2 md:space-y-5">

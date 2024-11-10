@@ -37,7 +37,7 @@ export default function SearchForm({
           placeholder="Ingresa el título de la película"
           className="w-full rounded-l-2xl rounded-r-none border border-muted py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary"
         />
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-muted-foreground/50" />
       </div>
       <LoadingButton
         onClick={searchMovies}

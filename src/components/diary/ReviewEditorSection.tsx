@@ -71,12 +71,12 @@ export default function ReviewEditorSection({
       return (
         <div className="relative h-10 w-10 cursor-pointer overflow-hidden">
           <Popcorn className="clip-half-left icon-thick absolute inset-0 h-10 w-10 text-primary" />
-          <Popcorn className="clip-half-right icon-thick absolute inset-0 h-10 w-10 text-gray-300" />
+          <Popcorn className="clip-half-right icon-thick absolute inset-0 h-10 w-10 text-muted-foreground/70" />
         </div>
       )
     } else {
       return (
-        <Popcorn className="icon-thick h-10 w-10 cursor-pointer text-gray-300" />
+        <Popcorn className="icon-thick h-10 w-10 cursor-pointer text-muted-foreground/70" />
       )
     }
   }

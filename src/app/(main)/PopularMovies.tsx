@@ -33,7 +33,6 @@ export default async function PopularMovies({ className }: PopularMoviesProps) {
                   className="rounded"
                 />
               </div>
-
               <div className="flex flex-grow flex-col justify-center gap-1 md:gap-2">
                 <h1 className="text-sm font-semibold">
                   <span className="line-clamp-2 whitespace-pre-line">{movie.title}</span> (
@@ -44,7 +43,7 @@ export default async function PopularMovies({ className }: PopularMoviesProps) {
                     <span className={ratingColor(movie.voteAverage || 0)}>
                       {movie.voteAverage ? movie.voteAverage.toFixed(1) : 'S/P'}
                     </span>
-                    <span className="text-gray-400">/10</span>
+                    <span className="text-muted-foreground/70">/10</span>
                   </div>
                   <Image
                     src={TmdbLogo}

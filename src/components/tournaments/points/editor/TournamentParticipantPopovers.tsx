@@ -181,17 +181,15 @@ export default function TournamentParticipantPopover({
                           className={`cursor-pointer data-[selected='true']:bg-transparent`}
                         >
                           <div className="flex items-center gap-2">
-                            {date.movie.posterPath && (
-                              <Image
-                                src={date.movie.posterPath || noImage}
-                                alt={date.movie.title}
-                                width={48}
-                                height={72}
-                                className="rounded"
-                              />
-                            )}
+                            <Image
+                              src={date.movie.posterPath || noImage}
+                              alt={date.movie.title}
+                              width={48}
+                              height={72}
+                              className="rounded"
+                            />
                             <span>
-                              {date.movie.title} - Fecha {date.date}
+                              Fecha {date.date} - {date.movie.title}
                             </span>
                             {dateIdSelected === date.dateId && (
                               <Check className="ml-auto h-4 w-4 text-green-600" />

@@ -40,7 +40,7 @@ export default function RecommendationItem({
             <span className={ratingColor(vote_average)}>
               {vote_average.toFixed(1)}
             </span>
-            <span className="text-gray-400">/10</span>
+            <span className="text-muted-foreground/70">/10</span>
           </div>
           <Image
             src={TmdbLogo}
