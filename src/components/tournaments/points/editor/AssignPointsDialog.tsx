@@ -17,6 +17,8 @@ import ErrorText from "@/components/ErrorText"
 import { Button } from "@/components/ui/button"
 import ParticipantPopover from "./ParticipantPopover"
 import TournamentParticipantPopover from "./TournamentParticipantPopovers"
+import { useQuery } from "@tanstack/react-query"
+import kyInstance from "@/lib/ky"
 
 interface AssignPointsDialogProps {
   openDialog: boolean
@@ -33,8 +35,6 @@ const initialState: InputAssignPointsProps = {
 
 export default function AssignPointsDialog({ openDialog, setOpenDialog }: AssignPointsDialogProps) {
   const [input, setInput] = useState<InputAssignPointsProps>(initialState)
-  const [participants, setParticipants] = useState<ParticipantsData[]>([])
-  const [loadingParticipants, setLoadingParticipants] = useState<boolean>(false)
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false)
   const [errorExtraPoints, setErrorExtraPoints] = useState<string | null>(null)
 
@@ -42,27 +42,20 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
 
   const { toast } = useToast()
 
-  useEffect(() => {
-    const fetchParticipants = async () => {
-      setLoadingParticipants(true)
-      try {
-        const response = await fetch("/api/tournaments/participants")
-        if (!response.ok) {
-          throw new Error("Error al obtener participantes")
-        }
-        const data = await response.json()
-        setParticipants(data)
-      } catch (error) {
-        toast({
-          variant: "destructive",
-          description: "Error al obtener participantes. Por favor vuelve a intentarlo.",
-        })
-      } finally {
-        setLoadingParticipants(false)
-      }
-    }
-    fetchParticipants()
-  }, [toast])
+  const {
+    data: participants,
+    isFetching,
+    status,
+  } = useQuery({
+    queryKey: ["all-participants"],
+    queryFn: () =>
+      kyInstance
+        .get(
+          "/api/tournaments/participants",
+        )
+        .json<ParticipantsData[]>(),
+    initialData: [],
+  })
 
   function onCloseDialog() {
     setOpenDialog(false)
@@ -115,6 +108,14 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
     }
   }
 
+  if (status === 'error') {
+    toast({
+      variant: 'destructive',
+      description: 'Error al cargar los participantes'
+    })
+    return null
+  }
+
   return (
     <Dialog open={openDialog} onOpenChange={onCloseDialog}>
       <DialogContent className="z-[150] min-w-[50vw] max-w-[900px] max-h-[600px] overflow-y-auto scrollbar-thin">
@@ -127,7 +128,7 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
           Ingresa los puntos y puntos extras que deseas asignar al participante.
         </div>
         <div className="relative space-y-2 md:space-y-5">
-          <ParticipantPopover participants={participants} loadingParticipants={loadingParticipants} participantIdSelected={participantId} setInput={setInput} />
+          <ParticipantPopover participants={participants} loadingParticipants={isFetching} participantIdSelected={participantId} setInput={setInput} />
           {participantId && <TournamentParticipantPopover participantId={participantId} tournamentIdSelected={tournamentId} dateIdSelected={dateId} setInput={setInput} />}
           <div className="flex w-full gap-4">
             <div className="flex-1">
