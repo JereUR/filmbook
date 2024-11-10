@@ -24,7 +24,7 @@ interface AddDateToTournamentDialogProps {
 }
 
 export const initialState: InputDateTournamentProps = {
-  date: 1,
+  date: 0,
   movieId: '',
   visible: false
 }
@@ -99,7 +99,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
           <div className='flex gap-8 items-center'>
             <div>
               <div className="flex gap-2 items-center">
-                <Label htmlFor="dateInput" className="block text-md font-medium text-gray-700 mb-1">
+                <Label htmlFor="dateInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
                   Número de Fecha
                 </Label>
                 {errorDate && <ErrorText errorText={errorDate} className="text-xs md:text-sm animate-pulse" />}
@@ -117,7 +117,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
             </div>
             <div>
               <div className="flex gap-2 items-center">
-                <Label htmlFor="visibleInput" className="block text-md font-medium text-gray-700 mb-1">
+                <Label htmlFor="visibleInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
                   Visible?
                 </Label>
                 {errorDate && <ErrorText errorText={errorDate} className="text-xs md:text-sm animate-pulse" />}
@@ -137,7 +137,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
             </div>
           </div>
           <div>
-            <Label htmlFor="movieInput" className="block text-md font-medium text-gray-700 mb-1">
+            <Label htmlFor="movieInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
               Película
             </Label>
             <SearchMovieForDate selectedMovieId={selectedMovieId} setSelectedMovieId={setSelectedMovieId} />
