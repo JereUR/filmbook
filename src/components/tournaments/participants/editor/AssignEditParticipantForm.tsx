@@ -169,6 +169,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
       })
 
       await queryClient.invalidateQueries({ queryKey: ["tournaments"] })
+      await queryClient.invalidateQueries({ queryKey: ["all-participants"] })
 
       clearData()
     } catch (error) {
