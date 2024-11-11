@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-
 import prisma from "@/lib/prisma"
 import { validateAdmin } from "@/auth"
 import { DateForTournamentData } from "@/lib/types"
@@ -19,6 +18,9 @@ export async function GET(
       where: { id: params.tournamentId },
       select: {
         dates: {
+          orderBy: {
+            date: "asc",
+          },
           select: {
             id: true,
             date: true,
