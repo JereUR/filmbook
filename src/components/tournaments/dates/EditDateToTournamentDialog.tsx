@@ -19,7 +19,7 @@ import { useToast } from "@/components/ui/use-toast"
 import ErrorText from "@/components/ErrorText"
 import { initialState } from "./AddDateToTournamentDialog"
 import kyInstance from "@/lib/ky"
-import DatesPopover from "./DatePopover"
+import DatesPopover from "./DatesPopover"
 import noImage from '@/assets/no-image-film.jpg'
 
 interface EditDateToTournamentDialogProps {
@@ -93,7 +93,6 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
         description: "Fecha del torneo editada.",
       })
 
-      await queryClient.invalidateQueries({ queryKey: ["tournaments"] })
       await queryClient.invalidateQueries({ queryKey: ["dates", tournamentId] })
 
       setOpenDialog(false)

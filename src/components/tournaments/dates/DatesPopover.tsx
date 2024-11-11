@@ -30,66 +30,40 @@ export default function DatesPopover({ dates, loading, status, input, setInput, 
     setOpen(false)
   }
 
-  if (loading) {
-    return (
-      <PopoverContent className="w-[250px] p-2 z-[200] border border-primary/40">
-        <Command className="max-h-[300px]">
-          <CommandInput placeholder="Buscar fechas..." />
-          <CommandList className="scrollbar-thin overflow-auto">
-            <CommandEmpty>Cargando Fechas...</CommandEmpty>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    )
-  }
-
-  if (status === 'error') {
-    return (
-      <PopoverContent className="w-[250px] p-2 z-[200] border border-primary/40">
-        <Command className="max-h-[300px]">
-          <CommandInput placeholder="Buscar fechas..." />
-          <CommandList className="scrollbar-thin overflow-auto">
-            <CommandEmpty>Error al cargar fechas...</CommandEmpty>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    )
-  }
-
   return (
     <div>
       <Label htmlFor="dateInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
         Fechas
       </Label>
-      <Popover key={open ? 'open-date-popover' : 'closed-date-popover'} open={open} onOpenChange={setOpen}>
-        <PopoverTrigger
-          asChild
-          className="border border-primary/40 bg-background text-xs hover:bg-background/50 md:text-sm z-[200]"
-        >
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="min-w-[300px] justify-between"
+            className="min-w-[300px] justify-between border border-primary/40 bg-background text-xs hover:bg-background/50 md:text-sm"
           >
-            {date ?
-              `Fecha ${dates.find((d) => d.date === date)?.date}`
+            {date
+              ? `Fecha ${dates.find((d) => d.date === date)?.date}`
               : "Seleccione un fecha"}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[250px] p-2 z-[200] border border-primary/40">
           <Command className="max-h-[300px]">
-            <CommandInput placeholder="Buscar Datese..." />
+            <CommandInput placeholder="Buscar fechas..." />
             <CommandList className="scrollbar-thin overflow-auto">
-              <CommandEmpty>Sin resultados.</CommandEmpty>
-              <CommandGroup heading="Dateses">
-                {Array.isArray(dates) && dates.length > 0 ? (
-                  dates.map((d) => (
+              {loading ? (
+                <CommandEmpty>Cargando Fechas...</CommandEmpty>
+              ) : status === 'error' ? (
+                <CommandEmpty>Error al cargar fechas...</CommandEmpty>
+              ) : Array.isArray(dates) && dates.length > 0 ? (
+                <CommandGroup heading="Fechas">
+                  {dates.map((d) => (
                     <CommandItem
                       key={d.dateId}
                       onSelect={() => handleDateClick(d)}
-                      className={`cursor-pointer data-[selected='true']:bg-transparent`}
+                      className="cursor-pointer data-[selected='true']:bg-transparent"
                     >
                       <div className="flex items-center gap-2">
                         <Image
@@ -107,16 +81,15 @@ export default function DatesPopover({ dates, loading, status, input, setInput, 
                         )}
                       </div>
                     </CommandItem>
-                  ))
-                ) : (
-                  <CommandEmpty>Sin resultados.</CommandEmpty>
-                )}
-              </CommandGroup>
+                  ))}
+                </CommandGroup>
+              ) : (
+                <CommandEmpty>Sin resultados.</CommandEmpty>
+              )}
             </CommandList>
           </Command>
         </PopoverContent>
       </Popover>
     </div>
   )
-
 }
