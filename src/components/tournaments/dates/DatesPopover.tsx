@@ -1,6 +1,6 @@
 import { Dispatch, useState } from "react"
 import Image from "next/image"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check, ChevronsUpDown, Loader2 } from "lucide-react"
 
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -28,6 +28,12 @@ export default function DatesPopover({ dates, loading, status, input, setInput, 
     setOriginalMovie(movie)
     setInput(() => ({ dateId, date, movieId: movie.id, visible }))
     setOpen(false)
+  }
+
+  if (loading) {
+    return (
+      <p className='flex text-xs md:text-sm text-muted-foreground/40 items-center gap-2'><Loader2 className='animate-spin' /> Cargando fechas...</p>
+    )
   }
 
   return (
