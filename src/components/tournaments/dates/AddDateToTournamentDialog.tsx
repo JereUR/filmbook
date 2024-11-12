@@ -25,6 +25,7 @@ interface AddDateToTournamentDialogProps {
 }
 
 export const initialState: InputDateTournamentProps = {
+  dateId: null,
   date: 0,
   movieId: '',
   visible: false,
