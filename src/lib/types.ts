@@ -436,6 +436,8 @@ export interface InputDateTournamentProps {
   date: number
   movieId: string
   visible: boolean
+  extraPoints: boolean
+  extraPointsSolution: string | null
 }
 
 export interface ParticipantScoreInfo {
@@ -462,6 +464,8 @@ export interface TournamentDateInfo {
   }
   scores: ParticipantScoreInfo[]
   visible: boolean
+  extraPoints: boolean
+  extraPointsSolution: string | null
 }
 
 export interface InputTournamentParticipantProps {
@@ -528,4 +532,6 @@ export interface DateForTournamentData {
     posterPath: string | null
   }
   visible: boolean
+  extraPoints: boolean
+  extraPointsSolution: string | null
 }

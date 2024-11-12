@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import LoadingButton from "@/components/LoadingButton"
 import { useToast } from "@/components/ui/use-toast"
 import ErrorText from "@/components/ErrorText"
+import { Textarea } from "@/components/ui/textarea"
 
 interface AddDateToTournamentDialogProps {
   tournamentId: string
@@ -26,7 +27,9 @@ interface AddDateToTournamentDialogProps {
 export const initialState: InputDateTournamentProps = {
   date: 0,
   movieId: '',
-  visible: false
+  visible: false,
+  extraPoints: false,
+  extraPointsSolution: null
 }
 
 export default function AddDateToTournamentDialog({ tournamentId, openDialog, setOpenDialog }: AddDateToTournamentDialogProps) {
@@ -34,7 +37,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [errorDate, setErrorDate] = useState<string | null>(null)
-  const { date, visible } = input
+  const { date, visible, extraPoints, extraPointsSolution } = input
 
   const { toast } = useToast()
   const queryClient = useQueryClient()
@@ -73,6 +76,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
       })
 
       await queryClient.invalidateQueries({ queryKey: ["tournaments"] })
+      await queryClient.invalidateQueries({ queryKey: ["dates", tournamentId] })
 
       setOpenDialog(false)
       setInput(initialState)
@@ -134,6 +138,41 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
                 />
                 <span className="slider-visible"></span>
               </label>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center w-full">
+            <div className="w-full md:w-1/5">
+              <div className="flex gap-2 items-center">
+                <Label htmlFor="extraPointsInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+                  Puntos extras?
+                </Label>
+              </div>
+              <label className="switch-visible">
+                <input
+                  id="extraPointsInput"
+                  type="checkbox"
+                  checked={extraPoints}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setInput({ ...input, extraPoints: e.target.checked })
+                  }
+                  className="input-visible"
+                />
+                <span className="slider-visible"></span>
+              </label>
+            </div>
+            <div className="w-full md:w-4/5">
+              <Label htmlFor="extraPointsSolutionInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+                Solución puntos extras (si corresponde)
+              </Label>
+              <Textarea
+                id="extraPointsSolutionInput"
+                rows={3}
+                className="w-4/5 resize-none placeholder:text-muted-foreground/40"
+                value={extraPointsSolution ? extraPointsSolution : ''}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                  setInput({ ...input, extraPointsSolution: e.target.value })
+                }
+              />
             </div>
           </div>
           <div>

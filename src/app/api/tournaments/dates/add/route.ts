@@ -8,6 +8,8 @@ interface RequestBody {
   tournamentId: string
   movieId: string
   visible: boolean
+  extraPoints: boolean
+  extraPointsSolution: string | null
 }
 
 const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original"
@@ -22,8 +24,14 @@ export async function POST(req: Request) {
       })
     }
 
-    const { date, tournamentId, movieId, visible } =
-      (await req.json()) as RequestBody
+    const {
+      date,
+      tournamentId,
+      movieId,
+      visible,
+      extraPoints,
+      extraPointsSolution,
+    } = (await req.json()) as RequestBody
 
     const existingTournamentDate = await prisma.tournamentDate.findFirst({
       where: { date, tournamentId },
@@ -107,6 +115,8 @@ export async function POST(req: Request) {
         tournamentId,
         movieId,
         visible,
+        extraPoints,
+        extraPointsSolution
       },
     })
 

@@ -21,6 +21,7 @@ import { initialState } from "./AddDateToTournamentDialog"
 import kyInstance from "@/lib/ky"
 import DatesPopover from "./DatesPopover"
 import noImage from '@/assets/no-image-film.jpg'
+import { Textarea } from "@/components/ui/textarea"
 
 interface EditDateToTournamentDialogProps {
   tournamentId: string
@@ -40,7 +41,7 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [errorDate, setErrorDate] = useState<string | null>(null)
-  const { dateId, date, visible } = input
+  const { dateId, date, visible, extraPoints, extraPointsSolution } = input
 
   const { toast } = useToast()
   const queryClient = useQueryClient()
@@ -83,7 +84,7 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ dateId, date, tournamentId, movieId: selectedMovieId ? selectedMovieId : originalMovie?.id, visible }),
+        body: JSON.stringify({ dateId, date, tournamentId, movieId: selectedMovieId ? selectedMovieId : originalMovie?.id, visible, extraPoints, extraPointsSolution }),
       })
       if (!response.ok) {
         const errorData = await response.json()
@@ -158,6 +159,41 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
                 />
                 <span className="slider-visible"></span>
               </label>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center w-full">
+            <div className="w-full md:w-1/5">
+              <div className="flex gap-2 items-center">
+                <Label htmlFor="extraPointsInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+                  Puntos extras?
+                </Label>
+              </div>
+              <label className="switch-visible">
+                <input
+                  id="extraPointsInput"
+                  type="checkbox"
+                  checked={extraPoints}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setInput({ ...input, extraPoints: e.target.checked })
+                  }
+                  className="input-visible"
+                />
+                <span className="slider-visible"></span>
+              </label>
+            </div>
+            <div className="w-full md:w-4/5">
+              <Label htmlFor="extraPointsSolutionInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+                Solución puntos extras (si corresponde)
+              </Label>
+              <Textarea
+                id="extraPointsSolutionInput"
+                rows={3}
+                className="w-4/5 resize-none placeholder:text-muted-foreground/40"
+                value={extraPointsSolution ? extraPointsSolution : ''}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                  setInput({ ...input, extraPointsSolution: e.target.value })
+                }
+              />
             </div>
           </div>
           {originalMovie &&

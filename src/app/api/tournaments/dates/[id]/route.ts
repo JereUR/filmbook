@@ -51,6 +51,8 @@ export async function GET(
         },
       },
       visible: true,
+      extraPoints: true,
+      extraPointsSolution: true,
     },
   })
 
@@ -73,6 +75,8 @@ export async function GET(
       participant: score.participant,
     })),
     visible: tournamentDate.visible,
+    extraPoints: tournamentDate.extraPoints,
+    extraPointsSolution: tournamentDate.extraPointsSolution,
   }
 
   return NextResponse.json(data)

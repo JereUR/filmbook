@@ -24,9 +24,9 @@ export default function DatesPopover({ dates, loading, status, input, setInput, 
   const { date } = input
 
   const handleDateClick = (dateClick: DateForTournamentData) => {
-    const { dateId, date, movie, visible } = dateClick
+    const { dateId, date, movie, visible, extraPoints, extraPointsSolution } = dateClick
     setOriginalMovie(movie)
-    setInput(() => ({ dateId, date, movieId: movie.id, visible }))
+    setInput(() => ({ dateId, date, movieId: movie.id, visible, extraPoints, extraPointsSolution }))
     setOpen(false)
   }
 

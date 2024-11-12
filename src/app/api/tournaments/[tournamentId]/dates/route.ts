@@ -25,6 +25,8 @@ export async function GET(
             id: true,
             date: true,
             visible: true,
+            extraPoints: true,
+            extraPointsSolution: true,
             movie: {
               select: {
                 id: true,
@@ -42,6 +44,8 @@ export async function GET(
         dateId: date.id,
         date: date.date,
         visible: date.visible,
+        extraPoints: date.extraPoints,
+        extraPointsSolution: date.extraPointsSolution,
         movie: {
           id: date.movie.id,
           title: date.movie.title,

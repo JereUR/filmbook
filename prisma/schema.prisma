@@ -277,14 +277,16 @@ model Tournament {
 }
 
 model TournamentDate {
-  id           String             @id @default(cuid())
-  date         Int
-  movie        Movie              @relation(fields: [movieId], references: [id])
-  movieId      String
-  tournament   Tournament         @relation(fields: [tournamentId], references: [id])
-  tournamentId String
-  scores       ParticipantScore[]
-  visible      Boolean            @default(false)
+  id                  String             @id @default(cuid())
+  date                Int
+  movie               Movie              @relation(fields: [movieId], references: [id])
+  movieId             String
+  tournament          Tournament         @relation(fields: [tournamentId], references: [id])
+  tournamentId        String
+  scores              ParticipantScore[]
+  visible             Boolean            @default(false)
+  extraPoints         Boolean            @default(false)
+  extraPointsSolution String?
 
   @@unique([date, tournamentId])
   @@map("tournament_date")
