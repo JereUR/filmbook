@@ -22,6 +22,7 @@ import kyInstance from "@/lib/ky"
 import DatesPopover from "./DatesPopover"
 import noImage from '@/assets/no-image-film.jpg'
 import { Textarea } from "@/components/ui/textarea"
+import DeleteDateDialog from "./DeleteDateDialog"
 
 interface EditDateToTournamentDialogProps {
   tournamentId: string
@@ -41,6 +42,8 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
   const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [errorDate, setErrorDate] = useState<string | null>(null)
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
+
   const { dateId, date, visible, extraPoints, extraPointsSolution } = input
 
   const { toast } = useToast()
@@ -67,6 +70,12 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
       error = "La fecha debe ser mayor a 0"
     }
     return error
+  }
+
+  const clearData = () => {
+    setInput(initialState)
+    setOriginalMovie(null)
+    setSelectedMovieId(null)
   }
 
   async function onSubmit() {
@@ -97,9 +106,7 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
       await queryClient.invalidateQueries({ queryKey: ["dates", tournamentId] })
 
       setOpenDialog(false)
-      setInput(initialState)
-      setOriginalMovie(null)
-      setSelectedMovieId(null)
+      clearData()
     } catch (error) {
       toast({
         variant: "destructive",
@@ -230,8 +237,17 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
               >
                 Editar
               </LoadingButton>
-              <Button variant='outline' onClick={() => setOpenDialog(false)}>Cancelar</Button>
+              {dateId && (
+                <Button
+                  variant="outline"
+                  onClick={() => setShowDeleteDialog(true)}
+                  className="bg-red-500 dark:bg-red-600 hover:bg-red-600 dark:hover:bg-red-700"
+                >
+                  Eliminar fecha
+                </Button>
+              )}
             </div>
+            <DeleteDateDialog id={dateId} tournamentId={tournamentId} open={showDeleteDialog} onClose={() => setShowDeleteDialog(false)} clearData={clearData} />
           </div>
         </div>
       </DialogContent>
