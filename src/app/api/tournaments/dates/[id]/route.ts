@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 import prisma from "@/lib/prisma"
-import { validateRequest } from "@/auth"
+import { validateAdmin, validateRequest } from "@/auth"
 import { TournamentDateInfo } from "@/lib/types"
 
 export async function GET(
@@ -86,9 +86,9 @@ export async function PATCH(
   req: Request,
   { params }: { params: { id: string; mode?: string } },
 ) {
-  const { user: loggedInUser } = await validateRequest()
+  const { user: loggedInUser, admin } = await validateAdmin()
 
-  if (!loggedInUser) {
+  if (!loggedInUser || !admin) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
@@ -127,13 +127,21 @@ export async function DELETE(
   req: Request,
   { params }: { params: { id: string } },
 ) {
-  const { user: loggedInUser } = await validateRequest()
+  const { user: loggedInUser, admin } = await validateAdmin()
 
-  if (!loggedInUser) {
+  if (!loggedInUser || !admin) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
+  console.log(params.id)
+
   try {
+    await prisma.participantScore.deleteMany({
+      where: {
+        tournamentDateId: params.id,
+      },
+    })
+
     await prisma.tournamentDate.delete({
       where: {
         id: params.id,
@@ -142,6 +150,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
+    console.error("Error al eliminar el tournamentDate:", error)
     return NextResponse.json(
       { error: "Error al eliminar el tournamentDate." },
       { status: 500 },
