@@ -93,7 +93,6 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
         description: "Puntos asignados.",
       })
 
-      setOpenDialog(false)
       setInput(initialState)
     } catch (error) {
       toast({
