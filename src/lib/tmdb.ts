@@ -5,6 +5,7 @@ const API_KEY = process.env.MOVIE_API_KEY
 const ACCESS_TOKEN = process.env.MOVIE_ACCESS_TOKEN
 const BASE_URL = "https://api.themoviedb.org/3"
 const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500"
+const BASE_IMG_BACKDROP_TMDB = "https://image.tmdb.org/t/p/original"
 
 interface CastMember {
   name: string
@@ -86,7 +87,7 @@ export async function getPopularMovies(): Promise<Movie[] | null> {
         id: movie.id,
         title: movie.title,
         backdropPath: movie.backdrop_path
-          ? `${BASE_IMG_TMDB}${movie.backdrop_path}`
+          ? `${BASE_IMG_BACKDROP_TMDB}${movie.backdrop_path}`
           : null,
         posterPath: movie.poster_path
           ? `${BASE_IMG_TMDB}${movie.poster_path}`
@@ -225,7 +226,7 @@ export async function fetchMovieFromTMDB(movieId: string) {
   return {
     title: movieData.title,
     backdrop_path: movieData.backdrop_path
-      ? `${BASE_IMG_TMDB}${movieData.backdrop_path}`
+      ? `${BASE_IMG_BACKDROP_TMDB}${movieData.backdrop_path}`
       : undefined,
     poster_path: movieData.poster_path
       ? `${BASE_IMG_TMDB}${movieData.poster_path}`
