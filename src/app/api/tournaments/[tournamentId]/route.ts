@@ -1,20 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 
 import prisma from "@/lib/prisma"
-import { validateAdmin } from "@/auth"
 import { Tournament, TournamentDate } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { tournamentId: string } },
 ) {
-  /* 
-  const { user, admin } = await validateAdmin()
-
-  if (!user && !admin) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
-  }
- */
   const tournament = await prisma.tournament.findUnique({
     where: {
       id: params.tournamentId,
@@ -80,26 +72,28 @@ export async function GET(
     return NextResponse.json(null)
   }
 
-  const participantsWithPoints = tournament.participants.map((p) => {
-    const totalPoints = p.participant.scores.reduce((acc, score) => {
-      return acc + score.points + (score.extraPoints || 0)
-    }, 0)
+  const participantsWithPoints = tournament.participants
+    .map((p) => {
+      const totalPoints = p.participant.scores.reduce((acc, score) => {
+        return acc + score.points + (score.extraPoints || 0)
+      }, 0)
 
-    return {
-      participantId: p.participant.id,
-      participantName: p.participant.name,
-      participantUsername: p.participant.username,
-      totalPoints,
-      tournaments: [
-        {
-          tournamentId: tournament.id,
-          tournamentName: tournament.name,
-          totalPoints: totalPoints,
-          position: 0,
-        },
-      ],
-    }
-  })
+      return {
+        participantId: p.participant.id,
+        participantName: p.participant.name,
+        participantUsername: p.participant.username,
+        totalPoints,
+        tournaments: [
+          {
+            tournamentId: tournament.id,
+            tournamentName: tournament.name,
+            totalPoints: totalPoints,
+            position: 0,
+          },
+        ],
+      }
+    })
+    .filter((participant) => participant.totalPoints > 0)
 
   const sortedParticipants = participantsWithPoints
     .sort((a, b) => b.totalPoints - a.totalPoints)
