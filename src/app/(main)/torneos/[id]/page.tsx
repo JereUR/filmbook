@@ -1,15 +1,27 @@
 import { Metadata } from "next"
+import { notFound } from "next/navigation"
+import { Suspense } from "react"
+import { Loader2 } from "lucide-react"
 
-export const metadata: Metadata = {
-  title: "Torneos",
+import TournamentView from "@/components/tournaments/TournamentView"
+
+interface TournamentPageProps {
+  params: { id: string }
+  searchParams: { name: string }
 }
 
-export default function TournamentPage() {
+export async function generateMetadata({ searchParams, params }: TournamentPageProps): Promise<Metadata> {
+  const name = searchParams.name
+  if (!name) {
+    return notFound()
+  }
+  return { title: name }
+}
+
+export default function TournamentPage({ params }: TournamentPageProps) {
   return (
-    <main className="flex w-full min-w-0 gap-5">
-      <div className="w-full min-w-0 space-y-5">
-        TournamentView
-      </div>
-    </main>
+    <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+      <TournamentView tournamentId={params.id} />
+    </Suspense>
   )
 }
