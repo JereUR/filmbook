@@ -6,7 +6,7 @@ import { ParticipantsData } from "@/lib/types"
 export async function GET(req: NextRequest) {
   try {
     const participants = await prisma.participant.findMany({
-      orderBy: { name: "desc" },
+      orderBy: { name: "asc" },
       select: {
         id: true,
         name: true,
