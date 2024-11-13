@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     const newParticipant = await prisma.participant.create({
       data: {
         name,
-        username: username || name.toLowerCase().replace(/\s+/g, "-"),
+        username: username || "",
         tournaments: tournamentsId
           ? {
               create: tournamentsId.map((tournamentId) => ({
