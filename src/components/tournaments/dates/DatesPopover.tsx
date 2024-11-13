@@ -1,3 +1,5 @@
+'use client'
+
 import { Dispatch, useState } from "react"
 import Image from "next/image"
 import { Check, ChevronsUpDown, Loader2 } from "lucide-react"
@@ -58,7 +60,7 @@ export default function DatesPopover({ dates, loading, status, input, setInput, 
         <PopoverContent className="w-[250px] p-2 z-[200] border border-primary/40">
           <Command className="max-h-[300px]">
             <CommandInput placeholder="Buscar fechas..." />
-            <CommandList className="scrollbar-thin overflow-auto">
+            <CommandList className="scrollbar-thin overflow-y-auto">
               {loading ? (
                 <CommandEmpty>Cargando Fechas...</CommandEmpty>
               ) : status === 'error' ? (
