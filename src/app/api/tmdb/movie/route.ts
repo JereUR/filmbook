@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma"
 import { fetchMovieFromTMDB } from "@/lib/tmdb"
 import { Movie } from "@/lib/types"
 
-const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original"
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500"
 
 export async function GET(req: NextRequest) {
   const movieId = req.nextUrl.searchParams.get("id") || ""

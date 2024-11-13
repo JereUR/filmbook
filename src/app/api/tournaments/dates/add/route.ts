@@ -12,7 +12,7 @@ interface RequestBody {
   extraPointsSolution: string | null
 }
 
-const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/original"
+const BASE_IMG_TMDB = "https://image.tmdb.org/t/p/w500"
 
 export async function POST(req: Request) {
   try {
@@ -116,7 +116,7 @@ export async function POST(req: Request) {
         movieId,
         visible,
         extraPoints,
-        extraPointsSolution
+        extraPointsSolution,
       },
     })
 
