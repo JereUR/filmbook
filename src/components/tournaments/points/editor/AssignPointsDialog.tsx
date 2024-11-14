@@ -164,7 +164,7 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
             <LoadingButton
               onClick={onSubmit}
               loading={loadingSubmit}
-              disabled={!participantId || !tournamentId || !dateId || points <= 0}
+              disabled={!participantId || !tournamentId || !dateId || points < 0}
               className="bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700"
             >
               Asignar
