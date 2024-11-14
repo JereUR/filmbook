@@ -49,6 +49,7 @@ export async function GET(
             select: {
               id: true,
               title: true,
+              posterPath: true,
             },
           },
           scores: {
@@ -63,6 +64,9 @@ export async function GET(
               extraPoints: true,
             },
           },
+          visible: true,
+          extraPoints: true,
+          extraPointsSolution: true,
         },
       },
     },
@@ -111,6 +115,7 @@ export async function GET(
     movie: {
       id: d.movie.id,
       title: d.movie.title,
+      posterPath: d.movie.posterPath,
     },
     scores: d.scores.map((s) => ({
       participantId: s.participant.id,
@@ -118,6 +123,9 @@ export async function GET(
       points: s.points,
       extraPoints: s.extraPoints || 0,
     })),
+    visible: d.visible,
+    extraPoints: d.extraPoints,
+    extraPointsSolution: d.extraPointsSolution,
   }))
 
   const tournamentData: Tournament = {

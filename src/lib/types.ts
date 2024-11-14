@@ -403,8 +403,12 @@ export interface TournamentDate {
   movie: {
     id: string
     title: string
+    posterPath: string | null
   }
   scores: ParticipantScore[]
+  visible: boolean
+  extraPoints: boolean
+  extraPointsSolution: string | null
 }
 
 export interface ParticipantScore {
