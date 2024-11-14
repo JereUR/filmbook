@@ -13,10 +13,16 @@ interface PageProps {
 
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const title = searchParams.title || 'Sin título'
-  const date = searchParams.date || ''
+  const date = searchParams.date || undefined
 
   if (!title) {
     return notFound()
+  }
+
+  if (!date) {
+    return {
+      title
+    }
   }
 
   return {
