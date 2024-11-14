@@ -25,15 +25,15 @@ function ReviewLoadingSkeleton() {
         <Skeleton className="h-40 w-28 rounded" />
         <Skeleton className="h-5 w-28 rounded" />
       </div>
-      <div className="space-y-1">
+      <div className="hidden md:block space-y-1">
         <Skeleton className="h-40 w-28 rounded" />
         <Skeleton className="h-5 w-28 rounded" />
       </div>
-      <div className="space-y-1">
+      <div className="hidden md:block space-y-1">
         <Skeleton className="h-40 w-28 rounded" />
         <Skeleton className="h-5 w-28 rounded" />
       </div>
-      <div className="space-y-1">
+      <div className="hidden md:block space-y-1">
         <Skeleton className="h-40 w-28 rounded" />
         <Skeleton className="h-5 w-28 rounded" />
       </div>
