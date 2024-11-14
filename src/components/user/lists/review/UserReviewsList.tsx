@@ -61,7 +61,7 @@ export default function UserReviewsList({ userId }: UserReviewsListProps) {
       className="space-y-5"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
-      <div className='flex flex-wrap justify-start gap-2 rounded-2xl bg-card p-5 shadow-sm'>
+      <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-2 rounded-2xl bg-card p-5 shadow-sm'>
         {reviews.map((review) => (
           <ReviewItem key={review.id} review={review} />
         ))}
