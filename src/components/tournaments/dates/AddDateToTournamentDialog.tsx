@@ -66,7 +66,7 @@ export default function AddDateToTournamentDialog({ tournamentId, openDialog, se
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ date, tournamentId, movieId: selectedMovieId, visible }),
+        body: JSON.stringify({ date, tournamentId, movieId: selectedMovieId, visible, extraPoints, extraPointsSolution }),
       })
       if (!response.ok) {
         const errorData = await response.json()
