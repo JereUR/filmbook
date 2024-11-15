@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
         participants: tournament.participants.length,
         startDate: tournament.startDate,
         endDate: tournament.endDate || undefined,
-        dates: tournament.dates.length,
+        dates: tournament.dates.filter((d) => d.visible).length,
         createdAt: tournament.createdAt,
         updatedAt: tournament.updatedAt,
       })),
