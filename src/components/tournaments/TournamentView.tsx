@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { Loader2, Info, Calendar, Users } from 'lucide-react'
+import { Loader2, Info, Calendar, Users, X } from 'lucide-react'
 
 import StandingsTable from "@/components/tournaments/StandingsTable"
 import { useToast } from "@/components/ui/use-toast"
@@ -11,6 +11,8 @@ import { getTournamentById } from "@/lib/tournaments"
 import DateItem from "./DateItem"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import Linkify from "../Linkify"
+import { Button } from "../ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 
 interface TournamentViewProps {
   tournamentId: string
@@ -19,6 +21,7 @@ interface TournamentViewProps {
 export default function TournamentView({ tournamentId }: TournamentViewProps) {
   const [tournament, setTournament] = useState<Tournament | null>(null)
   const [loadingTournament, setLoadingTournament] = useState<boolean>(true)
+  const [showDates, setShowDates] = useState<boolean>(false)
 
   const { toast } = useToast()
 
@@ -44,6 +47,18 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
     getTournament()
   }, [tournamentId, toast])
 
+  useEffect(() => {
+    if (showDates) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [showDates])
+
   if (loadingTournament) {
     return <Loader2 className="mx-auto my-3 animate-spin" />
   }
@@ -57,7 +72,7 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
   }
 
   return (
-    <main className="flex flex-col md:flex-row w-full min-w-0 gap-5">
+    <main className="flex flex-col mx-auto md:flex-row w-full min-w-0 gap-5">
       <div className="md:flex-grow md:w-3/4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-5">
@@ -83,7 +98,7 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
                   <div className="flex items-center">
                     <Calendar className="mr-2 h-5 w-5 text-muted-foreground" />
                     <span className="text-sm font-medium">
-                      {tournament.dates.length} fechas disputadas
+                      {tournament.dates.filter(d => d.visible).length} fechas disputadas
                     </span>
                   </div>
                 </div>
@@ -94,28 +109,53 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
         </div>
       </div>
       <div className="hidden md:block md:w-1/4 h-fit bg-card p-4 rounded-lg shadow-md">
-        <div className="mb-4">
-          <h2 className="text-2xl font-bold mb-2">Fechas disputadas</h2>
-          <div className="flex items-center text-sm text-muted-foreground/40">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Info className="mr-2 h-4 w-4" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className='flex gap-2'>Las fechas con <div className="mt-[6px] w-2 h-2 rounded-full bg-primary" /> tienen puntos extras disponibles.</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            Fechas con puntos extras
+        <DatesContent tournament={tournament} />
+      </div>
+      <Dialog open={showDates} onOpenChange={setShowDates}>
+        <DialogTrigger asChild>
+          <Button
+            className="md:hidden fixed bottom-20 right-4 rounded-full w-12 h-12 p-0 shadow-lg z-50"
+          >
+            <Calendar className="h-6 w-6" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px] h-[calc(100vh-8rem)] max-h-[600px] flex flex-col z-[250] rounded-2xl mx-auto">
+          <DialogHeader>
+            <DialogTitle>Fechas disputadas</DialogTitle>
+          </DialogHeader>
+          <div className="flex-grow overflow-y-auto">
+            <DatesContent tournament={tournament} />
           </div>
-        </div>
-        <div className="space-y-3">
-          {tournament.dates.map((d) => (
-            <DateItem key={d.id} dateData={d} />
-          ))}
+        </DialogContent>
+      </Dialog>
+    </main>
+  )
+}
+
+function DatesContent({ tournament }: { tournament: Tournament }) {
+  return (
+    <>
+      <div className="mb-4">
+        <h2 className="text-2xl font-bold mb-2">Fechas disputadas</h2>
+        <div className="flex items-center text-sm text-muted-foreground/40">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Info className="mr-2 h-4 w-4" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className='flex gap-2'>Las fechas con <div className="mt-[6px] w-2 h-2 rounded-full bg-primary" /> tienen puntos extras disponibles.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          Fechas con puntos extras
         </div>
       </div>
-    </main>
+      <div className="space-y-3">
+        {tournament.dates.map((d) => (
+          <DateItem key={d.id} dateData={d} />
+        ))}
+      </div>
+    </>
   )
 }
