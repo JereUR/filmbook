@@ -19,7 +19,7 @@ export async function GET(
       select: {
         dates: {
           orderBy: {
-            date: "asc",
+            date: "desc",
           },
           select: {
             id: true,
