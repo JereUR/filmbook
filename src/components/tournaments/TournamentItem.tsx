@@ -42,7 +42,6 @@ export default function TournamentItem({ tournament, admin }: TournamentItemProp
         </Link>
       </div>
       <p className='text-light text-xs md:text-sm italic text-muted-foreground/40'>Creado: {dateFormat(createdAt.toISOString())}</p>
-
     </div>
   )
 }
