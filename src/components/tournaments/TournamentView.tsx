@@ -119,7 +119,7 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
             <Calendar className="h-6 w-6" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] h-[calc(100vh-8rem)] max-h-[600px] flex flex-col z-[250] rounded-2xl mx-auto">
+        <DialogContent className="sm:max-w-[425px] h-[calc(100vh-8rem)] max-h-[600px] flex flex-col z-[201] rounded-2xl mx-auto">
           <DialogHeader>
             <DialogTitle>Fechas disputadas</DialogTitle>
           </DialogHeader>
