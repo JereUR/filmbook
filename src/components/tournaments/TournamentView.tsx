@@ -10,9 +10,8 @@ import { Tournament } from "@/lib/types"
 import { getTournamentById } from "@/lib/tournaments"
 import DateItem from "./DateItem"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Button } from "@/components/ui/button"
 import Linkify from "../Linkify"
-import { Button } from "../ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 
 interface TournamentViewProps {
   tournamentId: string
@@ -72,7 +71,7 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
   }
 
   return (
-    <main className="flex flex-col mx-auto md:flex-row w-full min-w-0 gap-5">
+    <main className="flex flex-col mx-auto md:flex-row w-full min-w-0 gap-5 relative">
       <div className="md:flex-grow md:w-3/4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-5">
@@ -98,7 +97,7 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
                   <div className="flex items-center">
                     <Calendar className="mr-2 h-5 w-5 text-muted-foreground" />
                     <span className="text-sm font-medium">
-                      {tournament.dates.filter(d => d.visible).length} fechas disputadas
+                      {tournament.dates.length} fechas disputadas
                     </span>
                   </div>
                 </div>
@@ -111,23 +110,20 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
       <div className="hidden md:block md:w-1/4 h-fit bg-card p-4 rounded-lg shadow-md">
         <DatesContent tournament={tournament} />
       </div>
-      <Dialog open={showDates} onOpenChange={setShowDates}>
-        <DialogTrigger asChild>
-          <Button
-            className="md:hidden fixed bottom-20 right-4 rounded-full w-12 h-12 p-0 shadow-lg z-50"
-          >
-            <Calendar className="h-6 w-6" />
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] h-[calc(100vh-8rem)] max-h-[600px] flex flex-col z-[201] rounded-2xl mx-auto">
-          <DialogHeader>
-            <DialogTitle>Fechas disputadas</DialogTitle>
-          </DialogHeader>
-          <div className="flex-grow overflow-y-auto">
-            <DatesContent tournament={tournament} />
-          </div>
-        </DialogContent>
-      </Dialog>
+      <Button
+        className="md:hidden fixed bottom-20 right-4 rounded-full w-12 h-12 p-0 shadow-lg z-[203]"
+        onClick={() => setShowDates(!showDates)}
+      >
+        {showDates ? <X className="h-6 w-6" /> : <Calendar className="h-6 w-6" />}
+      </Button>
+      <div
+        className={`fixed inset-y-0 h-screen right-0 w-full sm:w-80 bg-background shadow-lg z-[201] overflow-y-auto transition-transform duration-300 ease-in-out transform ${showDates ? 'translate-x-0' : 'translate-x-full'
+          } md:hidden`}
+      >
+        <div className="p-4">
+          <DatesContent tournament={tournament} />
+        </div>
+      </div>
     </main>
   )
 }
