@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-
 import prisma from "@/lib/prisma"
 import { validateRequest } from "@/auth"
 import { ReviewInfo } from "@/lib/types"
@@ -8,14 +7,18 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { userId: string } },
 ) {
-  /* const { user: loggedInUser } = await validateRequest()
-
-  if (!loggedInUser) {
-    return NextResponse.json({ error: "No autorizado." }, { status: 401 })
-  } */
-
   const cursor = req.nextUrl.searchParams.get("cursor") || undefined
+  const sortAttr = req.nextUrl.searchParams.get("sortAttr") || "createdAt"
+  const sortType = req.nextUrl.searchParams.get("sortType") || "desc"
   const pageSize = 20
+
+  let orderBy: any = {}
+
+  if (sortAttr === "releaseDate") {
+    orderBy = { movie: { releaseDate: sortType } }
+  } else {
+    orderBy = { [sortAttr]: sortType }
+  }
 
   const reviews = await prisma.review.findMany({
     where: {
@@ -45,7 +48,7 @@ export async function GET(
     },
     take: pageSize + 1,
     cursor: cursor ? { id: cursor } : undefined,
-    orderBy: { createdAt: "desc" },
+    orderBy: orderBy,
   })
 
   const nextCursor = reviews.length > pageSize ? reviews[pageSize].id : null
