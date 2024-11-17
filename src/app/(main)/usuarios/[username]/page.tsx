@@ -79,7 +79,7 @@ export default async function UserPage({
             <UserPosts userId={user.id} />
           </TabsContent>
           <TabsContent value="reviews">
-            <UserReviewsList userId={user.id} />
+            <UserReviewsList userId={user.id} username={username} />
           </TabsContent>
           <TabsContent value="diary">
             <UserDiariesList userId={user.id} />
