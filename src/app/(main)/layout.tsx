@@ -27,7 +27,7 @@ export default async function Layout({
           </div>
           {children}
         </div>
-        <MenuBar className="sticky bottom-0 flex w-full justify-center gap-3 border-t bg-card p-3 sm:hidden z-50" />
+        <MenuBar className="sticky bottom-0 flex w-full justify-center gap-1 border-t bg-card p-3 sm:hidden z-50" />
       </div>
     </SessionProvider>
   )
