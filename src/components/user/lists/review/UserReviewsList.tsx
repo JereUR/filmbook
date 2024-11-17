@@ -130,7 +130,7 @@ export default function UserReviewsList({ userId, username }: UserReviewsListPro
           </SelectGroup>
         </SelectContent>
       </Select>
-      <h1 className='-py-3 text-xl md:text-2xl text-primary italic font-semibold'>Reviews de {username}</h1>
+      <h1 className='mt-8 md:mt-0 md:-py-3 text-xl md:text-2xl text-primary italic font-semibold'>Reviews de {username}</h1>
       <InfiniteScrollContainer
         className="space-y-5"
         onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
