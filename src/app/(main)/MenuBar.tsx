@@ -1,4 +1,4 @@
-import { Bookmark, Home, Popcorn, Trophy } from "lucide-react"
+import { Bookmark, CircleHelp, Home, Popcorn, Trophy } from "lucide-react"
 import Link from "next/link"
 
 import { validateRequest } from "@/auth"
@@ -47,6 +47,16 @@ export default async function MenuBar({ className }: MenuBarProps) {
         <Link href="/torneos">
           <Trophy />{" "}
           <span className="hidden lg:inline">Torneos</span>
+        </Link>
+      </Button>
+      <Button
+        variant="ghost"
+        className="flex items-center justify-start gap-3"
+        title="Información de Filmbook"
+        asChild
+      >
+        <Link href="/informacion">
+          <CircleHelp /> <span className="hidden lg:inline">Información de Filmbook</span>
         </Link>
       </Button>
     </div>
@@ -108,6 +118,16 @@ export default async function MenuBar({ className }: MenuBarProps) {
       >
         <Link href="/marcadores">
           <Bookmark /> <span className="hidden lg:inline">Marcadores</span>
+        </Link>
+      </Button>
+      <Button
+        variant="ghost"
+        className="flex items-center justify-start gap-3"
+        title="Información de Filmbook"
+        asChild
+      >
+        <Link href="/informacion">
+          <CircleHelp /> <span className="hidden lg:inline">Información de Filmbook</span>
         </Link>
       </Button>
     </div>
