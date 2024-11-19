@@ -5,6 +5,7 @@ import Image from "next/image"
 import LoginForm from "./LoginForm"
 import loginImage from "@/assets/login-image.jpg"
 import GoogleSignInButton from "./google/GoogleSignInButton"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export const metadata: Metadata = {
   title: "Iniciar sesión",
@@ -14,32 +15,46 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <main className="flex h-screen items-center justify-center p-5">
-      <div className="flex h-full max-h-[40rem] w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl">
-        <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
-          <h1 className="text-center text-3xl font-bold">Iniciar Sesión</h1>
-          <div className="space-y-5">
+    <main className="flex min-h-screen items-center justify-center p-4 md:p-8">
+      <Card className="flex h-full w-full max-w-4xl overflow-hidden rounded-lg shadow-xl">
+        <CardContent className="flex flex-col justify-between w-full space-y-6 p-8 md:w-1/2">
+          <CardHeader className="p-0">
+            <CardTitle className="text-3xl font-bold text-center">Iniciar Sesión</CardTitle>
+          </CardHeader>
+          <div className="space-y-6">
             <GoogleSignInButton />
-            <div className="flex items-center gap-3">
-              <div className="h-px flex-1 bg-muted" />
-              <span className='text-primary'>ó</span>
-              <div className="h-px flex-1 bg-muted" />
+            <div className="flex items-center my-6">
+              <hr className="flex-grow border-t border-muted" />
+              <span className="px-3 text-sm text-muted-foreground">ó</span>
+              <hr className="flex-grow border-t border-muted" />
             </div>
             <LoginForm />
-            <Link
-              href="/registrarse"
-              className="block text-center text-primary hover:text-primary/70 hover:underline"
-            >
-              ¿No tienes una cuenta? Regístrate aquí.
-            </Link>
           </div>
+          <div className="space-y-4 text-sm">
+            <div className="flex justify-between items-center">
+              <Link
+                href="/registrarse"
+                className="text-primary hover:text-primary/70 hover:underline"
+              >
+                ¿No tienes una cuenta? Regístrate!
+              </Link>
+              <Link
+                href="/recuperar-contrasena"
+                className="text-primary hover:text-primary/70 hover:underline"
+              >
+                ¿Olvidaste tu contraseña?
+              </Link>
+            </div>
+          </div>
+        </CardContent>
+        <div className="hidden md:block md:w-1/2">
+          <Image
+            src={loginImage}
+            alt="Imagen inicio de sesión"
+            className="h-full w-full object-cover"
+          />
         </div>
-        <Image
-          src={loginImage}
-          alt="Imagen inicio de sesión"
-          className="hidden w-1/2 object-cover md:block"
-        />
-      </div>
+      </Card>
     </main>
   )
 }
