@@ -16,29 +16,30 @@ datasource db {
 }
 
 model User {
-  id                    String         @id @default(uuid())
-  username              String         @unique
+  id                    String          @id @default(uuid())
+  username              String          @unique
   displayName           String
   admin                 Boolean
-  email                 String?        @unique
+  email                 String?         @unique
   passwordHash          String?
-  googleID              String?        @unique
+  googleID              String?         @unique
   avatarUrl             String?
   bio                   String?
   sessions              Session[]
   posts                 Post[]
-  following             Follow[]       @relation("Following")
-  followers             Follow[]       @relation("Followers")
+  following             Follow[]        @relation("Following")
+  followers             Follow[]        @relation("Followers")
   likes                 Like[]
   bookmarks             Bookmark[]
   comments              Comment[]
-  recievedNotifications Notification[] @relation("Recipient")
-  issuedNotifications   Notification[] @relation("Issuer")
+  recievedNotifications Notification[]  @relation("Recipient")
+  issuedNotifications   Notification[]  @relation("Issuer")
   reviews               Review[]
   watchlist             Watchlist[]
   diary                 Diary[]
+  favoriteMovies        FavoriteMovie[]
   resetTokens           ResetToken[]
-  createdAt             DateTime       @default(now())
+  createdAt             DateTime        @default(now())
 
   @@map("users")
 }
@@ -205,6 +206,7 @@ model Movie {
   watchlist       Watchlist[]
   diary           Diary[]
   tournamentMovie TournamentDate[]
+  favoriteUsers   FavoriteMovie[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -333,4 +335,16 @@ model ParticipantScore {
 
   @@unique([participantId, tournamentDateId])
   @@map("participant_score")
+}
+
+model FavoriteMovie {
+  id        String   @id @default(cuid())
+  userId    String
+  movieId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, movieId])
+  @@map("favorite_movies")
 }
