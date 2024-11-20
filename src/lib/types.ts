@@ -10,6 +10,7 @@ export function getUserDataSelect(loggedInUserId: string) {
     displayName: true,
     avatarUrl: true,
     bio: true,
+    favoriteMovies: true,
     createdAt: true,
     followers: {
       where: {
@@ -538,4 +539,9 @@ export interface DateForTournamentData {
   visible: boolean
   extraPoints: boolean
   extraPointsSolution: string | null
+}
+
+export interface FavoriteMoviesPage {
+  favoriteMovies: Movie[]
+  nextCursor: string | null
 }
