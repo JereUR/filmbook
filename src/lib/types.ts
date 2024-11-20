@@ -1,7 +1,6 @@
 import { StaticImageData } from "next/image"
 
 import { Prisma } from "@prisma/client"
-import { StringDecoder } from "string_decoder"
 
 export function getUserDataSelect(loggedInUserId: string) {
   return {
