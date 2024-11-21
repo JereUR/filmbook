@@ -9,7 +9,19 @@ export function getUserDataSelect(loggedInUserId: string) {
     displayName: true,
     avatarUrl: true,
     bio: true,
-    favoriteMovies: true,
+    favoriteMovies: {
+      select: {
+        id: true,
+        movieId: true,
+        movie: {
+          select: {
+            title: true,
+            releaseDate: true,
+            posterPath: true,
+          },
+        },
+      },
+    },
     createdAt: true,
     followers: {
       where: {
@@ -540,7 +552,12 @@ export interface DateForTournamentData {
   extraPointsSolution: string | null
 }
 
-export interface FavoriteMoviesPage {
-  favoriteMovies: Movie[]
-  nextCursor: string | null
+export interface FavoriteMovie {
+  id: string
+  movieId: string
+  movie: {
+    title: string
+    posterPath: string | null
+    releaseDate: Date | null
+  }
 }
