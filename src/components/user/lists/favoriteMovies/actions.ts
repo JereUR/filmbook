@@ -1,13 +1,17 @@
+"use server"
+
 import prisma from "@/lib/prisma"
 import { validateRequest } from "@/auth"
 import { getMovieById } from "@/lib/tmdb"
-import { Movie } from "@/lib/types"
+import { FavoriteMovie } from "@/lib/types"
 
-export async function addFavoriteMovie(movieId: string): Promise<Movie> {
+export async function addFavoriteMovie(
+  movieId: string,
+): Promise<FavoriteMovie> {
   const { user } = await validateRequest()
   if (!user) throw new Error("No autorizado.")
 
-  if (!movieId || typeof movieId !== "string") {
+  if (!movieId) {
     throw new Error("ID de película inválido.")
   }
 
@@ -35,9 +39,12 @@ export async function addFavoriteMovie(movieId: string): Promise<Movie> {
       userId: user.id,
       movieId,
     },
+    include: {
+      movie: true,
+    },
   })
 
-  return movie
+  return favorite
 }
 
 export async function removeFavoriteMovie(
@@ -46,7 +53,7 @@ export async function removeFavoriteMovie(
   const { user } = await validateRequest()
   if (!user) throw new Error("No autorizado.")
 
-  if (!movieId || typeof movieId !== "string") {
+  if (!movieId) {
     throw new Error("ID de película inválido.")
   }
 

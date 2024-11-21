@@ -1,13 +1,12 @@
 import {
-  InfiniteData,
-  QueryFilters,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
+
 import { useSession } from "@/app/(main)/SessionProvider"
 import { useToast } from "@/components/ui/use-toast"
 import { addFavoriteMovie, removeFavoriteMovie } from "./actions"
-import { FavoriteMoviesPage, Movie } from "@/lib/types"
+import { FavoriteMovie} from "@/lib/types"
 
 export function useAddFavoriteMovieMutation() {
   const { toast } = useToast()
@@ -17,30 +16,14 @@ export function useAddFavoriteMovieMutation() {
 
   const mutation = useMutation({
     mutationFn: addFavoriteMovie,
-    onSuccess: async (favoriteMovie: Movie) => {
-      const queryFilter: QueryFilters = {
-        queryKey: ["favoriteMovies", user ? user.id : null],
-      }
-
-      await queryClient.cancelQueries(queryFilter)
-
-      queryClient.setQueriesData<
-        InfiniteData<FavoriteMoviesPage, string | null>
-      >(queryFilter, (oldData) => {
-        if (!oldData) return
-
-        return {
-          pageParams: oldData.pageParams,
-          pages: oldData.pages.map((page) => ({
-            nextCursor: page.nextCursor,
-            favoriteMovies: [...page.favoriteMovies, favoriteMovie],
-          })),
-        }
-      })
-
-      toast({
-        description: "Película añadida a tus favoritos.",
-      })
+    onSuccess: (newFavoriteMovie) => {
+      queryClient.setQueryData(
+        ["favoriteMovies", user?.id],
+        (oldFavorites: FavoriteMovie[] = []) => [
+          ...oldFavorites,
+          newFavoriteMovie,
+        ],
+      )
     },
     onError: () => {
       toast({
@@ -61,29 +44,13 @@ export function useRemoveFavoriteMovieMutation() {
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
-    mutationFn: removeFavoriteMovie, // El tipo ahora es { movieId: string }
-    onSuccess: async (data: { movieId: string }) => {
-      const queryFilter: QueryFilters = {
-        queryKey: ["favoriteMovies", user ? user.id : null],
-      }
-
-      await queryClient.cancelQueries(queryFilter)
-
-      queryClient.setQueriesData<
-        InfiniteData<FavoriteMoviesPage, string | null>
-      >(queryFilter, (oldData) => {
-        if (!oldData) return
-
-        return {
-          pageParams: oldData.pageParams,
-          pages: oldData.pages.map((page) => ({
-            nextCursor: page.nextCursor,
-            favoriteMovies: page.favoriteMovies.filter(
-              (movie: Movie) => movie.id !== data.movieId,
-            ),
-          })),
-        }
-      })
+    mutationFn: removeFavoriteMovie,
+    onSuccess: ({ movieId }) => {
+      queryClient.setQueryData(
+        ["favoriteMovies", user ? user.id : null],
+        (oldFavorites: any) =>
+          oldFavorites?.filter((favorite: any) => favorite.movieId !== movieId),
+      )
 
       toast({
         description: "Película eliminada de tus favoritos.",
