@@ -47,6 +47,7 @@ const headers = {
 export async function getMovieById(id: string): Promise<Movie | null> {
   try {
     const response = await fetch(`/api/tmdb/movie?id=${id}`)
+
     if (!response.ok) {
       throw new Error("Error al obtener los datos de la película")
     }
