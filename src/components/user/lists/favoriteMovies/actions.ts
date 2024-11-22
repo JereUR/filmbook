@@ -28,12 +28,6 @@ export async function addFavoriteMovie(
     throw new Error("La película ya está en tus favoritos.")
   }
 
-  const movie = await getMovieById(movieId)
-
-  if (!movie) {
-    throw new Error("No se pudo obtener la información de la película.")
-  }
-
   const favorite = await prisma.favoriteMovie.create({
     data: {
       userId: user.id,
