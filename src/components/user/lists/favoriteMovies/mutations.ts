@@ -1,34 +1,37 @@
-import {
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query"
-
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useSession } from "@/app/(main)/SessionProvider"
 import { useToast } from "@/components/ui/use-toast"
 import { addFavoriteMovie, removeFavoriteMovie } from "./actions"
-import { FavoriteMovie} from "@/lib/types"
+import { FavoriteMovie } from "@/lib/types"
 
 export function useAddFavoriteMovieMutation() {
   const { toast } = useToast()
   const { user } = useSession()
-
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
     mutationFn: addFavoriteMovie,
     onSuccess: (newFavoriteMovie) => {
-      queryClient.setQueryData(
+      queryClient.setQueryData<FavoriteMovie[]>(
         ["favoriteMovies", user?.id],
-        (oldFavorites: FavoriteMovie[] = []) => [
-          ...oldFavorites,
-          newFavoriteMovie,
-        ],
+        (oldFavorites = []) => [...oldFavorites, newFavoriteMovie],
       )
+
+      if (user?.id) {
+        queryClient.invalidateQueries({
+          queryKey: ["favoriteMovies", user.id],
+        })
+      }
+
+      toast({
+        description: "Película añadida a tus favoritos.",
+      })
     },
-    onError: () => {
+    onError: (error: Error) => {
       toast({
         variant: "destructive",
         description:
+          error.message ||
           "Error al añadir la película a tus favoritos. Por favor vuelve a intentarlo.",
       })
     },
@@ -40,18 +43,21 @@ export function useAddFavoriteMovieMutation() {
 export function useRemoveFavoriteMovieMutation() {
   const { toast } = useToast()
   const { user } = useSession()
-
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
     mutationFn: removeFavoriteMovie,
     onSuccess: ({ movieId }) => {
-      queryClient.setQueryData(
-        ["favoriteMovies", user ? user.id : null],
-        (oldFavorites: any) =>
-          oldFavorites?.filter((favorite: any) => favorite.movieId !== movieId),
+      queryClient.setQueryData<FavoriteMovie[]>(
+        ["favoriteMovies", user?.id],
+        (oldFavorites = []) =>
+          oldFavorites.filter((favorite) => favorite.movieId !== movieId),
       )
-
+      if (user?.id) {
+        queryClient.invalidateQueries({
+          queryKey: ["favoriteMovies", user.id],
+        })
+      }
       toast({
         description: "Película eliminada de tus favoritos.",
       })
