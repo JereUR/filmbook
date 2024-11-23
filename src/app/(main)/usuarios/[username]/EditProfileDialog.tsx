@@ -1,3 +1,5 @@
+'use client'
+
 import Image, { StaticImageData } from "next/image"
 import { useRef, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -32,6 +34,7 @@ import LoadingButton from "@/components/LoadingButton"
 import { Label } from "@/components/ui/label"
 import avatarPlaceholder from "@/assets/avatar-placeholder.png"
 import CropImageDialog from "@/components/CropImageDialog"
+import FavoriteMoviesForm from "@/components/user/lists/favoriteMovies/FavoriteMoviesForm"
 
 interface EditProfileDialogProps {
   user: UserData
@@ -77,7 +80,7 @@ export default function EditProfileDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className='z-[149] max-h-[600px] overflow-y-auto scrollbar-thin'>
         <DialogHeader>
           <DialogTitle>Editar perfil</DialogTitle>
         </DialogHeader>
@@ -132,6 +135,7 @@ export default function EditProfileDialog({
             </DialogFooter>
           </form>
         </Form>
+        <FavoriteMoviesForm initialData={user.favoriteMovies} username={user.username}/>
       </DialogContent>
     </Dialog>
   )
