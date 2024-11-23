@@ -13,13 +13,13 @@ export function useAddFavoriteMovieMutation() {
     mutationFn: addFavoriteMovie,
     onSuccess: (newFavoriteMovie) => {
       queryClient.setQueryData<FavoriteMovie[]>(
-        ["favoriteMovies", user?.id],
+        ["favorite-movies", user?.username],
         (oldFavorites = []) => [...oldFavorites, newFavoriteMovie],
       )
 
       if (user?.id) {
         queryClient.invalidateQueries({
-          queryKey: ["favoriteMovies", user.id],
+          queryKey: ["favorite-movies", user.username],
         })
       }
 
@@ -49,13 +49,13 @@ export function useRemoveFavoriteMovieMutation() {
     mutationFn: removeFavoriteMovie,
     onSuccess: ({ movieId }) => {
       queryClient.setQueryData<FavoriteMovie[]>(
-        ["favoriteMovies", user?.id],
+        ["favorite-movies", user?.username],
         (oldFavorites = []) =>
           oldFavorites.filter((favorite) => favorite.movieId !== movieId),
       )
-      if (user?.id) {
+      if (user) {
         queryClient.invalidateQueries({
-          queryKey: ["favoriteMovies", user.id],
+          queryKey: ["favorite-movies", user.username],
         })
       }
       toast({
