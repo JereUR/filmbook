@@ -17,6 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import UserReviewsList from "@/components/user/lists/review/UserReviewsList"
 import UserDiariesList from "@/components/user/lists/diary/UserDiariesList"
 import UnauthorizedMessage from "@/components/UnauthorizedMessage"
+import FavoriteMovies from "@/components/user/lists/favoriteMovies/FavoriteMovies"
 
 interface UserPageProps {
   params: { username: string }
@@ -139,12 +140,13 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
         <div>
           <hr />
           <Linkify>
-            <div className="overflow-hidden whitespace-pre-line break-words mt-2">
+            <div className="overflow-hidden whitespace-pre-line break-words my-2">
               {user.bio}
             </div>
           </Linkify>
         </div>
       )}
+      <FavoriteMovies initialData={user.favoriteMovies} username={user.username} />
     </div>
   )
 }
