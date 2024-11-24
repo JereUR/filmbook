@@ -4,17 +4,18 @@ import { useState } from 'react'
 import { X, Plus, Loader2 } from 'lucide-react'
 import Image from "next/image"
 import { useQuery } from '@tanstack/react-query'
+import { useQueryClient } from "@tanstack/react-query"
 
 import { FavoriteMovie, SearchMovie } from "@/lib/types"
 import { useAddFavoriteMovieMutation, useRemoveFavoriteMovieMutation } from "./mutations"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
 import noImagePath from '@/assets/no-image-film.jpg'
 import DiarySearch from '@/components/diary/DiarySearch'
 import LoadingButton from '@/components/LoadingButton'
 import { useToast } from '@/components/ui/use-toast'
 import { getMovieById } from '@/lib/tmdb'
 import kyInstance from '@/lib/ky'
+import SearchMovieForDate from '@/components/tournaments/dates/SearchMovieForDate'
 
 interface FavoriteMoviesFormProps {
   initialData: FavoriteMovie[]
@@ -26,10 +27,11 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null)
   const [searchMovies, setSearchMovies] = useState<SearchMovie[]>([])
-  const [movieToAdd, setMovieToAdd] = useState<SearchMovie | null>(null)
+  const [movieToAdd, setMovieToAdd] = useState<string | null>(null)
   const [isLoadingMovie, setIsLoadingMovie] = useState<boolean>(false)
 
   const { toast } = useToast()
+  const queryClient = useQueryClient()
 
   const { data: favoriteMovies, isLoading, isError, error } = useQuery({
     queryKey: ['favorite-movies', username],
@@ -39,8 +41,9 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
   })
 
   const handleSlotClick = (index: number) => {
-    if (favoriteMovies[index]) {
-      deleteMutate(favoriteMovies[index].movieId)
+    const favoriteMovie = favoriteMovies.find(m => m.position === index)
+    if (favoriteMovie) {
+      deleteMutate(favoriteMovie.movieId)
     } else {
       setSelectedSlot(index)
       setIsDialogOpen(true)
@@ -52,15 +55,17 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
       setIsLoadingMovie(true)
       if (movieToAdd) {
         try {
-          const data = await getMovieById(movieToAdd.id)
+          const data = await getMovieById(movieToAdd)
 
           if (data) {
-            addMutate(data.id, {
-              onSuccess: () => {
+            addMutate({ movieId: data.id, position: selectedSlot }, {
+              onSuccess: async () => {
+                await queryClient.invalidateQueries({ queryKey: ['favorite-movies', username] })
+
                 setMovieToAdd(null)
                 setIsDialogOpen(false)
-                setSearchMovies([])
                 setSelectedSlot(null)
+
                 toast({
                   description: "Película añadida correctamente a tus favoritos.",
                 })
@@ -84,7 +89,7 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
         }
       }
     }
-  };
+  }
 
   return (
     <div className="p-4">
@@ -96,11 +101,11 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
             className="aspect-[2/3] relative bg-muted-foreground/40 rounded-lg overflow-hidden cursor-pointer"
             onClick={() => handleSlotClick(index)}
           >
-            {favoriteMovies[index] ? (
+            {favoriteMovies.find(m => m.position === index) ? (
               <>
                 <Image
-                  src={favoriteMovies[index].movie.posterPath ? favoriteMovies[index].movie.posterPath : noImagePath}
-                  alt={favoriteMovies[index].movie.title}
+                  src={favoriteMovies.find(m => m.position === index)?.movie.posterPath || noImagePath}
+                  alt={favoriteMovies.find(m => m.position === index)?.movie.title || 'Vacio'}
                   layout="fill"
                   objectFit="cover"
                 />
@@ -110,7 +115,7 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
                   onClick={(e) => {
                     e.stopPropagation()
                     setIsLoadingMovie(true)
-                    deleteMutate(favoriteMovies[index].movieId)
+                    deleteMutate(favoriteMovies.find(m => m.position === index)?.movieId || '')
                     setIsLoadingMovie(false)
                   }}
                 >
@@ -125,15 +130,9 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
           </div>
         ))}
       </div>
-
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="z-[150] max-w-[1200px] max-h-[600px] overflow-y-auto scrollbar-thin flex justify-between">
-          <DiarySearch
-            changeState={() => null}
-            movies={searchMovies}
-            setMovies={setSearchMovies}
-            setMovieToAdd={setMovieToAdd}
-          />
+        <DialogContent className="z-[150] max-w-[1200px] max-h-[600px] overflow-y-auto scrollbar-thin flex justify-between gap-8">
+          <SearchMovieForDate selectedMovieId={movieToAdd} setSelectedMovieId={setMovieToAdd} />
           <LoadingButton loading={isLoadingMovie} disabled={!movieToAdd} onClick={handleAddMovie}>Agregar a favorita</LoadingButton>
         </DialogContent>
       </Dialog>
