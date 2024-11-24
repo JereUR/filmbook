@@ -20,7 +20,7 @@ export default function DiarySearchMovieItem({ movie, setMovieToAdd, changeState
   }
 
   return (
-    <div className="flex h-full cursor-pointer items-start  overflow-hidden rounded-2xl border p-2 shadow-lg hover:bg-card/70 transition-colors duration-300 ease-in-out" onClick={handleClick}>
+    <div className="flex h-full cursor-pointer items-start overflow-hidden rounded-2xl border p-2 shadow-lg hover:bg-card/70 transition-colors duration-300 ease-in-out" onClick={handleClick}>
       <div className="relative h-20 w-12">
         <Image
           src={
