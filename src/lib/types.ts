@@ -13,6 +13,7 @@ export function getUserDataSelect(loggedInUserId: string) {
       select: {
         id: true,
         movieId: true,
+        position: true,
         movie: {
           select: {
             title: true,
@@ -555,6 +556,7 @@ export interface DateForTournamentData {
 export interface FavoriteMovie {
   id: string
   movieId: string
+  position: number | null
   movie: {
     title: string
     posterPath: string | null
