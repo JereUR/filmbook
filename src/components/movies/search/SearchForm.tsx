@@ -21,12 +21,12 @@ export default function SearchForm({
     if (e.key === "Enter") {
       e.preventDefault()
       searchMovies()
-    }
+    } 
   }
 
   return (
     <div className={`mb-8 flex items-center space-x-0 ${className ? className : 'justify-center'}`}>
-      <div className="relative max-w-md flex-grow">
+      <div className="relative flex-grow">
         <Input
           type="text"
           value={searchTerm}
