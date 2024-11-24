@@ -38,6 +38,7 @@ export async function GET(
       (fav) => ({
         id: fav.id,
         movieId: fav.movieId,
+        position: fav.position,
         movie: {
           title: fav.movie.title,
           posterPath: fav.movie.posterPath,
