@@ -10,7 +10,13 @@ export function useAddFavoriteMovieMutation() {
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
-    mutationFn: addFavoriteMovie,
+    mutationFn: ({
+      movieId,
+      position,
+    }: {
+      movieId: string
+      position: number
+    }) => addFavoriteMovie(movieId, position),
     onSuccess: (newFavoriteMovie) => {
       queryClient.setQueryData<FavoriteMovie[]>(
         ["favorite-movies", user?.username],

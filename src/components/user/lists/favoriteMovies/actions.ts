@@ -2,11 +2,11 @@
 
 import prisma from "@/lib/prisma"
 import { validateRequest } from "@/auth"
-import { getMovieById } from "@/lib/tmdb"
 import { FavoriteMovie } from "@/lib/types"
 
 export async function addFavoriteMovie(
   movieId: string,
+  position: number,
 ): Promise<FavoriteMovie> {
   const { user } = await validateRequest()
   if (!user) throw new Error("No autorizado.")
@@ -32,6 +32,7 @@ export async function addFavoriteMovie(
     data: {
       userId: user.id,
       movieId,
+      position, // Guardar la posición
     },
     include: {
       movie: true,
