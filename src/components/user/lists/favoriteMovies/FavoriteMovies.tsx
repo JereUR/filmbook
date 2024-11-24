@@ -21,14 +21,20 @@ export default function FavoriteMovies({ initialData, username }: FavoriteMovies
   })
 
   if (isLoading) return <p>Cargando películas favoritas...</p>
-  if (isError) return <p>Error al cargar películas favoritas: {error?.message}</p>
+  if (isError) return <p>Error al cargar películas favoritas: {error instanceof Error ? error.message : 'Unknown error'}</p>
   if (favoriteMovies.length === 0) return null
+
+  const sortedFavoriteMovies = [...favoriteMovies].sort((a, b) => {
+    const posA = a.position ?? Infinity
+    const posB = b.position ?? Infinity
+    return posA - posB
+  })
 
   return (
     <div className="bg-card rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
       <h2 className="md:text-xl font-bold mb-4 text-primary/70">Películas favoritas</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 px-6">
-        {favoriteMovies.map((movie) => (
+        {sortedFavoriteMovies.map((movie) => (
           <Link
             key={movie.id}
             href={`/pelicula/${movie.movieId}?title=${encodeURIComponent(movie.movie.title)}&date=${movie.movie.releaseDate ? new Date(movie.movie.releaseDate).getFullYear() : ''
@@ -59,3 +65,4 @@ export default function FavoriteMovies({ initialData, username }: FavoriteMovies
     </div>
   )
 }
+
