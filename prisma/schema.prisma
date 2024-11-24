@@ -341,6 +341,7 @@ model FavoriteMovie {
   id        String   @id @default(cuid())
   userId    String
   movieId   String
+  position  Int?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
