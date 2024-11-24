@@ -103,6 +103,7 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
         description: "Fecha del torneo editada.",
       })
 
+      await queryClient.invalidateQueries({ queryKey: ["tournaments"] })
       await queryClient.invalidateQueries({ queryKey: ["dates", tournamentId] })
 
       setOpenDialog(false)
