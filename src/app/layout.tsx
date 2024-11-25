@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Roboto } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import { ThemeProvider } from "next-themes"
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { extractRouterConfig } from "uploadthing/server"
@@ -9,8 +9,8 @@ import { Toaster } from "@/components/ui/toaster"
 import ReactQueryProvider from "./ReactQueryProvider"
 import { fileRouter } from "./api/uploadthing/core"
 
-const roboto = Roboto({
-  weight: ['100', '300', '400', '500', '700', '900'],
+const nunito = Nunito({
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
@@ -51,7 +51,7 @@ export default function RootLayout({
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={roboto.className}>
+      <body className={nunito.className}>
         <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
         <ReactQueryProvider>
           <ThemeProvider
