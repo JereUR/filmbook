@@ -82,7 +82,7 @@ export default function DiaryForm({ movie, changeState, handleOpenChange }: Movi
       className="absolute group -top-10 flex gap-1 items-center p-2 bg-card border border-muted text-xs md:text-sm text-foreground/40 rounded-2xl"
       onClick={changeState}
     >
-      <ChevronLeft className="w-5 h-5 group-hover:scale-[1.3] transition-transform duration-500 ease-in-out" />
+      <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-[1.3] transition-transform duration-500 ease-in-out" />
       <span className="text-sm md:text-base">
         Volver
       </span>
@@ -93,7 +93,7 @@ export default function DiaryForm({ movie, changeState, handleOpenChange }: Movi
           <h1 className="text-lg md:text-xl font-semibold">{title} ({getYear(release_date)})</h1>
           <span className='text-sm md:text-base text-foreground/40'>Día: {formatArgDate(new Date().toISOString())} (USA)</span>
         </div>
-        <div className="relative h-28 w-16">
+        <div className="relative h-20 w-12 md:h-32 md:w-20">
           <Image
             src={
               poster_path
