@@ -92,9 +92,9 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
   }
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Películas Favoritas</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div className="py-4">
+      <h2 className="text-xl md:text-2xl font-bold mb-4">Mi Filmoteca</h2>
+      <div className="grid grid-cols-4 gap-4">
         {[0, 1, 2, 3].map((index) => (
           <div
             key={index}

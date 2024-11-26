@@ -32,8 +32,8 @@ export default function FavoriteMovies({ initialData, username }: FavoriteMovies
 
   return (
     <div className="bg-card rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
-      <h2 className="md:text-xl font-bold mb-4 text-primary/70">Películas favoritas</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 px-6">
+      <h2 className="text-xl md:text-2xl font-bold mb-4 text-primary/70">Mi Filmoteca</h2>
+      <div className="grid grid-cols-4 gap-2 sm:gap-4">
         {sortedFavoriteMovies.map((movie) => (
           <Link
             key={movie.id}
@@ -50,10 +50,10 @@ export default function FavoriteMovies({ initialData, username }: FavoriteMovies
                 className="transition-all duration-300 group-hover:brightness-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-3 text-foreground/70 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <p className="text-sm font-bold line-clamp-2 ">{movie.movie.title}</p>
+              <div className="absolute bottom-0 left-0 right-0 p-1 sm:p-3 text-foreground/70 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-xs sm:text-sm font-bold line-clamp-2">{movie.movie.title}</p>
                 {movie.movie.releaseDate && (
-                  <p className="text-xs mt-1 opacity-80">
+                  <p className="text-xs mt-1 opacity-80 hidden sm:block">
                     {new Date(movie.movie.releaseDate).getFullYear()}
                   </p>
                 )}
