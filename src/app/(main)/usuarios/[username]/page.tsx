@@ -140,10 +140,11 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
         <div>
           <hr />
           <Linkify>
-            <div className="overflow-hidden whitespace-pre-line break-words my-2">
+            <div className="overflow-hidden whitespace-pre-line break-words text-muted-foreground my-4">
               {user.bio}
             </div>
           </Linkify>
+          <hr />
         </div>
       )}
       <FavoriteMovies initialData={user.favoriteMovies} username={user.username} />
