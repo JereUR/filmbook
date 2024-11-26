@@ -100,6 +100,17 @@ export default async function MenuBar({ className }: MenuBarProps) {
           <span className="hidden lg:inline">Explorar películas</span>
         </Link>
       </Button>
+      <Button
+        variant="ghost"
+        className={defaultClassName}
+        title="Explorar películas"
+        asChild
+      >
+        <Link href="/torneos">
+          <Trophy />{" "}
+          <span className="hidden lg:inline">Torneos</span>
+        </Link>
+      </Button>
       <NotificationsButton
         initialState={{ unreadCount: unreadNotificationCount }}
       />
@@ -111,8 +122,7 @@ export default async function MenuBar({ className }: MenuBarProps) {
         asChild
       >
         <Link href="/marcadores">
-          <Bookmark />
-          <span className="hidden lg:inline">Marcadores</span>
+          <Bookmark /> <span className="hidden lg:inline">Marcadores</span>
         </Link>
       </Button>
       <Button
@@ -122,8 +132,7 @@ export default async function MenuBar({ className }: MenuBarProps) {
         asChild
       >
         <Link href="/informacion">
-          <CircleHelp />
-          <span className="hidden lg:inline">Información de Filmbook</span>
+          <CircleHelp /> <span className="hidden lg:inline">Información de Filmbook</span>
         </Link>
       </Button>
     </div>
