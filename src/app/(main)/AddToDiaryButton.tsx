@@ -37,9 +37,9 @@ export default function AddToDiaryButton() {
       <CalendarPlus className="size-5" /> Agregar a bitácora
     </Button>
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="z-[150] max-w-[1200px] max-h-[600px] overflow-y-auto scrollbar-thin">
+      <DialogContent className="z-[150] max-w-[400px] md:max-w-[1200px] max-h-[600px] overflow-y-auto scrollbar-thin rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="text-center">AGREGAR A BITÁCORA</DialogTitle>
+          <DialogTitle className="text-sm md:text-base text-center">AGREGAR A BITÁCORA</DialogTitle>
         </DialogHeader>
         {!onForm ?
           <DiarySearch changeState={() => setOnForm(true)} setMovieToAdd={setMovieToAdd} movies={movies} setMovies={setMovies} />
