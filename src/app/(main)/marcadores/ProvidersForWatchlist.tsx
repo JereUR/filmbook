@@ -91,6 +91,7 @@ export default function ProvidersForWatchlist({ providersList, onClose }: Provid
                     height={15}
                     alt={`${selectedCountry.name} flag`}
                     className="mr-2"
+                    unoptimized
                   />
                   {selectedCountry.name}
                 </div>
@@ -124,6 +125,7 @@ export default function ProvidersForWatchlist({ providersList, onClose }: Provid
                             height={20}
                             alt={`${country.name} flag`}
                             className="mr-2"
+                            unoptimized
                           />
                           {country.name}
                           {selectedCountry?.code === country.code && (

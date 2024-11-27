@@ -97,6 +97,7 @@ export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
                     height={15}
                     alt={`${selectedCountry.name} flag`}
                     className="mr-2"
+                    unoptimized
                   />
                   {selectedCountry.name}
                 </div>
@@ -130,6 +131,7 @@ export default function ProvidersInfo({ providersList }: ProvidersInfoProps) {
                             height={20}
                             alt={`${country.name} flag`}
                             className="mr-2"
+                            unoptimized
                           />
                           {country.name}
                           {selectedCountry?.code === country.code && (

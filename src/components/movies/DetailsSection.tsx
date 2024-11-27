@@ -71,6 +71,7 @@ export default function DetailsSection({
                   width={20}
                   height={20}
                   alt={`${country.name} flag`}
+                  unoptimized
                 />
                 {translateCountryToSpanish(country.name)}.
               </li>
@@ -94,6 +95,7 @@ export default function DetailsSection({
                   alt={`${company.name} logo`}
                   title={company.name}
                   className="rounded-2xl bg-primary/40 p-2"
+                  unoptimized
                 />
                 {company.name}
               </li>

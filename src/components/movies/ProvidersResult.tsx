@@ -55,6 +55,7 @@ function Providers({ providers, noDataText }: ProvidersProps) {
                   width={35}
                   height={35}
                   className="rounded-full"
+                  unoptimized
                 />
                 <span className='font-semibold'>{provider.provider_name}</span>
               </li>
