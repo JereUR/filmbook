@@ -65,18 +65,18 @@ export default function ReviewEditorSection({
 
     if (rating >= iconIndex) {
       return (
-        <Popcorn className="icon-thick h-10 w-10 cursor-pointer text-primary" />
+        <Popcorn className="icon-thick h-6 w-6 md:h-10 md:w-10 cursor-pointer text-primary" />
       )
     } else if (rating === iconIndex - 0.5 && halfRating) {
       return (
-        <div className="relative h-10 w-10 cursor-pointer overflow-hidden">
-          <Popcorn className="clip-half-left icon-thick absolute inset-0 h-10 w-10 text-primary" />
-          <Popcorn className="clip-half-right icon-thick absolute inset-0 h-10 w-10 text-muted-foreground/70" />
+        <div className="relative h-6 w-6 md:h-10 md:w-10 cursor-pointer overflow-hidden">
+          <Popcorn className="clip-half-left icon-thick absolute inset-0 h-6 w-6 md:h-10 md:w-10 text-primary" />
+          <Popcorn className="clip-half-right icon-thick absolute inset-0 h-6 w-6 md:h-10 md:w-10 text-muted-foreground/70" />
         </div>
       )
     } else {
       return (
-        <Popcorn className="icon-thick h-10 w-10 cursor-pointer text-muted-foreground/70" />
+        <Popcorn className="icon-thick h-6 w-6 md:h-10 md:w-10 cursor-pointer text-muted-foreground/70" />
       )
     }
   }
@@ -117,7 +117,7 @@ export default function ReviewEditorSection({
         </div>
         <div className='flex flex-col gap-2 items-center'>
           <Heart className={cn(
-            "icon-fine h-10 w-10 cursor-pointer",
+            "icon-fine h-6 w-6 md:h-10 md:w-10 cursor-pointer",
             likedState
               ? "fill-red-500 dark:fill-red-600 text-red-500 dark:text-red-600"
               : "text-muted-foreground",
@@ -133,7 +133,7 @@ export default function ReviewEditorSection({
           onChange={(e) => {
             setReview(e.target.value)
           }}
-          className="text-sm h-[30vh] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3 text-foreground/40 resize-none scrollbar-thin focus:outline-none "
+          className="text-sm h-[22vh] md:h-[30vh] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3 text-foreground/40 resize-none scrollbar-thin focus:outline-none "
         />
       </div>
       <LoadingButton
