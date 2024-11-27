@@ -1,14 +1,14 @@
-import { Metadata } from "next"
-import Link from "next/link"
-import { ExternalLink, Github, Linkedin } from 'lucide-react'
-import Image from "next/image"
+import { Metadata } from "next";
+import Link from "next/link";
+import { ExternalLink, Github, Linkedin } from "lucide-react";
+import Image from "next/image";
 
-import TrendsSidebar from "@/components/TrendsSidebar"
-import portfolioLogo from '@/assets/logo-portfolio.png'
+import TrendsSidebar from "@/components/TrendsSidebar";
+import portfolioLogo from "@/assets/logo-portfolio.png";
 
 export const metadata: Metadata = {
   title: "Información de Filmbook",
-}
+};
 
 export default function InfoPage() {
   return (
@@ -55,18 +55,42 @@ export default function InfoPage() {
               creando así una experiencia de usuario enriquecida y personalizada.
             </p>
           </div>
+          <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-6 rounded-2xl shadow-inner">
+            <h2 className="text-xl font-semibold mb-3 text-primary">Consideraciones sobre las imágenes</h2>
+            <p className="text-muted-foreground/70 leading-relaxed">
+              Filmbook utiliza <strong>Vercel Storage</strong> en su versión gratuita para alojar las bases de datos
+              y gestionar las imágenes. Esta modalidad permite procesar hasta 1000 imágenes por mes. Debido a esta
+              limitación, es posible que algunas imágenes no se rendericen correctamente en la plataforma en casos de
+              alta demanda. Agradecemos su comprensión y estamos trabajando para ofrecer una experiencia óptima.
+            </p>
+          </div>
         </div>
         <div className="flex justify-end space-x-6 mt-40 items-center">
-          <Link href="https://www.linkedin.com/in/jeremias-dominguez-vega/" target="_blank"
-            rel="noopener noreferrer" className="group" title="Linkedin">
+          <Link
+            href="https://www.linkedin.com/in/jeremias-dominguez-vega/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
+            title="Linkedin"
+          >
             <Linkedin className="w-8 h-8 text-blue-600 transition-transform group-hover:scale-110" />
           </Link>
-          <Link href="https://github.com/JereUR" target="_blank" rel="noopener noreferrer"
-            className="group" title="Github">
+          <Link
+            href="https://github.com/JereUR"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
+            title="Github"
+          >
             <Github className="w-8 h-8 text-gray-800 transition-transform group-hover:scale-110" />
           </Link>
-          <Link href="https://jeremiasdvportfolio.vercel.app/" target="_blank"
-            rel="noopener noreferrer" className="group" title="Portfolio">
+          <Link
+            href="https://jeremiasdvportfolio.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
+            title="Portfolio"
+          >
             <Image
               src={portfolioLogo}
               alt="Portfolio Logo"
@@ -79,5 +103,5 @@ export default function InfoPage() {
       </div>
       <TrendsSidebar />
     </main>
-  )
+  );
 }
