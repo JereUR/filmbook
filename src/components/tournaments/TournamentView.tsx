@@ -97,7 +97,7 @@ export default function TournamentView({ tournamentId }: TournamentViewProps) {
                   <div className="flex items-center">
                     <Calendar className="mr-2 h-5 w-5 text-muted-foreground" />
                     <span className="text-sm font-medium">
-                      {tournament.dates.length} fechas disputadas
+                      {tournament.dates.filter(d => d.visible).length} fechas disputadas
                     </span>
                   </div>
                 </div>
