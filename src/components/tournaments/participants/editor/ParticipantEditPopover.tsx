@@ -22,7 +22,7 @@ export default function ParticipantEditPopover({ participants, loadingParticipan
 
   const handleParticipantClick = (participant: ParticipantsData) => {
     setParticipantIdSelected(participant.id)
-    setInput((prevInput) => ({ ...prevInput, name: participant.name, username: participant.username }))
+    setInput((prevInput) => ({ ...prevInput, name: participant.name, username: participant.username, nickname: participant.nickname }))
     setOpen(false)
   }
 
@@ -56,7 +56,7 @@ export default function ParticipantEditPopover({ participants, loadingParticipan
             className="min-w-[300px] justify-between"
           >
             {participantIdSelected ?
-              participants.find((participant) => participant.id === participantIdSelected)?.name
+              `${participants.find((participant) => participant.id === participantIdSelected)?.name} (${participants.find((participant) => participant.id === participantIdSelected)?.nickname})`
               : "Seleccione un participante"}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
@@ -76,7 +76,7 @@ export default function ParticipantEditPopover({ participants, loadingParticipan
                         onClick={() => handleParticipantClick(participant)}
                       >
                         <div className="flex items-center gap-2">
-                          {participant.name}
+                          {participant.name} {participant.nickname && `(${participant.nickname})`}
                           {participantIdSelected === participant.id && (
                             <Check className="ml-auto h-4 w-4 text-green-600" />
                           )}
