@@ -74,10 +74,10 @@ export default function ParticipantPopover({ participants, loadingParticipants, 
                         onClick={() => handleParticipantClick(participant.id)}
                       >
                         <div className="flex items-center gap-2">
-                          {`${participant.name} (${participant.nickname})
+                          {participant.name} {participant.nickname && `(${participant.nickname})`}
                           ${participantIdSelected === participant.id && (
-                              <Check className="ml-auto h-4 w-4 text-green-600" />
-                            )}`}
+                            <Check className="ml-auto h-4 w-4 text-green-600" />
+                          )}
                         </div>
                       </Button>
                     </CommandItem>
