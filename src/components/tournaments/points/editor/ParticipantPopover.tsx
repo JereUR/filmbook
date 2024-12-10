@@ -75,7 +75,7 @@ export default function ParticipantPopover({ participants, loadingParticipants, 
                       >
                         <div className="flex items-center gap-2">
                           {participant.name} {participant.nickname && `(${participant.nickname})`}
-                          ${participantIdSelected === participant.id && (
+                          {participantIdSelected === participant.id && (
                             <Check className="ml-auto h-4 w-4 text-green-600" />
                           )}
                         </div>
