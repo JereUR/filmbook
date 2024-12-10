@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 import { ParticipantTournament } from "@/lib/types"
 import logo from '@/assets/logo.png'
+import Link from 'next/link'
 
 interface StandingsTableProps {
   tournamentId: string
@@ -54,9 +55,11 @@ export default function StandingsTable({ tournamentId, standings }: StandingsTab
                       height={16}
                       className="mr-1"
                     />
-                    <div className="text-sm text-muted-foreground">
-                      @{participant.participantUsername}
-                    </div>
+                    <Link href={`/usuarios/${participant.participantUsername}`}>
+                      <div className="text-sm text-primary hover:underline">
+                        @{participant.participantUsername}
+                      </div>
+                    </Link>
                   </div>
                 )}
               </div>
