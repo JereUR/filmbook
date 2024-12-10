@@ -15,7 +15,7 @@ export async function updateTournamentParticipant(
 
   if (!user || !admin) throw new Error("No autorizado.")
 
-  const { id, name, username, tournamentsId } =
+  const { id, name, username, nickname, tournamentsId } =
     updateTournamentParticipantSchema.parse(input)
 
   const updatedParticipant = await prisma.participant.update({
@@ -23,6 +23,7 @@ export async function updateTournamentParticipant(
     data: {
       name,
       username,
+      nickname: nickname || "",
       tournaments: {
         set: [],
         connect: tournamentsId?.map((tournamentId) => ({
@@ -65,6 +66,7 @@ export async function updateTournamentParticipant(
     participantId: updatedParticipant.id,
     participantName: updatedParticipant.name,
     participantUsername: updatedParticipant.username,
+    participantNickname: updatedParticipant.nickname,
     tournaments: updatedParticipant.tournaments.map((participantTournament) => {
       const scores = participantTournament.tournament.dates.flatMap((date) =>
         date.scores.filter(
