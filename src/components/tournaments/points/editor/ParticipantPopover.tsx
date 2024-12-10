@@ -54,7 +54,7 @@ export default function ParticipantPopover({ participants, loadingParticipants, 
             className="min-w-[300px] justify-between"
           >
             {participantIdSelected ?
-              participants.find((participant) => participant.id === participantIdSelected)?.name
+              `${participants.find((participant) => participant.id === participantIdSelected)?.name} (${participants.find((participant) => participant.id === participantIdSelected)?.nickname})`
               : "Seleccione un participante"}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
