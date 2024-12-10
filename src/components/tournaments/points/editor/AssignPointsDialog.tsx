@@ -90,7 +90,7 @@ export default function AssignPointsDialog({ openDialog, setOpenDialog }: Assign
         throw new Error(errorData.error || "Error al asignar puntos al participante")
       }
       toast({
-        description: `${points + extraPoints} ${points + extraPoints > 1 ? 'puntos asignados' : 'punto asignado'} a '${participants.findLast(p => p.id === participantId)?.name}'.`,
+        description: `${points + extraPoints} ${points + extraPoints > 1 ? 'puntos asignados' : 'punto asignado'} a '${participants.findLast(p => p.id === participantId)?.name} (${participants.findLast(p => p.id === participantId)?.nickname})'.`,
       })
 
       setInput(initialState)
