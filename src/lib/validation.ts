@@ -62,6 +62,7 @@ export const updateTournamentParticipantSchema = z.object({
   id: requiredString,
   name: requiredString,
   username: z.string().optional(),
+  nickname: z.string().optional(),
   tournamentsId: z.string().array().optional(),
 })
 

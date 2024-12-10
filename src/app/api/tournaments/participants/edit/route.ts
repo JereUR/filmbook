@@ -5,6 +5,7 @@ interface RequestBody {
   id: string
   name?: string
   username?: string
+  nickname?: string
   tournamentsId?: string[]
 }
 
@@ -18,7 +19,7 @@ export async function POST(req: Request) {
       })
     }
 
-    const { id, name, username, tournamentsId } =
+    const { id, name, username, nickname, tournamentsId } =
       (await req.json()) as RequestBody
 
     const existingParticipant = await prisma.participant.findUnique({
@@ -39,6 +40,7 @@ export async function POST(req: Request) {
       data: {
         name,
         username,
+        nickname,
         tournaments: {
           deleteMany: {},
           create: tournamentsId?.map((tournamentId) => ({
@@ -55,7 +57,6 @@ export async function POST(req: Request) {
 
     return new Response(JSON.stringify(updatedParticipant), { status: 200 })
   } catch (error) {
-    console.error(error)
     return new Response(
       JSON.stringify({ error: "Error al actualizar el participante." }),
       {

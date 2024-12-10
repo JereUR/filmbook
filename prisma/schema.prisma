@@ -307,6 +307,7 @@ model Participant {
   id          String                  @id @default(cuid())
   name        String
   username    String
+  nickname    String?
   tournaments ParticipantTournament[]
   scores      ParticipantScore[]
 

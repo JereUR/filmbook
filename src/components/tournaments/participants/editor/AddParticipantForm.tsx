@@ -21,18 +21,21 @@ interface AddPartcipantFormProps {
 const initialState: InputTournamentParticipantProps = {
   name: "",
   username: "",
+  nickname: "",
   tournamentsId: [],
 }
 
 interface ErrorsForm {
   name: string | null
   username: string | null
+  nickname: string | null
   tournamentsId: string | null
 }
 
 const initialErrors: ErrorsForm = {
   name: null,
   username: null,
+  nickname: null,
   tournamentsId: null,
 }
 
@@ -42,7 +45,7 @@ export default function AddPartcipantForm({ tournaments }: AddPartcipantFormProp
   const [loading, setLoading] = useState<boolean>(false)
   const [errorsForm, setErrorsForm] = useState<ErrorsForm>(initialErrors)
   const [open, setOpen] = useState(false)
-  const { name, username } = input
+  const { name, username, nickname } = input
 
   const { toast } = useToast()
   const queryClient = useQueryClient()
@@ -59,6 +62,10 @@ export default function AddPartcipantForm({ tournaments }: AddPartcipantFormProp
 
     if (username && username.length > 30) {
       error.username = "El nombre de usuario no puede tener más de 30 caracteres"
+    }
+
+    if (nickname && nickname.length > 30) {
+      error.nickname = "El nick de usuario no puede tener más de 30 caracteres"
     }
 
     if (!tournamentsIdSelected.length) {
@@ -99,7 +106,7 @@ export default function AddPartcipantForm({ tournaments }: AddPartcipantFormProp
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, username, tournamentsId: tournamentsIdSelected }),
+        body: JSON.stringify({ name, username, nickname, tournamentsId: tournamentsIdSelected }),
       })
       if (!response.ok) {
         const errorData = await response.json()
@@ -164,6 +171,23 @@ export default function AddPartcipantForm({ tournaments }: AddPartcipantFormProp
             className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
           />
         </div>
+      </div>
+      <div className="w-1/2">
+        <div className="flex gap-2 items-center">
+          <Label htmlFor="nicknameInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+            Nick
+          </Label>
+          {errorsForm.nickname && <ErrorText errorText={errorsForm.nickname} className="text-xs md:text-sm animate-pulse" />}
+        </div>
+        <Input
+          id="nicknameInput"
+          type="text"
+          value={nickname}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setInput({ ...input, nickname: e.target.value })
+          }
+          className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
+        />
       </div>
       <div>
         <div className="flex gap-2 items-center">

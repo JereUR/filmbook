@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
         id: true,
         name: true,
         username: true,
+        nickname: true,
       },
     })
 
@@ -18,6 +19,7 @@ export async function GET(req: NextRequest) {
       id: participant.id,
       name: participant.name,
       username: participant.username,
+      nickname: participant.nickname,
     }))
 
     return Response.json(data)

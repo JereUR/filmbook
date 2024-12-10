@@ -24,18 +24,21 @@ interface AssignEditParticipantFormProps {
 const initialState: InputTournamentParticipantProps = {
   name: "",
   username: "",
+  nickname: "",
   tournamentsId: [],
 }
 
 interface ErrorsForm {
   name: string | null
   username: string | null
+  nickname: string | null
   tournamentsId: string | null
 }
 
 const initialErrors: ErrorsForm = {
   name: null,
   username: null,
+  nickname: null,
   tournamentsId: null,
 }
 
@@ -50,7 +53,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
   const [open, setOpen] = useState(false)
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
 
-  const { name, username } = input
+  const { name, username, nickname } = input
 
   const { toast } = useToast()
   const queryClient = useQueryClient()
@@ -107,6 +110,10 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
       error.username = "El nombre de usuario no puede tener más de 30 caracteres"
     }
 
+    if (nickname && nickname.length > 30) {
+      error.nickname = "El apodo no puede tener más de 30 caracteres"
+    }
+
     if (!tournamentsIdSelected.length) {
       error.tournamentsId = "Debe seleccionar al menos un torneo"
     }
@@ -151,7 +158,7 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: participantIdSelected, name, username, tournamentsId: tournamentsIdSelected }),
+        body: JSON.stringify({ id: participantIdSelected, name, username, nickname, tournamentsId: tournamentsIdSelected }),
       })
       if (!response.ok) {
         const errorData = await response.json()
@@ -237,6 +244,23 @@ export default function AssignEditParticipantForm({ tournaments }: AssignEditPar
               className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
             />
           </div>
+        </div>
+        <div className="w-1/2">
+          <div className="flex gap-2 items-center">
+            <Label htmlFor="nicknameInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+              Nick
+            </Label>
+            {errorsForm.nickname && <ErrorText errorText={errorsForm.nickname} className="text-xs md:text-sm animate-pulse" />}
+          </div>
+          <Input
+            id="nicknameInput"
+            type="text"
+            value={nickname}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInput({ ...input, nickname: e.target.value })
+            }
+            className="w-full rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
+          />
         </div>
         <div>
           <div className="flex gap-2 items-center">

@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma"
 interface RequestBody {
   name: string
   username?: string
+  nickname?: string
   tournamentsId?: string[]
 }
 
@@ -17,7 +18,8 @@ export async function POST(req: Request) {
       })
     }
 
-    const { name, username, tournamentsId } = (await req.json()) as RequestBody
+    const { name, username, nickname, tournamentsId } =
+      (await req.json()) as RequestBody
 
     const existingUser = await prisma.participant.findFirst({
       where: {
@@ -41,6 +43,7 @@ export async function POST(req: Request) {
       data: {
         name,
         username: username || "",
+        nickname: nickname || "",
         tournaments: tournamentsId
           ? {
               create: tournamentsId.map((tournamentId) => ({
@@ -58,7 +61,6 @@ export async function POST(req: Request) {
 
     return new Response(JSON.stringify(newParticipant), { status: 201 })
   } catch (error) {
-    console.error(error)
     return new Response(
       JSON.stringify({ error: "Error al crear el participante." }),
       {

@@ -22,6 +22,7 @@ export async function GET(
       id: true,
       name: true,
       username: true,
+      nickname: true,
       tournaments: {
         select: {
           tournament: {
@@ -103,6 +104,7 @@ export async function GET(
     participantId: participant.id,
     participantName: participant.name,
     participantUsername: participant.username,
+    participantNickname: participant.nickname,
     tournaments: tournamentPositions,
   }
 

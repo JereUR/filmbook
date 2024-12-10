@@ -26,6 +26,7 @@ export async function GET(
               id: true,
               name: true,
               username: true,
+              nickname: true,
               scores: {
                 select: {
                   points: true,
@@ -86,6 +87,7 @@ export async function GET(
         participantId: p.participant.id,
         participantName: p.participant.name,
         participantUsername: p.participant.username,
+        participantNickname: p.participant.nickname,
         totalPoints,
         tournaments: [
           {

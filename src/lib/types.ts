@@ -400,6 +400,7 @@ export interface ParticipantTournament {
   participantId: string
   participantName: string
   participantUsername: string
+  participantNickname: string | null
   tournaments: TournamentPosition[]
 }
 
@@ -489,6 +490,7 @@ export interface InputTournamentParticipantProps {
   id?: string
   name: string
   username?: string
+  nickname?: string
   tournamentsId: string[]
 }
 
@@ -525,6 +527,7 @@ export interface ParticipantsData {
   id: string
   name: string
   username?: string
+  nickname?: string
 }
 
 export interface InputAssignPointsProps {
