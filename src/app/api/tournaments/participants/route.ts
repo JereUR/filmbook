@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
       id: participant.id,
       name: participant.name,
       username: participant.username,
-      nickname: participant.nickname,
+      nickname: participant.nickname || undefined,
     }))
 
     return Response.json(data)
