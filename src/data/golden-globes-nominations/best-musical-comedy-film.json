@@ -1,0 +1,104 @@
+{
+  "name": "Mejor película - Musical o Comedia",
+  "nominees": [
+    {
+      "id": "1064213",
+      "title": "Anora",
+      "posterPath": "https://image.tmdb.org/t/p/w500/eo3NB00hGPln4noxsME5CwRFkO8.jpg",
+      "releaseDate": "2024",
+      "overview": "Anora, una joven prostituta de Brooklyn, tiene la oportunidad de vivir una historia de Cenicienta cuando conoce e impulsivamente se casa con el hijo de un oligarca. Cuando la noticia llega a Rusia, su cuento de hadas se ve amenazado, ya que los padres parten hacia Nueva York para intentar conseguir la anulación del matrimonio.",
+      "runtime": 139,
+      "voteAverage": 7.2,
+      "genres": [
+        "Comedia",
+        "Drama",
+        "Romance"
+      ],
+      "directors": [
+        "Sean Baker"
+      ]
+    },
+    {
+      "id": "937287",
+      "title": "Rivales",
+      "posterPath": "https://image.tmdb.org/t/p/w500/Aiqfn4XtXUPr7QNsDsAKNQ1aOKV.jpg",
+      "releaseDate": "2024",
+      "overview": "Casada con un campeón con una mala racha de derrotas, la estrategia de Tashi para la redención de su marido da un giro sorprendente cuando éste debe enfrentarse a Patrick (su antiguo mejor amigo y ex novio de Tashi). A medida que sus pasados y presentes chocan, y las tensiones se disparan, Tashi debe preguntarse a sí misma cuánto le costará ganar.",
+      "runtime": 132,
+      "voteAverage": 7.0,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "directors": [
+        "Luca Guadagnino"
+      ]
+    },
+    {
+      "id": "974950",
+      "title": "Emilia Pérez",
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "releaseDate": "2024",
+      "overview": "Rita, una infravalorada abogada que trabaja para un gran bufete más interesado en librar a los criminales de la cárcel que en llevarlos ante la justicia, es contratada por el líder de una organización criminal.",
+      "runtime": 130,
+      "voteAverage": 7.88,
+      "genres": [
+        "Drama",
+        "Suspenso"
+      ],
+      "directors": [
+        "Jacques Audiard"
+      ]
+    },
+    {
+      "id": "1013850",
+      "title": "A Real Pain",
+      "posterPath": "https://image.tmdb.org/t/p/w500/b0aQBqsiNGYsEnwnd76sutVPiuB.jpg",
+      "releaseDate": "2024",
+      "overview": "Dos primos viajan a Polonia tras la muerte de su abuela para ver de dónde vienen y acaban incorporándose a un tour sobre el Holocausto.",
+      "runtime": 90,
+      "voteAverage": 7.1,
+      "genres": [
+        "Comedia",
+        "Drama"
+      ],
+      "directors": [
+        "Jesse Eisenberg"
+      ]
+    },
+    {
+      "id": "933260",
+      "title": "La sustancia",
+      "posterPath": "https://image.tmdb.org/t/p/w500/w1PiIqM89r4AM7CiMEP4VLCEFUn.jpg",
+      "releaseDate": "2024",
+      "overview": "'Tú, pero mejor en todos los sentidos'. Esa es la promesa de la sustancia, un producto revolucionario basado en la división celular, que crea un alter ego más joven, más bello, más perfecto.",
+      "runtime": 141,
+      "voteAverage": 7.3,
+      "genres": [
+        "Drama",
+        "Terror",
+        "Ciencia Ficción"
+      ],
+      "directors": [
+        "Coralie Fargeat"
+      ]
+    },
+    {
+      "id": "402431",
+      "title": "Wicked",
+      "posterPath": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
+      "releaseDate": "2024",
+      "overview": "Ambientada en la Tierra de Oz, mucho antes de la llegada de Dorothy Gale desde Kansas, la trama abarca los acontecimientos del primer acto del musical de Broadway. Elphaba es una joven incomprendida por su inusual color verde que aún no ha descubierto su verdadero poder. Glinda es una popular joven marcada por sus privilegios y su ambición que aún no ha descubierto su verdadera pasión. Las dos se conocen como estudiantes de la Universidad Shiz, en la fantástica Tierra de Oz, y forjan una insólita pero profunda amistad.",
+      "runtime": 160,
+      "voteAverage": 7.6,
+      "genres": [
+        "Drama",
+        "Romance",
+        "Fantasía"
+      ],
+      "directors": [
+        "Jon M. Chu"
+      ]
+    }
+  ]
+}
