@@ -579,7 +579,35 @@ export interface NominatedMovie {
   directors: string[]
 }
 
-export interface Nomination {
+export interface MovieNomination {
   name: string
   nominees: NominatedMovie[]
+  winner?: string
+}
+
+export interface NominatedPerson {
+  name: string
+  movieId: string | null
+  movieTitle: string
+  photo: string
+}
+
+export interface PersonNomination {
+  name: string
+  nominees: NominatedPerson[]
+  winner?: string
+}
+
+export interface NominatedSong {
+  name: string
+  movieId: string | null
+  movieTitle: string
+  composers: string[]
+  posterPath: string | null
+}
+
+export interface SongNomination {
+  name: string
+  nominees: NominatedSong[]
+  winner?: string
 }
