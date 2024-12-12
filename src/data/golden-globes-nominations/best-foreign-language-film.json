@@ -2,18 +2,19 @@
   "name": "Mejor película en lengua extranjera",
   "nominees": [
     {
-      "id": "927547",
-      "title": "La luz que imaginamos",
-      "posterPath": "https://image.tmdb.org/t/p/w500/e4UeKRvEylX9K0NV5kjvrbPz3WB.jpg",
+      "id": "1000837",
+      "title": "Aún Estoy Aquí",
+      "posterPath": "https://image.tmdb.org/t/p/w500/zNAw7jK8bwCK56rIW676pdgkwhd.jpg",
       "releaseDate": "2024",
-      "overview": "En Mumbai, la rutina de la enfermera Prabha se ve alterada cuando recibe un regalo inesperado de su marido separado. Su compañera de piso más joven, Anu, intenta en vano encontrar un lugar en la ciudad para intimar con su novio. Un viaje a una ciudad costera les permite encontrar un espacio para que sus deseos se manifiesten.",
-      "runtime": 118,
-      "voteAverage": 7.2,
+      "overview": "Brasil, 1971. Un país en las garras de una dictadura militar. Una madre se ve obligada a reinventarse cuando la vida de su familia se ve destrozada por un acto de violencia arbitraria.",
+      "runtime": 137,
+      "voteAverage": 8.9,
       "genres": [
-        "Drama"
+        "Drama",
+        "Historia"
       ],
       "directors": [
-        "Payal Kapadia"
+        "Walter Salles"
       ]
     },
     {
@@ -33,35 +34,18 @@
       ]
     },
     {
-      "id": "1232827",
-      "title": "The Girl With the Needle",
-      "posterPath": "https://image.tmdb.org/t/p/w500/lIUNEIJcUkWlUdNQWHEoefAWRoO.jpg",
+      "id": "927547",
+      "title": "La luz que imaginamos",
+      "posterPath": "https://image.tmdb.org/t/p/w500/e4UeKRvEylX9K0NV5kjvrbPz3WB.jpg",
       "releaseDate": "2024",
-      "overview": "",
-      "runtime": 122,
-      "voteAverage": 7.6,
+      "overview": "En Mumbai, la rutina de la enfermera Prabha se ve alterada cuando recibe un regalo inesperado de su marido separado. Su compañera de piso más joven, Anu, intenta en vano encontrar un lugar en la ciudad para intimar con su novio. Un viaje a una ciudad costera les permite encontrar un espacio para que sus deseos se manifiesten.",
+      "runtime": 118,
+      "voteAverage": 7.2,
       "genres": [
-        "Drama",
-        "Historia"
+        "Drama"
       ],
       "directors": [
-        "Magnus von Horn"
-      ]
-    },
-    {
-      "id": "1000837",
-      "title": "Aún Estoy Aquí",
-      "posterPath": "https://image.tmdb.org/t/p/w500/zNAw7jK8bwCK56rIW676pdgkwhd.jpg",
-      "releaseDate": "2024",
-      "overview": "Brasil, 1971. Un país en las garras de una dictadura militar. Una madre se ve obligada a reinventarse cuando la vida de su familia se ve destrozada por un acto de violencia arbitraria.",
-      "runtime": 137,
-      "voteAverage": 8.9,
-      "genres": [
-        "Drama",
-        "Historia"
-      ],
-      "directors": [
-        "Walter Salles"
+        "Payal Kapadia"
       ]
     },
     {
@@ -78,6 +62,22 @@
       ],
       "directors": [
         "Mohammad Rasoulof"
+      ]
+    },
+    {
+      "id": "1232827",
+      "title": "The Girl With the Needle",
+      "posterPath": "https://image.tmdb.org/t/p/w500/lIUNEIJcUkWlUdNQWHEoefAWRoO.jpg",
+      "releaseDate": "2024",
+      "overview": "",
+      "runtime": 122,
+      "voteAverage": 7.6,
+      "genres": [
+        "Drama",
+        "Historia"
+      ],
+      "directors": [
+        "Magnus von Horn"
       ]
     },
     {
