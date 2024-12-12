@@ -2,6 +2,22 @@
   "name": "Mejor película - Musical o Comedia",
   "nominees": [
     {
+      "id": "1013850",
+      "title": "A Real Pain",
+      "posterPath": "https://image.tmdb.org/t/p/w500/b0aQBqsiNGYsEnwnd76sutVPiuB.jpg",
+      "releaseDate": "2024",
+      "overview": "Dos primos viajan a Polonia tras la muerte de su abuela para ver de dónde vienen y acaban incorporándose a un tour sobre el Holocausto.",
+      "runtime": 90,
+      "voteAverage": 7.1,
+      "genres": [
+        "Comedia",
+        "Drama"
+      ],
+      "directors": [
+        "Jesse Eisenberg"
+      ]
+    },
+    {
       "id": "1064213",
       "title": "Anora",
       "posterPath": "https://image.tmdb.org/t/p/w500/eo3NB00hGPln4noxsME5CwRFkO8.jpg",
@@ -16,22 +32,6 @@
       ],
       "directors": [
         "Sean Baker"
-      ]
-    },
-    {
-      "id": "937287",
-      "title": "Rivales",
-      "posterPath": "https://image.tmdb.org/t/p/w500/Aiqfn4XtXUPr7QNsDsAKNQ1aOKV.jpg",
-      "releaseDate": "2024",
-      "overview": "Casada con un campeón con una mala racha de derrotas, la estrategia de Tashi para la redención de su marido da un giro sorprendente cuando éste debe enfrentarse a Patrick (su antiguo mejor amigo y ex novio de Tashi). A medida que sus pasados y presentes chocan, y las tensiones se disparan, Tashi debe preguntarse a sí misma cuánto le costará ganar.",
-      "runtime": 132,
-      "voteAverage": 7.0,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "directors": [
-        "Luca Guadagnino"
       ]
     },
     {
@@ -51,22 +51,6 @@
       ]
     },
     {
-      "id": "1013850",
-      "title": "A Real Pain",
-      "posterPath": "https://image.tmdb.org/t/p/w500/b0aQBqsiNGYsEnwnd76sutVPiuB.jpg",
-      "releaseDate": "2024",
-      "overview": "Dos primos viajan a Polonia tras la muerte de su abuela para ver de dónde vienen y acaban incorporándose a un tour sobre el Holocausto.",
-      "runtime": 90,
-      "voteAverage": 7.1,
-      "genres": [
-        "Comedia",
-        "Drama"
-      ],
-      "directors": [
-        "Jesse Eisenberg"
-      ]
-    },
-    {
       "id": "933260",
       "title": "La sustancia",
       "posterPath": "https://image.tmdb.org/t/p/w500/w1PiIqM89r4AM7CiMEP4VLCEFUn.jpg",
@@ -81,6 +65,22 @@
       ],
       "directors": [
         "Coralie Fargeat"
+      ]
+    },
+    {
+      "id": "937287",
+      "title": "Rivales",
+      "posterPath": "https://image.tmdb.org/t/p/w500/Aiqfn4XtXUPr7QNsDsAKNQ1aOKV.jpg",
+      "releaseDate": "2024",
+      "overview": "Casada con un campeón con una mala racha de derrotas, la estrategia de Tashi para la redención de su marido da un giro sorprendente cuando éste debe enfrentarse a Patrick (su antiguo mejor amigo y ex novio de Tashi). A medida que sus pasados y presentes chocan, y las tensiones se disparan, Tashi debe preguntarse a sí misma cuánto le costará ganar.",
+      "runtime": 132,
+      "voteAverage": 7.0,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "directors": [
+        "Luca Guadagnino"
       ]
     },
     {
