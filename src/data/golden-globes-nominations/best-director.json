@@ -1,0 +1,41 @@
+{
+  "name": "Mejor director",
+  "nominees": [
+    {
+      "name": "Brady Corbet",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://i.guim.co.uk/img/media/ded799252654226c0accf01676eaf5faec44c0a9/0_216_4625_2775/master/4625.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=3912b30f1dc9a3dd642c03e94931c7b4"
+    },
+    {
+      "name": "Coralie Fargeat",
+      "movieId": "933260",
+      "movieTitle": "La sustancia",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/6/65/Coralie_Fargeat_at_the_2024_Toronto_International_Film_Festival.jpg"
+    },
+    {
+      "name": "Edward Berger",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/Ed-Berger-Headshot-1.jpeg?w=600"
+    },
+    {
+      "name": "Jacques Audiard",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/jacques-audiard-gettyimages-154067746.jpg?w=600"
+    },
+    {
+      "name": "Payal Kapadia",
+      "movieId": "927547",
+      "movieTitle": "La luz que imaginamos",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/PayalKapadiacRanabirDas.png?w=600"
+    },
+    {
+      "name": "Sean Baker",
+      "movieId": "1064213",
+      "movieTitle": "Anora",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/SeanBaker_Headshot_rgb.jpg?w=600"
+    }
+  ]
+}
