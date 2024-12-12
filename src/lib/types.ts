@@ -566,3 +566,20 @@ export interface FavoriteMovie {
     releaseDate: Date | null
   }
 }
+
+export interface NominatedMovie {
+  id: string
+  title: string
+  posterPath: string
+  releaseDate: string
+  overview: string
+  runtime: number
+  voteAverage: number | null
+  genres: string[]
+  directors: string[]
+}
+
+export interface Nomination {
+  name: string
+  nominees: NominatedMovie[]
+}
