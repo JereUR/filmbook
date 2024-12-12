@@ -1,0 +1,41 @@
+{
+  "name": "Mejor guión",
+  "nominees": [
+    {
+      "name": "Brady Corbet, Mona Fastvold",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://www.shutterstock.com/editorial/image-editorial/N1T5Y129OfDbkcw4NDQyOA==/brady-corbet-mona-fastvold-440nw-5632864b.jpg"
+    },
+    {
+      "name": "Coralie Fargeat",
+      "movieId": "933260",
+      "movieTitle": "La sustancia",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/6/65/Coralie_Fargeat_at_the_2024_Toronto_International_Film_Festival.jpg"
+    },
+    {
+      "name": "Jacques Audiard",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/jacques-audiard-gettyimages-154067746.jpg?w=600"
+    },
+    {
+      "name": "Jesse Eisenberg",
+      "movieId": "1013850",
+      "movieTitle": "A Real Pain",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Real_Pain_A_Jesse_Eisenberg_Out_of_Character_Headshot.jpg?w=600"
+    },
+    {
+      "name": "Peter Straughan",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Peter-Straughan-headshot-2024.Photo-credit-to-Antonio-Olmos.jpg?w=600"
+    },
+    {
+      "name": "Sean Baker",
+      "movieId": "1064213",
+      "movieTitle": "Anora",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/SeanBaker_Headshot_rgb.jpg?w=600"
+    }
+  ]
+}
