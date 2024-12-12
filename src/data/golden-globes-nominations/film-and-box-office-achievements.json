@@ -1,0 +1,132 @@
+{
+  "name": "Logros cinematográficos y de taquilla",
+  "nominees": [
+    {
+      "id": "945961",
+      "title": "Alien: Romulus",
+      "posterPath": "https://image.tmdb.org/t/p/w500/8PYqGSd8MOm5ce8io4qNSAiSExW.jpg",
+      "releaseDate": "2024",
+      "runtime": 119,
+      "voteAverage": 7.3,
+      "genres": [
+        "Ciencia ficción",
+        "Terror"
+      ],
+      "directors": [
+        "Fede Álvarez"
+      ]
+    },
+    {
+      "id": "917496",
+      "title": "Bitelchús Bitelchús",
+      "posterPath": "https://image.tmdb.org/t/p/w500/kWJw7dCWHcfMLr0irTHAPIKrJ4I.jpg",
+      "releaseDate": "2024",
+      "runtime": 105,
+      "voteAverage": 7.1,
+      "genres": [
+        "Comedia",
+        "Fantasía",
+        "Terror"
+      ],
+      "directors": [
+        "Tim Burton"
+      ]
+    },
+    {
+      "id": "533535",
+      "title": "Deadpool y Lobezno",
+      "posterPath": "https://image.tmdb.org/t/p/w500/9TFSqghEHrlBMRR63yTx80Orxva.jpg",
+      "releaseDate": "2024",
+      "runtime": 127,
+      "voteAverage": 7.7,
+      "genres": [
+        "Acción",
+        "Comedia",
+        "Ciencia ficción"
+      ],
+      "directors": [
+        "Shawn Levy"
+      ]
+    },
+    {
+      "id": "558449",
+      "title": "Gladiator II",
+      "posterPath": "https://image.tmdb.org/t/p/w500/vK1sK1B3WglfgVWPn6Xj4nNsw1q.jpg",
+      "releaseDate": "2024",
+      "runtime": 148,
+      "voteAverage": 6.7,
+      "genres": [
+        "Acción",
+        "Aventura",
+        "Historia"
+      ],
+      "directors": [
+        "Ridley Scott"
+      ]
+    },
+    {
+      "id": "1022789",
+      "title": "Del revés 2 (Inside Out 2)",
+      "posterPath": "https://image.tmdb.org/t/p/w500/aQnbNiadeGzGSjWLaXyeNxpAUIx.jpg",
+      "releaseDate": "2024",
+      "runtime": 96,
+      "voteAverage": 7.5,
+      "genres": [
+        "Animación",
+        "Familia",
+        "Aventura",
+        "Drama"
+      ],
+      "directors": [
+        "Kelsey Mann"
+      ]
+    },
+    {
+      "id": "1184918",
+      "title": "Robot salvaje",
+      "posterPath": "https://image.tmdb.org/t/p/w500/a0a7RC01aTa7pOnskgJb3mCD2Ba.jpg",
+      "releaseDate": "2024",
+      "runtime": 102,
+      "voteAverage": 8.4,
+      "genres": [
+        "Animación",
+        "Ciencia ficción",
+        "Familia"
+      ],
+      "directors": [
+        "Chris Sanders"
+      ]
+    },
+    {
+      "id": "718821",
+      "title": "Twisters",
+      "posterPath": "https://image.tmdb.org/t/p/w500/50xgtaDR0xJkLSVghdTGUeMoPHP.jpg",
+      "releaseDate": "2024",
+      "runtime": 123,
+      "voteAverage": 6.9,
+      "genres": [
+        "Suspenso",
+        "Acción"
+      ],
+      "directors": [
+        "Lee Isaac Chung"
+      ]
+    },
+    {
+      "id": "402431",
+      "title": "Wicked",
+      "posterPath": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
+      "releaseDate": "2024",
+      "runtime": 160,
+      "voteAverage": 7.6,
+      "genres": [
+        "Drama",
+        "Romance",
+        "Fantasía"
+      ],
+      "directors": [
+        "Jon M. Chu"
+      ]
+    }
+  ]
+}
