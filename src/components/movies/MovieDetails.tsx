@@ -57,6 +57,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             quality={100}
             priority
+            unoptimized
           />
           <div className="absolute -inset-10 bg-gradient-to-t from-primary/30 to-transparent dark:from-card md:inset-0" />
         </div>

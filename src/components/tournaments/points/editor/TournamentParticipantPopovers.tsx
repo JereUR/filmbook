@@ -187,6 +187,7 @@ export default function TournamentParticipantPopover({
                               width={48}
                               height={72}
                               className="rounded"
+                              unoptimized
                             />
                             <span>
                               Fecha {date.date} - {date.movie.title}

@@ -147,6 +147,7 @@ export default function UserReview({ reviewId }: UserReviewProps) {
               aria-label={review.movie.title}
               width={150}
               height={150}
+              unoptimized
             />
           </Link>
         </div>

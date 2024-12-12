@@ -80,6 +80,7 @@ export default function DatesPopover({ dates, loading, status, input, setInput, 
                           width={48}
                           height={72}
                           className="rounded"
+                          unoptimized
                         />
                         <span>
                           Fecha {d.date} - {d.movie.title}

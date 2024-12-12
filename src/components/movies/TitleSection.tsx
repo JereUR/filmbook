@@ -77,6 +77,7 @@ export default function TitleSection({
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
             className="cursor-pointer rounded"
             onClick={() => handleImageClick(image)}
+            unoptimized
           />
           {user && <div className="absolute inset-0 flex items-end justify-center mb-1">
             <div className="bg-black/70 p-1 rounded flex space-x-2">

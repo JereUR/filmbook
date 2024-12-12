@@ -104,6 +104,7 @@ export default function DiaryForm({ movie, changeState, handleOpenChange }: Movi
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="rounded"
+            unoptimized
           />
         </div>
       </div>

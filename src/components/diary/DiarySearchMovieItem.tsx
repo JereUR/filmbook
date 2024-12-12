@@ -32,6 +32,7 @@ export default function DiarySearchMovieItem({ movie, setMovieToAdd, changeState
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="rounded"
+          unoptimized
         />
       </div>
       <div className="flex flex-col gap-1 px-4">

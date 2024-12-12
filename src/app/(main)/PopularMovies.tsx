@@ -31,6 +31,7 @@ export default async function PopularMovies({ className }: PopularMoviesProps) {
                   width={50}
                   height={75}
                   className="rounded"
+                  unoptimized
                 />
               </div>
               <div className="flex flex-grow flex-col justify-center gap-1 md:gap-2">
