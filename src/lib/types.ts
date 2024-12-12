@@ -572,7 +572,6 @@ export interface NominatedMovie {
   title: string
   posterPath: string
   releaseDate: string
-  overview: string
   runtime: number
   voteAverage: number | null
   genres: string[]
