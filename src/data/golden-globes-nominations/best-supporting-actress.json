@@ -1,0 +1,41 @@
+{
+  "name": "Mejor actriz de reparto",
+  "nominees": [
+    {
+      "name": "Ariana Grande",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Wicked_Ariana_Grande_Out_of_Character_Headshot.jpeg?w=600"
+    },
+    {
+      "name": "Felicity Jones",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Brutalist_The_Felicity_Jones_Out_of_Character_Headshot.jpg?w=600"
+    },
+    {
+      "name": "Isabella Rossellini",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Conclave_Isabella_Rossellini_Out_of_Character_Headshot.jpg?w=600"
+    },
+    {
+      "name": "Margaret Qualley",
+      "movieId": "933260",
+      "movieTitle": "La sustancia",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/gettyimages-1205162698-scaled.jpg?w=600"
+    },
+    {
+      "name": "Selena Gomez",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Emilia_Perez_Selena_Gomez_Out_of_Character_Headshot.jpg?w=600"
+    },
+    {
+      "name": "Zoe Saldaña",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Television_Series_-_Drama_Lioness_Zoe_Saldana_Out_of_Character_Headshot.jpg?w=600"
+    }
+  ]
+}
