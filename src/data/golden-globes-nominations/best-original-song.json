@@ -1,0 +1,73 @@
+{
+  "name": "Mejor canción original",
+  "nominees": [
+    {
+      "name": "Beautiful That Way",
+      "movieId": "1235499",
+      "movieTitle": "The Last Showgirl",
+      "composers": [
+        "Miley Cyrus",
+        "Lykke Li",
+        "Andrew Wyatt"
+      ],
+      "posterPath": "https://image.tmdb.org/t/p/original/hU1VSdI4E2elc5Sklf3NmfQPJXw.jpg"
+    },
+    {
+      "name": "Compress/Repress",
+      "movieId": "937287",
+      "movieTitle": "Rivales",
+      "composers": [
+        "Trent Reznor",
+        "Atticus Ross",
+        "Luca Guadagnino"
+      ],
+      "posterPath": "https://image.tmdb.org/t/p/w500/Aiqfn4XtXUPr7QNsDsAKNQ1aOKV.jpg"
+    },
+    {
+      "name": "El Mal",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "composers": [
+        "Clément Ducol",
+        "Camille",
+        "Jacques Audiard"
+      ],
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg"
+    },
+    {
+      "name": "Forbidden Road",
+      "movieId": "799766",
+      "movieTitle": "Better Man",
+      "composers": [
+        "Robbie Williams",
+        "Freddy Wexler",
+        "Sacha Skarbek"
+      ],
+      "posterPath": "https://image.tmdb.org/t/p/w500/6Rf7kF0Np3mOa1KRo2a2KJZ7mIj.jpg"
+    },
+    {
+      "name": "Kiss The Sky",
+      "movieId": "1184918",
+      "movieTitle": "Robot salvaje",
+      "composers": [
+        "Ali Tamposi",
+        "Delacey",
+        "Jordan K. Johnson",
+        "Maren Morris",
+        "Michael Pollack",
+        "Stefan Johnson"
+      ],
+      "posterPath": "https://image.tmdb.org/t/p/w500/a0a7RC01aTa7pOnskgJb3mCD2Ba.jpg"
+    },
+    {
+      "name": "Mi Camino",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "composers": [
+        "Clément Ducol",
+        "Camille"
+      ],
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg"
+    }
+  ]
+}
