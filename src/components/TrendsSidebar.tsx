@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { Loader2 } from "lucide-react"
 import Link from "next/link"
 import { unstable_cache } from "next/cache"
+import Image from "next/image"
 
 import prisma from "@/lib/prisma"
 import { validateRequest } from "@/auth"
@@ -10,11 +11,30 @@ import { formatNumber } from "@/lib/utils"
 import FollowButton from "./FollowButton"
 import { getUserDataSelect } from "@/lib/types"
 import UserTooltip from "./UserTooltip"
+import goldenGlobeImg from "@/assets/golden-globe-banner.webp"
 
 export default function TrendsSidebar() {
   return (
     <div className="sticky top-[8.25rem] hidden h-fit w-72 flex-none space-y-5 md:block lg:w-80">
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+        <div className="relative h-40 w-full group overflow-hidden rounded-2xl border-2 border-primary shadow-md hover:shadow-lg transition-shadow duration-300">
+          <Link
+            href="/nominaciones-golden-globe"
+            aria-label="Ir a sección de Golden Globe"
+            className="block h-full w-full"
+          >
+            <Image
+              src={goldenGlobeImg}
+              alt="Golden Globe Awards"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="text-xl font-bold">Golden Globe Awards 2025</span>
+            </div>
+          </Link>
+        </div>
         <WhoToFollow />
         <TrendingTopics />
       </Suspense>

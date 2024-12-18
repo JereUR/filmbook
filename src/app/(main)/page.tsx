@@ -16,7 +16,8 @@ export default async function Home() {
         {loggedInUser ? <div>
           <PostEditor className="rounded-t-2xl border-b-0" />
           <AddToDiaryButton />
-        </div> : <UnauthorizedMessage sectionMessage='Necesitas iniciar sesión para realizar posteos y agregar nuevas películas vistas.' trendsSidebar={false} />}
+        </div> :
+          <UnauthorizedMessage sectionMessage='Necesitas iniciar sesión para realizar posteos y agregar nuevas películas vistas.' trendsSidebar={false} />}
         <Tabs defaultValue="for-you">
           <TabsList>
             <TabsTrigger value="for-you">Para ti</TabsTrigger>
