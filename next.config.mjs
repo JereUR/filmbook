@@ -23,6 +23,41 @@ const nextConfig = {
         hostname: "flagcdn.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "i.guim.co.uk",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "goldenglobes.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lastfm.freetls.fastly.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "spitfireaudio.imgix.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "deadline.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.shutterstock.com",
+        pathname: "/**",
+      },
     ],
   },
   rewrites: () => {
