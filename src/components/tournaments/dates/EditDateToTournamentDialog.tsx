@@ -215,6 +215,7 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
                     width={50}
                     height={75}
                     className="rounded"
+                    unoptimized
                   />
                 </div>
                 <h1 className="text-sm font-semibold">

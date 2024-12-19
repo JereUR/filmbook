@@ -53,6 +53,7 @@ export default function DiaryItem({ diary }: DiaryItemProps) {
           width={64}
           height={96}
           className="w-16 h-24 object-cover rounded-lg"
+          unoptimized
         />
         <div className='flex flex-col gap-2'>
           <div className='flex items-center gap-2'>

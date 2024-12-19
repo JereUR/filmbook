@@ -48,6 +48,7 @@ export default function ReviewItem({ review }: ReviewItemProps) {
           aria-label={title}
           width={150}
           height={150}
+          unoptimized
         />
         <div className="absolute inset-0 flex items-end justify-center mb-1">
           <div className="bg-black/70 p-1 rounded flex space-x-2">

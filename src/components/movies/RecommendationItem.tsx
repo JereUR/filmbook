@@ -27,6 +27,7 @@ export default function RecommendationItem({
           width={50}
           height={75}
           className="rounded"
+          unoptimized
         />
       </div>
 

@@ -108,6 +108,7 @@ export default function FavoriteMoviesForm({ initialData, username }: FavoriteMo
                   alt={favoriteMovies.find(m => m.position === index)?.movie.title || 'Vacio'}
                   layout="fill"
                   objectFit="cover"
+                  unoptimized
                 />
                 <button
                   className="absolute top-1 right-1 p-1 bg-red-600 dark:bg-red-700 rounded-2xl hover:bg-red-700 dark:hover:bg-red-800"

@@ -50,6 +50,7 @@ export default function DateItem({ dateData }: DateItemProps) {
               width={64}
               height={90}
               className="rounded"
+              unoptimized
             />
             <div className="flex flex-col gap-2">
               <span className="md:text-lg font-semibold">Fecha {date}</span>

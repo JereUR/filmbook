@@ -47,6 +47,7 @@ export default function WatchlistItem({ item }: WatchlistItemProps) {
             width={100}
             height={120}
             className="rounded"
+            unoptimized
           />
         </div>
         <div className="flex flex-grow flex-col justify-center gap-1 md:gap-2">
