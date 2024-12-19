@@ -22,7 +22,7 @@ export default function NomineesPage() {
         <div className="rounded-2xl bg-card p-5 shadow-sm">
           <h1 className="text-center text-2xl font-bold">Nominaciones</h1>
         </div>
-        <div>
+        <div className='space-y-1'>
           <GoldenGlobeNominationsMovies handleImageClick={handleImageClick} />
           <GoldenGlobeNominationsPersons handleImageClick={handleImageClick} />
           <GoldenGlobeNominationsSong handleImageClick={handleImageClick} />

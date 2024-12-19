@@ -12,15 +12,15 @@ export default function GoldenGlobeNominationsPersons({ handleImageClick }: Gold
   const { nominationsPerson } = useGoldenGlobeNominees()
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto px-2 sm:px-4">
       {nominationsPerson.map(({ category, nominees, winner }) => (
-        <div key={category} className="mb-12">
-          <h2 className="text-3xl font-bold mb-6 text-primary">{category}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div key={category} className="mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-primary">{category}</h2>
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
             {nominees.map((nominee) => (
               <Card
                 key={`${category} - ${nominee.name}`}
-                className={`group overflow-hidden cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg ${winner === nominee.name ? "ring-4 ring-yellow-500" : ""
+                className={`group overflow-hidden cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg ${winner === nominee.name ? "ring-2 sm:ring-4 ring-yellow-500" : ""
                   }`}
                 onClick={() => handleImageClick({ src: nominee.photo, name: nominee.name })}
               >
@@ -29,23 +29,22 @@ export default function GoldenGlobeNominationsPersons({ handleImageClick }: Gold
                     src={nominee.photo}
                     alt={`${nominee.name} photo`}
                     fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    sizes="(max-width: 640px) 33vw, (max-width: 768px) 33vw, (max-width: 1024px) 33vw, 25vw"
                     className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
-
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <h3 className="text-white text-xl font-bold text-center px-2">
+                    <h3 className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-bold text-center px-1 sm:px-2">
                       {nominee.name} {winner === nominee.name && "🏆"}
                     </h3>
                   </div>
                 </div>
-                <CardContent className="p-4">
+                <CardContent className="p-2 sm:p-4">
                   {nominee.movieId ? (
                     <Link
                       href={`/pelicula/${nominee.movieId}?title=${encodeURIComponent(
                         nominee.movieTitle
                       )}&date=2024`}
-                      className="text-primary-orange font-medium hover:underline block text-center"
+                      className="text-primary-orange font-medium hover:underline block text-center text-xs sm:text-sm truncate"
                       aria-label={`Ver información de ${nominee.movieTitle}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -53,7 +52,7 @@ export default function GoldenGlobeNominationsPersons({ handleImageClick }: Gold
                       {nominee.movieTitle}
                     </Link>
                   ) : (
-                    <p className="text-gray-600 text-center">{nominee.name}</p>
+                    <p className="text-gray-600 text-center text-xs sm:text-sm truncate">{nominee.name}</p>
                   )}
                 </CardContent>
               </Card>
