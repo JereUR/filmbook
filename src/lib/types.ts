@@ -567,6 +567,8 @@ export interface FavoriteMovie {
   }
 }
 
+// Golden Globe section
+
 export interface NominatedMovie {
   id: string
   title: string
@@ -579,7 +581,7 @@ export interface NominatedMovie {
 }
 
 export interface MovieNomination {
-  name: string
+  category: string
   nominees: NominatedMovie[]
   winner?: string
 }
@@ -592,7 +594,7 @@ export interface NominatedPerson {
 }
 
 export interface PersonNomination {
-  name: string
+  category: string
   nominees: NominatedPerson[]
   winner?: string
 }
@@ -606,7 +608,7 @@ export interface NominatedSong {
 }
 
 export interface SongNomination {
-  name: string
+  category: string
   nominees: NominatedSong[]
   winner?: string
 }
