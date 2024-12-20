@@ -44,7 +44,7 @@ export default function GoldenGlobeNominationsPersons({ handleImageClick }: Gold
                       href={`/pelicula/${nominee.movieId}?title=${encodeURIComponent(
                         nominee.movieTitle
                       )}&date=2024`}
-                      className="text-primary-orange font-medium hover:underline block text-center text-xs sm:text-sm truncate"
+                      className="text-primary-orange font-medium hover:underline block text-center text-xs sm:text-base truncate"
                       aria-label={`Ver información de ${nominee.movieTitle}`}
                       target="_blank"
                       rel="noopener noreferrer"

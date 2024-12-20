@@ -22,9 +22,8 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
             {nominees.map((nominee) => (
               <Card
                 key={`${category} - ${nominee.name}`}
-                className={`group overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg ${
-                  winner === nominee.name ? "ring-2 sm:ring-4 ring-yellow-500" : ""
-                }`}
+                className={`group overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg ${winner === nominee.name ? "ring-2 sm:ring-4 ring-yellow-500" : ""
+                  }`}
               >
                 <div
                   className="relative aspect-[3/4] w-full overflow-hidden cursor-pointer"
@@ -50,7 +49,7 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
                       aria-label={`Ver información de ${nominee.movieTitle}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary-orange font-medium hover:underline block text-xs sm:text-sm truncate"
+                      className="text-primary-orange font-medium hover:underline block text-xs sm:text-base truncate"
                     >
                       {nominee.movieTitle}
                     </Link>

@@ -48,7 +48,7 @@ export default function GoldenGlobeNominationsMovies({ handleImageClick }: Golde
                     aria-label={`Ver información de ${nominee.title}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary-orange font-medium hover:underline block text-xs sm:text-sm truncate"
+                    className="text-primary-orange font-medium hover:underline block text-xs sm:text-base truncate"
                   >
                     {nominee.title}
                   </Link>
