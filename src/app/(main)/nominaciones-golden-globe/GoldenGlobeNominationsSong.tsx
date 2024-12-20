@@ -18,7 +18,7 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
       {nominationsOriginalSong.map(({ category, nominees, winner }) => (
         <div key={category} className="mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-primary">{category}</h2>
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
             {nominees.map((nominee) => (
               <Card
                 key={`${category} - ${nominee.name}`}
