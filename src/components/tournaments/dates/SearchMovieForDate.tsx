@@ -5,8 +5,8 @@ import { Loader2 } from "lucide-react"
 
 import type { SearchMovie, SearchMoviesResponse } from "@/lib/types"
 import { useToast } from "@/components/ui/use-toast"
-import SearchForm from "../../movies/search/SearchForm"
 import MovieItemForDate from "./MovieItemForDate"
+import SearchForm from "@/components/movies/search/SearchForm"
 
 interface SearchMovieForDateProps {
   selectedMovieId: string | null

@@ -7,7 +7,7 @@ import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
 import kyInstance from "@/lib/ky"
 import { TournamentsPage } from "@/lib/types"
 import TournamentItem from "./TournamentItem"
-import TournamentsLoadingSkeleton from "./TournamentsLoadingSkeleton"
+import TournamentsLoadingSkeleton from "../skeletons/TournamentsLoadingSkeleton"
 
 interface TournamentListProps {
   admin: boolean

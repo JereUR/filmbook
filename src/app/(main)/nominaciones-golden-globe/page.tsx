@@ -1,5 +1,6 @@
 import { Metadata } from "next"
-import NomineesPage from "./NomineesPage"
+
+import NomineesPage from "@/components/golgen-globe/NomineesPage"
 
 export const metadata: Metadata = {
   title: "Nominaciones Golden Globe Awards 2025",

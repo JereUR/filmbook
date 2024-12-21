@@ -10,7 +10,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from '@/components/ui/input'
-import { Button } from "../../ui/button"
 import { DateForTournamentData, InputDateTournamentProps } from "@/lib/types"
 import SearchMovieForDate from "./SearchMovieForDate"
 import { Label } from "@/components/ui/label"
@@ -23,6 +22,7 @@ import DatesPopover from "./DatesPopover"
 import noImage from '@/assets/no-image-film.jpg'
 import { Textarea } from "@/components/ui/textarea"
 import DeleteDateDialog from "./DeleteDateDialog"
+import { Button } from "@/components/ui/button"
 
 interface EditDateToTournamentDialogProps {
   tournamentId: string

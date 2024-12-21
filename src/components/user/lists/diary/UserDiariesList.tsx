@@ -6,8 +6,8 @@ import { Calendar, Loader2 } from "lucide-react"
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
 import kyInstance from "@/lib/ky"
 import { DiariesPage, DiaryInfo } from "@/lib/types"
-import DiariesLoadingSkeleton from './DiariesLoadingSkeleton'
 import DiaryItem from './DiaryItem'
+import DiariesLoadingSkeleton from "@/components/skeletons/DiariesLoadingSkeleton"
 
 interface UserDiariesListProps {
   userId: string

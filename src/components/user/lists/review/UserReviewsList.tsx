@@ -8,7 +8,6 @@ import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
 import kyInstance from "@/lib/ky"
 import { ReviewsPage } from "@/lib/types"
 import ReviewItem from "./ReviewItem"
-import ReviewsLoadingSkeleton from './ReviewsLoadingSkeleton'
 import {
   Select,
   SelectContent,
@@ -18,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import ReviewsLoadingSkeleton from "@/components/skeletons/ReviewsLoadingSkeleton"
 
 interface UserReviewsListProps {
   userId: string

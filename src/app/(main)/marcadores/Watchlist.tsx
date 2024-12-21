@@ -7,7 +7,7 @@ import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
 import kyInstance from "@/lib/ky"
 import { WatchlistPage } from "@/lib/types"
 import WatchlistItem from "./WatchlistItem"
-import WatchlistsLoadingSkeleton from "./WatchlistLoadingSkeleton"
+import WatchlistsLoadingSkeleton from "@/components/skeletons/WatchlistLoadingSkeleton"
 
 interface WatchlistProps {
   userId: string

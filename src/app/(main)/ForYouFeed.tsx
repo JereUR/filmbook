@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react"
 
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer"
 import Post from "@/components/posts/Post"
-import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton"
+import PostsLoadingSkeleton from "@/components/skeletons/PostsLoadingSkeleton"
 import kyInstance from "@/lib/ky"
 import { PostsPage } from "@/lib/types"
 

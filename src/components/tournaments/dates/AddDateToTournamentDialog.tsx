@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from '@/components/ui/input'
-import { Button } from "../../ui/button"
+import { Button } from "@/components/ui/button"
 import { InputDateTournamentProps } from "@/lib/types"
 import SearchMovieForDate from "./SearchMovieForDate"
 import { Label } from "@/components/ui/label"
