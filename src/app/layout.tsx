@@ -3,11 +3,13 @@ import { Nunito } from 'next/font/google'
 import { ThemeProvider } from "next-themes"
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { extractRouterConfig } from "uploadthing/server"
+import { Suspense } from "react"
 
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import ReactQueryProvider from "./ReactQueryProvider"
 import { fileRouter } from "./api/uploadthing/core"
+import RootLoading from './loading'
 
 const nunito = Nunito({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000'],
@@ -60,7 +62,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <Suspense fallback={<RootLoading />}>
+              <div className="min-h-screen bg-[#0a0a1b]">
+                {children}
+              </div>
+            </Suspense>
           </ThemeProvider>
         </ReactQueryProvider>
         <Toaster />
