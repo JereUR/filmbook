@@ -578,6 +578,7 @@ export interface NominatedMovie {
   voteAverage: number | null
   genres: string[]
   directors: string[]
+  providers?: string[]
 }
 
 export interface MovieNomination {
@@ -591,6 +592,7 @@ export interface NominatedPerson {
   movieId: string | null
   movieTitle: string
   photo: string
+  providers?: string[]
 }
 
 export interface PersonNomination {
@@ -605,6 +607,7 @@ export interface NominatedSong {
   movieTitle: string
   composers: string[]
   posterPath: string | null
+  providers?: string[]
 }
 
 export interface SongNomination {
