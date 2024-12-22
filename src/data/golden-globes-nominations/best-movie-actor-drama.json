@@ -5,37 +5,43 @@
       "name": "Adrien Brody",
       "movieId": "549509",
       "movieTitle": "The Brutalist",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Drama_Brutalist_The_Adrien_Brody_Out_of_Character_Headshot.jpeg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Drama_Brutalist_The_Adrien_Brody_Out_of_Character_Headshot.jpeg?w=600",
+      "providers": []
     },
     {
       "name": "Colman Domingo",
       "movieId": "1155828",
       "movieTitle": "Las vidas de Sing Sing",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2023/12/COLMAN-DOMINGO-Photo.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/12/COLMAN-DOMINGO-Photo.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Daniel Craig",
       "movieId": "1059128",
       "movieTitle": "Queer",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Drama_Queer_Daniel_Craig_Out_of_Character_Headshot.png?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Drama_Queer_Daniel_Craig_Out_of_Character_Headshot.png?w=600",
+      "providers": []
     },
     {
       "name": "Ralph Fiennes",
       "movieId": "974576",
       "movieTitle": "Conclave",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Drama_Conclave_Ralph_Fiennes_Out_of_Character_Headshot.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Drama_Conclave_Ralph_Fiennes_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Sebastian Stan",
       "movieId": "1182047",
       "movieTitle": "El aprendiz",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Different_Man_A_Sebastian_Stan_Out_of_Character_Headshot.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Different_Man_A_Sebastian_Stan_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Timothée Chalamet",
       "movieId": "661539",
       "movieTitle": "A Complete Unknown",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2023/12/TIMOTHEE-CHALAMET-Photo.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/12/TIMOTHEE-CHALAMET-Photo.jpg?w=600",
+      "providers": []
     }
   ]
 }

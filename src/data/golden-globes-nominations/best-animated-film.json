@@ -15,7 +15,8 @@
       ],
       "directors": [
         "Gints Zilbalodis"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1022789",
@@ -32,6 +33,9 @@
       ],
       "directors": [
         "Kelsey Mann"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
       ]
     },
     {
@@ -48,7 +52,8 @@
       ],
       "directors": [
         "Adam Elliot"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1184918",
@@ -64,7 +69,8 @@
       ],
       "directors": [
         "Chris Sanders"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1241982",
@@ -81,7 +87,8 @@
       ],
       "directors": [
         "David G. Derrick Jr."
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "929204",
@@ -97,7 +104,8 @@
       ],
       "directors": [
         "Merlin Crossingham"
-      ]
+      ],
+      "providers": []
     }
   ]
 }

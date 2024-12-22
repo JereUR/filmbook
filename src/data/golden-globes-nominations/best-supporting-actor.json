@@ -5,37 +5,43 @@
       "name": "Denzel Washington",
       "movieId": "558449",
       "movieTitle": "Gladiator II",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Gladiator_II_Denzel_Washington_Character_Headshot.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Gladiator_II_Denzel_Washington_Character_Headshot.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Edward Norton",
       "movieId": "661539",
       "movieTitle": "A Complete Unknown",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/edward_norton20190919_0_0.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/edward_norton20190919_0_0.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Guy Pearce",
       "movieId": "549509",
       "movieTitle": "The brutalist",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Brutalist_The_Guy_Pearce_Out_of_Character_Headshot.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Brutalist_The_Guy_Pearce_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Jeremy Strong",
       "movieId": "1182047",
       "movieTitle": "El aprendiz",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2023/12/JEREMY-STRONG-Photo-1.png?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/12/JEREMY-STRONG-Photo-1.png?w=600",
+      "providers": []
     },
     {
       "name": "Kieran Culkin",
       "movieId": "1013850",
       "movieTitle": "A Real Pain",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/kieran-culkin-gettyimages-1346811802-594x594-1.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/kieran-culkin-gettyimages-1346811802-594x594-1.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Yura Borisov",
       "movieId": "1064213",
       "movieTitle": "Anora",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Anora_Yura_Borisov_Out_of_Character_Headshot.png?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Anora_Yura_Borisov_Out_of_Character_Headshot.png?w=600",
+      "providers": []
     }
   ]
 }

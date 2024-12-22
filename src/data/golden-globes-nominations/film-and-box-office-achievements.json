@@ -14,6 +14,9 @@
       ],
       "directors": [
         "Fede Álvarez"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
       ]
     },
     {
@@ -30,6 +33,9 @@
       ],
       "directors": [
         "Tim Burton"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
       ]
     },
     {
@@ -46,6 +52,9 @@
       ],
       "directors": [
         "Shawn Levy"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
       ]
     },
     {
@@ -62,7 +71,8 @@
       ],
       "directors": [
         "Ridley Scott"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1022789",
@@ -79,6 +89,9 @@
       ],
       "directors": [
         "Kelsey Mann"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
       ]
     },
     {
@@ -95,7 +108,8 @@
       ],
       "directors": [
         "Chris Sanders"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "718821",
@@ -110,6 +124,9 @@
       ],
       "directors": [
         "Lee Isaac Chung"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
       ]
     },
     {
@@ -126,7 +143,8 @@
       ],
       "directors": [
         "Jon M. Chu"
-      ]
+      ],
+      "providers": []
     }
   ]
 }

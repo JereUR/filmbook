@@ -14,7 +14,8 @@
       ],
       "directors": [
         "Walter Salles"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "974950",
@@ -29,7 +30,8 @@
       ],
       "directors": [
         "Jacques Audiard"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "927547",
@@ -43,7 +45,8 @@
       ],
       "directors": [
         "Payal Kapadia"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1278263",
@@ -58,7 +61,8 @@
       ],
       "directors": [
         "Mohammad Rasoulof"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1232827",
@@ -73,7 +77,8 @@
       ],
       "directors": [
         "Magnus von Horn"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1151244",
@@ -87,7 +92,8 @@
       ],
       "directors": [
         "Maura Delpero"
-      ]
+      ],
+      "providers": []
     }
   ]
 }

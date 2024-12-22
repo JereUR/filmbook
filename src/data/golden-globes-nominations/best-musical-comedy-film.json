@@ -14,7 +14,8 @@
       ],
       "directors": [
         "Jesse Eisenberg"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1064213",
@@ -30,7 +31,8 @@
       ],
       "directors": [
         "Sean Baker"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "974950",
@@ -45,7 +47,8 @@
       ],
       "directors": [
         "Jacques Audiard"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "933260",
@@ -61,6 +64,9 @@
       ],
       "directors": [
         "Coralie Fargeat"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fj9Y8iIMFUC6952HwxbGixTQPb7.jpg"
       ]
     },
     {
@@ -76,6 +82,9 @@
       ],
       "directors": [
         "Luca Guadagnino"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
       ]
     },
     {
@@ -92,7 +101,8 @@
       ],
       "directors": [
         "Jon M. Chu"
-      ]
+      ],
+      "providers": []
     }
   ]
 }

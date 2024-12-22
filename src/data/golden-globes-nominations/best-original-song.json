@@ -10,7 +10,8 @@
         "Lykke Li",
         "Andrew Wyatt"
       ],
-      "posterPath": "https://image.tmdb.org/t/p/original/hU1VSdI4E2elc5Sklf3NmfQPJXw.jpg"
+      "posterPath": "https://image.tmdb.org/t/p/original/hU1VSdI4E2elc5Sklf3NmfQPJXw.jpg",
+      "providers": []
     },
     {
       "name": "Compress/Repress",
@@ -21,7 +22,10 @@
         "Atticus Ross",
         "Luca Guadagnino"
       ],
-      "posterPath": "https://image.tmdb.org/t/p/w500/Aiqfn4XtXUPr7QNsDsAKNQ1aOKV.jpg"
+      "posterPath": "https://image.tmdb.org/t/p/w500/Aiqfn4XtXUPr7QNsDsAKNQ1aOKV.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      ]
     },
     {
       "name": "El Mal",
@@ -32,7 +36,8 @@
         "Camille",
         "Jacques Audiard"
       ],
-      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg"
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "providers": []
     },
     {
       "name": "Forbidden Road",
@@ -43,7 +48,8 @@
         "Freddy Wexler",
         "Sacha Skarbek"
       ],
-      "posterPath": "https://image.tmdb.org/t/p/w500/6Rf7kF0Np3mOa1KRo2a2KJZ7mIj.jpg"
+      "posterPath": "https://image.tmdb.org/t/p/w500/6Rf7kF0Np3mOa1KRo2a2KJZ7mIj.jpg",
+      "providers": []
     },
     {
       "name": "Kiss The Sky",
@@ -57,7 +63,8 @@
         "Michael Pollack",
         "Stefan Johnson"
       ],
-      "posterPath": "https://image.tmdb.org/t/p/w500/a0a7RC01aTa7pOnskgJb3mCD2Ba.jpg"
+      "posterPath": "https://image.tmdb.org/t/p/w500/a0a7RC01aTa7pOnskgJb3mCD2Ba.jpg",
+      "providers": []
     },
     {
       "name": "Mi Camino",
@@ -67,7 +74,8 @@
         "Clément Ducol",
         "Camille"
       ],
-      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg"
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "providers": []
     }
   ]
 }

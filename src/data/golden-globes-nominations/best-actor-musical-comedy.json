@@ -5,37 +5,47 @@
       "name": "Gabriel LaBelle",
       "movieId": "1120911",
       "movieTitle": "Saturday Night",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Gabriel-LaBelle-original-8E1F7459-708A-4414-A429-C1F1E8CBC7AC.jpeg?w=408"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Gabriel-LaBelle-original-8E1F7459-708A-4414-A429-C1F1E8CBC7AC.jpeg?w=408",
+      "providers": []
     },
     {
       "name": "Glen Powell",
       "movieId": "974635",
       "movieTitle": "Hit Man. Asesino por casualidad",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Hit_Man_Glen_Powell_Out_of_Character_Headshot.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Hit_Man_Glen_Powell_Out_of_Character_Headshot.jpg?w=600",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      ]
     },
     {
       "name": "Hugh Grant",
       "movieId": "1138194",
       "movieTitle": "Heretic",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Heretic_Hugh_Grant_Out_of_Character_Headshot.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Heretic_Hugh_Grant_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Jesse Eisenberg",
       "movieId": "1013850",
       "movieTitle": "A Real Pain",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Real_Pain_A_Jesse_Eisenberg_Out_of_Character_Headshot.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Real_Pain_A_Jesse_Eisenberg_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
     },
     {
       "name": "Jesse Plemons",
       "movieId": "1029955",
       "movieTitle": "Kinds of Kindness",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Kinds_of_Kindness_Jesse_Plemons_Character_Headshot.png?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Kinds_of_Kindness_Jesse_Plemons_Character_Headshot.png?w=600",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
+      ]
     },
     {
       "name": "Sebastian Stan",
       "movieId": "989662",
       "movieTitle": "A Different Man",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Different_Man_A_Sebastian_Stan_Out_of_Character_Headshot.jpg?w=600"
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Different_Man_A_Sebastian_Stan_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
     }
   ]
 }

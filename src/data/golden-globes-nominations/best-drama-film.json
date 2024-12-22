@@ -15,7 +15,8 @@
       ],
       "directors": [
         "James Mangold"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "974576",
@@ -31,7 +32,8 @@
       ],
       "directors": [
         "Edward Berger"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "693134",
@@ -46,6 +48,9 @@
       ],
       "directors": [
         "Denis Villeneuve"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
       ]
     },
     {
@@ -61,7 +66,8 @@
       ],
       "directors": [
         "RaMell Ross"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "1211472",
@@ -76,7 +82,8 @@
       ],
       "directors": [
         "Tim Fehlbaum"
-      ]
+      ],
+      "providers": []
     },
     {
       "id": "549509",
@@ -90,7 +97,8 @@
       ],
       "directors": [
         "Brady Corbet"
-      ]
+      ],
+      "providers": []
     }
   ]
 }
