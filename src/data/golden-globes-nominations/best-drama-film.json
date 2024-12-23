@@ -24,7 +24,7 @@
       "posterPath": "https://image.tmdb.org/t/p/w500/ftIJ42zwuFvUFVEWZQbFq1vcV5U.jpg",
       "releaseDate": "2024",
       "runtime": 120,
-      "voteAverage": 7.4,
+      "voteAverage": 7.1,
       "genres": [
         "Misterio",
         "Suspenso",
@@ -41,7 +41,7 @@
       "posterPath": "https://image.tmdb.org/t/p/w500/xCHmhHeO7aOCMlzcNukGH6Q7EiD.jpg",
       "releaseDate": "2024",
       "runtime": 167,
-      "voteAverage": 8.1,
+      "voteAverage": 8.2,
       "genres": [
         "Ciencia Ficción",
         "Aventura"
@@ -75,7 +75,7 @@
       "posterPath": "https://image.tmdb.org/t/p/w500/9BfBxNmY7jUTR1AtYJcBVoEzhSN.jpg",
       "releaseDate": "2024",
       "runtime": 91,
-      "voteAverage": 6.5,
+      "voteAverage": 5.7,
       "genres": [
         "Drama",
         "Suspenso"
@@ -91,7 +91,7 @@
       "posterPath": "https://image.tmdb.org/t/p/w500/c2VAIn0yto7wkq6maw4mTse1mId.jpg",
       "releaseDate": "2024",
       "runtime": 215,
-      "voteAverage": null,
+      "voteAverage": 8.3,
       "genres": [
         "Drama"
       ],
