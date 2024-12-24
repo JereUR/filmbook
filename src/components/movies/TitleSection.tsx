@@ -129,6 +129,7 @@ export default function TitleSection({
             key={director.id}
             member={director}
             handleImageClick={handleImageClick}
+            isDirector={true}
           />
         ))}
         <p className="text-sm font-light italic text-foreground/40 md:text-base">
