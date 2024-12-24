@@ -74,6 +74,10 @@ export async function getRecomendationsMovieById(
 }
 
 export async function getPopularMovies(): Promise<Movie[] | null> {
+  if (typeof window !== 'undefined') {
+    throw new Error('This function should only be called from the server')
+  }
+
   try {
     const response = await fetch(
       `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=es-ES`,
@@ -105,6 +109,7 @@ export async function getPopularMovies(): Promise<Movie[] | null> {
     })
     return movies
   } catch (error) {
+    console.error("Error fetching popular movies:", error)
     return null
   }
 }

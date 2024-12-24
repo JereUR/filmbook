@@ -1,19 +1,26 @@
-import { getPopularMovies } from "@/lib/tmdb"
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 
 import noImagePath from '@/assets/no-image-film.jpg'
 import TmdbLogo from '@/assets/TMDB.png'
 import { getYear, ratingColor } from "@/lib/utils"
+import { usePopularMovies } from "@/hooks/usePopularMovies"
+import { PopularMoviesSkeleton } from "@/components/skeletons/PopularMoviesSkeleton"
 
 interface PopularMoviesProps {
   className: string
 }
 
-export default async function PopularMovies({ className }: PopularMoviesProps) {
-  const movies = await getPopularMovies()
+export default function PopularMovies({ className }: PopularMoviesProps) {
+  const { movies, isLoading, isError } = usePopularMovies()
 
-  if (!movies) {
+  if (isLoading) {
+    return <PopularMoviesSkeleton className={className} />
+  }
+
+  if (isError || !movies) {
     return <div className={className}>No se pudieron cargar las películas populares</div>
   }
 
