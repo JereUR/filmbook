@@ -52,6 +52,7 @@
     "react-linkify-it": "^1.0.8",
     "stream-chat": "^8.37.0",
     "stream-chat-react": "^11.23.5",
+    "swr": "^2.3.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.13.2",
