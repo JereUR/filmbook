@@ -98,7 +98,7 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
                             <Info className="w-4 h-4 text-gray-500" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Plataformas disponibles en Argentina (actualizado al 21 de Diciembre del 2024)</p>
+                            <p>Plataformas disponibles en Argentina (actualizado al 4 de Enero del 2025)</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>

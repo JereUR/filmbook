@@ -120,7 +120,7 @@ export default function GoldenGlobeNominationsMovies({ handleImageClick }: Golde
                             <Info className="w-[14px] h-[14px] text-foreground/40" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Plataformas disponibles en Argentina (actualizado al 21 de Diciembre del 2024)</p>
+                            <p>Plataformas disponibles en Argentina (actualizado al 4 de Enero del 2025)</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
