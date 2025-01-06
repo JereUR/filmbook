@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Info } from 'lucide-react'
+import { Info, Trophy } from 'lucide-react'
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -16,6 +16,13 @@ interface GoldenGlobeNominationsPersonsProps {
 export default function GoldenGlobeNominationsPersons({ handleImageClick }: GoldenGlobeNominationsPersonsProps) {
   const { nominationsPerson } = useGoldenGlobeNominees()
 
+  const handleClick = (nominee: any, isLink: boolean = false) => {
+    if (isLink) {
+      return
+    }
+    handleImageClick({ src: nominee.photo, name: nominee.name })
+  }
+
   return (
     <div className="container mx-auto px-2 sm:px-4">
       {nominationsPerson.map(({ category, nominees, winner }) => (
@@ -25,11 +32,21 @@ export default function GoldenGlobeNominationsPersons({ handleImageClick }: Gold
             {nominees.map((nominee) => (
               <Card
                 key={`${category} - ${nominee.name}`}
-                className={`overflow-hidden cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg ${winner === nominee.name ? "ring-2 sm:ring-4 ring-yellow-500" : ""
+                className={`overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg ${winner === nominee.name
+                  ? "ring-2 sm:ring-4 ring-yellow-500 relative overflow-hidden animate-pulse-slow"
+                  : "opacity-70 hover:opacity-100"
                   }`}
-                onClick={() => handleImageClick({ src: nominee.photo, name: nominee.name })}
               >
-                <div className="group relative aspect-[3/4] w-full overflow-hidden">
+                <div
+                  className="group relative aspect-[3/4] w-full overflow-hidden cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleClick(nominee)
+                  }}
+                >
+                  {winner === nominee.name && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 opacity-20 z-10"></div>
+                  )}
                   <Image
                     src={nominee.photo}
                     alt={`${nominee.name} photo`}
@@ -38,25 +55,40 @@ export default function GoldenGlobeNominationsPersons({ handleImageClick }: Gold
                     className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
                     unoptimized
                   />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                     <h3 className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-bold text-center px-1 sm:px-2">
                       {nominee.name} {winner === nominee.name && "🏆"}
                     </h3>
                   </div>
                 </div>
                 <CardContent className="p-2 sm:p-4 h-full">
+                  {winner === nominee.name && (
+                    <div className="absolute top-2 right-2 text-yellow-500 z-30">
+                      <Trophy className="w-4 h-4 md:w-6 md:h-6 animate-bounce" />
+                    </div>
+                  )}
                   <div className="space-y-2">
-                    <p className="font-semibold text-sm sm:text-lg text-primary truncate">{nominee.name}</p>
+                    <p className={`font-semibold text-sm sm:text-lg truncate ${winner === nominee.name ? "text-yellow-500" : "text-primary"
+                      }`}>
+                      {nominee.name}
+                      {winner === nominee.name && (
+                        <Trophy className="inline-block w-4 h-4 ml-1 text-yellow-500" />
+                      )}
+                    </p>
                     {nominee.movieId ? (
                       <Link
                         href={`/pelicula/${nominee.movieId}?title=${encodeURIComponent(
                           nominee.movieTitle
                         )}&date=2024`}
                         title={nominee.movieTitle}
-                        className="text-primary-orange text-xs sm:text-base hover:underline block truncate"
+                        className="text-primary-orange text-xs sm:text-base hover:underline block truncate z-30"
                         aria-label={`Ver información de ${nominee.movieTitle}`}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleClick(nominee, true)
+                        }}
                       >
                         {nominee.movieTitle}
                       </Link>
@@ -100,3 +132,4 @@ export default function GoldenGlobeNominationsPersons({ handleImageClick }: Gold
     </div>
   )
 }
+
