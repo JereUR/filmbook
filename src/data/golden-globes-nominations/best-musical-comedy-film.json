@@ -1,6 +1,23 @@
 {
   "category": "Mejor película - Musical o Comedia",
+  "winner": "Emilia Pérez",
   "nominees": [
+    {
+      "id": "974950",
+      "title": "Emilia Pérez",
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "releaseDate": "2024",
+      "runtime": 130,
+      "voteAverage": 7.88,
+      "genres": [
+        "Drama",
+        "Suspenso"
+      ],
+      "directors": [
+        "Jacques Audiard"
+      ],
+      "providers": []
+    },
     {
       "id": "1013850",
       "title": "A Real Pain",
@@ -31,22 +48,6 @@
       ],
       "directors": [
         "Sean Baker"
-      ],
-      "providers": []
-    },
-    {
-      "id": "974950",
-      "title": "Emilia Pérez",
-      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
-      "releaseDate": "2024",
-      "runtime": 130,
-      "voteAverage": 7.88,
-      "genres": [
-        "Drama",
-        "Suspenso"
-      ],
-      "directors": [
-        "Jacques Audiard"
       ],
       "providers": []
     },

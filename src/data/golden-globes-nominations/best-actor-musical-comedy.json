@@ -1,6 +1,14 @@
 {
   "category": "Mejor actor de película - Musical o Comedia",
+  "winner": "Sebastian Stan",
   "nominees": [
+    {
+      "name": "Sebastian Stan",
+      "movieId": "989662",
+      "movieTitle": "A Different Man",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Different_Man_A_Sebastian_Stan_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    },
     {
       "name": "Gabriel LaBelle",
       "movieId": "1120911",
@@ -39,13 +47,6 @@
       "providers": [
         "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
       ]
-    },
-    {
-      "name": "Sebastian Stan",
-      "movieId": "989662",
-      "movieTitle": "A Different Man",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Different_Man_A_Sebastian_Stan_Out_of_Character_Headshot.jpg?w=600",
-      "providers": []
     }
   ]
 }

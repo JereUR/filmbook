@@ -1,6 +1,16 @@
 {
   "category": "Mejor banda sonora original",
+  "winner": "Trent Reznor, Atticus Ross",
   "nominees": [
+    {
+      "name": "Trent Reznor, Atticus Ross",
+      "movieId": "937287",
+      "movieTitle": "Rivales",
+      "photo": "https://deadline.com/wp-content/uploads/2018/09/trent-reznor-atticus-ross.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      ]
+    },
     {
       "name": "Clément Ducol, Camille",
       "movieId": "974950",
@@ -30,15 +40,6 @@
       "movieTitle": "Robot salvaje",
       "photo": "https://spitfireaudio.imgix.net/ec5476b5-c6cb-4a3e-bb46-ce2f2774d07f/KBHeadshot202311.jpg?auto=compress%2Cformat&fit=min&fm=jpg&q=80&rect=0%2C0%2C3000%2C3995&w=2000",
       "providers": []
-    },
-    {
-      "name": "Trent Reznor, Atticus Ross",
-      "movieId": "937287",
-      "movieTitle": "Rivales",
-      "photo": "https://deadline.com/wp-content/uploads/2018/09/trent-reznor-atticus-ross.jpg",
-      "providers": [
-        "https://image.tmdb.org/t/p/w500/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
-      ]
     },
     {
       "name": "Volker Bertelmann",

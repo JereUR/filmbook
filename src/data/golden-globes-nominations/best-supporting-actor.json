@@ -1,6 +1,14 @@
 {
   "category": "Mejor actor de reparto",
+  "winner": "Kieran Culkin",
   "nominees": [
+    {
+      "name": "Kieran Culkin",
+      "movieId": "1013850",
+      "movieTitle": "A Real Pain",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/kieran-culkin-gettyimages-1346811802-594x594-1.jpg?w=600",
+      "providers": []
+    },
     {
       "name": "Denzel Washington",
       "movieId": "558449",
@@ -27,13 +35,6 @@
       "movieId": "1182047",
       "movieTitle": "El aprendiz",
       "photo": "https://goldenglobes.com/wp-content/uploads/2023/12/JEREMY-STRONG-Photo-1.png?w=600",
-      "providers": []
-    },
-    {
-      "name": "Kieran Culkin",
-      "movieId": "1013850",
-      "movieTitle": "A Real Pain",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/kieran-culkin-gettyimages-1346811802-594x594-1.jpg?w=600",
       "providers": []
     },
     {

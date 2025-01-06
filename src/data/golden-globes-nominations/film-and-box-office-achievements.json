@@ -1,6 +1,24 @@
 {
   "category": "Logros cinematográficos y de taquilla",
+  "winner": "Wicked",
   "nominees": [
+    {
+      "id": "402431",
+      "title": "Wicked",
+      "posterPath": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
+      "releaseDate": "2024",
+      "runtime": 160,
+      "voteAverage": 7.6,
+      "genres": [
+        "Drama",
+        "Romance",
+        "Fantasía"
+      ],
+      "directors": [
+        "Jon M. Chu"
+      ],
+      "providers": []
+    },
     {
       "id": "945961",
       "title": "Alien: Romulus",
@@ -128,23 +146,6 @@
       "providers": [
         "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
       ]
-    },
-    {
-      "id": "402431",
-      "title": "Wicked",
-      "posterPath": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
-      "releaseDate": "2024",
-      "runtime": 160,
-      "voteAverage": 7.6,
-      "genres": [
-        "Drama",
-        "Romance",
-        "Fantasía"
-      ],
-      "directors": [
-        "Jon M. Chu"
-      ],
-      "providers": []
     }
   ]
 }

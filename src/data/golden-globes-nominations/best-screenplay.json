@@ -1,6 +1,14 @@
 {
   "category": "Mejor guión",
+  "winner": "Peter Straughan",
   "nominees": [
+    {
+      "name": "Peter Straughan",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Peter-Straughan-headshot-2024.Photo-credit-to-Antonio-Olmos.jpg?w=600",
+      "providers": []
+    },
     {
       "name": "Brady Corbet, Mona Fastvold",
       "movieId": "549509",
@@ -29,13 +37,6 @@
       "movieId": "1013850",
       "movieTitle": "A Real Pain",
       "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Real_Pain_A_Jesse_Eisenberg_Out_of_Character_Headshot.jpg?w=600",
-      "providers": []
-    },
-    {
-      "name": "Peter Straughan",
-      "movieId": "974576",
-      "movieTitle": "Conclave",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Peter-Straughan-headshot-2024.Photo-credit-to-Antonio-Olmos.jpg?w=600",
       "providers": []
     },
     {

@@ -1,6 +1,22 @@
 {
   "category": "Mejor película - Drama",
+  "winner": "The Brutalist",
   "nominees": [
+    {
+      "id": "549509",
+      "title": "The Brutalist",
+      "posterPath": "https://image.tmdb.org/t/p/w500/c2VAIn0yto7wkq6maw4mTse1mId.jpg",
+      "releaseDate": "2024",
+      "runtime": 215,
+      "voteAverage": 8.3,
+      "genres": [
+        "Drama"
+      ],
+      "directors": [
+        "Brady Corbet"
+      ],
+      "providers": []
+    },
     {
       "id": "661539",
       "title": "A Complete Unknown",
@@ -82,21 +98,6 @@
       ],
       "directors": [
         "Tim Fehlbaum"
-      ],
-      "providers": []
-    },
-    {
-      "id": "549509",
-      "title": "The Brutalist",
-      "posterPath": "https://image.tmdb.org/t/p/w500/c2VAIn0yto7wkq6maw4mTse1mId.jpg",
-      "releaseDate": "2024",
-      "runtime": 215,
-      "voteAverage": 8.3,
-      "genres": [
-        "Drama"
-      ],
-      "directors": [
-        "Brady Corbet"
       ],
       "providers": []
     }

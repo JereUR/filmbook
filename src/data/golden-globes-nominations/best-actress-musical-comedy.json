@@ -1,6 +1,16 @@
 {
   "category": "Mejor actriz de película - Musical o Comedia",
+  "winner": "Demi Moore",
   "nominees": [
+    {
+      "name": "Demi Moore",
+      "movieId": "933260",
+      "movieTitle": "La sustancia",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_on_Television_Feud__Capote_vs._The_Swans_Demi_Moore_Out_of_Character_Headshot.jpg?w=600",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fj9Y8iIMFUC6952HwxbGixTQPb7.jpg"
+      ]
+    },
     {
       "name": "Amy Adams",
       "movieId": "728949",
@@ -14,15 +24,6 @@
       "movieTitle": "Wicked",
       "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Wicked_Cynthia_Erivo_Out_of_Character_Headshot.jpg?w=600",
       "providers": []
-    },
-    {
-      "name": "Demi Moore",
-      "movieId": "933260",
-      "movieTitle": "La sustancia",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_on_Television_Feud__Capote_vs._The_Swans_Demi_Moore_Out_of_Character_Headshot.jpg?w=600",
-      "providers": [
-        "https://image.tmdb.org/t/p/w500/fj9Y8iIMFUC6952HwxbGixTQPb7.jpg"
-      ]
     },
     {
       "name": "Karla Sofìa Gascón",

@@ -1,18 +1,19 @@
 {
   "category": "Mejor actriz de película - drama",
+  "winner": "Fernanda Torres",
   "nominees": [
-    {
-      "name": "Angelina Jolie",
-      "movieId": "1038263",
-      "movieTitle": "María Callas",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/Best_Performance_by_a_Female_Actor_in_a_Motion_Picture_-_Drama_Maria_Angelina_Jolie_Character_Headshot_733255.jpg?w=600",
-      "providers": []
-    },
     {
       "name": "Fernanda Torres",
       "movieId": "1000837",
       "movieTitle": "Aún Estoy Aquí",
       "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Motion_Picture_-_Drama_Im_Still_Here_Fernanda_Torres_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Angelina Jolie",
+      "movieId": "1038263",
+      "movieTitle": "María Callas",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/Best_Performance_by_a_Female_Actor_in_a_Motion_Picture_-_Drama_Maria_Angelina_Jolie_Character_Headshot_733255.jpg?w=600",
       "providers": []
     },
     {
