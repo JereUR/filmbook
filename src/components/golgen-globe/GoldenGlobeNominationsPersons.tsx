@@ -68,11 +68,11 @@ export default function GoldenGlobeNominationsPersons({ handleImageClick }: Gold
                     </div>
                   )}
                   <div className="space-y-2">
-                    <p className={`font-semibold text-sm sm:text-lg truncate ${winner === nominee.name ? "text-yellow-500" : "text-primary"
+                    <p className={`font-semibold flex items-center text-sm sm:text-lg truncate ${winner === nominee.name ? "text-yellow-500" : "text-primary"
                       }`}>
                       {nominee.name}
                       {winner === nominee.name && (
-                        <Trophy className="inline-block w-4 h-4 ml-1 text-yellow-500" />
+                        <Trophy className="w-4 h-4 ml-1 text-yellow-500" />
                       )}
                     </p>
                     {nominee.movieId ? (
