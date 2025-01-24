@@ -1,0 +1,43 @@
+{
+  "category": "Mejor diseño de producción",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Production Design: Suzie Davies; Set Decoration: Cynthia Sleiter",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://image.tmdb.org/t/p/w500/ftIJ42zwuFvUFVEWZQbFq1vcV5U.jpg",
+      "providers": []
+    },
+    {
+      "name": "Production Design: Judy Becker; Set Decoration: Patricia Cuccia",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://image.tmdb.org/t/p/w500/c2VAIn0yto7wkq6maw4mTse1mId.jpg",
+      "providers": []
+    },
+    {
+      "name": "Production Design: Patrice Vermette; Set Decoration: Shane Vieau",
+      "movieId": "693134",
+      "movieTitle": "Dune: Parte dos",
+      "photo": "https://image.tmdb.org/t/p/w500/xCHmhHeO7aOCMlzcNukGH6Q7EiD.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
+      ]
+    },
+    {
+      "name": "Production Design: Craig Lathrop; Set Decoration: Beatrice Brentnerová",
+      "movieId": "426063",
+      "movieTitle": "Nosferatu",
+      "photo": "https://image.tmdb.org/t/p/w500/jivUhECegXI3OYtPVflWoIDtENt.jpg",
+      "providers": []
+    },
+    {
+      "name": "Production Design: Nathan Crowley; Set Decoration: Lee Sandales",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://image.tmdb.org/t/p/w500/jivUhECegXI3OYtPVflWoIDtENt.jpg",
+      "providers": []
+    }
+  ]
+}

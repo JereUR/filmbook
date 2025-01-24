@@ -58,6 +58,81 @@ const nextConfig = {
         hostname: "www.shutterstock.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "media-cldnry.s-nbcnews.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "media.themoviedb.org",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "torontofashionweek.to",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "static.wikia.nocookie.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lolcrawley.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.afcinema.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "m.media-amazon.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "resizing.flixster.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.taufilmfest.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "scriptmag.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "audioboom.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "static.alfred.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "static.hoy.es",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "media.gettyimages.com",
+        pathname: "/**",
+      },
     ],
   },
   rewrites: () => {

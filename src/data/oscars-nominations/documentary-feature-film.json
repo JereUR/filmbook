@@ -1,0 +1,89 @@
+{
+  "category": "Mejor documental",
+  "winner": "",
+  "nominees": [
+    {
+      "id": "1214499",
+      "title": "Black Box Diaries",
+      "posterPath": "https://image.tmdb.org/t/p/w500/wX95ps6Haijvt7evwSwqx1gs88e.jpg",
+      "releaseDate": "2024",
+      "runtime": 103,
+      "voteAverage": 7.8,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Shiori Itō"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1232493",
+      "title": "No Other Land",
+      "posterPath": "https://image.tmdb.org/t/p/w500/s7XYieuZg9kMe07i9VI4bfGN4Pw.jpg",
+      "releaseDate": "2024",
+      "runtime": 85,
+      "voteAverage": 7.8,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Rachel Szor",
+        "Yuval Abraham",
+        "Hamdan Ballal",
+        "Basel Adra"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1214527",
+      "title": "Porcelain War",
+      "posterPath": "https://image.tmdb.org/t/p/w500/8pJd2SAHZuckb7F7HkUfW39Kzwn.jpg",
+      "releaseDate": "2024",
+      "runtime": 87,
+      "voteAverage": null,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Brendan Bellomo",
+        "Slava Leontyev"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1214539",
+      "title": "Soundtrack to a Coup d'État",
+      "posterPath": "https://image.tmdb.org/t/p/w500/eZOB9UurVQjpdIp72L49pyd3anw.jpg",
+      "releaseDate": "2024",
+      "runtime": 150,
+      "voteAverage": 7.6,
+      "genres": [
+        "Documental",
+        "Historia"
+      ],
+      "directors": [
+        "Johan Grimonprez"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1158874",
+      "title": "Sugarcane",
+      "posterPath": "https://image.tmdb.org/t/p/w500/9Xx4o4MVSDv0pojOzoHMH5y85hB.jpg",
+      "releaseDate": "2024",
+      "runtime": 107,
+      "voteAverage": 6.7,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Emily Kassie",
+        "Julian Brave NoiseCat"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
+      ]
+    }
+  ]
+}

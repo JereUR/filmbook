@@ -1,0 +1,41 @@
+{
+  "category": "Mejor maquillaje y peluquería",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Mike Marino, David Presto and Crystal Jurado",
+      "movieId": "989662",
+      "movieTitle": "A Different Man",
+      "photo": "https://image.tmdb.org/t/p/w500/itNMzcQkdqP5a4MEIhWnyroXzOw.jpg",
+      "providers": []
+    },
+    {
+      "name": "David White, Traci Loader and Suzanne Stokes-Munton",
+      "movieId": "426063",
+      "movieTitle": "Nosferatu",
+      "photo": "https://image.tmdb.org/t/p/w500/jT9xDRGD9lg0b4LSqbrdgAyicd5.jpg",
+      "providers": []
+    },
+    {
+      "name": "Julia Floch Carbonel, Emmanuel Janvier and Jean-Christophe Spadaccini",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "providers": []
+    },
+    {
+      "name": "Pierre-Olivier Persin, Stéphanie Guillon and Marilyne Scarselli",
+      "movieId": "933260",
+      "movieTitle": "La sustancia",
+      "photo": "https://image.tmdb.org/t/p/w500/w1PiIqM89r4AM7CiMEP4VLCEFUn.jpg",
+      "providers": []
+    },
+    {
+      "name": "Frances Hannon, Laura Blount and Sarah Nuth",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
+      "providers": []
+    }
+  ]
+}

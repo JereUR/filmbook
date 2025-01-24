@@ -1,0 +1,67 @@
+{
+  "category": "Mejor canción original",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "El Mal",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "composers": [
+        "Clément Ducol",
+        "Camille",
+        "Jacques Audiard"
+      ],
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "providers": []
+    },
+    {
+      "name": "The Journey",
+      "movieId": "1061699",
+      "movieTitle": "Seis Triple Ocho",
+      "composers": [
+        "Diane Warren"
+      ],
+      "posterPath": "https://static.alfred.com/cache/12/7a/127a61234c54d7bfdf52a2ba9dc14a45.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      ]
+    },
+    {
+      "name": "Like A Bird",
+      "movieId": "1155828",
+      "movieTitle": "Las vidas de Sing Sing",
+      "composers": [
+        "Abraham Alexander",
+        "Adrian Quesada"
+      ],
+      "posterPath": "https://i.ytimg.com/vi/lqgWLAwVyTY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCBWILmW5srpCItEyfINnvpeqqT5Q",
+      "providers": []
+    },
+    {
+      "name": "Never Too Late",
+      "movieId": "977326",
+      "movieTitle": "Elton John: Never Too Late",
+      "composers": [
+        "Elton John",
+        "Brandi Carlile",
+        "Andrew Watt",
+        "Bernie Taupin"
+      ],
+      "posterPath": "https://upload.wikimedia.org/wikipedia/en/1/12/Elton_John_Never_Too_Late.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
+      ]
+    },
+    {
+      "name": "Mi Camino",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "composers": [
+        "Clément Ducol",
+        "Camille"
+      ],
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "providers": []
+    }
+  ]
+}

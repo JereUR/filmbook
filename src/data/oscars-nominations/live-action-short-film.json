@@ -1,0 +1,85 @@
+{
+  "category": "Mejor corto live action",
+  "winner": "",
+  "nominees": [
+    {
+      "id": "1118941",
+      "title": "A Lien",
+      "posterPath": "https://image.tmdb.org/t/p/w500/2gCJYWNOStXR4MVfwiFD28hQMiG.jpg",
+      "releaseDate": "2023",
+      "runtime": 15,
+      "voteAverage": 7.1,
+      "genres": [
+        "Drama"
+      ],
+      "directors": [
+        "Sam Cutler-Kreutz",
+        "David Cutler-Kreutz"
+      ],
+      "providers": []
+    },
+    {
+      "id": "337997",
+      "title": "Anuja",
+      "posterPath": "https://image.tmdb.org/t/p/w500/eULXxX3wrHm2d7lObP3G3NiXn2v.jpg",
+      "releaseDate": "2024",
+      "runtime": 22,
+      "voteAverage": 10,
+      "genres": [
+        "Drama"
+      ],
+      "directors": [
+        "Adam J. Graves"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1316292",
+      "title": "The Last Ranger",
+      "posterPath": "https://image.tmdb.org/t/p/w500/yZjzDtv9TyxVdWidHzzcPfNfjZH.jpg",
+      "releaseDate": "2024",
+      "runtime": 27,
+      "voteAverage": 5.0,
+      "genres": [
+        "Drama"
+      ],
+      "directors": [
+        "Cindy Lee"
+      ],
+      "providers": []
+    },
+    {
+      "id": null,
+      "title": "I'm Not a Robot",
+      "posterPath": "https://m.media-amazon.com/images/M/MV5BMDdlNjEyNjQtMTU0NC00MTFmLThlNDgtYWE4MTBiNGYyNzk0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+      "releaseDate": "2023",
+      "runtime": 22,
+      "voteAverage": null,
+      "genres": [
+        "Comedia",
+        "Drama",
+        "Fantasía",
+        "Ciencia ficción"
+      ],
+      "directors": [
+        "Victoria Warmerdam"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1279229",
+      "title": "El hombre que no pudo permanecer en silencio",
+      "posterPath": "https://image.tmdb.org/t/p/w500/41mcjL6OOMnLUp8TjX8mV4vjWpj.jpg",
+      "releaseDate": "2024",
+      "runtime": 14,
+      "voteAverage": 7.7,
+      "genres": [
+        "Drama"
+      ],
+      "directors": [
+        "Nebojša Slijepčević"
+      ],
+      "providers": []
+    }
+  ]
+}

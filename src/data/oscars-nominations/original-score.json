@@ -1,0 +1,50 @@
+{
+  "category": "Mejor banda sonora original",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Trent Reznor, Atticus Ross",
+      "movieId": "937287",
+      "movieTitle": "Rivales",
+      "photo": "https://deadline.com/wp-content/uploads/2018/09/trent-reznor-atticus-ross.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
+      ]
+    },
+    {
+      "name": "Clément Ducol, Camille",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/CAMILLE-CLEMENT-%C2%A9Goledzinowski3-e1734020556916.jpg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Daniel Blumberg",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://lastfm.freetls.fastly.net/i/u/ar0/738dfb481e4022d7c7dba2257ddcd433.jpg",
+      "providers": []
+    },
+    {
+      "name": "John Powell and Stephen Schwartz",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://audioboom.com/i/42358015/s=1400x1400/el=1/rt=fill.jpg",
+      "providers": []
+    },
+    {
+      "name": "Kris Bowers",
+      "movieId": "1184918",
+      "movieTitle": "Robot salvaje",
+      "photo": "https://spitfireaudio.imgix.net/ec5476b5-c6cb-4a3e-bb46-ce2f2774d07f/KBHeadshot202311.jpg?auto=compress%2Cformat&fit=min&fm=jpg&q=80&rect=0%2C0%2C3000%2C3995&w=2000",
+      "providers": []
+    },
+    {
+      "name": "Volker Bertelmann",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/%C2%A9HannesCaspar_VolkerBertelmann_8K4A3066.jpg?w=600",
+      "providers": []
+    }
+  ]
+}

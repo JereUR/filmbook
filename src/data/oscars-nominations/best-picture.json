@@ -1,5 +1,5 @@
 {
-  "category": "Mejor película - Drama",
+  "category": "Mejor película",
   "winner": "",
   "nominees": [
     {
@@ -86,18 +86,87 @@
       "providers": []
     },
     {
-      "id": "1211472",
-      "title": "Septiembre 5",
-      "posterPath": "https://image.tmdb.org/t/p/w500/9BfBxNmY7jUTR1AtYJcBVoEzhSN.jpg",
+      "id": "1064213",
+      "title": "Anora",
+      "posterPath": "https://image.tmdb.org/t/p/w500/eo3NB00hGPln4noxsME5CwRFkO8.jpg",
       "releaseDate": "2024",
-      "runtime": 91,
-      "voteAverage": 5.7,
+      "runtime": 139,
+      "voteAverage": 7.0,
+      "genres": [
+        "Drama",
+        "Romance",
+        "Comedia"
+      ],
+      "directors": [
+        "Sean Baker"
+      ],
+      "providers": []
+    },
+    {
+      "id": "974950",
+      "title": "Emilia Pérez",
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "releaseDate": "2024",
+      "runtime": 130,
+      "voteAverage": 7.7,
       "genres": [
         "Drama",
         "Suspenso"
       ],
       "directors": [
-        "Tim Fehlbaum"
+        "Jacques Audiard"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1000837",
+      "title": "Aún Estoy Aquí",
+      "posterPath": "https://image.tmdb.org/t/p/w500/zNAw7jK8bwCK56rIW676pdgkwhd.jpg",
+      "releaseDate": "2024",
+      "runtime": 137,
+      "voteAverage": 8.6,
+      "genres": [
+        "Drama",
+        "Historia"
+      ],
+      "directors": [
+        "Walter Salles"
+      ],
+      "providers": []
+    },
+    {
+      "id": "933260",
+      "title": "La sustancia",
+      "posterPath": "https://image.tmdb.org/t/p/w500/w1PiIqM89r4AM7CiMEP4VLCEFUn.jpg",
+      "releaseDate": "2024",
+      "runtime": 141,
+      "voteAverage": 7.1,
+      "genres": [
+        "Drama",
+        "Terror",
+        "Ciencia ficción"
+      ],
+      "directors": [
+        "Coralie Fargeat"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fj9Y8iIMFUC6952HwxbGixTQPb7.jpg"
+      ]
+    },
+    {
+      "id": "402431",
+      "title": "Wicked",
+      "posterPath": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
+      "releaseDate": "2024",
+      "runtime": 160,
+      "voteAverage": 7.0,
+      "genres": [
+        "Drama",
+        "Romance",
+        "Fantasía"
+      ],
+      "directors": [
+        "Jon M. Chu"
       ],
       "providers": []
     }

@@ -570,9 +570,9 @@ export interface FavoriteMovie {
 // Golden Globe section
 
 export interface NominatedMovie {
-  id: string
+  id: string | null
   title: string
-  posterPath: string
+  posterPath: string | null
   releaseDate: string
   runtime: number
   voteAverage: number | null
@@ -591,7 +591,7 @@ export interface NominatedPerson {
   name: string
   movieId: string | null
   movieTitle: string
-  photo: string
+  photo: string | null
   providers?: string[]
 }
 

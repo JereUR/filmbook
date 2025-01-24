@@ -1,0 +1,83 @@
+{
+  "category": "Mejor corto documental",
+  "winner": "",
+  "nominees": [
+    {
+      "id": "1356881",
+      "title": "Death by Numbers",
+      "posterPath": "https://image.tmdb.org/t/p/w500/jXrPzp5dCv0BCdiR4gIMNwepUmM.jpg",
+      "releaseDate": "2024",
+      "runtime": 33,
+      "voteAverage": null,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Kim A. Snyder"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1300245",
+      "title": "I Am Ready, Warden",
+      "posterPath": "https://image.tmdb.org/t/p/w500/6ZxytXnqptGAwOrUNMHHaFXJYHy.jpg",
+      "releaseDate": "2024",
+      "runtime": 37,
+      "voteAverage": 4.3,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Smriti Mundhra"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1108462",
+      "title": "Incident",
+      "posterPath": "https://image.tmdb.org/t/p/w500/yZjzDtv9TyxVdWidHzzcPfNfjZH.jpg",
+      "releaseDate": "2024",
+      "runtime": 30,
+      "voteAverage": 8.5,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Bill Morrison"
+      ],
+      "providers": []
+    },
+    {
+      "id": null,
+      "title": "Instruments of a Beating Heart",
+      "posterPath": "https://m.media-amazon.com/images/M/MV5BNTFhMTAyMDUtYjk3NS00YTVmLTg3MzgtMTIwNzk0MWQ1NTdjXkEyXkFqcGc@._V1_.jpg",
+      "releaseDate": "2024",
+      "runtime": 23,
+      "voteAverage": null,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Ema Ryan Yamazaki"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1195310",
+      "title": "La única mujer de la orquesta",
+      "posterPath": "https://image.tmdb.org/t/p/w500/zpsTStOYGfkF590K3kCEjWXCleN.jpg",
+      "releaseDate": "2023",
+      "runtime": 35,
+      "voteAverage": 6.3,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Molly O'Brien"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      ]
+    }
+  ]
+}

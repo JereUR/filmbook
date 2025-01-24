@@ -1,0 +1,43 @@
+{
+  "category": "Mejor guión original",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Brady Corbet, Mona Fastvold",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://www.shutterstock.com/editorial/image-editorial/N1T5Y129OfDbkcw4NDQyOA==/brady-corbet-mona-fastvold-440nw-5632864b.jpg",
+      "providers": []
+    },
+    {
+      "name": "Coralie Fargeat",
+      "movieId": "933260",
+      "movieTitle": "La sustancia",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/6/65/Coralie_Fargeat_at_the_2024_Toronto_International_Film_Festival.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fj9Y8iIMFUC6952HwxbGixTQPb7.jpg"
+      ]
+    },
+    {
+      "name": "Escrito por Moritz Binder, Tim Fehlbaum; Co-Escrito por Alex David",
+      "movieId": "1211472",
+      "movieTitle": "September 5",
+      "photo": "https://image.tmdb.org/t/p/w500/9BfBxNmY7jUTR1AtYJcBVoEzhSN.jpg",
+      "providers": []
+    },
+    {
+      "name": "Jesse Eisenberg",
+      "movieId": "1013850",
+      "movieTitle": "A Real Pain",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Male_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Real_Pain_A_Jesse_Eisenberg_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Sean Baker",
+      "movieId": "1064213",
+      "movieTitle": "Anora",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/SeanBaker_Headshot_rgb.jpg?w=600",
+      "providers": []
+    }
+  ]
+}

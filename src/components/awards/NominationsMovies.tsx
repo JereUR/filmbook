@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { ImageInfo, MovieNomination } from "@/lib/types"
+import noImage from '@/assets/no-image-film.jpg'
 
 interface NominationsMoviesProps {
   handleImageClick: (image: ImageInfo) => void
@@ -53,7 +54,7 @@ export default function NominationsMovies({ handleImageClick, nominationsMovie }
                     <div className="absolute inset-0 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 opacity-20 z-10"></div>
                   )}
                   <Image
-                    src={nominee.posterPath}
+                    src={nominee.posterPath || noImage}
                     alt={`${nominee.title} poster`}
                     fill
                     sizes="(max-width: 640px) 33vw, (max-width: 768px) 33vw, (max-width: 1024px) 33vw, 25vw"
@@ -61,23 +62,29 @@ export default function NominationsMovies({ handleImageClick, nominationsMovie }
                     unoptimized
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                    <Link href={`/pelicula/${nominee.id}?title=${encodeURIComponent(nominee.title)}&date=2024`}
-                      aria-label={`Ver información de ${nominee.title}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className='hover:underline'
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        if (isMobile) {
-                          e.preventDefault()
-                          handleClick(nominee)
-                        }
-                      }}
-                    >
-                      <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-center px-1 sm:px-2">
-                        {nominee.title} {winner === nominee.title && "🏆"}
-                      </h3>
-                    </Link>
+                    {nominee.id ?
+                      <Link href={`/pelicula/${nominee.id}?title=${encodeURIComponent(nominee.title)}&date=2024`}
+                        aria-label={`Ver información de ${nominee.title}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className='hover:underline'
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          if (isMobile) {
+                            e.preventDefault()
+                            handleClick(nominee)
+                          }
+                        }}
+                      >
+                        <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-center px-1 sm:px-2">
+                          {nominee.title} {winner === nominee.title && "🏆"}
+                        </h3>
+                      </Link>
+                      : (
+                        <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-center px-1 sm:px-2">
+                          {nominee.title} {winner === nominee.title && "🏆"}
+                        </h3>
+                      )}
                   </div>
                 </div>
                 <CardContent className="p-2 sm:p-4 space-y-2">
@@ -150,7 +157,7 @@ export default function NominationsMovies({ handleImageClick, nominationsMovie }
                             <Info className="w-[14px] h-[14px] text-foreground/40" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Plataformas disponibles en Argentina (actualizado al 4 de Enero del 2025)</p>
+                            <p>Plataformas disponibles en Argentina (actualizado al 24 de Enero del 2025)</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>

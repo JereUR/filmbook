@@ -1,0 +1,41 @@
+{
+  "category": "Mejor actriz de reparto",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Ariana Grande",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Wicked_Ariana_Grande_Out_of_Character_Headshot.jpeg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Felicity Jones",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Brutalist_The_Felicity_Jones_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Isabella Rossellini",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_in_any_Motion_Picture_Conclave_Isabella_Rossellini_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Monica Barbaro",
+      "movieId": "661539",
+      "movieTitle": "A Complete Unknown",
+      "photo": "https://m.media-amazon.com/images/M/MV5BMzAzNWM1NTgtNzhhMS00OTVmLWI0ZmUtMTMwMjkyMjdkOTUxXkEyXkFqcGc@._V1_.jpg",
+      "providers": []
+    },
+    {
+      "name": "Zoe Saldaña",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Television_Series_-_Drama_Lioness_Zoe_Saldana_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    }
+  ]
+}

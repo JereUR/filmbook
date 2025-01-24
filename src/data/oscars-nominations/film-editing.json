@@ -1,0 +1,41 @@
+{
+  "category": "Mejor editor",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Nick Emerson",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://resizing.flixster.com/HK3mENgSrS8knA0GfBdk3_6z4Rk=/218x280/v2/https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/556449_v9_ba.jpg",
+      "providers": []
+    },
+    {
+      "name": "David Jancso",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://m.media-amazon.com/images/M/MV5BYTFjYjJmNDgtNWE0Yi00YzRjLTg2MDAtZGNjZTk5NzBhMmM5XkEyXkFqcGc@._V1_.jpg",
+      "providers": []
+    },
+    {
+      "name": "Juliette Welfling",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://www.taufilmfest.com/wp-content/uploads/2024/07/JULIETTE20WELFLING-IMG_61202028129-scaled.jpg",
+      "providers": []
+    },
+    {
+      "name": "Sean Baker",
+      "movieId": "1064213",
+      "movieTitle": "Anora",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/SeanBaker_Headshot_rgb.jpg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Myron Kerstein",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://scriptmag.com/.image/t_share/MjEwOTgyMTIxNjY4NDIxNjA5/myron-kerstein-headshot.jpg",
+      "providers": []
+    }
+  ]
+}

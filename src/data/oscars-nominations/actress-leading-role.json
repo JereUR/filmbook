@@ -1,0 +1,43 @@
+{
+  "category": "Mejor actriz en un papel principal",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Cynthia Erivo",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Wicked_Cynthia_Erivo_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Demi Moore",
+      "movieId": "933260",
+      "movieTitle": "La sustancia",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2023/10/Best_Performance_by_a_Female_Actor_in_a_Supporting_Role_on_Television_Feud__Capote_vs._The_Swans_Demi_Moore_Out_of_Character_Headshot.jpg?w=600",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fj9Y8iIMFUC6952HwxbGixTQPb7.jpg"
+      ]
+    },
+    {
+      "name": "Fernanda Torres",
+      "movieId": "1000837",
+      "movieTitle": "Aún Estoy Aquí",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Motion_Picture_-_Drama_Im_Still_Here_Fernanda_Torres_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Karla Sofìa Gascón",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Emilia_Perez_Karla_Sofia_Gascon_Out_of_Character_Headshot-1.jpeg?w=600",
+      "providers": []
+    },
+    {
+      "name": "Mikey Madison",
+      "movieId": "1064213",
+      "movieTitle": "Anora",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Motion_Picture_-_Musical_or_Comedy_Anora_Mikey_Madison_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    }
+  ]
+}

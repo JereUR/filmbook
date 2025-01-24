@@ -1,0 +1,41 @@
+{
+  "category": "Mejor diseño de vestuario",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Arianne Phillips",
+      "movieId": "661539",
+      "movieTitle": "A Complete Unknown",
+      "photo": "https://torontofashionweek.to/wp-content/uploads/2017/08/Arianne-Phillips-2.jpg",
+      "providers": []
+    },
+    {
+      "name": "Janty Yates and Dave Crossman",
+      "movieId": "558449",
+      "movieTitle": "Gladiator II",
+      "photo": "/janty-yates-dave-crossman.png",
+      "providers": []
+    },
+    {
+      "name": "Lisy Christl",
+      "movieId": "974576",
+      "movieTitle": "Conclave",
+      "photo": "https://media.themoviedb.org/t/p/w500/eo5pNuGUjIQwNiidDogbqXfKA9.jpg",
+      "providers": []
+    },
+    {
+      "name": "Linda Muir",
+      "movieId": "426063",
+      "movieTitle": "Nosferatu",
+      "photo": "https://static.wikia.nocookie.net/robert-eggers/images/1/1e/Linda_Muir.jpg/revision/latest?cb=20230914223939",
+      "providers": []
+    },
+    {
+      "name": "Paul Tazewell",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/newscms/2015_49/1322866/151201-paul-tazewell-mbm.jpg",
+      "providers": []
+    }
+  ]
+}

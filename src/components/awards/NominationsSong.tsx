@@ -126,7 +126,7 @@ export default function NominationsSong({ handleImageClick, nominationsOriginalS
                             <Info className="w-4 h-4 text-gray-500" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Plataformas disponibles en Argentina (actualizado al 4 de Enero del 2025)</p>
+                            <p>Plataformas disponibles en Argentina (actualizado al 24 de Enero del 2025)</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>

@@ -10,7 +10,7 @@ import FollowingFeed from "./FollowingFeed"
 import AddToDiaryButton from './AddToDiaryButton'
 import { validateRequest } from "@/auth"
 import UnauthorizedMessage from "@/components/UnauthorizedMessage"
-import goldenGlobeImg from "@/assets/golden-globe-banner.webp"
+import oscarsImg from '@/assets/Oscars2025.jpg'
 import { HomeSkeleton } from "@/components/skeletons/HomeSkeleton"
 import { TrendSidebarSkeleton } from "@/components/skeletons/TrendSidebarSkeleton"
 
@@ -23,19 +23,19 @@ export default async function Home() {
         <div className="w-full min-w-0">
           <div className="relative h-40 w-full group overflow-hidden mb-2 rounded-2xl border-2 border-primary shadow-md md:hidden hover:shadow-lg transition-shadow duration-300">
             <Link
-              href="/nominaciones-golden-globes"
+              href="/nominaciones-oscars"
               aria-label="Ir a sección de Golden Globe"
               className="block h-full w-full"
             >
               <Image
-                src={goldenGlobeImg}
-                alt="Golden Globe Awards"
+                src={oscarsImg}
+                alt="Oscars 97th Academy Awards"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-xl font-bold">Golden Globe Awards 2025</span>
+                <span className="text-xl font-bold">Oscars 97th Academy Awards</span>
               </div>
             </Link>
           </div>

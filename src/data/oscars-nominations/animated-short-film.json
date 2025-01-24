@@ -1,0 +1,86 @@
+{
+  "category": "Mejor corto animado",
+  "winner": "",
+  "nominees": [
+    {
+      "id": "1157132",
+      "title": "Hombres guapos",
+      "posterPath": "https://image.tmdb.org/t/p/w500/ejZU0nz8De1XDm7UjN4UV0GozpT.jpg",
+      "releaseDate": "2023",
+      "runtime": 19,
+      "voteAverage": 5.8,
+      "genres": [
+        "Animación",
+        "Drama"
+      ],
+      "directors": [
+        "Nicolas Keppens"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1156619",
+      "title": "Dar saaye sarv",
+      "posterPath": "https://image.tmdb.org/t/p/w500/eaQeIDHGa8m4H2B4vrrthOTibeH.jpg",
+      "releaseDate": "2023",
+      "runtime": 20,
+      "voteAverage": 7.2,
+      "genres": [
+        "Animación"
+      ],
+      "directors": [
+        "Hossein Molayemi",
+        "Shirin Sohani"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1249728",
+      "title": "あめだま",
+      "posterPath": "https://image.tmdb.org/t/p/w500/87wasB8uxNo1VFVse0QNcWSShqZ.jpg",
+      "releaseDate": "2024",
+      "runtime": 21,
+      "voteAverage": 8.0,
+      "genres": [
+        "Animación",
+        "Fantasía"
+      ],
+      "directors": [
+        "西尾大介"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1156605",
+      "title": "Wander to Wonder",
+      "posterPath": "https://image.tmdb.org/t/p/w500/2qT12PqjrTfw6iyVhRtzSwhOQ1D.jpg",
+      "releaseDate": "2024",
+      "runtime": 14,
+      "voteAverage": 7.5,
+      "genres": [
+        "Animación"
+      ],
+      "directors": [
+        "Nina Gantz"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1220646",
+      "title": "¡Qué asco!",
+      "posterPath": "https://image.tmdb.org/t/p/w500/2jYj6INiB2X0HnIZOUL2KLd556r.jpg",
+      "releaseDate": "2024",
+      "runtime": 14,
+      "voteAverage": 7.0,
+      "genres": [
+        "Animación",
+        "Romance",
+        "Comedia"
+      ],
+      "directors": [
+        "Loïc Espuche"
+      ],
+      "providers": []
+    }
+  ]
+}

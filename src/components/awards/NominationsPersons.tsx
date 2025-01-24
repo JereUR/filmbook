@@ -7,6 +7,7 @@ import { Info, Trophy } from 'lucide-react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ImageInfo, PersonNomination } from "@/lib/types"
+import noImage from '@/assets/no-image-film.jpg'
 
 interface NominationsPersonsProps {
   handleImageClick: (image: ImageInfo) => void
@@ -46,7 +47,7 @@ export default function NominationsPersons({ handleImageClick, nominationsPerson
                     <div className="absolute inset-0 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 opacity-20 z-10"></div>
                   )}
                   <Image
-                    src={nominee.photo}
+                    src={nominee.photo || noImage}
                     alt={`${nominee.name} photo`}
                     fill
                     sizes="(max-width: 640px) 33vw, (max-width: 768px) 33vw, (max-width: 1024px) 33vw, 25vw"
@@ -115,7 +116,7 @@ export default function NominationsPersons({ handleImageClick, nominationsPerson
                             <Info className="w-[14px] h-[14px] text-foreground/40" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Plataformas disponibles en Argentina (actualizado al 4 de Enero del 2025)</p>
+                            <p>Plataformas disponibles en Argentina (actualizado al 24 de Enero del 2025)</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>

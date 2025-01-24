@@ -1,0 +1,43 @@
+{
+  "category": "Mejor cinematografía",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Ed Lachman",
+      "movieId": "1038263",
+      "movieTitle": "María Callas",
+      "photo": "https://m.media-amazon.com/images/M/MV5BOTI5NTc2MTc1OF5BMl5BanBnXkFtZTYwMzAzNTc1._V1_.jpg",
+      "providers": []
+    },
+    {
+      "name": "Greig Fraser",
+      "movieId": "693134",
+      "movieTitle": "Dune: Parte dos",
+      "photo": "https://m.media-amazon.com/images/M/MV5BZjM4Zjc4NDktNTcwZS00OWY5LWI4ZTMtZjI1ZGU2YjgwNzZmXkEyXkFqcGc@._V1_.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
+      ]
+    },
+    {
+      "name": "Jarin Blaschke",
+      "movieId": "426063",
+      "movieTitle": "Nosferatu",
+      "photo": "https://images.mubicdn.net/images/cast_member/187817/cache-142956-1463183830/image-w856.jpg",
+      "providers": []
+    },
+    {
+      "name": "Lol Crawley",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://lolcrawley.com/wp-content/uploads/2020/09/lol-crawley-profile.jpg",
+      "providers": []
+    },
+    {
+      "name": "Paul Guilhaume",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://www.afcinema.com/IMG/jpg/6/e/7/303_leitz_paulg.jpg",
+      "providers": []
+    }
+  ]
+}

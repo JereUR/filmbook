@@ -1,0 +1,47 @@
+{
+  "category": "Mejor efectos visuales",
+  "winner": "",
+  "nominees": [
+    {
+      "name": "Eric Barba, Nelson Sepulveda-Fauser, Daniel Macarin and Shane Mahan",
+      "movieId": "945961",
+      "movieTitle": "Alien: Romulus",
+      "photo": "https://image.tmdb.org/t/p/w500/8PYqGSd8MOm5ce8io4qNSAiSExW.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
+      ]
+    },
+    {
+      "name": "Luke Millar, David Clayton, Keith Herft and Peter Stubbs",
+      "movieId": "799766",
+      "movieTitle": "Better man",
+      "photo": "https://image.tmdb.org/t/p/w500/6Rf7kF0Np3mOa1KRo2a2KJZ7mIj.jpg",
+      "providers": []
+    },
+    {
+      "name": "Pablo Helman, Jonathan Fawkner, David Shirk and Paul Corbould",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
+      "providers": []
+    },
+    {
+      "name": "Paul Lambert, Stephen James, Rhys Salcombe and Gerd Nefzer",
+      "movieId": "693134",
+      "movieTitle": "Dune: Parte dos",
+      "photo": "https://image.tmdb.org/t/p/w500/xCHmhHeO7aOCMlzcNukGH6Q7EiD.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
+      ]
+    },
+    {
+      "name": "Erik Winquist, Stephen Unterfranz, Paul Story and Rodney Burke",
+      "movieId": "653346",
+      "movieTitle": "El reino del planeta de los simios",
+      "photo": "https://image.tmdb.org/t/p/w500/kkFn3KM47Qq4Wjhd8GuFfe3LX27.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
+      ]
+    }
+  ]
+}

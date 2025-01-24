@@ -1,0 +1,87 @@
+{
+  "category": "Mejor película internacional",
+  "winner": "",
+  "nominees": [
+    {
+      "id": "974950",
+      "title": "Emilia Pérez",
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "releaseDate": "2024",
+      "runtime": 130,
+      "voteAverage": 7.7,
+      "genres": [
+        "Drama",
+        "Suspenso"
+      ],
+      "directors": [
+        "Jacques Audiard"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1000837",
+      "title": "Aún Estoy Aquí",
+      "posterPath": "https://image.tmdb.org/t/p/w500/zNAw7jK8bwCK56rIW676pdgkwhd.jpg",
+      "releaseDate": "2024",
+      "runtime": 137,
+      "voteAverage": 8.6,
+      "genres": [
+        "Drama",
+        "Historia"
+      ],
+      "directors": [
+        "Walter Salles"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1278263",
+      "title": "La semilla de la higuera sagrada",
+      "posterPath": "https://image.tmdb.org/t/p/w500/aFKAdMumVDmLk7IzjAYTEfVPhgF.jpg",
+      "releaseDate": "2024",
+      "runtime": 167,
+      "voteAverage": 7.7,
+      "genres": [
+        "Drama",
+        "Suspenso"
+      ],
+      "directors": [
+        "Mohammad Rasoulof"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1232827",
+      "title": "The Girl With the Needle",
+      "posterPath": "https://image.tmdb.org/t/p/w500/lIUNEIJcUkWlUdNQWHEoefAWRoO.jpg",
+      "releaseDate": "2024",
+      "runtime": 122,
+      "voteAverage": 7.5,
+      "genres": [
+        "Drama",
+        "Historia"
+      ],
+      "directors": [
+        "Magnus von Horn"
+      ],
+      "providers": []
+    },
+    {
+      "id": "823219",
+      "title": "Flow, un mundo que salvar",
+      "posterPath": "https://image.tmdb.org/t/p/w500/2PPvMc165yk0zafItbitQ2ZqZyo.jpg",
+      "releaseDate": "2024",
+      "runtime": 84,
+      "voteAverage": 8.4,
+      "genres": [
+        "Animación",
+        "Fantasía",
+        "Aventura"
+      ],
+      "directors": [
+        "Gints Zilbalodis"
+      ],
+      "providers": []
+    }
+  ]
+}

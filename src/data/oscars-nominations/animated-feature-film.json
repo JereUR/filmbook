@@ -1,0 +1,96 @@
+{
+  "category": "Mejor película animada",
+  "winner": "",
+  "nominees": [
+    {
+      "id": "823219",
+      "title": "Flow, un mundo que salvar",
+      "posterPath": "https://image.tmdb.org/t/p/w500/2PPvMc165yk0zafItbitQ2ZqZyo.jpg",
+      "releaseDate": "2024",
+      "runtime": 84,
+      "voteAverage": 8.5,
+      "genres": [
+        "Animación",
+        "Fantasía",
+        "Aventura"
+      ],
+      "directors": [
+        "Gints Zilbalodis"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1022789",
+      "title": "Del revés 2 (Inside Out 2)",
+      "posterPath": "https://image.tmdb.org/t/p/w500/aQnbNiadeGzGSjWLaXyeNxpAUIx.jpg",
+      "releaseDate": "2024",
+      "runtime": 96,
+      "voteAverage": 7.6,
+      "genres": [
+        "Animación",
+        "Familia",
+        "Aventura",
+        "Drama"
+      ],
+      "directors": [
+        "Kelsey Mann"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/97yvRBw1GzX7fXprcF80er19ot.jpg"
+      ]
+    },
+    {
+      "id": "1064486",
+      "title": "Memorias de un caracol",
+      "posterPath": "https://image.tmdb.org/t/p/w500/sJ7bgsuC06tpC7wVl3LUW5cyKmX.jpg",
+      "releaseDate": "2024",
+      "runtime": 94,
+      "voteAverage": 8.0,
+      "genres": [
+        "Animación",
+        "Drama",
+        "Comedia"
+      ],
+      "directors": [
+        "Adam Elliot"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1184918",
+      "title": "Robot salvaje",
+      "posterPath": "https://image.tmdb.org/t/p/w500/a0a7RC01aTa7pOnskgJb3mCD2Ba.jpg",
+      "releaseDate": "2024",
+      "runtime": 102,
+      "voteAverage": 8.4,
+      "genres": [
+        "Animación",
+        "Ciencia ficción",
+        "Familia"
+      ],
+      "directors": [
+        "Chris Sanders"
+      ],
+      "providers": []
+    },
+    {
+      "id": "929204",
+      "title": "Wallace y Gromit: La venganza se sirve con plumas",
+      "posterPath": "https://image.tmdb.org/t/p/w500/6BxK38ehxuX2dJmZIMpJcVNbYks.jpg",
+      "releaseDate": "2024",
+      "runtime": 79,
+      "voteAverage": 8.0,
+      "genres": [
+        "Animación",
+        "Familia",
+        "Comedia"
+      ],
+      "directors": [
+        "Merlin Crossingham"
+      ],
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg"
+      ]
+    }
+  ]
+}
