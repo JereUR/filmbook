@@ -32,7 +32,7 @@ export default function NominationsSong({ handleImageClick, nominationsOriginalS
                 key={`${category} - ${nominee.name}`}
                 className={`overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg ${winner === nominee.name
                   ? "ring-2 sm:ring-4 ring-yellow-500 relative overflow-hidden animate-pulse-slow"
-                  : "opacity-70 hover:opacity-100"
+                  : winner !== "" && "opacity-70 hover:opacity-100"
                   }`}
               >
                 <div
