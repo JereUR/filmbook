@@ -1,4 +1,4 @@
-import NomineesPageGoldenGlobes from "@/components/golgen-globes/NomineesPageGoldenGlobes"
+import NomineesPageGoldenGlobes from "@/components/awards/NomineesPageGoldenGlobes"
 import { Metadata } from "next"
 
 

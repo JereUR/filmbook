@@ -2,12 +2,12 @@
 
 import { useState } from 'react'
 
-import NominationsPersons from './NominationsPersons'
 import PhotoModal from '@/components/movies/PhotoModal'
 import { ImageInfo } from '@/lib/types'
-import NominationsMovies from './NominationsMovies'
-import GoldenGlobeNominationsSong from './NominationsSong'
 import useGoldenGlobeNominees from '@/hooks/useGoldenGlobeNominees'
+import NominationsMovies from './NominationsMovies'
+import NominationsPersons from './NominationsPersons'
+import NominationsSong from './NominationsSong'
 
 export default function NomineesPageGoldenGlobes() {
   const [openModal, setOpenModal] = useState<boolean>(false)
@@ -23,12 +23,12 @@ export default function NomineesPageGoldenGlobes() {
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <div className="rounded-2xl bg-card p-5 shadow-sm">
-          <h1 className="text-center text-2xl font-bold">Nominaciones</h1>
+          <h1 className="text-center text-2xl font-bold">Ganadores Golden Globes Awards 2025</h1>
         </div>
         <div className='space-y-1'>
           <NominationsMovies handleImageClick={handleImageClick} nominationsMovie={nominationsMovie} />
           <NominationsPersons handleImageClick={handleImageClick} nominationsPerson={nominationsPerson} />
-          <GoldenGlobeNominationsSong handleImageClick={handleImageClick} nominationsOriginalSong={nominationsOriginalSong} />
+          <NominationsSong handleImageClick={handleImageClick} nominationsOriginalSong={nominationsOriginalSong} />
         </div>
       </div>
       <PhotoModal
