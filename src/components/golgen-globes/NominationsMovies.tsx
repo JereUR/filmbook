@@ -2,21 +2,19 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { CalendarDays, Clock, Star, Film, Video, Info, MonitorPlay, Trophy } from 'lucide-react'
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import useGoldenGlobeNominees from "@/hooks/useGoldenGlobeNominees"
 import { useIsMobile } from "@/hooks/useIsMobile"
-import { ImageInfo } from "@/lib/types"
+import { ImageInfo, MovieNomination } from "@/lib/types"
 
-interface GoldenGlobeNominationsMoviesProps {
+interface NominationsMoviesProps {
   handleImageClick: (image: ImageInfo) => void
+  nominationsMovie: MovieNomination[]
 }
 
-export default function GoldenGlobeNominationsMovies({ handleImageClick }: GoldenGlobeNominationsMoviesProps) {
-  const { nominationsMovie } = useGoldenGlobeNominees()
+export default function NominationsMovies({ handleImageClick, nominationsMovie }: NominationsMoviesProps) {
   const isMobile = useIsMobile()
 
   const handleClick = (nominee: any, isLink: boolean = false) => {

@@ -23,7 +23,7 @@ export default async function Home() {
         <div className="w-full min-w-0">
           <div className="relative h-40 w-full group overflow-hidden mb-2 rounded-2xl border-2 border-primary shadow-md md:hidden hover:shadow-lg transition-shadow duration-300">
             <Link
-              href="/nominaciones-golden-globe"
+              href="/nominaciones-golden-globes"
               aria-label="Ir a sección de Golden Globe"
               className="block h-full w-full"
             >

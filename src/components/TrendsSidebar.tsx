@@ -19,7 +19,7 @@ export default function TrendsSidebar() {
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
         <div className="relative h-40 w-full group overflow-hidden rounded-2xl border-2 border-primary shadow-md hover:shadow-lg transition-shadow duration-300">
           <Link
-            href="/nominaciones-golden-globe"
+            href="/nominaciones-golden-globes"
             aria-label="Ir a sección de Golden Globe"
             className="block h-full w-full"
           >

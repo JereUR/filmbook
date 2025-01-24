@@ -2,15 +2,18 @@
 
 import { useState } from 'react'
 
-import GoldenGlobeNominationsPersons from './GoldenGlobeNominationsPersons'
+import NominationsPersons from './NominationsPersons'
 import PhotoModal from '@/components/movies/PhotoModal'
 import { ImageInfo } from '@/lib/types'
-import GoldenGlobeNominationsMovies from './GoldenGlobeNominationsMovies'
-import GoldenGlobeNominationsSong from './GoldenGlobeNominationsSong'
+import NominationsMovies from './NominationsMovies'
+import GoldenGlobeNominationsSong from './NominationsSong'
+import useGoldenGlobeNominees from '@/hooks/useGoldenGlobeNominees'
 
-export default function NomineesPage() {
+export default function NomineesPageGoldenGlobes() {
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [selectedImage, setSelectedImage] = useState<ImageInfo | null>(null)
+
+  const { nominationsPerson, nominationsMovie, nominationsOriginalSong } = useGoldenGlobeNominees()
 
   const handleImageClick = (image: ImageInfo) => {
     setSelectedImage(image)
@@ -23,9 +26,9 @@ export default function NomineesPage() {
           <h1 className="text-center text-2xl font-bold">Nominaciones</h1>
         </div>
         <div className='space-y-1'>
-          <GoldenGlobeNominationsMovies handleImageClick={handleImageClick} />
-          <GoldenGlobeNominationsPersons handleImageClick={handleImageClick} />
-          <GoldenGlobeNominationsSong handleImageClick={handleImageClick} />
+          <NominationsMovies handleImageClick={handleImageClick} nominationsMovie={nominationsMovie} />
+          <NominationsPersons handleImageClick={handleImageClick} nominationsPerson={nominationsPerson} />
+          <GoldenGlobeNominationsSong handleImageClick={handleImageClick} nominationsOriginalSong={nominationsOriginalSong} />
         </div>
       </div>
       <PhotoModal

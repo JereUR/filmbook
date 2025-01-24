@@ -2,30 +2,28 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Music, Info, Trophy } from 'lucide-react'
+import { Info, Trophy } from 'lucide-react'
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import useGoldenGlobeNominees from "@/hooks/useGoldenGlobeNominees"
-import { ImageInfo } from "@/lib/types"
+import { ImageInfo, PersonNomination } from "@/lib/types"
 
-interface GoldenGlobeNominationsSongProps {
+interface NominationsPersonsProps {
   handleImageClick: (image: ImageInfo) => void
+  nominationsPerson: PersonNomination[]
 }
 
-export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenGlobeNominationsSongProps) {
-  const { nominationsOriginalSong } = useGoldenGlobeNominees()
-
+export default function NominationsPersons({ handleImageClick, nominationsPerson }: NominationsPersonsProps) {
   const handleClick = (nominee: any, isLink: boolean = false) => {
     if (isLink) {
       return
     }
-    handleImageClick({ src: nominee.posterPath || '/placeholder.svg', name: nominee.name })
+    handleImageClick({ src: nominee.photo, name: nominee.name })
   }
 
   return (
-    <div className="container mx-auto px-2 sm:px-4 py-2">
-      {nominationsOriginalSong.map(({ category, nominees, winner }) => (
+    <div className="container mx-auto px-2 sm:px-4">
+      {nominationsPerson.map(({ category, nominees, winner }) => (
         <div key={category} className="mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-primary">{category}</h2>
           <div className="grid grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
@@ -48,8 +46,8 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
                     <div className="absolute inset-0 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-500 opacity-20 z-10"></div>
                   )}
                   <Image
-                    src={nominee.posterPath || '/placeholder.svg'}
-                    alt={`${nominee.name} poster`}
+                    src={nominee.photo}
+                    alt={`${nominee.name} photo`}
                     fill
                     sizes="(max-width: 640px) 33vw, (max-width: 768px) 33vw, (max-width: 1024px) 33vw, 25vw"
                     className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
@@ -61,14 +59,14 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
                     </h3>
                   </div>
                 </div>
-                <CardContent className="p-2 sm:p-4 h-full space-y-2">
+                <CardContent className="p-2 sm:p-4 h-full">
                   {winner === nominee.name && (
                     <div className="absolute top-2 right-2 text-yellow-500 z-30">
                       <Trophy className="w-4 h-4 md:w-6 md:h-6 animate-bounce" />
                     </div>
                   )}
                   <div className="space-y-2">
-                    <p className={`font-semibold flex items-center text-sm sm:text-base truncate ${winner === nominee.name ? "text-yellow-500" : "text-primary"
+                    <p className={`font-semibold flex items-center text-sm sm:text-lg truncate ${winner === nominee.name ? "text-yellow-500" : "text-primary"
                       }`}>
                       {nominee.name}
                       {winner === nominee.name && (
@@ -77,12 +75,14 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
                     </p>
                     {nominee.movieId ? (
                       <Link
-                        href={`/pelicula/${nominee.movieId}?title=${encodeURIComponent(nominee.movieTitle)}&date=2024`}
-                        aria-label={`Ver información de ${nominee.movieTitle}`}
+                        href={`/pelicula/${nominee.movieId}?title=${encodeURIComponent(
+                          nominee.movieTitle
+                        )}&date=2024`}
                         title={nominee.movieTitle}
+                        className="text-primary-orange text-xs sm:text-base hover:underline block truncate z-30"
+                        aria-label={`Ver información de ${nominee.movieTitle}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary-orange text-xs sm:text-sm hover:underline block truncate z-30"
                         onClick={(e) => {
                           e.stopPropagation()
                           handleClick(nominee, true)
@@ -91,24 +91,11 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
                         {nominee.movieTitle}
                       </Link>
                     ) : (
-                      <p className="text-gray-600 text-xs sm:text-sm truncate">{nominee.movieTitle}</p>
+                      <p className="text-foreground/40 text-xs sm:text-base truncate">{nominee.movieTitle}</p>
                     )}
                   </div>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="flex items-center text-xs sm:text-sm text-foreground/40">
-                          <Music className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
-                          <span className="truncate">{nominee.composers.join(", ")}</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="top" align="start" className="max-w-[200px]">
-                        <p className="text-xs">{nominee.composers.join(", ")}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
                   {nominee.providers && nominee.providers.length > 0 && (
-                    <div className="flex justify-between items-start space-x-2">
+                    <div className="flex justify-between items-center space-x-2 mt-2">
                       <div className="flex -space-x-2 overflow-hidden">
                         {nominee.providers.map((provider, index) => (
                           <Image
@@ -125,7 +112,7 @@ export default function GoldenGlobeNominationsSong({ handleImageClick }: GoldenG
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger>
-                            <Info className="w-4 h-4 text-gray-500" />
+                            <Info className="w-[14px] h-[14px] text-foreground/40" />
                           </TooltipTrigger>
                           <TooltipContent>
                             <p>Plataformas disponibles en Argentina (actualizado al 4 de Enero del 2025)</p>
