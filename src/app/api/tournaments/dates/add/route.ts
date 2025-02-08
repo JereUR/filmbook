@@ -5,6 +5,7 @@ import { Movie } from "@/lib/types"
 
 interface RequestBody {
   date: number
+  name?: string
   tournamentId: string
   movieId: string
   visible: boolean
@@ -26,6 +27,7 @@ export async function POST(req: Request) {
 
     const {
       date,
+      name,
       tournamentId,
       movieId,
       visible,
@@ -112,6 +114,7 @@ export async function POST(req: Request) {
     const newTournamentDate = await prisma.tournamentDate.create({
       data: {
         date,
+        name,
         tournamentId,
         movieId,
         visible,

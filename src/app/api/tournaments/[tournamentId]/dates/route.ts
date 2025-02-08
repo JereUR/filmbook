@@ -24,6 +24,7 @@ export async function GET(
           select: {
             id: true,
             date: true,
+            name: true,
             visible: true,
             extraPoints: true,
             extraPointsSolution: true,
@@ -43,6 +44,7 @@ export async function GET(
       dates?.dates.map((date) => ({
         dateId: date.id,
         date: date.date,
+        name: date.name,
         visible: date.visible,
         extraPoints: date.extraPoints,
         extraPointsSolution: date.extraPointsSolution,

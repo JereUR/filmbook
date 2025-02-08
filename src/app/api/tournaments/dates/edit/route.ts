@@ -6,6 +6,7 @@ import { Movie } from "@/lib/types"
 interface UpdateRequestBody {
   dateId: string
   date: number
+  name?: string
   tournamentId: string
   movieId: string
   visible: boolean
@@ -28,6 +29,7 @@ export async function PUT(req: Request) {
     const {
       dateId,
       date,
+      name,
       tournamentId,
       movieId,
       visible,
@@ -114,6 +116,7 @@ export async function PUT(req: Request) {
       where: { id: dateId },
       data: {
         date,
+        name,
         tournamentId,
         movieId,
         visible,

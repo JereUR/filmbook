@@ -291,6 +291,7 @@ model Tournament {
 model TournamentDate {
   id                  String             @id @default(cuid())
   date                Int
+  name                String?
   movie               Movie              @relation(fields: [movieId], references: [id])
   movieId             String
   tournament          Tournament         @relation(fields: [tournamentId], references: [id])
