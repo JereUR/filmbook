@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes"
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { extractRouterConfig } from "uploadthing/server"
 import { Suspense } from "react"
+import { Analytics } from '@vercel/analytics/next'
 
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
@@ -65,6 +66,7 @@ export default function RootLayout({
             <Suspense fallback={<RootLoading />}>
               <div className="min-h-screen bg-[#0a0a1b]">
                 {children}
+                <Analytics />
               </div>
             </Suspense>
           </ThemeProvider>
