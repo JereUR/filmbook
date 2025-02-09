@@ -39,6 +39,7 @@ model User {
   diary                 Diary[]
   favoriteMovies        FavoriteMovie[]
   resetTokens           ResetToken[]
+  predictions           Prediction[]
   createdAt             DateTime        @default(now())
 
   @@map("users")
@@ -290,6 +291,7 @@ model Tournament {
 model TournamentDate {
   id                  String             @id @default(cuid())
   date                Int
+  name                String?
   movie               Movie              @relation(fields: [movieId], references: [id])
   movieId             String
   tournament          Tournament         @relation(fields: [tournamentId], references: [id])
@@ -349,4 +351,53 @@ model FavoriteMovie {
 
   @@unique([userId, movieId])
   @@map("favorite_movies")
+}
+
+model AwardEvent {
+  id          String       @id @default(cuid())
+  name        String
+  year        Int
+  nominations Nomination[]
+  predictions Prediction[]
+
+  @@unique([name, year])
+  @@map("award_events")
+}
+
+model Nomination {
+  id           String         @id @default(cuid())
+  awardEventId String
+  awardEvent   AwardEvent     @relation(fields: [awardEventId], references: [id], onDelete: Cascade)
+  category     String
+  nominees     Json
+  winner       String?
+  type         NominationType
+
+  predictions Prediction[]
+
+  @@unique([awardEventId, category])
+  @@map("nominations")
+}
+
+model Prediction {
+  id              String     @id @default(cuid())
+  userId          String
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  awardEventId    String
+  awardEvent      AwardEvent @relation(fields: [awardEventId], references: [id], onDelete: Cascade)
+  nominationId    String
+  nomination      Nomination @relation(fields: [nominationId], references: [id], onDelete: Cascade)
+  predictedWinner String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, nominationId])
+  @@map("predictions")
+}
+
+enum NominationType {
+  MOVIE
+  PERSON
+  SONG
 }

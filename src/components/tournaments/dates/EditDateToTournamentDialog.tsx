@@ -44,7 +44,7 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
   const [errorDate, setErrorDate] = useState<string | null>(null)
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
 
-  const { dateId, date, visible, extraPoints, extraPointsSolution } = input
+  const { dateId, date, name, visible, extraPoints, extraPointsSolution } = input
 
   const { toast } = useToast()
   const queryClient = useQueryClient()
@@ -93,7 +93,7 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ dateId, date, tournamentId, movieId: selectedMovieId ? selectedMovieId : originalMovie?.id, visible, extraPoints, extraPointsSolution }),
+        body: JSON.stringify({ dateId, date, name, tournamentId, movieId: selectedMovieId ? selectedMovieId : originalMovie?.id, visible, extraPoints, extraPointsSolution }),
       })
       if (!response.ok) {
         const errorData = await response.json()
@@ -150,6 +150,26 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
             </div>
             <div>
               <div className="flex gap-2 items-center">
+                <Label htmlFor="nameInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+                  Nombre especial
+                </Label>
+                {errorDate && <ErrorText errorText={errorDate} className="text-xs md:text-sm animate-pulse" />}
+              </div>
+              <Input
+                id="nameInput"
+                type="text"
+                value={name}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setInput({ ...input, name: e.target.value })
+                }
+                placeholder="Nombre especial"
+                className="w-[50vw] md:w-[20vw] rounded-md border border-gray-300 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground/40 no-spinner"
+              />
+            </div>
+          </div>
+          <div className="flex gap-4 md:gap-8 items-start md:items-center w-full">
+            <div className='w'>
+              <div className="flex gap-2 items-center">
                 <Label htmlFor="visibleInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
                   Visible?
                 </Label>
@@ -168,9 +188,7 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
                 <span className="slider-visible"></span>
               </label>
             </div>
-          </div>
-          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center w-full">
-            <div className="w-full md:w-1/5">
+            <div>
               <div className="flex gap-2 items-center">
                 <Label htmlFor="extraPointsInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
                   Puntos extras?
@@ -189,47 +207,29 @@ export default function EditDateToTournamentDialog({ tournamentId, openDialog, s
                 <span className="slider-visible"></span>
               </label>
             </div>
-            <div className="w-full md:w-4/5">
-              <Label htmlFor="extraPointsSolutionInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
-                Solución puntos extras (si corresponde)
-              </Label>
-              <Textarea
-                id="extraPointsSolutionInput"
-                rows={3}
-                className="w-4/5 resize-none placeholder:text-muted-foreground/40"
-                value={extraPointsSolution ? extraPointsSolution : ''}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                  setInput({ ...input, extraPointsSolution: e.target.value })
-                }
-              />
-            </div>
+
           </div>
-          {originalMovie &&
-            <div className='w-fit'>
-              <h2 className="block text-md font-medium text-muted-foreground/40 mb-1">Película actual</h2>
-              <div className="p-2 border rounded-2xl flex gap-4">
-                <div className="my-auto flex-none">
-                  <Image
-                    src={originalMovie.posterPath ? originalMovie.posterPath : noImage}
-                    alt={`${originalMovie.title} poster`}
-                    width={50}
-                    height={75}
-                    className="rounded"
-                    unoptimized
-                  />
-                </div>
-                <h1 className="text-sm font-semibold">
-                  <span className="line-clamp-2 whitespace-pre-line">{originalMovie.title}</span>
-                </h1>
-              </div>
-            </div>}
+          <div className="w-3/5 md:w-4/5">
+            <Label htmlFor="extraPointsSolutionInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
+              Solución puntos extras (si corresponde)
+            </Label>
+            <Textarea
+              id="extraPointsSolutionInput"
+              rows={3}
+              className="resize-none placeholder:text-muted-foreground/40"
+              value={extraPointsSolution ? extraPointsSolution : ''}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setInput({ ...input, extraPointsSolution: e.target.value })
+              }
+            />
+          </div>
           <div>
             <Label htmlFor="movieInput" className="block text-md font-medium text-muted-foreground/40 mb-1">
               Película
             </Label>
             <SearchMovieForDate selectedMovieId={selectedMovieId} setSelectedMovieId={setSelectedMovieId} />
           </div>
-          <div className="absolute top-5 right-10">
+          <div className="absolute top-48 right-0 md:top-32 md:right-10">
             <div className="flex justify-end items-center gap-2">
               <LoadingButton
                 onClick={onSubmit}

@@ -21,6 +21,7 @@ export async function GET(
     select: {
       id: true,
       date: true,
+      name: true,
       movie: {
         select: {
           id: true,
@@ -66,6 +67,7 @@ export async function GET(
   const data: TournamentDateInfo = {
     id: tournamentDate.id,
     date: tournamentDate.date,
+    name: tournamentDate.name,
     movie: tournamentDate.movie,
     tournament: tournamentDate.tournament,
     scores: tournamentDate.scores.map((score) => ({

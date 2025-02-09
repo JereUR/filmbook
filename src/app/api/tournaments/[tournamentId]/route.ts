@@ -46,6 +46,7 @@ export async function GET(
         select: {
           id: true,
           date: true,
+          name: true,
           movie: {
             select: {
               id: true,
@@ -114,6 +115,7 @@ export async function GET(
   const dates: TournamentDate[] = tournament.dates.map((d) => ({
     id: d.id,
     date: d.date,
+    name: d.name,
     movie: {
       id: d.movie.id,
       title: d.movie.title,

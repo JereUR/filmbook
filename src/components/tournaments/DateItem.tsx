@@ -16,7 +16,7 @@ interface DateItemProps {
 
 export default function DateItem({ dateData }: DateItemProps) {
   const [open, setOpen] = useState<boolean>(false)
-  const { date, movie, visible, extraPoints, extraPointsSolution } = dateData
+  const { date, name, movie, visible, extraPoints, extraPointsSolution } = dateData
 
   if (!visible) return null
 
@@ -33,7 +33,7 @@ export default function DateItem({ dateData }: DateItemProps) {
           {extraPoints && (
             <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary" />
           )}
-          Fecha {date}
+          Fecha {name || date}
           {open ? (
             <ChevronUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           ) : (
@@ -53,7 +53,7 @@ export default function DateItem({ dateData }: DateItemProps) {
               unoptimized
             />
             <div className="flex flex-col gap-2">
-              <span className="md:text-lg font-semibold">Fecha {date}</span>
+              <span className="md:text-lg font-semibold">Fecha {name || date}</span>
               <span className="text-sm md:text-base text-muted-foreground/70">{movie.title}</span>
             </div>
           </div>

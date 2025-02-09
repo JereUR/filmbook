@@ -190,7 +190,7 @@ export default function TournamentParticipantPopover({
                               unoptimized
                             />
                             <span>
-                              Fecha {date.date} - {date.movie.title}
+                              Fecha {date.name || date.date} - {date.movie.title}
                             </span>
                             {dateIdSelected === date.dateId && (
                               <Check className="ml-auto h-4 w-4 text-green-600" />

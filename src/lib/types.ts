@@ -414,6 +414,7 @@ export interface TournamentPosition {
 export interface TournamentDate {
   id: string
   date: number
+  name?: string | null
   movie: {
     id: string
     title: string
@@ -452,6 +453,7 @@ export interface TournamentsPage {
 export interface InputDateTournamentProps {
   dateId: string | null
   date: number
+  name?: string
   movieId: string
   visible: boolean
   extraPoints: boolean
@@ -472,6 +474,7 @@ export interface ParticipantScoreInfo {
 export interface TournamentDateInfo {
   id: string
   date: number
+  name?: string | null
   movie: {
     id: string
     title: string
@@ -510,6 +513,7 @@ export interface TournamentParticipantData {
 export interface TournamentDateData {
   dateId: string
   date: number
+  name?: string | null
   movie: {
     id: string
     title: string
@@ -546,6 +550,7 @@ export interface TournamentsForParticipant {
 export interface DateForTournamentData {
   dateId: string
   date: number
+  name?: string | null
   movie: {
     id: string
     title: string
