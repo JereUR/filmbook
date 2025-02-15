@@ -1,5 +1,5 @@
 {
-  "category": "Mejor guión adptado",
+  "category": "Mejor guión adaptado",
   "winner": "",
   "nominees": [
     {
@@ -15,15 +15,6 @@
       "movieTitle": "A Complete Unknown",
       "photo": "https://static.hoy.es/comun/img/2025/Caratulas/ACompleteUnknown.png",
       "providers": []
-    },
-    {
-      "name": "Coralie Fargeat",
-      "movieId": "933260",
-      "movieTitle": "La sustancia",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/6/65/Coralie_Fargeat_at_the_2024_Toronto_International_Film_Festival.jpg",
-      "providers": [
-        "https://image.tmdb.org/t/p/w500/fj9Y8iIMFUC6952HwxbGixTQPb7.jpg"
-      ]
     },
     {
       "name": "Jacques Audiard (En colaboración con Thomas Bidegain, Léa Mysius y Nicolas Livecchi)",

@@ -3,15 +3,6 @@
   "winner": "",
   "nominees": [
     {
-      "name": "Trent Reznor, Atticus Ross",
-      "movieId": "937287",
-      "movieTitle": "Rivales",
-      "photo": "https://deadline.com/wp-content/uploads/2018/09/trent-reznor-atticus-ross.jpg",
-      "providers": [
-        "https://image.tmdb.org/t/p/w500/pvske1MyAoymrs5bguRfVqYiM9a.jpg"
-      ]
-    },
-    {
       "name": "Clément Ducol, Camille",
       "movieId": "974950",
       "movieTitle": "Emilia Pérez",
