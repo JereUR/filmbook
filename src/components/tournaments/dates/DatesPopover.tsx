@@ -83,7 +83,7 @@ export default function DatesPopover({ dates, loading, status, input, setInput, 
                           unoptimized
                         />
                         <span>
-                          Fecha {d.date} - {d.movie.title}
+                          Fecha {d.name || d.date} - {d.movie.title}
                         </span>
                         {date === d.date && (
                           <Check className="ml-auto h-4 w-4 text-green-600" />
