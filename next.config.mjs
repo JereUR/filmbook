@@ -133,6 +133,11 @@ const nextConfig = {
         hostname: "media.gettyimages.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.mubicdn.net",
+        pathname: "/**",
+      },
     ],
   },
   rewrites: () => {
