@@ -12,7 +12,7 @@ export default async function MyPredictionsPage() {
   if (!user) {
     return {
       redirect: {
-        destination: "/login",
+        destination: "/iniciar-sesion",
         permanent: false,
       },
     }
