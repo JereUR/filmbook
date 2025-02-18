@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server"
-
 import prisma from "@/lib/prisma"
 import { validateRequest } from "@/auth"
 
@@ -9,15 +8,30 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const { nominationId, predictedWinner } = await req.json()
+  const { category, predictedWinner, favoriteWinner } = await req.json()
 
   try {
+    const awardEvent = await prisma.awardEvent.findFirst({
+      where: {
+        name: "Oscars",
+        year: 2024,
+      },
+    })
+
+    if (!awardEvent) {
+      return NextResponse.json(
+        { error: "Award event not found" },
+        { status: 404 },
+      )
+    }
+
     const prediction = await prisma.prediction.create({
       data: {
         userId: user.id,
-        nominationId,
+        awardEventId: awardEvent.id,
+        category,
         predictedWinner,
-        awardEventId: "oscars-2024",
+        favoriteWinner,
       },
     })
 
