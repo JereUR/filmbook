@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import PredictionForm from "./PredictionForm"
 
 export const metadata: Metadata = {
-  title: "Mis Predicciones para los Oscars",
+  title: "Crear predicciones para los Oscars",
 }
 
 export default function PredictionsPage() {
