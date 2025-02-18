@@ -364,14 +364,16 @@ model AwardEvent {
 }
 
 model Prediction {
-  id              String     @id @default(cuid())
-  userId          String
-  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  awardEventId    String
-  awardEvent      AwardEvent @relation(fields: [awardEventId], references: [id], onDelete: Cascade)
-  category        String
-  predictedWinner String
-  favoriteWinner  String
+  id                   String     @id @default(cuid())
+  userId               String
+  user                 User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  awardEventId         String
+  awardEvent           AwardEvent @relation(fields: [awardEventId], references: [id], onDelete: Cascade)
+  category             String
+  predictedWinnerName  String
+  predictedWinnerImage String?
+  favoriteWinnerName   String
+  favoriteWinnerImage  String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
