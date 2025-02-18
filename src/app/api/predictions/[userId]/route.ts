@@ -2,10 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import prisma from "@/lib/prisma"
 import { validateRequest } from "@/auth"
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { userId: string } },
-) {
+export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
   const { user } = await validateRequest()
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -21,21 +18,39 @@ export async function GET(
       include: {
         awardEvent: true,
       },
+      orderBy: [{ awardEvent: { year: "desc" } }, { awardEvent: { name: "asc" } }, { category: "asc" }],
     })
 
     if (!predictions.length) {
-      return NextResponse.json(
-        { message: "No predictions found for this user" },
-        { status: 404 },
-      )
+      return NextResponse.json({ message: "No predictions found for this user" }, { status: 404 })
     }
 
-    return NextResponse.json(predictions)
+    const groupedPredictions = predictions.reduce(
+      (acc, prediction) => {
+        const eventKey = `${prediction.awardEvent.name}-${prediction.awardEvent.year}`
+        if (!acc[eventKey]) {
+          acc[eventKey] = {
+            name: prediction.awardEvent.name,
+            year: prediction.awardEvent.year,
+            categories: {},
+          }
+        }
+        acc[eventKey].categories[prediction.category] = {
+          id: prediction.id,
+          predictedWinnerName: prediction.predictedWinnerName,
+          predictedWinnerImage: prediction.predictedWinnerImage,
+          favoriteWinnerName: prediction.favoriteWinnerName,
+          favoriteWinnerImage: prediction.favoriteWinnerImage,
+        }
+        return acc
+      },
+      {} as Record<string, { name: string; year: number; categories: Record<string, any> }>,
+    )
+
+    return NextResponse.json(Object.values(groupedPredictions))
   } catch (error) {
     console.error("Failed to fetch predictions:", error)
-    return NextResponse.json(
-      { error: "Failed to fetch predictions" },
-      { status: 500 },
-    )
+    return NextResponse.json({ error: "Failed to fetch predictions" }, { status: 500 })
   }
 }
+
