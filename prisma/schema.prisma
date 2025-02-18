@@ -357,26 +357,10 @@ model AwardEvent {
   id          String       @id @default(cuid())
   name        String
   year        Int
-  nominations Nomination[]
   predictions Prediction[]
 
   @@unique([name, year])
   @@map("award_events")
-}
-
-model Nomination {
-  id           String         @id @default(cuid())
-  awardEventId String
-  awardEvent   AwardEvent     @relation(fields: [awardEventId], references: [id], onDelete: Cascade)
-  category     String
-  nominees     Json
-  winner       String?
-  type         NominationType
-
-  predictions Prediction[]
-
-  @@unique([awardEventId, category])
-  @@map("nominations")
 }
 
 model Prediction {
@@ -385,19 +369,12 @@ model Prediction {
   user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   awardEventId    String
   awardEvent      AwardEvent @relation(fields: [awardEventId], references: [id], onDelete: Cascade)
-  nominationId    String
-  nomination      Nomination @relation(fields: [nominationId], references: [id], onDelete: Cascade)
+  category        String
   predictedWinner String
+  favoriteWinner  String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([userId, nominationId])
   @@map("predictions")
-}
-
-enum NominationType {
-  MOVIE
-  PERSON
-  SONG
 }
