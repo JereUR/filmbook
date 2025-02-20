@@ -73,3 +73,30 @@ export const assignPointsSchema = z.object({
   points: z.number().min(0, "Puntos deben ser 0 o más"),
   extraPoints: z.number().optional(),
 })
+
+const eventIdSchema = z.string().refine(
+  (value) => {
+    const [name, year] = value.split("-")
+    return name && !isNaN(Number(year))
+  },
+  {
+    message: "El formato del eventId debe ser 'nombre-año'",
+  },
+)
+
+export const predictionInputSchema = z.object({
+  userId: z.string().min(1, "Usuario es requerido"),
+  eventId: eventIdSchema,
+  category: z.string().min(1, "Categoría es requerida"),
+  predictedWinnerName: z.string().min(1, "Ganador predicho es requerido"),
+  predictedWinnerImage: z.string().nullable(),
+  favoriteWinnerName: z.string().min(1, "Favorito es requerido"),
+  favoriteWinnerImage: z.string().nullable(),
+})
+
+export const deletePredictionsSchema = z.object({
+  userId: z.string().min(1, "Usuario es requerido"),
+  eventId: eventIdSchema,
+})
+
+export type PredictionInput = z.infer<typeof predictionInputSchema>
