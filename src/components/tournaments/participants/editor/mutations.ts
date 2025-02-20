@@ -2,6 +2,7 @@ import { useToast } from "@/components/ui/use-toast"
 import {
   InfiniteData,
   QueryFilters,
+  QueryKey,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -60,12 +61,13 @@ export function useUpdateTournamentParticipantMutation() {
   const mutation = useMutation({
     mutationFn: updateTournamentParticipant,
     onSuccess: async (updatedTournamentParticipant: ParticipantTournament) => {
-      const queryFilter: QueryFilters = { queryKey: ["participants"] }
+      const queryKey: QueryKey = ["participants"]
+      const queryFilter: QueryFilters = { queryKey }
 
       await queryClient.cancelQueries(queryFilter)
 
       queryClient.setQueriesData<InfiniteData<ParticipantsPage>>(
-        queryFilter,
+        { queryKey },
         (oldData) => {
           if (!oldData) return undefined
 

@@ -1,6 +1,7 @@
 import {
   InfiniteData,
   QueryFilters,
+  QueryKey,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -16,8 +17,9 @@ export function useSubmitTournamentMutation() {
   const mutation = useMutation({
     mutationFn: submitTournament,
     onSuccess: async (newTournament) => {
+      const queryKey: QueryKey = ["tournaments"]
       const queryFilter = {
-        queryKey: ["tournaments"],
+        queryKey,
         predicate(query) {
           return query.queryKey.includes("tournaments")
         },
@@ -26,7 +28,7 @@ export function useSubmitTournamentMutation() {
       await queryClient.cancelQueries(queryFilter)
 
       queryClient.setQueriesData<InfiniteData<TournamentsPage, string | null>>(
-        queryFilter,
+        { queryKey },
         (oldData) => {
           if (!oldData) return undefined
           const firstPage = oldData.pages[0]
@@ -94,8 +96,10 @@ export function useUpdateTournamentMutation() {
         dates: updatedTournament.dates.length,
       }
 
+      const queryKey: QueryKey = ["tournaments"]
+
       const queryFilter = {
-        queryKey: ["tournaments"],
+        queryKey,
         predicate(query) {
           return query.queryKey.includes("tournaments")
         },
@@ -104,7 +108,7 @@ export function useUpdateTournamentMutation() {
       await queryClient.cancelQueries(queryFilter)
 
       queryClient.setQueriesData<InfiniteData<TournamentsPage>>(
-        queryFilter,
+        { queryKey },
         (oldData) => {
           if (!oldData) return
 

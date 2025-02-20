@@ -1,6 +1,7 @@
 import {
   InfiniteData,
   QueryFilters,
+  QueryKey,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -19,14 +20,13 @@ export function useDeleteDiaryItemMutation() {
   const mutation = useMutation({
     mutationFn: deleteDiaryItem,
     onSuccess: async (deletedDiaryItem) => {
-      const queryFilter: QueryFilters = {
-        queryKey: ["diaries", user ? user.id : null],
-      }
+      const queryKey: QueryKey = ["diaries", user ? user.id : null]
+      const queryFilter: QueryFilters = { queryKey }
 
       await queryClient.cancelQueries(queryFilter)
 
       queryClient.setQueriesData<InfiniteData<DiariesPage, string | null>>(
-        queryFilter,
+        { queryKey },
         (oldData) => {
           if (!oldData) return
 

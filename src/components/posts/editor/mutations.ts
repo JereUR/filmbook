@@ -1,6 +1,5 @@
 import {
   InfiniteData,
-  QueryFilters,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -18,44 +17,39 @@ export function useSubmitPostMutation() {
   const mutation = useMutation({
     mutationFn: submitPost,
     onSuccess: async (newPost) => {
-      const queryFilter = {
-        queryKey: ["post-feed"],
-        predicate(query) {
-          return (
-            query.queryKey.includes("for-you") ||
-            (query.queryKey.includes("user-posts") &&
-              query.queryKey.includes(user ? user.id : null))
-          )
-        },
-      } satisfies QueryFilters
+      const queryKey = ["post-feed"] as const
 
-      await queryClient.cancelQueries(queryFilter)
+      await queryClient.cancelQueries({
+        predicate: (query) =>
+          query.queryKey.includes("for-you") ||
+          (query.queryKey.includes("user-posts") &&
+            query.queryKey.includes(user?.id ?? "")),
+      })
 
       queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
-        queryFilter,
+        { queryKey, exact: false },
         (oldData) => {
-          const firstPage = oldData?.pages[0]
+          if (!oldData) return oldData
 
-          if (firstPage) {
-            return {
-              pageParams: oldData.pageParams,
-              pages: [
-                {
-                  posts: [newPost, ...firstPage.posts],
-                  nextCursor: firstPage.nextCursor,
-                },
-                ...oldData.pages.slice(1),
-              ],
-            }
+          return {
+            ...oldData,
+            pages: [
+              {
+                posts: [newPost, ...oldData.pages[0].posts],
+                nextCursor: oldData.pages[0].nextCursor,
+              },
+              ...oldData.pages.slice(1),
+            ],
           }
         },
       )
 
       queryClient.invalidateQueries({
-        queryKey: queryFilter.queryKey,
-        predicate(query) {
-          return queryFilter.predicate(query) && !query.state.data
-        },
+        predicate: (query) =>
+          (query.queryKey.includes("for-you") ||
+            (query.queryKey.includes("user-posts") &&
+              query.queryKey.includes(user?.id ?? ""))) &&
+          !query.state.data,
       })
 
       toast({

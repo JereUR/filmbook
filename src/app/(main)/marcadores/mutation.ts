@@ -1,6 +1,7 @@
 import {
   InfiniteData,
   QueryFilters,
+  QueryKey,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -19,16 +20,15 @@ export function useDeleteWatchlistItemMutation() {
   const mutation = useMutation({
     mutationFn: deleteWatchlistItem,
     onSuccess: async (deletedPost) => {
-      const queryFilter: QueryFilters = {
-        queryKey: ["watchlist", user ? user.id : null],
-      }
+      const queryKey: QueryKey = ["watchlist", user ? user.id : null]
+      const queryFilter: QueryFilters = { queryKey }
 
       await queryClient.cancelQueries(queryFilter)
 
-      queryClient.setQueriesData<InfiniteData<WatchlistPage, string | null>>(
-        queryFilter,
+      queryClient.setQueryData<InfiniteData<WatchlistPage, string | null>>(
+        queryKey,
         (oldData) => {
-          if (!oldData) return
+          if (!oldData) return oldData
 
           return {
             pageParams: oldData.pageParams,

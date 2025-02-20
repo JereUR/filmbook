@@ -2,6 +2,7 @@ import { useToast } from "@/components/ui/use-toast"
 import {
   InfiniteData,
   QueryFilters,
+  QueryKey,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query"
@@ -36,17 +37,16 @@ export function useUpdateProfileMutation() {
     },
     onSuccess: async ([updatedUser, uploadResult]) => {
       const newAvatarUrl = uploadResult?.[0].serverData.avatarUrl
+      const queryKey: QueryKey = ["post-feed"]
 
-      const queryFilter: QueryFilters = {
-        queryKey: ["post-feed"],
-      }
+      const queryFilter: QueryFilters = { queryKey }
 
       await queryClient.cancelQueries(queryFilter)
 
-      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
-        queryFilter,
+      queryClient.setQueryData<InfiniteData<PostsPage, string | null>>(
+        queryKey,
         (oldData) => {
-          if (!oldData) return
+          if (!oldData) return oldData
 
           return {
             pageParams: oldData.pageParams,
@@ -62,7 +62,6 @@ export function useUpdateProfileMutation() {
                     },
                   }
                 }
-
                 return post
               }),
             })),

@@ -1,4 +1,5 @@
 import {
+  Query,
   QueryFilters,
   useMutation,
   useQueryClient,
@@ -17,16 +18,22 @@ export function useSubmitRatingMutation() {
   const mutation = useMutation({
     mutationFn: submitReview,
     onSuccess: async (updatedReview) => {
-      const queryFilter = {
+      const queryFilter: QueryFilters<ReviewSinglePage> = {
         queryKey: ["review-feed"],
-        predicate(query) {
+        predicate: (query) => {
+          const typedQuery = query as Query<
+            ReviewSinglePage,
+            Error,
+            ReviewSinglePage,
+            readonly unknown[]
+          >
           return (
-            query.queryKey.includes("movie-reviews") ||
-            (query.queryKey.includes("user-reviews") &&
-              query.queryKey.includes(user ? user.id : null))
+            typedQuery.queryKey.includes("movie-reviews") ||
+            (typedQuery.queryKey.includes("user-reviews") &&
+              typedQuery.queryKey.includes(user?.id ?? ""))
           )
         },
-      } satisfies QueryFilters
+      }
 
       await queryClient.cancelQueries(queryFilter)
 
@@ -43,8 +50,16 @@ export function useSubmitRatingMutation() {
 
       queryClient.invalidateQueries({
         queryKey: queryFilter.queryKey,
-        predicate(query) {
-          return queryFilter.predicate(query) && !query.state.data
+        predicate: (query) => {
+          const typedQuery = query as Query<
+            ReviewSinglePage,
+            Error,
+            ReviewSinglePage,
+            readonly unknown[]
+          >
+          return queryFilter.predicate
+            ? queryFilter.predicate(typedQuery) && !typedQuery.state.data
+            : false
         },
       })
 
