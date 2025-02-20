@@ -6,6 +6,7 @@ import { validateRequest } from "@/auth"
 import { Skeleton } from "@/components/ui/skeleton"
 import { getPredictions } from "@/components/predictions/actions"
 import PredictionForm from "@/components/predictions/PredictionForm"
+import { CategoryPredictions } from "@/types/nominations"
 
 export const metadata: Metadata = {
   title: "Editar predicciones para los Oscars",
@@ -30,16 +31,19 @@ async function PredictionFormWrapper({ userId, eventId }: { userId: string; even
         predictedWinner: {
           name: prediction.predictedWinnerName,
           image: prediction.predictedWinnerImage,
+          details: {},
         },
         favoriteWinner: {
           name: prediction.favoriteWinnerName,
           image: prediction.favoriteWinnerImage,
+          details: {},
         },
       }
       return acc
     },
-    {} as Record<string, { predictedWinner: Nominee; favoriteWinner: Nominee }>,
+    {} as CategoryPredictions,
   )
+
 
   return <PredictionForm userId={userId} eventId={eventId} initialPredictions={initialPredictions} />
 }
