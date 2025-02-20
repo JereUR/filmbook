@@ -1,17 +1,16 @@
-import { useToast } from "@/components/ui/use-toast"
+"use client"
+
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { addPrediction, updatePrediction, deletePredictions } from "./actions"
 import { useRouter } from "next/navigation"
 
-type PredictionInput = {
-  userId: string
-  eventId: string
-  category: string
-  predictedWinnerName: string
-  predictedWinnerImage: string | null
-  favoriteWinnerName: string
-  favoriteWinnerImage: string | null
-}
+import { useToast } from "@/hooks/use-toast"
+import { PredictionInput } from "@/lib/validation"
+import { addPrediction, deletePredictions, updatePrediction } from "./actions"
+import {
+  AuthorizationError,
+  NotFoundError,
+  ValidationError,
+} from "@/lib/exceptions"
 
 export function useAddPredictionMutation() {
   const { toast } = useToast()
@@ -27,11 +26,22 @@ export function useAddPredictionMutation() {
       })
       router.push("/mis-predicciones")
     },
-    onError: () => {
+    onError: (error) => {
+      let message =
+        "Hubo un problema al guardar tu predicción. Por favor, intenta de nuevo."
+
+      if (error instanceof ValidationError) {
+        message = error.message
+      } else if (error instanceof AuthorizationError) {
+        message = "No tienes permiso para realizar esta acción."
+        router.push("/login")
+      } else if (error instanceof NotFoundError) {
+        message = error.message
+      }
+
       toast({
         variant: "destructive",
-        description:
-          "Hubo un problema al guardar tu predicción. Por favor, intenta de nuevo.",
+        description: message,
       })
     },
   })
@@ -51,11 +61,20 @@ export function useUpdatePredictionMutation() {
       })
       router.push("/mis-predicciones")
     },
-    onError: () => {
+    onError: (error) => {
+      let message =
+        "Hubo un problema al actualizar tu predicción. Por favor, intenta de nuevo."
+
+      if (error instanceof ValidationError) {
+        message = error.message
+      } else if (error instanceof AuthorizationError) {
+        message = "No tienes permiso para realizar esta acción."
+        router.push("/login")
+      }
+
       toast({
         variant: "destructive",
-        description:
-          "Hubo un problema al actualizar tu predicción. Por favor, intenta de nuevo.",
+        description: message,
       })
     },
   })
@@ -73,11 +92,19 @@ export function useDeletePredictionsMutation(userId: string) {
         description: "Predicciones eliminadas exitosamente.",
       })
     },
-    onError: () => {
+    onError: (error) => {
+      let message =
+        "Hubo un problema al eliminar las predicciones. Por favor, intenta de nuevo."
+
+      if (error instanceof ValidationError) {
+        message = error.message
+      } else if (error instanceof AuthorizationError) {
+        message = "No tienes permiso para realizar esta acción."
+      }
+
       toast({
         variant: "destructive",
-        description:
-          "Hubo un problema al eliminar las predicciones. Por favor, intenta de nuevo.",
+        description: message,
       })
     },
   })

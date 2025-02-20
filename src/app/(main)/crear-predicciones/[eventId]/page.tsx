@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
-import PredictionForm from "../../PredictionForm"
+
 import { validateRequest } from "@/auth"
+import PredictionForm from "@/components/predictions/PredictionForm"
 
 export const metadata: Metadata = {
   title: "Crear predicciones para los Oscars",

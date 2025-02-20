@@ -4,8 +4,8 @@ import type { Metadata } from "next"
 
 import { validateRequest } from "@/auth"
 import { Skeleton } from "@/components/ui/skeleton"
-import { getPredictions } from "../../actions"
-import PredictionForm from "../../PredictionForm"
+import { getPredictions } from "@/components/predictions/actions"
+import PredictionForm from "@/components/predictions/PredictionForm"
 
 export const metadata: Metadata = {
   title: "Editar predicciones para los Oscars",

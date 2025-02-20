@@ -5,8 +5,8 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
-import { useDeletePredictionsMutation } from "../(predictions)/mutations"
-import { getPredictions } from "../(predictions)/actions"
+import { useDeletePredictionsMutation } from "./mutations"
+import { getPredictions } from "./actions"
 
 type Prediction = {
   id: string

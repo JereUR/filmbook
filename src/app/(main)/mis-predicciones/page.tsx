@@ -1,6 +1,7 @@
-import { validateRequest } from "@/auth"
 import type { Metadata } from "next"
-import MyPredictions from "./MyPredictions"
+
+import { validateRequest } from "@/auth"
+import MyPredictions from "@/components/predictions/MyPredictions"
 
 export const metadata: Metadata = {
   title: "Mis predicciones",
