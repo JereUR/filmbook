@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { getPredictions } from "@/components/predictions/actions"
 import PredictionForm from "@/components/predictions/PredictionForm"
 import { CategoryPredictions } from "@/types/nominations"
+import { CategoryPredictionType } from "@/types/predictions"
 
 export const metadata: Metadata = {
   title: "Editar predicciones para los Oscars",
@@ -19,33 +20,17 @@ type Nominee = {
 
 async function PredictionFormWrapper({ userId, eventId }: { userId: string; eventId: string }) {
   const predictions = await getPredictions(userId)
-  const eventPredictions = predictions.find((event) => `${event.name}-${event.year}` === eventId)
+  const eventPredictions = predictions.filter((event) => `${event.name}-${event.year}` === eventId)
 
   if (!eventPredictions) {
     notFound()
   }
 
-  const initialPredictions = Object.entries(eventPredictions.categories).reduce(
-    (acc, [category, prediction]) => {
-      acc[category] = {
-        predictedWinner: {
-          name: prediction.predictedWinnerName,
-          image: prediction.predictedWinnerImage,
-          details: {},
-        },
-        favoriteWinner: {
-          name: prediction.favoriteWinnerName,
-          image: prediction.favoriteWinnerImage,
-          details: {},
-        },
-      }
-      return acc
-    },
-    {} as CategoryPredictions,
-  )
+  if (!eventPredictions) {
+    notFound()
+  }
 
-
-  return <PredictionForm userId={userId} eventId={eventId} initialPredictions={initialPredictions} />
+  return <PredictionForm userId={userId} eventId={eventId} initialPredictions={[]} />
 }
 
 export default async function EditPredictionsPage({ params }: { params: { eventId: string } }) {
