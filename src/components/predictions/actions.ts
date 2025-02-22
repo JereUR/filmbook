@@ -2,23 +2,21 @@
 
 import { validateRequest } from "@/auth"
 import prisma from "@/lib/prisma"
+import { type PredictionInput, predictionsArraySchema } from "@/lib/validation"
 import { revalidatePath } from "next/cache"
 
-type PredictionInput = {
-  userId: string
-  eventId: string
-  category: string
-  predictedWinnerName: string
-  predictedWinnerImage: string | null
-  favoriteWinnerName: string
-  favoriteWinnerImage: string | null
-}
-
-export async function addPrediction(input: PredictionInput) {
+export async function addPredictions(values: PredictionInput[]) {
   const { user } = await validateRequest()
   if (!user) throw new Error("Unauthorized")
 
-  const [eventName, eventYear] = input.eventId.split("-")
+  console.log("Valores recibidos en addPredictions:", values)
+
+  if (values.length === 0) {
+    throw new Error("No hay predicciones para guardar")
+  }
+
+  // Todos los valores tienen el mismo eventId, así que usamos el primero
+  const [eventName, eventYear] = values[0].eventId.split("-")
 
   const awardEvent = await prisma.awardEvent.findFirst({
     where: {
@@ -29,45 +27,102 @@ export async function addPrediction(input: PredictionInput) {
 
   if (!awardEvent) throw new Error("Award event not found")
 
-  await prisma.prediction.create({
-    data: {
-      userId: user.id,
-      awardEventId: awardEvent.id,
-      category: input.category,
-      predictedWinnerName: input.predictedWinnerName,
-      predictedWinnerImage: input.predictedWinnerImage,
-      favoriteWinnerName: input.favoriteWinnerName,
-      favoriteWinnerImage: input.favoriteWinnerImage,
-    },
-  })
+  try {
+    const validatedData = predictionsArraySchema.parse(values)
+    console.log("Datos validados:", validatedData)
 
-  revalidatePath("/mis-predicciones")
+    // Usar una transacción para asegurar que todas las predicciones se guarden o ninguna
+    const predictions = await prisma.$transaction(
+      validatedData.map((prediction) =>
+        prisma.prediction.create({
+          data: {
+            userId: user.id,
+            awardEventId: awardEvent.id,
+            category: prediction.category,
+            predictedWinnerName: prediction.predictedWinnerName,
+            predictedWinnerImage: prediction.predictedWinnerImage,
+            favoriteWinnerName: prediction.favoriteWinnerName,
+            favoriteWinnerImage: prediction.favoriteWinnerImage,
+          },
+        }),
+      ),
+    )
+
+    console.log("Predicciones creadas:", predictions)
+    revalidatePath("/mis-predicciones")
+    return predictions
+  } catch (error) {
+    console.error("Error en addPredictions:", error)
+    throw error
+  }
 }
 
-export async function updatePrediction(input: PredictionInput) {
+export async function updatePredictions(values: PredictionInput[]) {
   const { user } = await validateRequest()
   if (!user) throw new Error("Unauthorized")
 
-  const [eventName, eventYear] = input.eventId.split("-")
+  if (values.length === 0) {
+    throw new Error("No hay predicciones para actualizar")
+  }
 
-  await prisma.prediction.updateMany({
+  const [eventName, eventYear] = values[0].eventId.split("-")
+
+  const awardEvent = await prisma.awardEvent.findFirst({
     where: {
-      userId: user.id,
-      awardEvent: {
-        name: eventName,
-        year: Number.parseInt(eventYear),
-      },
-      category: input.category,
-    },
-    data: {
-      predictedWinnerName: input.predictedWinnerName,
-      predictedWinnerImage: input.predictedWinnerImage,
-      favoriteWinnerName: input.favoriteWinnerName,
-      favoriteWinnerImage: input.favoriteWinnerImage,
+      name: eventName,
+      year: Number.parseInt(eventYear),
     },
   })
 
-  revalidatePath("/mis-predicciones")
+  if (!awardEvent) throw new Error("Award event not found")
+
+  try {
+    const validatedData = predictionsArraySchema.parse(values)
+
+    /* const predictions = await prisma.$transaction(
+      validatedData.map(async (prediction) => {
+        const existingPrediction = await prisma.prediction.findFirst({
+          where: {
+            userId: user.id,
+            awardEventId: awardEvent.id,
+            category: prediction.category,
+          },
+        })
+
+        if (!existingPrediction) {
+          return prisma.prediction.create({
+            data: {
+              userId: user.id,
+              awardEventId: awardEvent.id,
+              category: prediction.category,
+              predictedWinnerName: prediction.predictedWinnerName,
+              predictedWinnerImage: prediction.predictedWinnerImage,
+              favoriteWinnerName: prediction.favoriteWinnerName,
+              favoriteWinnerImage: prediction.favoriteWinnerImage,
+            },
+          })
+        }
+
+        return prisma.prediction.update({
+          where: {
+            id: existingPrediction.id,
+          },
+          data: {
+            predictedWinnerName: prediction.predictedWinnerName,
+            predictedWinnerImage: prediction.predictedWinnerImage,
+            favoriteWinnerName: prediction.favoriteWinnerName,
+            favoriteWinnerImage: prediction.favoriteWinnerImage,
+          },
+        })
+      }),
+    ) */
+
+    revalidatePath("/mis-predicciones")
+    return []
+  } catch (error) {
+    console.error("Error en updatePredictions:", error)
+    throw error
+  }
 }
 
 export async function deletePredictions(userId: string, eventId: string) {

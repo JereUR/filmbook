@@ -2,33 +2,45 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-
 import { useToast } from "@/hooks/use-toast"
-import { PredictionInput } from "@/lib/validation"
-import { addPrediction, deletePredictions, updatePrediction } from "./actions"
+import type { PredictionInput } from "@/lib/validation"
+import { addPredictions, updatePredictions, deletePredictions } from "./actions"
 import {
   AuthorizationError,
   NotFoundError,
   ValidationError,
 } from "@/lib/exceptions"
 
-export function useAddPredictionMutation() {
+type Prediction = {
+  id: string
+  userId: string
+  category: string
+  predictedWinnerName: string
+  predictedWinnerImage: string | null
+  favoriteWinnerName: string
+  favoriteWinnerImage: string | null
+  awardEventId: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export function useAddPredictionsMutation() {
   const { toast } = useToast()
   const queryClient = useQueryClient()
   const router = useRouter()
 
-  return useMutation<void, Error, PredictionInput>({
-    mutationFn: addPrediction,
+  return useMutation<Prediction[], Error, PredictionInput[]>({
+    mutationFn: addPredictions,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["predictions"] })
       toast({
-        description: "Predicción guardada exitosamente.",
+        description: "Predicciones guardadas exitosamente.",
       })
       router.push("/mis-predicciones")
     },
     onError: (error) => {
       let message =
-        "Hubo un problema al guardar tu predicción. Por favor, intenta de nuevo."
+        "Hubo un problema al guardar tus predicciones. Por favor, intenta de nuevo."
 
       if (error instanceof ValidationError) {
         message = error.message
@@ -47,23 +59,23 @@ export function useAddPredictionMutation() {
   })
 }
 
-export function useUpdatePredictionMutation() {
+export function useUpdatePredictionsMutation() {
   const { toast } = useToast()
   const queryClient = useQueryClient()
   const router = useRouter()
 
-  return useMutation<void, Error, PredictionInput>({
-    mutationFn: updatePrediction,
+  return useMutation<Prediction[], Error, PredictionInput[]>({
+    mutationFn: updatePredictions,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["predictions"] })
       toast({
-        description: "Predicción actualizada exitosamente.",
+        description: "Predicciones actualizadas exitosamente.",
       })
       router.push("/mis-predicciones")
     },
     onError: (error) => {
       let message =
-        "Hubo un problema al actualizar tu predicción. Por favor, intenta de nuevo."
+        "Hubo un problema al actualizar tus predicciones. Por favor, intenta de nuevo."
 
       if (error instanceof ValidationError) {
         message = error.message
