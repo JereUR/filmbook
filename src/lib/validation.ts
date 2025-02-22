@@ -99,4 +99,6 @@ export const deletePredictionsSchema = z.object({
   eventId: eventIdSchema,
 })
 
+export const predictionsArraySchema = z.array(predictionInputSchema)
+
 export type PredictionInput = z.infer<typeof predictionInputSchema>
