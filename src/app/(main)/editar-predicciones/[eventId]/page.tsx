@@ -6,31 +6,22 @@ import { validateRequest } from "@/auth"
 import { Skeleton } from "@/components/ui/skeleton"
 import { getPredictions } from "@/components/predictions/actions"
 import PredictionForm from "@/components/predictions/PredictionForm"
-import { CategoryPredictions } from "@/types/nominations"
-import { CategoryPredictionType } from "@/types/predictions"
+import type { CategoryPredictionType } from "@/types/predictions"
 
 export const metadata: Metadata = {
   title: "Editar predicciones para los Oscars",
 }
 
-type Nominee = {
-  name: string
-  image: string | null | undefined
-}
-
 async function PredictionFormWrapper({ userId, eventId }: { userId: string; eventId: string }) {
-  const predictions = await getPredictions(userId)
-  const eventPredictions = predictions.filter((event) => `${event.name}-${event.year}` === eventId)
+  const predictions = await getPredictions(userId, eventId)
 
-  if (!eventPredictions) {
+  if (!predictions || predictions.length === 0) {
     notFound()
   }
 
-  if (!eventPredictions) {
-    notFound()
-  }
-
-  return <PredictionForm userId={userId} eventId={eventId} initialPredictions={[]} />
+  return (
+    <PredictionForm userId={userId} eventId={eventId} initialPredictions={predictions as CategoryPredictionType[]} />
+  )
 }
 
 export default async function EditPredictionsPage({ params }: { params: { eventId: string } }) {

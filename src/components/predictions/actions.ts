@@ -3,6 +3,7 @@
 import { validateRequest } from "@/auth"
 import prisma from "@/lib/prisma"
 import { type PredictionInput, predictionsArraySchema } from "@/lib/validation"
+import { CategoryPredictionType } from "@/types/predictions"
 import { revalidatePath } from "next/cache"
 
 export async function addPredictions(values: PredictionInput[]) {
@@ -15,7 +16,6 @@ export async function addPredictions(values: PredictionInput[]) {
     throw new Error("No hay predicciones para guardar")
   }
 
-  // Todos los valores tienen el mismo eventId, así que usamos el primero
   const [eventName, eventYear] = values[0].eventId.split("-")
 
   const awardEvent = await prisma.awardEvent.findFirst({
@@ -31,7 +31,6 @@ export async function addPredictions(values: PredictionInput[]) {
     const validatedData = predictionsArraySchema.parse(values)
     console.log("Datos validados:", validatedData)
 
-    // Usar una transacción para asegurar que todas las predicciones se guarden o ninguna
     const predictions = await prisma.$transaction(
       validatedData.map((prediction) =>
         prisma.prediction.create({
@@ -79,46 +78,31 @@ export async function updatePredictions(values: PredictionInput[]) {
   try {
     const validatedData = predictionsArraySchema.parse(values)
 
-    /* const predictions = await prisma.$transaction(
-      validatedData.map(async (prediction) => {
-        const existingPrediction = await prisma.prediction.findFirst({
-          where: {
+    await prisma.prediction.deleteMany({
+      where: {
+        userId: user.id,
+        awardEventId: awardEvent.id,
+      },
+    })
+
+    const predictions = await prisma.$transaction(
+      validatedData.map((prediction) =>
+        prisma.prediction.create({
+          data: {
             userId: user.id,
             awardEventId: awardEvent.id,
             category: prediction.category,
-          },
-        })
-
-        if (!existingPrediction) {
-          return prisma.prediction.create({
-            data: {
-              userId: user.id,
-              awardEventId: awardEvent.id,
-              category: prediction.category,
-              predictedWinnerName: prediction.predictedWinnerName,
-              predictedWinnerImage: prediction.predictedWinnerImage,
-              favoriteWinnerName: prediction.favoriteWinnerName,
-              favoriteWinnerImage: prediction.favoriteWinnerImage,
-            },
-          })
-        }
-
-        return prisma.prediction.update({
-          where: {
-            id: existingPrediction.id,
-          },
-          data: {
             predictedWinnerName: prediction.predictedWinnerName,
             predictedWinnerImage: prediction.predictedWinnerImage,
             favoriteWinnerName: prediction.favoriteWinnerName,
             favoriteWinnerImage: prediction.favoriteWinnerImage,
           },
-        })
-      }),
-    ) */
+        }),
+      ),
+    )
 
     revalidatePath("/mis-predicciones")
-    return []
+    return predictions
   } catch (error) {
     console.error("Error en updatePredictions:", error)
     throw error
@@ -144,11 +128,22 @@ export async function deletePredictions(userId: string, eventId: string) {
   revalidatePath("/mis-predicciones")
 }
 
-export async function getPredictions(userId: string) {
+export async function getPredictions(userId: string, eventId?: string) {
+  let whereClause: any = { userId }
+
+  if (eventId) {
+    const [eventName, eventYear] = eventId.split("-")
+    whereClause = {
+      ...whereClause,
+      awardEvent: {
+        name: eventName,
+        year: Number.parseInt(eventYear),
+      },
+    }
+  }
+
   const predictions = await prisma.prediction.findMany({
-    where: {
-      userId: userId,
-    },
+    where: whereClause,
     include: {
       awardEvent: true,
     },
@@ -158,6 +153,16 @@ export async function getPredictions(userId: string) {
       { category: "asc" },
     ],
   })
+
+  if (eventId) {
+    return predictions.map((prediction) => ({
+      category: prediction.category,
+      predictedWinnerName: prediction.predictedWinnerName,
+      predictedWinnerImage: prediction.predictedWinnerImage,
+      favoriteWinnerName: prediction.favoriteWinnerName,
+      favoriteWinnerImage: prediction.favoriteWinnerImage,
+    })) as CategoryPredictionType[]
+  }
 
   const groupedPredictions = predictions.reduce(
     (acc, prediction) => {
@@ -180,7 +185,20 @@ export async function getPredictions(userId: string) {
     },
     {} as Record<
       string,
-      { name: string; year: number; categories: Record<string, any> }
+      {
+        name: string
+        year: number
+        categories: Record<
+          string,
+          {
+            id: string
+            predictedWinnerName: string
+            predictedWinnerImage: string | null
+            favoriteWinnerName: string
+            favoriteWinnerImage: string | null
+          }
+        >
+      }
     >,
   )
 
