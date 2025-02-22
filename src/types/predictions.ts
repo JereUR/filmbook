@@ -15,3 +15,11 @@ export type NominationCategory = {
   category: string
   nominees: Nominee[]
 }
+
+export type CategoryPredictionType = {
+  category: string
+  predictedWinnerName?: string
+  predictedWinnerImage?: string | null
+  favoriteWinnerName?: string
+  favoriteWinnerImage?: string | null
+}

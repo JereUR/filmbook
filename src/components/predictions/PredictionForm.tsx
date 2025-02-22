@@ -9,26 +9,19 @@ import type { UnifiedNomination } from "@/types/nominations"
 import type { PredictionInput } from "@/lib/validation"
 import CategoryPrediction from "./CategoryPrediction"
 import { useToast } from "@/components/ui/use-toast"
-
-type CategoryPrediction = {
-  category: string
-  predictedWinnerName?: string
-  predictedWinnerImage?: string | null
-  favoriteWinnerName?: string
-  favoriteWinnerImage?: string | null
-}
+import { CategoryPredictionType } from "@/types/predictions"
 
 type PredictionFormProps = {
   userId: string
   eventId: string
-  initialPredictions?: CategoryPrediction[]
+  initialPredictions?: CategoryPredictionType[]
 }
 
 export default function PredictionForm({ userId, eventId, initialPredictions }: PredictionFormProps) {
   const { unifiedNominations } = useOscarsNominees()
 
   const { toast } = useToast()
-  const [predictions, setPredictions] = useState<Record<string, CategoryPrediction>>(
+  const [predictions, setPredictions] = useState<Record<string, CategoryPredictionType>>(
     initialPredictions?.reduce(
       (acc, pred) => ({
         ...acc,
@@ -68,7 +61,7 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
         const currentPrediction = prev[category]
         if (!currentPrediction) return prev
 
-        const updatedPrediction: CategoryPrediction = {
+        const updatedPrediction: CategoryPredictionType = {
           category,
           ...(type === "predictedWinner"
             ? {
@@ -99,7 +92,7 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
           category,
           [`${type}Name`]: nominee.name,
           [`${type}Image`]: nominee.image,
-        } as CategoryPrediction,
+        } as CategoryPredictionType,
       }
     })
   }
