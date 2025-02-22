@@ -1,8 +1,12 @@
 import { type NextRequest, NextResponse } from "next/server"
 import prisma from "@/lib/prisma"
 import { validateRequest } from "@/auth"
+import type { AwardEvent } from "@/types/predictions"
 
-export async function GET(request: NextRequest, { params }: { params: { userId: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { userId: string } },
+) {
   const { user } = await validateRequest()
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -18,11 +22,15 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
       include: {
         awardEvent: true,
       },
-      orderBy: [{ awardEvent: { year: "desc" } }, { awardEvent: { name: "asc" } }, { category: "asc" }],
+      orderBy: [
+        { awardEvent: { year: "desc" } },
+        { awardEvent: { name: "asc" } },
+        { category: "asc" },
+      ],
     })
 
     if (!predictions.length) {
-      return NextResponse.json({ message: "No predictions found for this user" }, { status: 404 })
+      return NextResponse.json([], { status: 200 })
     }
 
     const groupedPredictions = predictions.reduce(
@@ -44,13 +52,15 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
         }
         return acc
       },
-      {} as Record<string, { name: string; year: number; categories: Record<string, any> }>,
+      {} as Record<string, AwardEvent>,
     )
 
     return NextResponse.json(Object.values(groupedPredictions))
   } catch (error) {
     console.error("Failed to fetch predictions:", error)
-    return NextResponse.json({ error: "Failed to fetch predictions" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Failed to fetch predictions" },
+      { status: 500 },
+    )
   }
 }
-

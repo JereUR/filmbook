@@ -23,3 +23,17 @@ export type CategoryPredictionType = {
   favoriteWinnerName?: string
   favoriteWinnerImage?: string | null
 }
+
+export type PredictionAward = {
+  id: string
+  predictedWinnerName: string
+  predictedWinnerImage: string | null
+  favoriteWinnerName: string
+  favoriteWinnerImage: string | null
+}
+
+export type AwardEvent = {
+  name: string
+  year: number
+  categories: Record<string, PredictionAward>
+}
