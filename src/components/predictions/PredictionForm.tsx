@@ -1,31 +1,45 @@
 "use client"
 
-import type React from "react"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { useAddPredictionMutation, useUpdatePredictionMutation } from "./mutations"
+
+import { useAddPredictionsMutation, useUpdatePredictionsMutation } from "./mutations"
 import LoadingButton from "@/components/LoadingButton"
-import type { CategoryPredictions } from "@/types/nominations"
 import useOscarsNominees from "@/hooks/useOscarsNominees"
 import type { UnifiedNomination } from "@/types/nominations"
-import { predictionInputSchema } from "@/lib/validation"
+import type { PredictionInput } from "@/lib/validation"
 import CategoryPrediction from "./CategoryPrediction"
+import { useToast } from "@/components/ui/use-toast"
+
+type CategoryPrediction = {
+  category: string
+  predictedWinnerName?: string
+  predictedWinnerImage?: string | null
+  favoriteWinnerName?: string
+  favoriteWinnerImage?: string | null
+}
 
 type PredictionFormProps = {
   userId: string
   eventId: string
-  initialPredictions?: CategoryPredictions
+  initialPredictions?: CategoryPrediction[]
 }
 
 export default function PredictionForm({ userId, eventId, initialPredictions }: PredictionFormProps) {
   const { unifiedNominations } = useOscarsNominees()
-  const router = useRouter()
-  const [predictions, setPredictions] = useState<CategoryPredictions>(initialPredictions || {})
 
-  console.log(predictions)
+  const { toast } = useToast()
+  const [predictions, setPredictions] = useState<Record<string, CategoryPrediction>>(
+    initialPredictions?.reduce(
+      (acc, pred) => ({
+        ...acc,
+        [pred.category]: pred,
+      }),
+      {},
+    ) || {},
+  )
 
-  const { mutate: addPredictionMutation, isPending: isPendingAdd } = useAddPredictionMutation()
-  const { mutate: updatePredictionMutation, isPending: isPendingUpdate } = useUpdatePredictionMutation()
+  const { mutate: addPredictionsMutation, isPending: isPendingAdd } = useAddPredictionsMutation()
+  const { mutate: updatePredictionsMutation, isPending: isPendingUpdate } = useUpdatePredictionsMutation()
 
   const isEditMode = !!initialPredictions
 
@@ -40,35 +54,95 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
     {} as Record<string, UnifiedNomination[]>,
   )
 
+  console.log({ groupedNominations })
+
+  const handlePredictionChange = (
+    category: string,
+    type: "predictedWinner" | "favoriteWinner",
+    nominee: UnifiedNomination["nominees"][0] | null,
+  ) => {
+
+    console.log({ nominee })
+    setPredictions((prev) => {
+      if (!nominee) {
+        const currentPrediction = prev[category]
+        if (!currentPrediction) return prev
+
+        const updatedPrediction: CategoryPrediction = {
+          category,
+          ...(type === "predictedWinner"
+            ? {
+              favoriteWinnerName: currentPrediction.favoriteWinnerName,
+              favoriteWinnerImage: currentPrediction.favoriteWinnerImage,
+            }
+            : {
+              predictedWinnerName: currentPrediction.predictedWinnerName,
+              predictedWinnerImage: currentPrediction.predictedWinnerImage,
+            }),
+        }
+
+        if (!updatedPrediction.predictedWinnerName && !updatedPrediction.favoriteWinnerName) {
+          const { [category]: _, ...rest } = prev
+          return rest
+        }
+
+        return {
+          ...prev,
+          [category]: updatedPrediction,
+        }
+      }
+
+      return {
+        ...prev,
+        [category]: {
+          ...prev[category],
+          category,
+          [`${type}Name`]: nominee.name,
+          [`${type}Image`]: nominee.image,
+        } as CategoryPrediction,
+      }
+    })
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const formData = {
-      userId,
-      eventId,
-      predictions,
+    const validPredictions = Object.values(predictions).filter(
+      (prediction) => prediction.predictedWinnerName || prediction.favoriteWinnerName,
+    )
+
+    if (validPredictions.length === 0) {
+      toast({
+        variant: "destructive",
+        title: "No hay predicciones",
+        description: "Por favor, selecciona al menos una predicción o favorito para continuar.",
+      })
+      return
     }
 
-    try {
-      predictionInputSchema.parse(formData)
-
-      const mutationFn = isEditMode ? updatePredictionMutation : addPredictionMutation
-
-      Object.entries(predictions).forEach(([category, prediction]) => {
-        mutationFn({
+    const predictionData = validPredictions.map(
+      (prediction) =>
+        ({
           userId,
           eventId,
-          category,
-          predictedWinnerName: prediction.predictedWinner.name,
-          predictedWinnerImage: prediction.predictedWinner.image,
-          favoriteWinnerName: prediction.favoriteWinner.name,
-          favoriteWinnerImage: prediction.favoriteWinner.image,
-        })
-      })
+          category: prediction.category,
+          predictedWinnerName: prediction.predictedWinnerName || "",
+          predictedWinnerImage: prediction.predictedWinnerImage,
+          favoriteWinnerName: prediction.favoriteWinnerName || "",
+          favoriteWinnerImage: prediction.favoriteWinnerImage,
+        }) as PredictionInput,
+    )
 
-      router.push("/mis-predicciones")
+    const mutationFn = isEditMode ? updatePredictionsMutation : addPredictionsMutation
+
+    try {
+      await mutationFn(predictionData)
     } catch (error) {
-      console.error("Error de validación:", error)
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Hubo un error al guardar las predicciones",
+      })
     }
   }
 
@@ -80,12 +154,7 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
           <CategoryPrediction
             key={nomination.category}
             nomination={nomination}
-            onPredictionChange={(category, type, nominee) => {
-              setPredictions((prev) => ({
-                ...prev,
-                [category]: { ...prev[category], [type]: nominee },
-              }))
-            }}
+            onPredictionChange={handlePredictionChange}
             currentPrediction={predictions[nomination.category]}
           />
         ))}
@@ -100,8 +169,8 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
           {isEditMode ? "Editar Predicciones" : "Mis Predicciones para los Oscars"}
         </h1>
         <p className="text-sm text-muted-foreground text-center mt-2">
-          Selecciona tus predicciones para cada categoría. Puedes elegir quién crees que ganará y también tu favorito
-          personal.
+          Selecciona tus predicciones para cada categoría. Puedes elegir quién crees que ganará y/o tu favorito
+          personal. No es necesario completar todas las categorías.
         </p>
       </div>
 

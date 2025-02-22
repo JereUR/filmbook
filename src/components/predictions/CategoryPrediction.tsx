@@ -1,9 +1,11 @@
-import type React from "react"
+"use client"
+
 import Image from "next/image"
+import { Trophy, Heart } from "lucide-react"
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
-import { Trophy, Heart } from "lucide-react"
 import type { UnifiedNomination } from "@/types/nominations"
 
 type CategoryPredictionProps = {
@@ -14,8 +16,8 @@ type CategoryPredictionProps = {
     nominee: UnifiedNomination["nominees"][0],
   ) => void
   currentPrediction?: {
-    predictedWinner: UnifiedNomination["nominees"][0]
-    favoriteWinner: UnifiedNomination["nominees"][0]
+    predictedWinnerName?: string
+    favoriteWinnerName?: string
   }
 }
 
@@ -24,6 +26,7 @@ export default function CategoryPrediction({
   onPredictionChange,
   currentPrediction,
 }: CategoryPredictionProps) {
+
   const renderNomineeDetails = (nominee: UnifiedNomination["nominees"][0]) => {
     if (!nominee.details) return null
 
@@ -60,7 +63,7 @@ export default function CategoryPrediction({
           </div>
           <NomineeRadioGroup
             nominees={nomination.nominees}
-            value={currentPrediction?.predictedWinner}
+            selectedValue={currentPrediction?.predictedWinnerName}
             onChange={(nominee) => onPredictionChange(nomination.category, "predictedWinner", nominee)}
             renderDetails={renderNomineeDetails}
             name={`${nomination.category}-predicted`}
@@ -73,7 +76,7 @@ export default function CategoryPrediction({
           </div>
           <NomineeRadioGroup
             nominees={nomination.nominees}
-            value={currentPrediction?.favoriteWinner}
+            selectedValue={currentPrediction?.favoriteWinnerName}
             onChange={(nominee) => onPredictionChange(nomination.category, "favoriteWinner", nominee)}
             renderDetails={renderNomineeDetails}
             name={`${nomination.category}-favorite`}
@@ -87,80 +90,68 @@ export default function CategoryPrediction({
 type NomineeRadioGroupProps = {
   nominees: UnifiedNomination["nominees"]
   onChange: (nominee: UnifiedNomination["nominees"][0]) => void
-  value?: UnifiedNomination["nominees"][0]
+  selectedValue?: string
   renderDetails: (nominee: UnifiedNomination["nominees"][0]) => React.ReactNode
   name: string
 }
 
-function NomineeRadioGroup({ nominees, onChange, value, renderDetails, name }: NomineeRadioGroupProps) {
-  // Añade este console.log para debuggear
-  console.log(
-    "Current value:",
-    value?.name,
-    "Nominees:",
-    nominees.map((n) => n.name),
-  )
-
+function NomineeRadioGroup({ nominees, onChange, selectedValue, renderDetails, name }: NomineeRadioGroupProps) {
   return (
     <RadioGroup
-      value={value?.name || ""}
+      value={selectedValue || ""}
       onValueChange={(val) => {
         const nominee = nominees.find((n) => n.name === val)
         if (nominee) onChange(nominee)
       }}
       className="space-y-3"
     >
-      {nominees.map((nominee) => {
-        console.log("Checking:", nominee.name === value?.name, nominee.name, value?.name)
-
-        return (
-          <div key={nominee.name} className="relative w-[470px]">
-            <RadioGroupItem
-              value={nominee.name}
-              id={`${name}-${nominee.name}`}
-              className="peer sr-only"
-              checked={nominee.name === value?.name}
-            />
-            <label htmlFor={`${name}-${nominee.name}`} className="block cursor-pointer">
-              <div
-                className={cn(
-                  "relative flex items-start gap-3 rounded-lg border p-3",
-                  "dark:border-slate-800",
-                  "hover:bg-accent hover:text-accent-foreground dark:hover:bg-slate-800",
-                  "peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10",
-                  "peer-focus-visible:ring-2 peer-focus-visible:ring-primary",
-                  nominee.name === value?.name ? "border-primary bg-primary/5 dark:bg-primary/10" : "",
-                )}
-              >
-                <div className="relative flex-shrink-0 w-12 h-16">
-                  <Image src={nominee.image || "/placeholder.svg"} alt="" fill className="object-cover rounded" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="pr-8 space-y-1">
-                    <p className="font-medium leading-none truncate">{nominee.name}</p>
-                    <div className="truncate text-sm text-muted-foreground">{renderDetails(nominee)}</div>
-                  </div>
-                </div>
-                <div
-                  className={cn(
-                    "absolute right-3 top-1/2 -translate-y-1/2",
-                    "h-4 w-4 rounded-full border border-primary",
-                    "flex items-center justify-center",
-                    nominee.name === value?.name ? "bg-primary" : "",
-                  )}
-                >
-                  <div
-                    className={cn(
-                      "h-2 w-2 rounded-full bg-white transition-transform",
-                      nominee.name === value?.name ? "scale-100" : "scale-0",
-                    )}
-                  />
+      {nominees.map((nominee) => (
+        <div key={nominee.name} className="relative w-[470px]">
+          <RadioGroupItem
+            value={nominee.name}
+            id={`${name}-${nominee.name}`}
+            className="peer sr-only"
+            checked={nominee.name === selectedValue}
+          />
+          <label htmlFor={`${name}-${nominee.name}`} className="block cursor-pointer">
+            <div
+              className={cn(
+                "relative flex items-start gap-3 rounded-lg border p-3",
+                "dark:border-slate-800",
+                "hover:bg-accent hover:text-accent-foreground dark:hover:bg-slate-800",
+                "peer-checked:border-primary peer-checked:bg-primary/5 dark:peer-checked:bg-primary/10",
+                "peer-focus-visible:ring-2 peer-focus-visible:ring-primary",
+                nominee.name === selectedValue ? "border-primary bg-primary/5 dark:bg-primary/10" : "",
+              )}
+            >
+              <div className="relative flex-shrink-0 w-12 h-16">
+                <Image src={nominee.image || "/placeholder.svg"} alt="" fill className="object-cover rounded" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="pr-8 space-y-1">
+                  <p className="font-medium leading-none truncate">{nominee.name}</p>
+                  <div className="truncate">{renderDetails(nominee)}</div>
                 </div>
               </div>
-            </label>
-          </div>
-        )
-      })}
+              <div
+                className={cn(
+                  "absolute right-3 top-1/2 -translate-y-1/2",
+                  "h-4 w-4 rounded-full border border-primary",
+                  "flex items-center justify-center",
+                  nominee.name === selectedValue ? "bg-primary" : "",
+                )}
+              >
+                <div
+                  className={cn(
+                    "h-2 w-2 rounded-full bg-white transition-transform",
+                    nominee.name === selectedValue ? "scale-100" : "scale-0",
+                  )}
+                />
+              </div>
+            </div>
+          </label>
+        </div>
+      ))}
     </RadioGroup>
   )
 }
