@@ -38,7 +38,7 @@ export function PredictionsDialog({ event }: PredictionsDialogProps) {
       scale: 2,
       useCORS: true,
       allowTaint: true,
-      backgroundColor: "#030711", 
+      backgroundColor: "#030711",
       logging: false,
       width: 1920,
       height: content.scrollHeight,
@@ -54,22 +54,25 @@ export function PredictionsDialog({ event }: PredictionsDialogProps) {
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2">
           <Award className="h-4 w-4" />
-          Ver todas
+          <span className="hidden sm:inline">Ver todas</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-[98vh] max-w-[95%] z-[200]">
-        <DialogHeader className="flex flex-row items-center justify-between">
-          <DialogTitle>
+      <DialogContent className="h-[90vh] sm:h-[98vh] w-[95vw] max-w-[95vw] z-[200]">
+        <DialogHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <DialogTitle className="text-base sm:text-lg">
             {event.name} {event.year} - Todas las predicciones
           </DialogTitle>
           <ShareButton onShare={captureContent} />
         </DialogHeader>
         <ScrollArea className="pr-4">
-          <div className="bg-background p-8 rounded-lg">
-            <h2 className="text-2xl font-bold mb-6 text-center">
+          <div className="bg-background p-4 sm:p-8 rounded-lg">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
               Predicciones {event.name} {event.year}
             </h2>
-            <div ref={contentRef} className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div
+              ref={contentRef}
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4"
+            >
               {Object.entries(event.categories).map(([category, prediction]) => (
                 <div
                   key={prediction.id}

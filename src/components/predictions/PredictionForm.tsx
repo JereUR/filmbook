@@ -157,17 +157,17 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
 
   return (
     <form onSubmit={handleSubmit} className="container mx-auto px-4 py-6">
-      <div className="rounded-2xl bg-card p-5 shadow-sm mb-8">
-        <h1 className="text-center text-2xl font-bold">
+      <div className="rounded-2xl bg-card p-4 sm:p-5 shadow-sm mb-6 sm:mb-8">
+        <h1 className="text-xl sm:text-2xl font-bold text-center">
           {isEditMode ? "Editar Predicciones" : "Mis Predicciones para los Oscars"}
         </h1>
-        <p className="text-sm text-muted-foreground text-center mt-2">
+        <p className="text-xs sm:text-sm text-muted-foreground text-center mt-2">
           Selecciona tus predicciones para cada categoría. Puedes elegir quién crees que ganará y/o tu favorito
           personal. No es necesario completar todas las categorías.
         </p>
       </div>
 
-      <div className="space-y-12">
+      <div className="space-y-8 sm:space-y-12">
         {groupedNominations.movie && renderSection("Películas", groupedNominations.movie)}
         {groupedNominations.person && renderSection("Personas", groupedNominations.person)}
         {groupedNominations.song && renderSection("Canciones", groupedNominations.song)}
