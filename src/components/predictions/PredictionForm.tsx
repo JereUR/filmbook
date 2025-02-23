@@ -140,9 +140,9 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
   }
 
   const renderSection = (title: string, nominations: UnifiedNomination[]) => (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-primary border-b pb-2">{title}</h2>
-      <div className="grid gap-6">
+    <div className="space-y-2 lg:space-y-6">
+      <h2 className="text-lg lg:text-2xl font-bold text-primary border-b pb-2">{title}</h2>
+      <div className="grid gap-2 lg:gap-6">
         {nominations.map((nomination) => (
           <CategoryPrediction
             key={nomination.category}
@@ -156,8 +156,8 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
   )
 
   return (
-    <form onSubmit={handleSubmit} className="container mx-auto px-4 py-6">
-      <div className="rounded-2xl bg-card p-4 sm:p-5 shadow-sm mb-6 sm:mb-8">
+    <form onSubmit={handleSubmit} className="container flex flex-col min-h-screen mx-auto px-1 py-2 lg:px-4 lg:py-6">
+      <div className="rounded-2xl bg-card p-2 lg:p-5 shadow-sm mb-2 sm:mb-8">
         <h1 className="text-xl sm:text-2xl font-bold text-center">
           {isEditMode ? "Editar Predicciones" : "Mis Predicciones para los Oscars"}
         </h1>
@@ -167,13 +167,13 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
         </p>
       </div>
 
-      <div className="space-y-8 sm:space-y-12">
+      <div className="space-y-4 sm:space-y-12">
         {groupedNominations.movie && renderSection("Películas", groupedNominations.movie)}
         {groupedNominations.person && renderSection("Personas", groupedNominations.person)}
         {groupedNominations.song && renderSection("Canciones", groupedNominations.song)}
       </div>
 
-      <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm p-4 mt-8 border-t">
+      <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm p-4 mt-4 lg:mt-8 border-t">
         <div className="container w-full mx-auto">
           <LoadingButton loading={isEditMode ? isPendingUpdate : isPendingAdd} type="submit" className="w-full">
             {isEditMode ? "Actualizar Predicciones" : "Guardar Predicciones"}

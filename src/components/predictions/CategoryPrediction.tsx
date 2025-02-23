@@ -103,10 +103,10 @@ function NomineeRadioGroup({ nominees, onChange, selectedValue, renderDetails, n
         const nominee = nominees.find((n) => n.name === val)
         if (nominee) onChange(nominee)
       }}
-      className="space-y-3"
+      className="spce-y-1 lg:space-y-3"
     >
       {nominees.map((nominee) => (
-        <div key={nominee.name} className="relative w-full max-w-[470px]">
+        <div key={nominee.name} className="relative w-full items-center max-w-[85vw] sm:max-w-[400px] lg:max-w-[470px]">
           <RadioGroupItem
             value={nominee.name}
             id={`${name}-${nominee.name}`}

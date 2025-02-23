@@ -18,6 +18,7 @@ import { useDeletePredictionsMutation } from "./mutations"
 import { usePredictions } from "@/hooks/usePredictions"
 import { EmptyPredictions } from "./EmptyPredictions"
 import { PredictionsCard } from "./PredictionsCard"
+import { PredictionsListSkeleton } from "../skeletons/PredictionsListSkeleton"
 
 export default function PredictionsList({ userId, own = false }: { userId: string, own: boolean }) {
   const { awardEvents, isLoading, error, updatePredictions } = usePredictions(userId)
@@ -35,11 +36,7 @@ export default function PredictionsList({ userId, own = false }: { userId: strin
   }
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    )
+    return <PredictionsListSkeleton />
   }
 
   if (error) {
@@ -58,7 +55,7 @@ export default function PredictionsList({ userId, own = false }: { userId: strin
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {awardEvents.map((event) => (
         <PredictionsCard
           key={`${event.name}-${event.year}`}

@@ -25,7 +25,7 @@ export function PredictionItem({
     image,
     icon,
   }: { title: string; name: string; image: string | null; icon: ReactNode }) => (
-    <div className={compact ? "space-y-1.5" : "space-y-2"}>
+    <div className={cn("", compact ? "space-y-1.5" : "space-y-2")}>
       <p className={cn("text-muted-foreground flex items-center gap-1.5", compact ? "text-xs" : "text-sm")}>
         {icon} {title}
       </p>
@@ -47,14 +47,14 @@ export function PredictionItem({
   return (
     <div className={compact ? "space-y-2" : "space-y-4"}>
       <Winner
-        title="Ganador predicho"
+        title="Creo que va a ganar"
         name={predictedWinnerName}
         image={predictedWinnerImage}
         icon={<Trophy className={cn("text-amber-500", compact ? "h-3 w-3" : "h-4 w-4")} />}
       />
       <Separator className={compact ? "my-1" : undefined} />
       <Winner
-        title="Favorito personal"
+        title="Me gustaría que gane"
         name={favoriteWinnerName}
         image={favoriteWinnerImage}
         icon={<Heart className={cn("text-red-500", compact ? "h-3 w-3" : "h-4 w-4")} />}
