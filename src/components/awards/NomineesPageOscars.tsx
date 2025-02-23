@@ -32,13 +32,13 @@ export default function NomineesPageOscars() {
           <h1 className="text-center text-2xl font-bold">Nominaciones Oscars 97th Academy Awards</h1>
           {user ? (
             <div className="mt-4 flex justify-center space-x-4">
-              <Button className='bg-primary hover:bg-primary/70' onClick={() => router.push("/mis-predicciones")}>Mis Predicciones</Button>
+              <Button className='bg-primary hover:bg-primary/70' onClick={() => router.push(`/usuarios/predicciones/${user.id}?username=${user.username}`)}>Mis Predicciones</Button>
               <Button className='bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700' onClick={() => router.push("/crear-predicciones/Oscars-2025")}>Agregar Predicciones</Button>
             </div>
-          ):<p className="text-sm text-muted-foreground text-center">
-          Inicia sesión para poder realizar tus predicciones.
-        </p>}
-          
+          ) : <p className="text-sm text-muted-foreground text-center">
+            Inicia sesión para poder realizar tus predicciones.
+          </p>}
+
         </div>
         <div className="space-y-1">
           <NominationsMovies handleImageClick={handleImageClick} nominationsMovie={nominationsMovie} />
