@@ -18,6 +18,7 @@ import UserReviewsList from "@/components/user/lists/review/UserReviewsList"
 import UserDiariesList from "@/components/user/lists/diary/UserDiariesList"
 import UnauthorizedMessage from "@/components/UnauthorizedMessage"
 import FavoriteMovies from "@/components/user/lists/favoriteMovies/FavoriteMovies"
+import PredictionsButton from "./PredictionsButton"
 
 interface UserPageProps {
   params: { username: string }
@@ -99,6 +100,7 @@ interface UserProfileProps {
 }
 
 async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
+
   const followerInfo: FollowerInfo = {
     followers: user._count.followers,
     isFollowedByUser: user.followers.some(
@@ -135,6 +137,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
         ) : (
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
+        <PredictionsButton userId={user.id} username={user.username} />
       </div>
       {user.bio && (
         <div>
@@ -151,3 +154,4 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
     </div>
   )
 }
+
