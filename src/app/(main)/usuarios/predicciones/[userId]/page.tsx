@@ -34,7 +34,7 @@ export default async function UserPredictionPage({ params, searchParams }: PageP
   return (
     <main className="flex flex-col md:flex-row w-full min-w-0 gap-5">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Predicciones de {username}</h1>
+        <h1 className="text-3xl font-bold mb-6">{userId === user.id ? "Mis predicciones" : `Predicciones de ${username}`}</h1>
         <PredictionsList userId={userId} own={userId === user.id} />
       </div>
     </main>
