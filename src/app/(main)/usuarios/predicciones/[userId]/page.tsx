@@ -28,7 +28,7 @@ export default async function UserPredictionPage({ params, searchParams }: PageP
   const { user } = await validateRequest()
 
   if (!user) {
-    return <UnauthorizedMessage sectionMessage='Necesitas iniciar sesión para ver tus predicciones.' trendsSidebar={true} />
+    return <UnauthorizedMessage sectionMessage='Necesitas iniciar sesión para ver predicciones.' trendsSidebar={true} />
   }
 
   return (
