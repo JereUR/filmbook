@@ -44,8 +44,8 @@ export async function addPredictions(values: PredictionInput[]) {
       ),
     )
 
-    revalidatePath("/mis-predicciones")
-    return predictions
+    revalidatePath(`/usuarios/predicciones/${user.id}`)
+    return {userId: user.id, username: user.username}
   } catch (error) {
     console.error("Error en addPredictions:", error)
     throw error
@@ -97,8 +97,8 @@ export async function updatePredictions(values: PredictionInput[]) {
       ),
     )
 
-    revalidatePath("/mis-predicciones")
-    return predictions
+    revalidatePath(`/usuarios/predicciones/${user.id}`)
+    return {userId: user.id, username: user.username}
   } catch (error) {
     console.error("Error en updatePredictions:", error)
     throw error
@@ -121,7 +121,7 @@ export async function deletePredictions(userId: string, eventId: string) {
     },
   })
 
-  revalidatePath("/mis-predicciones")
+  revalidatePath(`/usuarios/predicciones/${user.id}`)
 }
 
 export async function getPredictions(userId: string, eventId?: string) {

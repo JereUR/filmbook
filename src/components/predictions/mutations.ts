@@ -29,26 +29,28 @@ export function useAddPredictionsMutation() {
   const queryClient = useQueryClient()
   const router = useRouter()
 
-  return useMutation<Prediction[], Error, PredictionInput[]>({
-    mutationFn: addPredictions,
-    onSuccess: () => {
+  return useMutation({
+    mutationFn: async (data: PredictionInput[]) => {
+      const response = await addPredictions(data)
+      if (!response) throw new Error("No response from server")
+      return response
+    },
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["predictions"] })
       toast({
         description: "Predicciones guardadas exitosamente.",
       })
-      router.push("/mis-predicciones")
+      router.push(
+        `/usuarios/predicciones/${data.userId}?username=${data.username}`,
+      )
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       let message =
         "Hubo un problema al guardar tus predicciones. Por favor, intenta de nuevo."
 
-      if (error instanceof ValidationError) {
-        message = error.message
-      } else if (error instanceof AuthorizationError) {
+      if (error.message === "Unauthorized") {
         message = "No tienes permiso para realizar esta acción."
         router.push("/login")
-      } else if (error instanceof NotFoundError) {
-        message = error.message
       }
 
       toast({
@@ -64,22 +66,26 @@ export function useUpdatePredictionsMutation() {
   const queryClient = useQueryClient()
   const router = useRouter()
 
-  return useMutation<Prediction[], Error, PredictionInput[]>({
-    mutationFn: updatePredictions,
-    onSuccess: () => {
+  return useMutation({
+    mutationFn: async (data: PredictionInput[]) => {
+      const response = await updatePredictions(data)
+      if (!response) throw new Error("No response from server")
+      return response
+    },
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["predictions"] })
       toast({
         description: "Predicciones actualizadas exitosamente.",
       })
-      router.push("/mis-predicciones")
+      router.push(
+        `/usuarios/predicciones/${data.userId}?username=${data.username}`,
+      )
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       let message =
         "Hubo un problema al actualizar tus predicciones. Por favor, intenta de nuevo."
 
-      if (error instanceof ValidationError) {
-        message = error.message
-      } else if (error instanceof AuthorizationError) {
+      if (error.message === "Unauthorized") {
         message = "No tienes permiso para realizar esta acción."
         router.push("/login")
       }
