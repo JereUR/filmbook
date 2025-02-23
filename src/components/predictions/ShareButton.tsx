@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { Share2, Download, Copy, Twitter, Instagram } from "lucide-react"
+import { Share2, Download, Copy, Twitter } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useToast } from "../ui/use-toast"
-import { usePathname } from "next/navigation"
 
 interface ShareButtonProps {
   onShare: () => Promise<string>
@@ -14,7 +14,6 @@ interface ShareButtonProps {
 export function ShareButton({ onShare }: ShareButtonProps) {
   const [isSharing, setIsSharing] = useState(false)
   const { toast } = useToast()
-  const pathname = usePathname()
 
   const handleShare = async (action: "download" | "copy" | "twitter" | "instagram") => {
     try {
@@ -69,16 +68,16 @@ export function ShareButton({ onShare }: ShareButtonProps) {
       <DropdownMenuContent align="end" className="z-[201]">
         <DropdownMenuItem className="cursor-pointer" onClick={() => handleShare("download")}>
           <Download className="h-4 w-4 mr-2" />
-          Descargar imagen
+          Descargar imagen (Recomendado en versión escritorio)
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer" onClick={() => handleShare("copy")}>
           <Copy className="h-4 w-4 mr-2" />
-          Copiar al portapapeles
+          Copiar al portapapeles (Recomendado en versión escritorio)
         </DropdownMenuItem>
-        {pathname.includes("usuarios") && <DropdownMenuItem className="cursor-pointer" onClick={() => handleShare("twitter")}>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => handleShare("twitter")}>
           <Twitter className="h-4 w-4 mr-2" />
           Compartir en Twitter
-        </DropdownMenuItem>}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
