@@ -173,8 +173,8 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
         {groupedNominations.song && renderSection("Canciones", groupedNominations.song)}
       </div>
 
-      <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm p-4 mt-8 -mx-4 border-t">
-        <div className="container max-w-lg mx-auto">
+      <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm p-4 mt-8 border-t">
+        <div className="container w-full mx-auto">
           <LoadingButton loading={isEditMode ? isPendingUpdate : isPendingAdd} type="submit" className="w-full">
             {isEditMode ? "Actualizar Predicciones" : "Guardar Predicciones"}
           </LoadingButton>
