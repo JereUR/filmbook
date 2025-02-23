@@ -10,8 +10,6 @@ export async function addPredictions(values: PredictionInput[]) {
   const { user } = await validateRequest()
   if (!user) throw new Error("Unauthorized")
 
-  console.log("Valores recibidos en addPredictions:", values)
-
   if (values.length === 0) {
     throw new Error("No hay predicciones para guardar")
   }
@@ -29,7 +27,6 @@ export async function addPredictions(values: PredictionInput[]) {
 
   try {
     const validatedData = predictionsArraySchema.parse(values)
-    console.log("Datos validados:", validatedData)
 
     const predictions = await prisma.$transaction(
       validatedData.map((prediction) =>
@@ -47,7 +44,6 @@ export async function addPredictions(values: PredictionInput[]) {
       ),
     )
 
-    console.log("Predicciones creadas:", predictions)
     revalidatePath("/mis-predicciones")
     return predictions
   } catch (error) {
