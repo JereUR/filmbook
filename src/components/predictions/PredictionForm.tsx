@@ -47,15 +47,11 @@ export default function PredictionForm({ userId, eventId, initialPredictions }: 
     {} as Record<string, UnifiedNomination[]>,
   )
 
-  console.log({ groupedNominations })
-
   const handlePredictionChange = (
     category: string,
     type: "predictedWinner" | "favoriteWinner",
     nominee: UnifiedNomination["nominees"][0] | null,
   ) => {
-
-    console.log({ nominee })
     setPredictions((prev) => {
       if (!nominee) {
         const currentPrediction = prev[category]

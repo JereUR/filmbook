@@ -4,7 +4,6 @@ export async function getTournamentById(
   tournamentId: string,
 ): Promise<Tournament | null> {
   try {
-    console.log("test")
     const response = await fetch(`/api/tournaments/${tournamentId}`)
 
     if (!response.ok) {

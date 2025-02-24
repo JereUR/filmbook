@@ -135,8 +135,6 @@ export async function DELETE(
     return NextResponse.json({ error: "No autorizado." }, { status: 401 })
   }
 
-  console.log(params.id)
-
   try {
     await prisma.participantScore.deleteMany({
       where: {
