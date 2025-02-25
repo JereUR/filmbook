@@ -25,7 +25,7 @@ export default function TournamentItem({ tournament, admin }: TournamentItemProp
       )}
       <div className="flex gap-2 justify-center items-end mb-2 md:mb-4">
         <h2 className="text-lg md:text-xl font-semibold">{name}</h2>
-        <p className={`text-center text-xs md:text-sm font-medium ${endDate ? 'text-orange-500 dark:text-orange-600' : 'text-green-500 dark:text-green-600'}`}>{endDate ? 'Inactivo' : 'Activo'}</p>
+        <p className={`text-center text-xs md:text-sm font-medium ${endDate ? 'text-orange-500 dark:text-orange-600' : 'text-green-500 dark:text-green-600'}`}>{endDate ? 'Finalizado' : 'Activo'}</p>
       </div>
       <Linkify>
         <p className={`text-sm md:text-base text-muted-foreground/40 italic ${!description && 'text-center'}`}>{description ? description : 'Sin descripción'}</p>
