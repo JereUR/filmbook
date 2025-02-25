@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
 import prisma from "@/lib/prisma"
-import { Tournament} from "@/lib/types"
+import { Tournament } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
@@ -117,7 +117,7 @@ export async function GET(
   let bonusIndex = sortedDates.findIndex((d) => d.name === "Bonus")
   if (bonusIndex !== -1) {
     const [bonus] = sortedDates.splice(bonusIndex, 1)
-    const targetIndex = Math.min(29, sortedDates.length)
+    const targetIndex = Math.min(28, sortedDates.length)
     sortedDates.splice(targetIndex, 0, bonus)
   }
 
