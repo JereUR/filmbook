@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
 import prisma from "@/lib/prisma"
-import { Tournament, TournamentDate } from "@/lib/types"
+import { Tournament} from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
@@ -112,7 +112,16 @@ export async function GET(
       })),
     }))
 
-  const dates: TournamentDate[] = tournament.dates.map((d) => ({
+  let sortedDates = tournament.dates.sort((a, b) => a.date - b.date)
+
+  let bonusIndex = sortedDates.findIndex((d) => d.name === "Bonus")
+  if (bonusIndex !== -1) {
+    const [bonus] = sortedDates.splice(bonusIndex, 1)
+    const targetIndex = Math.min(29, sortedDates.length)
+    sortedDates.splice(targetIndex, 0, bonus)
+  }
+
+  const formattedDates = sortedDates.map((d) => ({
     id: d.id,
     date: d.date,
     name: d.name,
@@ -139,7 +148,7 @@ export async function GET(
     startDate: tournament.startDate,
     endDate: tournament.endDate,
     participants: sortedParticipants,
-    dates,
+    dates: formattedDates,
     createdAt: tournament.createdAt,
     updatedAt: tournament.updatedAt,
   }
