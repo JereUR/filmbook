@@ -57,7 +57,7 @@ export function PredictionsDialog({ event }: PredictionsDialogProps) {
           <span className="hidden sm:inline">Ver todas</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-[90vh] sm:h-[98vh] w-[95vw] max-w-[95vw] z-[200] items-start">
+      <DialogContent className="h-[90vh] sm:h-[98vh] w-[95vw] max-w-[95vw] z-[200] items-start overflow-y-auto scrollbar-thin">
         <DialogHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <DialogTitle className="text-base sm:text-lg">
             {event.name} {event.year} - Todas las predicciones
