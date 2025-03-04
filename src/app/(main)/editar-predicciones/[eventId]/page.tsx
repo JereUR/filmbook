@@ -26,9 +26,11 @@ async function PredictionFormWrapper({ userId, eventId }: { userId: string; even
 }
 
 export default async function EditPredictionsPage({ params }: { params: { eventId: string } }) {
-  const { user } = await validateRequest()
+  /* const { user } = await validateRequest() */
 
-  if (!user) {
+  return notFound()
+
+  /* if (!user) {
     redirect("/login")
   }
 
@@ -39,6 +41,6 @@ export default async function EditPredictionsPage({ params }: { params: { eventI
         <PredictionFormWrapper userId={user.id} eventId={params.eventId} />
       </Suspense>
     </div>
-  )
+  ) */
 }
 

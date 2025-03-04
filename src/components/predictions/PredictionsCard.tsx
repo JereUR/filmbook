@@ -58,7 +58,7 @@ export function PredictionsCard({ event, onDelete, own = false }: PredictionsCar
           {own && (
             <div className="flex flex-wrap gap-2">
               <PredictionsDialog event={event} />
-              <Button
+              {/* <Button
                 variant="secondary"
                 size="sm"
                 onClick={() => router.push(`/editar-predicciones/${eventId}`)}
@@ -66,7 +66,7 @@ export function PredictionsCard({ event, onDelete, own = false }: PredictionsCar
               >
                 <Pencil className="h-4 w-4" />
                 <span className="hidden sm:inline">Editar</span>
-              </Button>
+              </Button> */}
               <Button variant="destructive" size="sm" onClick={() => onDelete(eventId)} className="gap-2">
                 <Trash2 className="h-4 w-4" />
                 <span className="hidden sm:inline">Borrar</span>
