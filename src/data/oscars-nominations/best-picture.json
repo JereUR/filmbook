@@ -1,7 +1,24 @@
 {
   "category": "Mejor película",
-  "winner": "",
+  "winner": "Anora",
   "nominees": [
+    {
+      "id": "1064213",
+      "title": "Anora",
+      "posterPath": "https://image.tmdb.org/t/p/w500/eo3NB00hGPln4noxsME5CwRFkO8.jpg",
+      "releaseDate": "2024",
+      "runtime": 139,
+      "voteAverage": 7.0,
+      "genres": [
+        "Drama",
+        "Romance",
+        "Comedia"
+      ],
+      "directors": [
+        "Sean Baker"
+      ],
+      "providers": []
+    },
     {
       "id": "549509",
       "title": "The Brutalist",
@@ -82,23 +99,6 @@
       ],
       "directors": [
         "RaMell Ross"
-      ],
-      "providers": []
-    },
-    {
-      "id": "1064213",
-      "title": "Anora",
-      "posterPath": "https://image.tmdb.org/t/p/w500/eo3NB00hGPln4noxsME5CwRFkO8.jpg",
-      "releaseDate": "2024",
-      "runtime": 139,
-      "voteAverage": 7.0,
-      "genres": [
-        "Drama",
-        "Romance",
-        "Comedia"
-      ],
-      "directors": [
-        "Sean Baker"
       ],
       "providers": []
     },

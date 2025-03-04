@@ -1,7 +1,14 @@
 {
   "category": "Mejor cinematografía",
-  "winner": "",
+  "winner": "Lol Crawley",
   "nominees": [
+    {
+      "name": "Lol Crawley",
+      "movieId": "549509",
+      "movieTitle": "The Brutalist",
+      "photo": "https://lolcrawley.com/wp-content/uploads/2020/09/lol-crawley-profile.jpg",
+      "providers": []
+    },
     {
       "name": "Ed Lachman",
       "movieId": "1038263",
@@ -23,13 +30,6 @@
       "movieId": "426063",
       "movieTitle": "Nosferatu",
       "photo": "https://images.mubicdn.net/images/cast_member/187817/cache-142956-1463183830/image-w856.jpg",
-      "providers": []
-    },
-    {
-      "name": "Lol Crawley",
-      "movieId": "549509",
-      "movieTitle": "The Brutalist",
-      "photo": "https://lolcrawley.com/wp-content/uploads/2020/09/lol-crawley-profile.jpg",
       "providers": []
     },
     {

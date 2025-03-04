@@ -1,7 +1,16 @@
 {
   "category": "Mejor sonido",
-  "winner": "",
+  "winner": "Gareth John, Richard King, Ron Bartlett and Doug Hemphill",
   "nominees": [
+    {
+      "name": "Gareth John, Richard King, Ron Bartlett and Doug Hemphill",
+      "movieId": "693134",
+      "movieTitle": "Dune: Parte dos",
+      "photo": "https://image.tmdb.org/t/p/w500/xCHmhHeO7aOCMlzcNukGH6Q7EiD.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
+      ]
+    },
     {
       "name": "Tod A. Maitland, Donald Sylvester, Ted Caplan, Paul Massey and David Giammarco",
       "movieId": "661539",
@@ -22,15 +31,6 @@
       "movieTitle": "Wicked",
       "photo": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
       "providers": []
-    },
-    {
-      "name": "Gareth John, Richard King, Ron Bartlett and Doug Hemphill",
-      "movieId": "693134",
-      "movieTitle": "Dune: Parte dos",
-      "photo": "https://image.tmdb.org/t/p/w500/xCHmhHeO7aOCMlzcNukGH6Q7EiD.jpg",
-      "providers": [
-        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
-      ]
     },
     {
       "name": "Randy Thom, Brian Chumney, Gary A. Rizzo and Leff Lefferts",

@@ -1,7 +1,16 @@
 {
   "category": "Mejor efectos visuales",
-  "winner": "",
+  "winner": "Paul Lambert, Stephen James, Rhys Salcombe and Gerd Nefzer",
   "nominees": [
+    {
+      "name": "Paul Lambert, Stephen James, Rhys Salcombe and Gerd Nefzer",
+      "movieId": "693134",
+      "movieTitle": "Dune: Parte dos",
+      "photo": "https://image.tmdb.org/t/p/w500/xCHmhHeO7aOCMlzcNukGH6Q7EiD.jpg",
+      "providers": [
+        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
+      ]
+    },
     {
       "name": "Eric Barba, Nelson Sepulveda-Fauser, Daniel Macarin and Shane Mahan",
       "movieId": "945961",
@@ -24,15 +33,6 @@
       "movieTitle": "Wicked",
       "photo": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
       "providers": []
-    },
-    {
-      "name": "Paul Lambert, Stephen James, Rhys Salcombe and Gerd Nefzer",
-      "movieId": "693134",
-      "movieTitle": "Dune: Parte dos",
-      "photo": "https://image.tmdb.org/t/p/w500/xCHmhHeO7aOCMlzcNukGH6Q7EiD.jpg",
-      "providers": [
-        "https://image.tmdb.org/t/p/w500/fksCUZ9QDWZMUwL2LgMtLckROUN.jpg"
-      ]
     },
     {
       "name": "Erik Winquist, Stephen Unterfranz, Paul Story and Rodney Burke",

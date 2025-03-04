@@ -1,7 +1,14 @@
 {
   "category": "Mejor editor",
-  "winner": "",
+  "winner": "Sean Baker",
   "nominees": [
+    {
+      "name": "Sean Baker",
+      "movieId": "1064213",
+      "movieTitle": "Anora",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/SeanBaker_Headshot_rgb.jpg?w=600",
+      "providers": []
+    },
     {
       "name": "Nick Emerson",
       "movieId": "974576",
@@ -21,13 +28,6 @@
       "movieId": "974950",
       "movieTitle": "Emilia Pérez",
       "photo": "https://www.taufilmfest.com/wp-content/uploads/2024/07/JULIETTE20WELFLING-IMG_61202028129-scaled.jpg",
-      "providers": []
-    },
-    {
-      "name": "Sean Baker",
-      "movieId": "1064213",
-      "movieTitle": "Anora",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/SeanBaker_Headshot_rgb.jpg?w=600",
       "providers": []
     },
     {

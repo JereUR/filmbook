@@ -1,19 +1,19 @@
 {
   "category": "Mejor banda sonora original",
-  "winner": "",
+  "winner": "Daniel Blumberg",
   "nominees": [
-    {
-      "name": "Clément Ducol, Camille",
-      "movieId": "974950",
-      "movieTitle": "Emilia Pérez",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/CAMILLE-CLEMENT-%C2%A9Goledzinowski3-e1734020556916.jpg?w=600",
-      "providers": []
-    },
     {
       "name": "Daniel Blumberg",
       "movieId": "549509",
       "movieTitle": "The Brutalist",
       "photo": "https://lastfm.freetls.fastly.net/i/u/ar0/738dfb481e4022d7c7dba2257ddcd433.jpg",
+      "providers": []
+    },
+    {
+      "name": "Clément Ducol, Camille",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/CAMILLE-CLEMENT-%C2%A9Goledzinowski3-e1734020556916.jpg?w=600",
       "providers": []
     },
     {

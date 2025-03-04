@@ -1,7 +1,14 @@
 {
   "category": "Mejor maquillaje y peluquería",
-  "winner": "",
+  "winner": "Pierre-Olivier Persin, Stéphanie Guillon and Marilyne Scarselli",
   "nominees": [
+    {
+      "name": "Pierre-Olivier Persin, Stéphanie Guillon and Marilyne Scarselli",
+      "movieId": "933260",
+      "movieTitle": "La sustancia",
+      "photo": "https://image.tmdb.org/t/p/w500/w1PiIqM89r4AM7CiMEP4VLCEFUn.jpg",
+      "providers": []
+    },
     {
       "name": "Mike Marino, David Presto and Crystal Jurado",
       "movieId": "989662",
@@ -21,13 +28,6 @@
       "movieId": "974950",
       "movieTitle": "Emilia Pérez",
       "photo": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
-      "providers": []
-    },
-    {
-      "name": "Pierre-Olivier Persin, Stéphanie Guillon and Marilyne Scarselli",
-      "movieId": "933260",
-      "movieTitle": "La sustancia",
-      "photo": "https://image.tmdb.org/t/p/w500/w1PiIqM89r4AM7CiMEP4VLCEFUn.jpg",
       "providers": []
     },
     {

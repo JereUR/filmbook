@@ -1,7 +1,14 @@
 {
   "category": "Mejor director",
-  "winner": "",
+  "winner": "Sean Baker",
   "nominees": [
+    {
+      "name": "Sean Baker",
+      "movieId": "1064213",
+      "movieTitle": "Anora",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/SeanBaker_Headshot_rgb.jpg?w=600",
+      "providers": []
+    },
     {
       "name": "Brady Corbet",
       "movieId": "549509",
@@ -30,13 +37,6 @@
       "movieId": "661539",
       "movieTitle": "A Complete Unknown",
       "photo": "https://m.media-amazon.com/images/M/MV5BOWIxOTIwYzAtNDQyOS00MmNkLThiNjQtYmM5MzRmMjQ1NjhjXkEyXkFqcGc@._V1_CR597,0,1430,2145_.jpg",
-      "providers": []
-    },
-    {
-      "name": "Sean Baker",
-      "movieId": "1064213",
-      "movieTitle": "Anora",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/SeanBaker_Headshot_rgb.jpg?w=600",
       "providers": []
     }
   ]

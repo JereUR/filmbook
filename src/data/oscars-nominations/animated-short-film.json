@@ -1,23 +1,7 @@
 {
   "category": "Mejor corto animado",
-  "winner": "",
+  "winner": "Dar saaye sarv",
   "nominees": [
-    {
-      "id": "1157132",
-      "title": "Hombres guapos",
-      "posterPath": "https://image.tmdb.org/t/p/w500/ejZU0nz8De1XDm7UjN4UV0GozpT.jpg",
-      "releaseDate": "2023",
-      "runtime": 19,
-      "voteAverage": 5.8,
-      "genres": [
-        "Animación",
-        "Drama"
-      ],
-      "directors": [
-        "Nicolas Keppens"
-      ],
-      "providers": []
-    },
     {
       "id": "1156619",
       "title": "Dar saaye sarv",
@@ -31,6 +15,22 @@
       "directors": [
         "Hossein Molayemi",
         "Shirin Sohani"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1157132",
+      "title": "Hombres guapos",
+      "posterPath": "https://image.tmdb.org/t/p/w500/ejZU0nz8De1XDm7UjN4UV0GozpT.jpg",
+      "releaseDate": "2023",
+      "runtime": 19,
+      "voteAverage": 5.8,
+      "genres": [
+        "Animación",
+        "Drama"
+      ],
+      "directors": [
+        "Nicolas Keppens"
       ],
       "providers": []
     },

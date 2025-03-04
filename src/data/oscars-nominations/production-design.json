@@ -1,7 +1,14 @@
 {
   "category": "Mejor diseño de producción",
-  "winner": "",
+  "winner": "Production Design: Nathan Crowley; Set Decoration: Lee Sandales",
   "nominees": [
+    {
+      "name": "Production Design: Nathan Crowley; Set Decoration: Lee Sandales",
+      "movieId": "402431",
+      "movieTitle": "Wicked",
+      "photo": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
+      "providers": []
+    },
     {
       "name": "Production Design: Suzie Davies; Set Decoration: Cynthia Sleiter",
       "movieId": "974576",
@@ -30,13 +37,6 @@
       "movieId": "426063",
       "movieTitle": "Nosferatu",
       "photo": "https://image.tmdb.org/t/p/w500/jivUhECegXI3OYtPVflWoIDtENt.jpg",
-      "providers": []
-    },
-    {
-      "name": "Production Design: Nathan Crowley; Set Decoration: Lee Sandales",
-      "movieId": "402431",
-      "movieTitle": "Wicked",
-      "photo": "https://image.tmdb.org/t/p/w500/q1czoLwMaiUO1bznWuETCP5ueZj.jpg",
       "providers": []
     }
   ]

@@ -1,23 +1,7 @@
 {
   "category": "Mejor película internacional",
-  "winner": "",
+  "winner": "Aún Estoy Aquí",
   "nominees": [
-    {
-      "id": "974950",
-      "title": "Emilia Pérez",
-      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
-      "releaseDate": "2024",
-      "runtime": 130,
-      "voteAverage": 7.7,
-      "genres": [
-        "Drama",
-        "Suspenso"
-      ],
-      "directors": [
-        "Jacques Audiard"
-      ],
-      "providers": []
-    },
     {
       "id": "1000837",
       "title": "Aún Estoy Aquí",
@@ -31,6 +15,22 @@
       ],
       "directors": [
         "Walter Salles"
+      ],
+      "providers": []
+    },
+    {
+      "id": "974950",
+      "title": "Emilia Pérez",
+      "posterPath": "https://image.tmdb.org/t/p/w500/Al1cL3oPBgnmzm0EqIRcOT6JHFg.jpg",
+      "releaseDate": "2024",
+      "runtime": 130,
+      "voteAverage": 7.7,
+      "genres": [
+        "Drama",
+        "Suspenso"
+      ],
+      "directors": [
+        "Jacques Audiard"
       ],
       "providers": []
     },

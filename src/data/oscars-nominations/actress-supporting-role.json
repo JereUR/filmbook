@@ -1,7 +1,14 @@
 {
   "category": "Mejor actriz de reparto",
-  "winner": "",
+  "winner": "Zoe Saldaña",
   "nominees": [
+    {
+      "name": "Zoe Saldaña",
+      "movieId": "974950",
+      "movieTitle": "Emilia Pérez",
+      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Television_Series_-_Drama_Lioness_Zoe_Saldana_Out_of_Character_Headshot.jpg?w=600",
+      "providers": []
+    },
     {
       "name": "Ariana Grande",
       "movieId": "402431",
@@ -28,13 +35,6 @@
       "movieId": "661539",
       "movieTitle": "A Complete Unknown",
       "photo": "https://m.media-amazon.com/images/M/MV5BMzAzNWM1NTgtNzhhMS00OTVmLWI0ZmUtMTMwMjkyMjdkOTUxXkEyXkFqcGc@._V1_.jpg",
-      "providers": []
-    },
-    {
-      "name": "Zoe Saldaña",
-      "movieId": "974950",
-      "movieTitle": "Emilia Pérez",
-      "photo": "https://goldenglobes.com/wp-content/uploads/2024/12/Best_Performance_by_a_Female_Actor_in_a_Television_Series_-_Drama_Lioness_Zoe_Saldana_Out_of_Character_Headshot.jpg?w=600",
       "providers": []
     }
   ]

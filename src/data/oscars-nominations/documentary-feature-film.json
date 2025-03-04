@@ -1,22 +1,7 @@
 {
   "category": "Mejor documental",
-  "winner": "",
+  "winner": "No Other Land",
   "nominees": [
-    {
-      "id": "1214499",
-      "title": "Black Box Diaries",
-      "posterPath": "https://image.tmdb.org/t/p/w500/wX95ps6Haijvt7evwSwqx1gs88e.jpg",
-      "releaseDate": "2024",
-      "runtime": 103,
-      "voteAverage": 7.8,
-      "genres": [
-        "Documental"
-      ],
-      "directors": [
-        "Shiori Itō"
-      ],
-      "providers": []
-    },
     {
       "id": "1232493",
       "title": "No Other Land",
@@ -32,6 +17,21 @@
         "Yuval Abraham",
         "Hamdan Ballal",
         "Basel Adra"
+      ],
+      "providers": []
+    },
+    {
+      "id": "1214499",
+      "title": "Black Box Diaries",
+      "posterPath": "https://image.tmdb.org/t/p/w500/wX95ps6Haijvt7evwSwqx1gs88e.jpg",
+      "releaseDate": "2024",
+      "runtime": 103,
+      "voteAverage": 7.8,
+      "genres": [
+        "Documental"
+      ],
+      "directors": [
+        "Shiori Itō"
       ],
       "providers": []
     },
