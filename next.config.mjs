@@ -138,6 +138,11 @@ const nextConfig = {
         hostname: "images.mubicdn.net",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "uju2e4ws2o.ufs.sh",
+        pathname: "/**",
+      },
     ],
   },
   rewrites: () => {
