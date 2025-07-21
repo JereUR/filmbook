@@ -28,6 +28,7 @@ export async function POST(req: Request) {
         extraPoints,
         participantId,
         tournamentDateId: dateId,
+        tournamentId
       },
       update: {
         points,

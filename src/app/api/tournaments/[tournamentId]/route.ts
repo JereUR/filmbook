@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-
 import prisma from "@/lib/prisma"
 import { Tournament } from "@/lib/types"
 
@@ -28,6 +27,12 @@ export async function GET(
               username: true,
               nickname: true,
               scores: {
+                where: {
+                  OR: [
+                    { tournamentId: params.tournamentId },
+                    { tournamentId: null }
+                  ]
+                },
                 select: {
                   points: true,
                   extraPoints: true,
@@ -55,6 +60,12 @@ export async function GET(
             },
           },
           scores: {
+            where: {
+              OR: [
+                { tournamentId: params.tournamentId },
+                { tournamentId: null }
+              ]
+            },
             select: {
               participant: {
                 select: {
@@ -81,7 +92,13 @@ export async function GET(
   const participantsWithPoints = tournament.participants
     .map((p) => {
       const totalPoints = p.participant.scores.reduce((acc, score) => {
-        return acc + score.points + (score.extraPoints || 0)
+        // Solo sumar puntos si el score pertenece a este torneo o es null
+        if (score.tournamentDate.tournamentId === tournament.id || 
+            score.tournamentDate.tournamentId === tournament.id || 
+            score.tournamentDate.tournamentId === null) {
+          return acc + score.points + (score.extraPoints || 0)
+        }
+        return acc
       }, 0)
 
       return {

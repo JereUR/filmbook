@@ -63,9 +63,10 @@ export default function TournamentsList({ admin }: TournamentListProps) {
         onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
       >
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-          {tournaments.map((tournament) => (
+          {tournaments.map((tournament) => {
+            return(
             <TournamentItem key={tournament.id} tournament={tournament} admin={admin} />
-          ))}
+          )})}
         </div>
         {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
       </InfiniteScrollContainer>

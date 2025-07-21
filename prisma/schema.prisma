@@ -282,6 +282,7 @@ model Tournament {
   endDate      DateTime?
   participants ParticipantTournament[]
   dates        TournamentDate[]
+  participantsStore ParticipantScore[]
   createdAt    DateTime                @default(now())
   updatedAt    DateTime                @updatedAt
 
@@ -335,6 +336,8 @@ model ParticipantScore {
   participantId    String
   tournamentDate   TournamentDate @relation(fields: [tournamentDateId], references: [id])
   tournamentDateId String
+  tournament       Tournament? @relation(fields:[tournamentId], references: [id])
+  tournamentId     String?
 
   @@unique([participantId, tournamentDateId])
   @@map("participant_score")
