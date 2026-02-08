@@ -6,25 +6,27 @@ import PredictionsList from "@/components/predictions/PredictionsList"
 import UnauthorizedMessage from "@/components/UnauthorizedMessage"
 
 interface PageProps {
-  params: { userId: string },
-  searchParams: { username?: string }
+  params: Promise<{ userId: string }>,
+  searchParams: Promise<{ username?: string }>
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
-  const username = searchParams.username || 'usuario'
+  const { username } = await searchParams
+  const name = username || 'usuario'
 
   if (!username) {
     return notFound()
   }
 
   return {
-    title: `Predicciones de ${username}`,
+    title: `Predicciones de ${name}`,
   }
 }
 
 export default async function UserPredictionPage({ params, searchParams }: PageProps) {
-  const { userId } = params
-  const username = searchParams.username || 'usuario'
+  const { userId } = await params
+  const { username } = await searchParams
+  const name = username || 'usuario'
   const { user } = await validateRequest()
 
   if (!user) {
@@ -34,7 +36,7 @@ export default async function UserPredictionPage({ params, searchParams }: PageP
   return (
     <main className="flex flex-col md:flex-row w-full min-w-0 gap-5">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">{userId === user.id ? "Mis predicciones" : `Predicciones de ${username}`}</h1>
+        <h1 className="text-3xl font-bold mb-6">{userId === user.id ? "Mis predicciones" : `Predicciones de ${name}`}</h1>
         <PredictionsList userId={userId} own={userId === user.id} />
       </div>
     </main>

@@ -15,7 +15,7 @@ import { getPostDataInclude, UserData } from "@/lib/types"
 import UnauthorizedMessage from "@/components/UnauthorizedMessage"
 
 interface PageProps {
-  params: { postId: string }
+  params: Promise<{ postId: string }>
 }
 
 const getPost = cache(async (postId: string, loggedInUserId: string) => {
@@ -32,8 +32,9 @@ const getPost = cache(async (postId: string, loggedInUserId: string) => {
 })
 
 export async function generateMetadata({
-  params: { postId },
+  params,
 }: PageProps): Promise<Metadata> {
+  const { postId } = await params
   const { user } = await validateRequest()
 
   if (!user) return {}
@@ -45,7 +46,9 @@ export async function generateMetadata({
   }
 }
 
-export default async function Page({ params: { postId } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { postId } = await params
+
   const { user } = await validateRequest()
 
   if (!user) {

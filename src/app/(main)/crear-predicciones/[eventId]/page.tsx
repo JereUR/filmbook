@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   title: "Crear predicciones para los Oscars",
 }
 
-export default async function PredictionsPage({ params }: { params: { eventId: string } }) {
+export default async function PredictionsPage({ params }: { params: Promise<{ eventId: string }> }) {
+  const { eventId } = await params
   const { user } = await validateRequest()
 
   return notFound()

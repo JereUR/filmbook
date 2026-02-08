@@ -6,8 +6,9 @@ import { LikeInfo, ReviewInfo } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { reviewId: string } },
+  { params }: { params: Promise<{ reviewId: string }> },
 ) {
+  const { reviewId } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
@@ -16,7 +17,7 @@ export async function GET(
 
   const reviewData = await prisma.review.findUnique({
     where: {
-      id: params.reviewId,
+      id: reviewId,
     },
     select: {
       id: true,

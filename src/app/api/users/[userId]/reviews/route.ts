@@ -4,8 +4,9 @@ import { ReviewInfo } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { userId: string } },
+  { params }: { params: Promise<{ userId: string }> },
 ) {
+  const { userId } = await params
   const cursor = req.nextUrl.searchParams.get("cursor") || undefined
   const sortAttr = req.nextUrl.searchParams.get("sortAttr") || "createdAt"
   const sortType = req.nextUrl.searchParams.get("sortType") || "desc"
@@ -21,7 +22,7 @@ export async function GET(
 
   const reviews = await prisma.review.findMany({
     where: {
-      userId: params.userId,
+      userId: userId,
     },
     select: {
       id: true,
@@ -57,7 +58,7 @@ export async function GET(
     movieId: review.movieId,
     movie: review.movie,
     user: review.user,
-    userId: params.userId,
+    userId: userId,
     liked: review.liked,
     watched: review.watched,
     rating: review.rating,

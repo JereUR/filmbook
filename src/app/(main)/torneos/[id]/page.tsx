@@ -6,22 +6,24 @@ import { Loader2 } from "lucide-react"
 import TournamentView from "@/components/tournaments/TournamentView"
 
 interface TournamentPageProps {
-  params: { id: string }
-  searchParams: { name: string }
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ name: string }>
 }
 
 export async function generateMetadata({ searchParams, params }: TournamentPageProps): Promise<Metadata> {
-  const name = searchParams.name
+  const { name } = await searchParams
   if (!name) {
     return notFound()
   }
   return { title: name }
 }
 
-export default function TournamentPage({ params }: TournamentPageProps) {
+export default async function TournamentPage({ params }: TournamentPageProps) {
+  const { id } = await params
+
   return (
     <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-      <TournamentView tournamentId={params.id} />
+      <TournamentView tournamentId={id} />
     </Suspense>
   )
 }

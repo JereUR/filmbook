@@ -25,7 +25,13 @@ async function PredictionFormWrapper({ userId, eventId }: { userId: string; even
   )
 }
 
-export default async function EditPredictionsPage({ params }: { params: { eventId: string } }) {
+export default async function EditPredictionsPage({
+  params,
+}: {
+  params: Promise<{ eventId: string }>;
+}) {
+  const { eventId } = await params;
+
   /* const { user } = await validateRequest() */
 
   return notFound()

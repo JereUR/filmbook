@@ -9,14 +9,15 @@ import { validateRequest } from '@/auth'
 import UnauthorizedMessage from '@/components/UnauthorizedMessage'
 
 interface PageProps {
-  params: { reviewId: string },
-  searchParams: { username?: string, title?: string, date?: string, movieId: string }
+  params: Promise<{ reviewId: string }>,
+  searchParams: Promise<{ username?: string, title?: string, date?: string, movieId: string }>
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
-  const title = searchParams.title || 'Sin título'
-  const date = searchParams.date || ''
-  const username = searchParams.username || ''
+  const { title: searchTitle, date: searchDate, username: searchUsername } = await searchParams
+  const title = searchTitle || 'Sin título'
+  const date = searchDate || ''
+  const username = searchUsername || ''
 
   if (!title) {
     return notFound()
@@ -28,7 +29,8 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
 }
 
 export default async function ReviewPage({ params, searchParams }: PageProps) {
-  const movieId = searchParams.movieId
+  const { reviewId } = await params
+  const { movieId } = await searchParams
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
@@ -39,12 +41,12 @@ export default async function ReviewPage({ params, searchParams }: PageProps) {
     <main className="flex flex-col md:flex-row w-full min-w-0 gap-5">
       <div className="md:flex-grow md:w-3/4">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-          <UserReview reviewId={params.reviewId} />
+          <UserReview reviewId={reviewId} />
         </Suspense>
       </div>
       <div className="md:w-1/4">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-          <OtherReviewsContainer movieId={movieId} reviewId={params.reviewId} />
+          <OtherReviewsContainer movieId={movieId} reviewId={reviewId} />
         </Suspense>
       </div>
     </main>

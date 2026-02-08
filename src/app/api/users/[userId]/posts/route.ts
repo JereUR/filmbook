@@ -6,9 +6,10 @@ import { getPostDataInclude, PostsPage } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
-  { params: { userId } }: { params: { userId: string } },
+  { params }: { params: Promise<{ userId: string }> },
 ) {
   try {
+    const { userId } = await params
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined
 
     const pageSize = 10

@@ -7,13 +7,14 @@ import MovieShow from '@/components/movies/MovieShow'
 import Recommendations from '@/components/movies/Recommendations'
 
 interface PageProps {
-  params: { id: string },
-  searchParams: { title?: string, date?: string }
+  params: Promise<{ id: string }>,
+  searchParams: Promise<{ title?: string, date?: string }>
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
-  const title = searchParams.title || 'Sin título'
-  const date = searchParams.date || undefined
+  const { title: searchTitle, date: searchDate } = await searchParams
+  const title = searchTitle || 'Sin título'
+  const date = searchDate || undefined
 
   if (!title) {
     return notFound()
@@ -30,17 +31,19 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   }
 }
 
-export default function MoviePage({ params }: PageProps) {
+export default async function MoviePage({ params }: PageProps) {
+  const { id } = await params
+
   return (
     <main className="flex flex-col md:flex-row w-full min-w-0 gap-5">
       <div className="md:flex-grow md:w-3/4">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-          <MovieShow id={params.id} />
+          <MovieShow id={id} />
         </Suspense>
       </div>
       <div className="md:w-1/4">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-          <RecommendationsContainer id={params.id} />
+          <RecommendationsContainer id={id} />
         </Suspense>
       </div>
     </main>

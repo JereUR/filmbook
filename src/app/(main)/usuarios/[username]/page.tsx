@@ -21,7 +21,7 @@ import FavoriteMovies from "@/components/user/lists/favoriteMovies/FavoriteMovie
 import PredictionsButton from "./PredictionsButton"
 
 interface UserPageProps {
-  params: { username: string }
+  params: Promise<{ username: string }>
 }
 
 const getUser = cache(async (username: string, loggedInUserId: string) => {
@@ -41,8 +41,9 @@ const getUser = cache(async (username: string, loggedInUserId: string) => {
 })
 
 export async function generateMetadata({
-  params: { username },
+  params,
 }: UserPageProps): Promise<Metadata> {
+  const { username } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) return {}
@@ -55,8 +56,9 @@ export async function generateMetadata({
 }
 
 export default async function UserPage({
-  params: { username },
+  params,
 }: UserPageProps) {
+  const { username } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
