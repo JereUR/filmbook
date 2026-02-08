@@ -1,4 +1,4 @@
-import { Bookmark, CircleHelp, Home, Popcorn, Trophy } from "lucide-react"
+import { Bookmark, CircleHelp, Home, Popcorn, ShieldCheck, Trophy } from "lucide-react"
 import Link from "next/link"
 
 import { validateRequest } from "@/auth"
@@ -119,6 +119,18 @@ export default async function MenuBar({ className }: MenuBarProps) {
           <Bookmark /> <span className="hidden lg:inline">Marcadores</span>
         </Link>
       </Button>
+      {user.admin && (
+        <Button
+          variant="ghost"
+          className={defaultClassName}
+          title="Gestión de Premios"
+          asChild
+        >
+          <Link href="/gestion-premios">
+            <ShieldCheck /> <span className="hidden lg:inline">Gestión de Premios</span>
+          </Link>
+        </Button>
+      )}
       <Button
         variant="ghost"
         className={defaultClassName}
