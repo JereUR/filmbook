@@ -275,16 +275,16 @@ model Diary {
 }
 
 model Tournament {
-  id           String                  @id @default(cuid())
-  name         String
-  description  String?
-  startDate    DateTime
-  endDate      DateTime?
-  participants ParticipantTournament[]
-  dates        TournamentDate[]
+  id                String                  @id @default(cuid())
+  name              String
+  description       String?
+  startDate         DateTime
+  endDate           DateTime?
+  participants      ParticipantTournament[]
+  dates             TournamentDate[]
   participantsStore ParticipantScore[]
-  createdAt    DateTime                @default(now())
-  updatedAt    DateTime                @updatedAt
+  createdAt         DateTime                @default(now())
+  updatedAt         DateTime                @updatedAt
 
   @@map("tournament")
 }
@@ -336,7 +336,7 @@ model ParticipantScore {
   participantId    String
   tournamentDate   TournamentDate @relation(fields: [tournamentDateId], references: [id])
   tournamentDateId String
-  tournament       Tournament? @relation(fields:[tournamentId], references: [id])
+  tournament       Tournament?    @relation(fields: [tournamentId], references: [id])
   tournamentId     String?
 
   @@unique([participantId, tournamentDateId])
@@ -359,23 +359,69 @@ model FavoriteMovie {
 model AwardEvent {
   id          String       @id @default(cuid())
   name        String
-  year        Int
+  active      Boolean      @default(true)
+  categories  Category[]   @relation("EventCategories")
   predictions Prediction[]
 
-  @@unique([name, year])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
   @@map("award_events")
 }
 
+model Category {
+  id          String       @id @default(cuid())
+  name        String
+  winnerId    String?      @unique
+  winner      Nominee?     @relation("CategoryWinner", fields: [winnerId], references: [id])
+  events      AwardEvent[] @relation("EventCategories")
+  nominees    Nominee[]    @relation("CategoryNominees")
+  predictions Prediction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Nominee {
+  id         String   @id @default(cuid())
+  name       String
+  movieId    String?
+  movieTitle String?
+  photo      String?
+  providers  Json?
+  composers  String?
+  categoryId String
+  category   Category @relation("CategoryNominees", fields: [categoryId], references: [id], onDelete: Cascade)
+
+  wonCategory Category?    @relation("CategoryWinner")
+  predictions Prediction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("nominees")
+}
+
 model Prediction {
-  id                   String     @id @default(cuid())
-  userId               String
-  user                 User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  awardEventId         String
-  awardEvent           AwardEvent @relation(fields: [awardEventId], references: [id], onDelete: Cascade)
-  category             String
-  predictedWinnerName  String
+  id           String     @id @default(cuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  awardEventId String
+  awardEvent   AwardEvent @relation(fields: [awardEventId], references: [id], onDelete: Cascade)
+
+  // New relational fields (optional for now to not break existing data/code)
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  nomineeId  String?
+  nominee    Nominee?  @relation(fields: [nomineeId], references: [id], onDelete: SetNull)
+
+  // Old fields (kept for compatibility)
+  categoryName         String? // renamed from category to avoid conflict
+  predictedWinnerName  String?
   predictedWinnerImage String?
-  favoriteWinnerName   String
+  favoriteWinnerName   String?
   favoriteWinnerImage  String?
 
   createdAt DateTime @default(now())
