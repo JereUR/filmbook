@@ -4,9 +4,10 @@ import { WatchlistInfo } from "@/lib/types"
 
 export async function GET(
   req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
   try {
+    const { movieId } = await params
     const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
@@ -37,9 +38,10 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
   try {
+    const { movieId } = await params
     const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
@@ -68,9 +70,10 @@ export async function POST(
 
 export async function DELETE(
   req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
   try {
+    const { movieId } = await params
     const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {

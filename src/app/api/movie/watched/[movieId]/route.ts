@@ -6,8 +6,9 @@ import { WatchedInfo } from "@/lib/types"
 
 export async function GET(
   req: Request,
-  { params }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
+  const { movieId } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
@@ -17,7 +18,7 @@ export async function GET(
   const movie = await prisma.review.findFirst({
     where: {
       userId: loggedInUser.id,
-      movieId: params.movieId,
+      movieId: movieId,
     },
     select: {
       watched: true,
@@ -33,9 +34,10 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
   try {
+    const { movieId } = await params
     const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
@@ -64,9 +66,10 @@ export async function POST(
 
 export async function DELETE(
   req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
   try {
+    const { movieId } = await params
     const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {

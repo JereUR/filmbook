@@ -6,8 +6,9 @@ import { TournamentDateInfo } from "@/lib/types"
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
@@ -16,7 +17,7 @@ export async function GET(
 
   const tournamentDate = await prisma.tournamentDate.findUnique({
     where: {
-      id: params.id,
+      id: id,
     },
     select: {
       id: true,
@@ -86,8 +87,9 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string; mode?: string } },
+  { params }: { params: Promise<{ id: string; mode?: string }> },
 ) {
+  const { id, mode } = await params
   const { user: loggedInUser, admin } = await validateAdmin()
 
   if (!loggedInUser || !admin) {
@@ -95,9 +97,9 @@ export async function PATCH(
   }
 
   try {
-    if (params.mode === "setVisible") {
+    if (mode === "setVisible") {
       const updatedTournamentDate = await prisma.tournamentDate.update({
-        where: { id: params.id },
+        where: { id: id },
         data: { visible: true },
       })
 
@@ -107,7 +109,7 @@ export async function PATCH(
       const { date, movieId, visible } = body
 
       const updatedTournamentDate = await prisma.tournamentDate.update({
-        where: { id: params.id },
+        where: { id: id },
         data: {
           ...(date !== undefined && { date }),
           ...(movieId !== undefined && { movieId }),
@@ -127,8 +129,9 @@ export async function PATCH(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params
   const { user: loggedInUser, admin } = await validateAdmin()
 
   if (!loggedInUser || !admin) {
@@ -138,13 +141,13 @@ export async function DELETE(
   try {
     await prisma.participantScore.deleteMany({
       where: {
-        tournamentDateId: params.id,
+        tournamentDateId: id,
       },
     })
 
     await prisma.tournamentDate.delete({
       where: {
-        id: params.id,
+        id: id,
       },
     })
 

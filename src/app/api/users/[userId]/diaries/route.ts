@@ -6,8 +6,9 @@ import { DiaryInfo } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { userId: string } },
+  { params }: { params: Promise<{ userId: string }> },
 ) {
+  const { userId } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
@@ -19,7 +20,7 @@ export async function GET(
 
   const diaries = await prisma.diary.findMany({
     where: {
-      userId: params.userId,
+      userId: userId,
     },
     select: {
       id: true,
@@ -57,7 +58,7 @@ export async function GET(
 
   const data: DiaryInfo[] = diaries.slice(0, pageSize).map((diary) => ({
     id: diary.id,
-    userId: params.userId,
+    userId: userId,
     movieId: diary.movieId,
     movie: diary.movie,
     reviewId: diary.reviewId,

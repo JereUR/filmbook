@@ -4,9 +4,10 @@ import { LikeInfo } from "@/lib/types"
 
 export async function GET(
   req: Request,
-  { params: { reviewId } }: { params: { reviewId: string } },
+  { params }: { params: Promise<{ reviewId: string }> },
 ) {
   try {
+    const { reviewId } = await params
     const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
@@ -52,9 +53,10 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params: { reviewId } }: { params: { reviewId: string } },
+  { params }: { params: Promise<{ reviewId: string }> },
 ) {
   try {
+    const { reviewId } = await params
     const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {
@@ -108,9 +110,10 @@ export async function POST(
 
 export async function DELETE(
   req: Request,
-  { params: { reviewId } }: { params: { reviewId: string } },
+  { params }: { params: Promise<{ reviewId: string }> },
 ) {
   try {
+    const { reviewId } = await params
     const { user: loggedInUser } = await validateRequest()
 
     if (!loggedInUser) {

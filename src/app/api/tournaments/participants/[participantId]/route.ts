@@ -6,8 +6,9 @@ import { ParticipantTournament, TournamentPosition } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { participantId: string } },
+  { params }: { params: Promise<{ participantId: string }> },
 ) {
+  const { participantId } = await params
   const { user: loggedInUser, admin } = await validateAdmin()
 
   if (!loggedInUser && !admin) {
@@ -16,7 +17,7 @@ export async function GET(
 
   const participant = await prisma.participant.findUnique({
     where: {
-      id: params.participantId,
+      id: participantId,
     },
     select: {
       id: true,

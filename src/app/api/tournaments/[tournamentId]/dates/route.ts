@@ -5,8 +5,9 @@ import { DateForTournamentData } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { tournamentId: string } },
+  { params }: { params: Promise<{ tournamentId: string }> },
 ): Promise<NextResponse<DateForTournamentData[] | { error: string }>> {
+  const { tournamentId } = await params
   const { user, admin } = await validateAdmin()
 
   if (!user || !admin) {
@@ -15,7 +16,7 @@ export async function GET(
 
   try {
     const dates = await prisma.tournament.findFirst({
-      where: { id: params.tournamentId },
+      where: { id: tournamentId },
       select: {
         dates: {
           orderBy: {

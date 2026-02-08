@@ -6,8 +6,9 @@ import { WatchlistData } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { userId: string } },
+  { params }: { params: Promise<{ userId: string }> },
 ) {
+  const { userId } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
@@ -19,7 +20,7 @@ export async function GET(
 
   const watchlist = await prisma.watchlist.findMany({
     where: {
-      userId: params.userId,
+      userId: userId,
     },
     select: {
       id: true,

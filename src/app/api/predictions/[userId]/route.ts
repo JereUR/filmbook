@@ -5,14 +5,13 @@ import type { AwardEvent } from "@/types/predictions"
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { userId: string } },
+  { params }: { params: Promise<{ userId: string }> },
 ) {
+  const { userId } = await params
   const { user } = await validateRequest()
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
-
-  const { userId } = params
 
   try {
     const predictions = await prisma.prediction.findMany({

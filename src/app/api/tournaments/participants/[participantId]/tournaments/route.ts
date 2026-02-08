@@ -9,8 +9,9 @@ import {
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { participantId: string } },
+  { params }: { params: Promise<{ participantId: string }> },
 ): Promise<NextResponse<ParticipantTournamentsResponse | { error: string }>> {
+  const { participantId } = await params
   const { user, admin } = await validateAdmin()
   if (!user || !admin) {
     return NextResponse.json({ error: "No autorizado." }, { status: 401 })
@@ -18,7 +19,7 @@ export async function GET(
 
   try {
     const tournaments = await prisma.participant.findFirst({
-      where: { id: params.participantId },
+      where: { id: participantId },
       select: {
         tournaments: {
           select: {
@@ -42,7 +43,7 @@ export async function GET(
                       },
                     },
                     scores: {
-                      where: { participantId: params.participantId },
+                      where: { participantId: participantId },
                       select: {
                         points: true,
                         extraPoints: true,

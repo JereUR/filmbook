@@ -5,8 +5,9 @@ import { validateAdmin } from "@/auth"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { participantId: string } },
+  { params }: { params: Promise<{ participantId: string }> },
 ): Promise<NextResponse<string[] | { error: string }>> {
+  const { participantId } = await params
   const { user, admin } = await validateAdmin()
 
   if (!user || !admin) {
@@ -15,7 +16,7 @@ export async function GET(
 
   try {
     const tournaments = await prisma.participant.findFirst({
-      where: { id: params.participantId },
+      where: { id: participantId },
       select: {
         tournaments: {
           select: {

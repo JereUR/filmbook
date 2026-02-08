@@ -4,11 +4,12 @@ import { Tournament } from "@/lib/types"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { tournamentId: string } },
+  { params }: { params: Promise<{ tournamentId: string }> },
 ) {
+  const { tournamentId } = await params
   const tournament = await prisma.tournament.findUnique({
     where: {
-      id: params.tournamentId,
+      id: tournamentId,
     },
     select: {
       id: true,
@@ -28,10 +29,7 @@ export async function GET(
               nickname: true,
               scores: {
                 where: {
-                  OR: [
-                    { tournamentId: params.tournamentId },
-                    { tournamentId: null }
-                  ]
+                  OR: [{ tournamentId: tournamentId }, { tournamentId: null }],
                 },
                 select: {
                   points: true,
@@ -61,10 +59,7 @@ export async function GET(
           },
           scores: {
             where: {
-              OR: [
-                { tournamentId: params.tournamentId },
-                { tournamentId: null }
-              ]
+              OR: [{ tournamentId: tournamentId }, { tournamentId: null }],
             },
             select: {
               participant: {
@@ -93,9 +88,11 @@ export async function GET(
     .map((p) => {
       const totalPoints = p.participant.scores.reduce((acc, score) => {
         // Solo sumar puntos si el score pertenece a este torneo o es null
-        if (score.tournamentDate.tournamentId === tournament.id || 
-            score.tournamentDate.tournamentId === tournament.id || 
-            score.tournamentDate.tournamentId === null) {
+        if (
+          score.tournamentDate.tournamentId === tournament.id ||
+          score.tournamentDate.tournamentId === tournament.id ||
+          score.tournamentDate.tournamentId === null
+        ) {
           return acc + score.points + (score.extraPoints || 0)
         }
         return acc

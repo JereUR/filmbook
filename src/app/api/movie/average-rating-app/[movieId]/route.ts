@@ -4,11 +4,12 @@ import prisma from "@/lib/prisma"
 
 export async function GET(
   req: Request,
-  { params }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
+  const { movieId } = await params
   const rating = await prisma.movieRating.findFirst({
     where: {
-      movieId: params.movieId,
+      movieId: movieId,
     },
     select: {
       averageRating: true,

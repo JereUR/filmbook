@@ -7,8 +7,9 @@ import { getYear } from "@/lib/utils"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { movieId: string; reviewId: string } },
+  { params }: { params: Promise<{ movieId: string; reviewId: string }> },
 ) {
+  const { movieId, reviewId } = await params
   /* const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
@@ -20,8 +21,8 @@ export async function GET(
 
   const reviews = await prisma.review.findMany({
     where: {
-      movieId: params.movieId,
-      id: { not: params.reviewId },
+      movieId: movieId,
+      id: { not: reviewId },
     },
     select: {
       id: true,

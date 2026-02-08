@@ -5,8 +5,9 @@ import { validateRequest } from "@/auth"
 
 export async function GET(
   req: Request,
-  { params }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
+  const { movieId } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
@@ -16,7 +17,7 @@ export async function GET(
   const review = await prisma.review.findFirst({
     where: {
       userId: loggedInUser.id,
-      movieId: params.movieId,
+      movieId: movieId,
     },
     select: {
       rating: true,
@@ -32,8 +33,9 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params: { movieId } }: { params: { movieId: string } },
+  { params }: { params: Promise<{ movieId: string }> },
 ) {
+  const { movieId } = await params
   const { user: loggedInUser } = await validateRequest()
 
   if (!loggedInUser) {
