@@ -7,7 +7,6 @@ import { google, lucia } from "@/auth"
 import kyInstance from "@/lib/ky"
 import prisma from "@/lib/prisma"
 import { slugify } from "@/lib/utils"
-import streamServerClient from "@/lib/stream"
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code")
@@ -67,21 +66,14 @@ export async function GET(req: NextRequest) {
 
     const username = slugify(googleUser.name) + "-" + userId.slice(0, 4)
 
-    await prisma.$transaction(async (tx) => {
-      await tx.user.create({
-        data: {
-          id: userId,
-          admin: false,
-          username,
-          displayName: googleUser.name,
-          googleID: googleUser.id,
-        },
-      })
-      await streamServerClient.upsertUser({
+    await prisma.user.create({
+      data: {
         id: userId,
+        admin: false,
         username,
-        name: username,
-      })
+        displayName: googleUser.name,
+        googleID: googleUser.id,
+      },
     })
 
     const session = await lucia.createSession(userId, {})

@@ -5,8 +5,6 @@ import { validateRequest } from "@/auth"
 import { Button } from "@/components/ui/button"
 import prisma from "@/lib/prisma"
 import NotificationsButton from "./NotificationsButton"
-import MessagesButton from "./MessagesButton"
-import streamServerClient from "@/lib/stream"
 
 interface MenuBarProps {
   className?: string
@@ -66,15 +64,12 @@ export default async function MenuBar({ className }: MenuBarProps) {
       </div>
     );
 
-  const [unreadNotificationCount, unreadMessagesCount] = await Promise.all([
-    prisma.notification.count({
-      where: {
-        recipientId: user.id,
-        read: false,
-      },
-    }),
-    (await streamServerClient.getUnreadCount(user.id)).total_unread_count,
-  ]);
+  const unreadNotificationCount = await prisma.notification.count({
+    where: {
+      recipientId: user.id,
+      read: false,
+    },
+  });
 
   return (
     <div className={className}>
@@ -114,7 +109,6 @@ export default async function MenuBar({ className }: MenuBarProps) {
       <NotificationsButton
         initialState={{ unreadCount: unreadNotificationCount }}
       />
-      <MessagesButton initialState={{ unreadCount: unreadMessagesCount }} />
       <Button
         variant="ghost"
         className={defaultClassName}

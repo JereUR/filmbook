@@ -1,6 +1,5 @@
 "use server"
 
-import { isRedirectError } from "next/dist/client/components/redirect"
 import { verify } from "@node-rs/argon2"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
@@ -47,10 +46,9 @@ export async function login(
       sessionCookie.value,
       sessionCookie.attributes,
     )
-
-    return redirect("/")
   } catch (error) {
-    if (isRedirectError(error)) throw error
     return { error: "Algo salió mal. Por favor inténtalo de nuevo." }
   }
+
+  return redirect("/")
 }

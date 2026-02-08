@@ -19,7 +19,6 @@ export async function addPredictions(values: PredictionInput[]) {
   const awardEvent = await prisma.awardEvent.findFirst({
     where: {
       name: eventName,
-      year: Number.parseInt(eventYear),
     },
   })
 
@@ -34,7 +33,7 @@ export async function addPredictions(values: PredictionInput[]) {
           data: {
             userId: user.id,
             awardEventId: awardEvent.id,
-            category: prediction.category,
+            categoryName: prediction.category,
             predictedWinnerName: prediction.predictedWinnerName,
             predictedWinnerImage: prediction.predictedWinnerImage,
             favoriteWinnerName: prediction.favoriteWinnerName,
@@ -45,7 +44,7 @@ export async function addPredictions(values: PredictionInput[]) {
     )
 
     revalidatePath(`/usuarios/predicciones/${user.id}`)
-    return {userId: user.id, username: user.username}
+    return { userId: user.id, username: user.username }
   } catch (error) {
     console.error("Error en addPredictions:", error)
     throw error
@@ -65,7 +64,6 @@ export async function updatePredictions(values: PredictionInput[]) {
   const awardEvent = await prisma.awardEvent.findFirst({
     where: {
       name: eventName,
-      year: Number.parseInt(eventYear),
     },
   })
 
@@ -87,7 +85,7 @@ export async function updatePredictions(values: PredictionInput[]) {
           data: {
             userId: user.id,
             awardEventId: awardEvent.id,
-            category: prediction.category,
+            categoryName: prediction.category,
             predictedWinnerName: prediction.predictedWinnerName,
             predictedWinnerImage: prediction.predictedWinnerImage,
             favoriteWinnerName: prediction.favoriteWinnerName,
@@ -98,7 +96,7 @@ export async function updatePredictions(values: PredictionInput[]) {
     )
 
     revalidatePath(`/usuarios/predicciones/${user.id}`)
-    return {userId: user.id, username: user.username}
+    return { userId: user.id, username: user.username }
   } catch (error) {
     console.error("Error en updatePredictions:", error)
     throw error
@@ -116,7 +114,6 @@ export async function deletePredictions(userId: string, eventId: string) {
       userId: userId,
       awardEvent: {
         name: eventName,
-        year: Number.parseInt(eventYear),
       },
     },
   })
@@ -133,7 +130,6 @@ export async function getPredictions(userId: string, eventId?: string) {
       ...whereClause,
       awardEvent: {
         name: eventName,
-        year: Number.parseInt(eventYear),
       },
     }
   }
@@ -144,15 +140,15 @@ export async function getPredictions(userId: string, eventId?: string) {
       awardEvent: true,
     },
     orderBy: [
-      { awardEvent: { year: "desc" } },
+      { awardEvent: { createdAt: "desc" } },
       { awardEvent: { name: "asc" } },
-      { category: "asc" },
+      { categoryName: "asc" },
     ],
   })
 
   if (eventId) {
     return predictions.map((prediction) => ({
-      category: prediction.category,
+      category: prediction.categoryName,
       predictedWinnerName: prediction.predictedWinnerName,
       predictedWinnerImage: prediction.predictedWinnerImage,
       favoriteWinnerName: prediction.favoriteWinnerName,
@@ -162,19 +158,20 @@ export async function getPredictions(userId: string, eventId?: string) {
 
   const groupedPredictions = predictions.reduce(
     (acc, prediction) => {
-      const eventKey = `${prediction.awardEvent.name}-${prediction.awardEvent.year}`
+      const event = prediction.awardEvent as any
+      const eventKey = `${event.name}`
       if (!acc[eventKey]) {
         acc[eventKey] = {
-          name: prediction.awardEvent.name,
-          year: prediction.awardEvent.year,
+          name: event.name,
+          year: new Date(event.createdAt).getFullYear(),
           categories: {},
         }
       }
-      acc[eventKey].categories[prediction.category] = {
+      acc[eventKey].categories[prediction.categoryName ?? ""] = {
         id: prediction.id,
-        predictedWinnerName: prediction.predictedWinnerName,
+        predictedWinnerName: prediction.predictedWinnerName ?? "",
         predictedWinnerImage: prediction.predictedWinnerImage,
-        favoriteWinnerName: prediction.favoriteWinnerName,
+        favoriteWinnerName: prediction.favoriteWinnerName ?? "",
         favoriteWinnerImage: prediction.favoriteWinnerImage,
       }
       return acc

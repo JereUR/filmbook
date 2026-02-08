@@ -2,14 +2,12 @@
 
 import { hash } from "@node-rs/argon2"
 import { generateIdFromEntropySize } from "lucia"
-import { isRedirectError } from "next/dist/client/components/redirect"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 import { lucia } from "@/auth"
 import prisma from "@/lib/prisma"
 import { signUpSchema, SignUpValues } from "@/lib/validation"
-import streamServerClient from "@/lib/stream"
 
 export async function signUp(
   credentials: SignUpValues,
@@ -52,22 +50,15 @@ export async function signUp(
       return { error: "Correo electrónico ya está en uso." }
     }
 
-    await prisma.$transaction(async (tx) => {
-      await tx.user.create({
-        data: {
-          id: userId,
-          username,
-          admin: false,
-          displayName: username,
-          email,
-          passwordHash,
-        },
-      })
-      await streamServerClient.upsertUser({
+    await prisma.user.create({
+      data: {
         id: userId,
         username,
-        name: username,
-      })
+        admin: false,
+        displayName: username,
+        email,
+        passwordHash,
+      },
     })
 
     const session = await lucia.createSession(userId, {})
@@ -78,10 +69,9 @@ export async function signUp(
       sessionCookie.value,
       sessionCookie.attributes,
     )
-
-    return redirect("/")
   } catch (error) {
-    if (isRedirectError(error)) throw error
     return { error: "Algo salió mal. Por favor inténtalo de nuevo." }
   }
+
+  return redirect("/")
 }

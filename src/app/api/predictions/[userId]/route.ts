@@ -22,9 +22,9 @@ export async function GET(
         awardEvent: true,
       },
       orderBy: [
-        { awardEvent: { year: "desc" } },
+        { awardEvent: { createdAt: "desc" } },
         { awardEvent: { name: "asc" } },
-        { category: "asc" },
+        { categoryName: "asc" },
       ],
     })
 
@@ -34,19 +34,20 @@ export async function GET(
 
     const groupedPredictions = predictions.reduce(
       (acc, prediction) => {
-        const eventKey = `${prediction.awardEvent.name}-${prediction.awardEvent.year}`
+        const event = (prediction as any).awardEvent
+        const eventKey = `${event.name}`
         if (!acc[eventKey]) {
           acc[eventKey] = {
-            name: prediction.awardEvent.name,
-            year: prediction.awardEvent.year,
+            name: event.name,
+            year: new Date(event.createdAt).getFullYear(),
             categories: {},
           }
         }
-        acc[eventKey].categories[prediction.category] = {
+        acc[eventKey].categories[prediction.categoryName ?? ""] = {
           id: prediction.id,
-          predictedWinnerName: prediction.predictedWinnerName,
+          predictedWinnerName: prediction.predictedWinnerName ?? "",
           predictedWinnerImage: prediction.predictedWinnerImage,
-          favoriteWinnerName: prediction.favoriteWinnerName,
+          favoriteWinnerName: prediction.favoriteWinnerName ?? "",
           favoriteWinnerImage: prediction.favoriteWinnerImage,
         }
         return acc
