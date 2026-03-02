@@ -86,17 +86,20 @@ const eventIdSchema = z.string().refine(
 
 export const predictionInputSchema = z.object({
   userId: z.string().min(1, "Usuario es requerido"),
-  eventId: eventIdSchema,
+  eventId: z.string().min(1, "Evento es requerido"),
   category: z.string().min(1, "Categoría es requerida"),
-  predictedWinnerName: z.string().min(1, "Ganador predicho es requerido"),
-  predictedWinnerImage: z.string().nullable(),
-  favoriteWinnerName: z.string().min(1, "Favorito es requerido"),
-  favoriteWinnerImage: z.string().nullable(),
+  categoryId: z.string().optional(),
+  predictedWinnerName: z.string().optional(),
+  predictedWinnerImage: z.string().nullable().optional(),
+  nomineeId: z.string().optional(),
+  favoriteWinnerName: z.string().optional(),
+  favoriteWinnerImage: z.string().nullable().optional(),
+  favoriteNomineeId: z.string().optional(),
 })
 
 export const deletePredictionsSchema = z.object({
   userId: z.string().min(1, "Usuario es requerido"),
-  eventId: eventIdSchema,
+  eventId: z.string(),
 })
 
 export const predictionsArraySchema = z.array(predictionInputSchema)

@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
-import { Trash2, Plus, Trophy } from "lucide-react"
+import { Trash2, Plus, Trophy, Pencil } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 
 interface ExtendedCategory extends Category {
     events: AwardEvent[]
@@ -23,6 +24,9 @@ interface Props {
 export default function CategoryManagement({ initialData, ceremonies }: Props) {
     const [name, setName] = useState("")
     const [selectedCeremonyIds, setSelectedCeremonyIds] = useState<string[]>([])
+    const [editingCategory, setEditingCategory] = useState<ExtendedCategory | null>(null)
+    const [editName, setEditName] = useState("")
+    const [editCeremonyIds, setEditCeremonyIds] = useState<string[]>([])
     const { toast } = useToast()
 
     const handleCreate = async () => {
@@ -51,10 +55,33 @@ export default function CategoryManagement({ initialData, ceremonies }: Props) {
         }
     }
 
-    const toggleCeremony = (id: string) => {
-        setSelectedCeremonyIds(prev =>
-            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
-        )
+    const handleUpdate = async () => {
+        if (!editingCategory || !editName || editCeremonyIds.length === 0) {
+            toast({ title: "Nombre y al menos una entrega son requeridos", variant: "destructive" })
+            return
+        }
+        try {
+            await updateCategory(editingCategory.id, {
+                name: editName,
+                eventIds: editCeremonyIds
+            })
+            setEditingCategory(null)
+            toast({ title: "Categoría actualizada" })
+        } catch (error) {
+            toast({ title: "Error al actualizar", variant: "destructive" })
+        }
+    }
+
+    const toggleCeremony = (id: string, isEdit: boolean = false) => {
+        if (isEdit) {
+            setEditCeremonyIds(prev =>
+                prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+            )
+        } else {
+            setSelectedCeremonyIds(prev =>
+                prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+            )
+        }
     }
 
     return (
@@ -98,9 +125,23 @@ export default function CategoryManagement({ initialData, ceremonies }: Props) {
                         <CardHeader className="p-4 pb-2">
                             <div className="flex justify-between items-start">
                                 <CardTitle className="text-lg">{category.name}</CardTitle>
-                                <Button variant="destructive" size="icon" onClick={() => handleDelete(category.id)}>
-                                    <Trash2 className="w-4 h-4" />
-                                </Button>
+                                <div className="flex gap-2">
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        onClick={() => {
+                                            setEditingCategory(category)
+                                            setEditName(category.name)
+                                            setEditCeremonyIds(category.events.map(e => e.id))
+                                        }}
+                                        title="Editar"
+                                    >
+                                        <Pencil className="w-4 h-4" />
+                                    </Button>
+                                    <Button variant="destructive" size="icon" onClick={() => handleDelete(category.id)}>
+                                        <Trash2 className="w-4 h-4" />
+                                    </Button>
+                                </div>
                             </div>
                         </CardHeader>
                         <CardContent className="p-4 pt-0">
@@ -142,6 +183,41 @@ export default function CategoryManagement({ initialData, ceremonies }: Props) {
                     <p className="col-span-full text-center py-10 text-muted-foreground italic">No hay categorías creadas aún.</p>
                 )}
             </div>
+
+            <Dialog open={!!editingCategory} onOpenChange={() => setEditingCategory(null)}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Editar Categoría</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4 py-4">
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium">Nombre</label>
+                            <Input value={editName} onChange={(e) => setEditName(e.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium">Asociar a Entregas:</label>
+                            <div className="flex flex-wrap gap-2 p-2 border rounded-md">
+                                {ceremonies.map(c => (
+                                    <button
+                                        key={c.id}
+                                        onClick={() => toggleCeremony(c.id, true)}
+                                        className={`px-3 py-1 rounded-full text-xs transition-colors ${editCeremonyIds.includes(c.id)
+                                            ? 'bg-primary text-primary-foreground'
+                                            : 'bg-secondary text-secondary-foreground'
+                                            }`}
+                                    >
+                                        {c.name}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setEditingCategory(null)}>Cancelar</Button>
+                        <Button onClick={handleUpdate}>Guardar Cambios</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }

@@ -143,6 +143,81 @@ const nextConfig = {
         hostname: "uju2e4ws2o.ufs.sh",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "people.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "media.gq-magazine.co.uk",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "akns-images.eonline.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.hola.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.guim.co.uk",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "s.france24.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "img.asmedia.epimg.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.rte.ie",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "hips.hearstapps.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "goldenglobes.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "deadline.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "media.zenfs.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.hollywoodreporter.com",
+        pathname: "/**",
+      },
     ],
   },
   rewrites: () => {

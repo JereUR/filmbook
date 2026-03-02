@@ -395,8 +395,9 @@ model Nominee {
   categoryId String
   category   Category @relation("CategoryNominees", fields: [categoryId], references: [id], onDelete: Cascade)
 
-  wonCategory Category?    @relation("CategoryWinner")
-  predictions Prediction[]
+  wonCategory         Category?    @relation("CategoryWinner")
+  predictions         Prediction[]
+  favoritePredictions Prediction[] @relation("FavoriteNominee")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -417,6 +418,9 @@ model Prediction {
   nomineeId  String?
   nominee    Nominee?  @relation(fields: [nomineeId], references: [id], onDelete: SetNull)
 
+  favoriteNomineeId String?
+  favoriteNominee   Nominee? @relation("FavoriteNominee", fields: [favoriteNomineeId], references: [id], onDelete: SetNull)
+
   // Old fields (kept for compatibility)
   categoryName         String? // renamed from category to avoid conflict
   predictedWinnerName  String?
@@ -427,5 +431,6 @@ model Prediction {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([userId, awardEventId, categoryId])
   @@map("predictions")
 }

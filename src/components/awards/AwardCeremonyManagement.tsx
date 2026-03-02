@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
-import { Trash2, Plus, Power, PowerOff } from "lucide-react"
+import { Trash2, Plus, Power, PowerOff, ExternalLink, Pencil } from "lucide-react"
+import Link from "next/link"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 
 interface Props {
     initialData: AwardEvent[]
@@ -16,6 +18,8 @@ interface Props {
 export default function AwardCeremonyManagement({ initialData }: Props) {
     const [name, setName] = useState("")
     const [active, setActive] = useState(true)
+    const [editingEvent, setEditingEvent] = useState<AwardEvent | null>(null)
+    const [editName, setEditName] = useState("")
     const { toast } = useToast()
 
     const handleCreate = async () => {
@@ -46,6 +50,17 @@ export default function AwardCeremonyManagement({ initialData }: Props) {
             toast({ title: "Estado actualizado" })
         } catch (error) {
             toast({ title: "Error al actualizar estado", variant: "destructive" })
+        }
+    }
+
+    const handleUpdate = async () => {
+        if (!editingEvent || !editName) return
+        try {
+            await updateAwardEvent(editingEvent.id, { name: editName })
+            setEditingEvent(null)
+            toast({ title: "Entrega actualizada" })
+        } catch (error) {
+            toast({ title: "Error al actualizar", variant: "destructive" })
         }
     }
 
@@ -89,6 +104,27 @@ export default function AwardCeremonyManagement({ initialData }: Props) {
                                 <Button
                                     variant="outline"
                                     size="icon"
+                                    asChild
+                                    title="Ver Nominados"
+                                >
+                                    <Link href={`/premios/${ceremony.id}/nominados`}>
+                                        <ExternalLink className="w-4 h-4" />
+                                    </Link>
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => {
+                                        setEditingEvent(ceremony)
+                                        setEditName(ceremony.name)
+                                    }}
+                                    title="Editar"
+                                >
+                                    <Pencil className="w-4 h-4" />
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
                                     onClick={() => handleToggleActive(ceremony)}
                                     title={ceremony.active ? "Desactivar" : "Activar"}
                                 >
@@ -105,6 +141,24 @@ export default function AwardCeremonyManagement({ initialData }: Props) {
                     <p className="col-span-full text-center py-10 text-muted-foreground italic">No hay entregas creadas aún.</p>
                 )}
             </div>
+
+            <Dialog open={!!editingEvent} onOpenChange={() => setEditingEvent(null)}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Editar Entrega</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4 py-4">
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium">Nombre</label>
+                            <Input value={editName} onChange={(e) => setEditName(e.target.value)} />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setEditingEvent(null)}>Cancelar</Button>
+                        <Button onClick={handleUpdate}>Guardar Cambios</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }

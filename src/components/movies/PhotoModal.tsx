@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { ImageInfo } from "@/lib/types"
 
 interface PhotoModalProps {
@@ -18,6 +18,7 @@ export default function PhotoModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogTitle className="sr-only">{image.name}</DialogTitle>
       <DialogContent className='p-0 z-[110]'>
         <Image
           src={image.src}
@@ -25,6 +26,7 @@ export default function PhotoModal({
           width={720}
           height={480}
           className="overflow-hidden rounded-lg shadow-lg"
+          unoptimized
         />
       </DialogContent>
     </Dialog>
