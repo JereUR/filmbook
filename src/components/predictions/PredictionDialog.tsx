@@ -18,35 +18,69 @@ interface PredictionsDialogProps {
 export function PredictionsDialog({ event }: PredictionsDialogProps) {
   const contentRef = useRef<HTMLDivElement>(null)
 
-  const captureContent = async (): Promise<string> => {
+  const captureContent = async (): Promise<string[]> => {
     if (!contentRef.current) throw new Error("Content not found")
 
-    const content = contentRef.current
-    const originalStyle = content.style.cssText
-    content.style.cssText = `
+    // Use the actual rendered cards from the DOM
+    const cards = Array.from(contentRef.current.querySelectorAll(".prediction-card"))
+    const chunkSize = 4
+    const images: string[] = []
+
+    // Temporary container for capturing
+    const container = document.createElement("div")
+    container.style.cssText = `
       position: fixed;
       top: 0;
-      left: 0;
-      width: 1920px;
-      height: auto;
-      transform: none;
-      overflow: visible;
-      z-index: -1;
+      left: -9999px;
+      width: 800px;
+      background: #030711;
+      padding: 40px;
     `
+    document.body.appendChild(container)
 
-    const canvas = await html2canvas(content, {
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: "#030711",
-      logging: false,
-      width: 1920,
-      height: content.scrollHeight,
-    })
+    try {
+      for (let i = 0; i < cards.length; i += chunkSize) {
+        const chunk = cards.slice(i, i + chunkSize)
+        const partIndex = Math.floor(i / chunkSize) + 1
+        const totalParts = Math.ceil(cards.length / chunkSize)
 
-    content.style.cssText = originalStyle
+        container.innerHTML = `
+          <div style="text-align: center; margin-bottom: 30px; color: white;">
+            <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 8px; font-family: sans-serif;">
+              Predicciones ${event.name} ${event.year}
+            </h2>
+            <p style="color: #94a3b8; font-size: 14px; font-family: sans-serif;">Parte ${partIndex} de ${totalParts}</p>
+          </div>
+          <div id="capture-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;"></div>
+          <div style="margin-top: 30px; text-align: center; color: #64748b; font-size: 12px; font-family: sans-serif;">
+            Filmbook - Tus predicciones de cine
+          </div>
+        `
 
-    return canvas.toDataURL("image/png")
+        const grid = container.querySelector("#capture-grid")!
+        chunk.forEach(card => {
+          const clone = card.cloneNode(true) as HTMLElement
+          clone.style.width = "100%"
+          clone.style.minWidth = "0"
+          clone.style.display = "flex"
+          grid.appendChild(clone)
+        })
+
+        const canvas = await html2canvas(container, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: "#030711",
+          logging: false,
+        })
+
+        images.push(canvas.toDataURL("image/png"))
+      }
+    } finally {
+      document.body.removeChild(container)
+    }
+
+    return images
   }
 
   return (
@@ -76,7 +110,7 @@ export function PredictionsDialog({ event }: PredictionsDialogProps) {
               {Object.entries(event.categories).map(([category, prediction]) => (
                 <div
                   key={prediction.id}
-                  className="bg-card rounded-lg border p-3 shadow-sm space-y-2 flex flex-col"
+                  className="prediction-card bg-card rounded-lg border p-3 shadow-sm space-y-2 flex flex-col"
                   style={{ minWidth: "200px" }}
                 >
                   <h4 className="font-semibold text-sm">{category}</h4>

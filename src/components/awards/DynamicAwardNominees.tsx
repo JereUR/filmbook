@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import oscarsImg from "@/assets/Oscars.jpg"
@@ -12,6 +12,8 @@ import DynamicNomineeCard from "./DynamicNomineeCard"
 import { useToast } from "@/components/ui/use-toast"
 import { useAddPredictionsMutation } from "../predictions/mutations"
 import LoadingButton from "@/components/LoadingButton"
+import { Trophy, Sparkles, Check } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface Nominee {
     id: string
@@ -61,6 +63,21 @@ export default function DynamicAwardNominees({
             }
         }), {})
     )
+
+    const [basePredictions, setBasePredictions] = useState(predictions)
+    const [showSticky, setShowSticky] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowSticky(window.scrollY > 400)
+        }
+        window.addEventListener("scroll", handleScroll)
+        return () => window.removeEventListener("scroll", handleScroll)
+    }, [])
+
+    const isDirty = useMemo(() => {
+        return JSON.stringify(predictions) !== JSON.stringify(basePredictions)
+    }, [predictions, basePredictions])
 
     const { mutate: savePredictions, isPending } = useAddPredictionsMutation()
 
@@ -124,6 +141,7 @@ export default function DynamicAwardNominees({
 
         savePredictions(predictionData as any, {
             onSuccess: () => {
+                setBasePredictions(predictions)
                 toast({
                     title: "Predicciones guardadas",
                     description: "Tus predicciones han sido guardadas correctamente.",
@@ -134,6 +152,42 @@ export default function DynamicAwardNominees({
 
     return (
         <main className="flex w-full min-w-0 flex-col gap-5">
+            {/* Sticky Edit Mode Banner */}
+            {isDirty && showSticky && (
+                <div className="fixed top-0 left-0 right-0 z-[100] animate-in slide-in-from-top duration-300">
+                    <div className="bg-primary/95 backdrop-blur-md text-primary-foreground px-4 py-3 shadow-lg flex items-center justify-between container mx-auto rounded-b-xl border-x border-b border-primary/20">
+                        <div className="flex items-center gap-2">
+                            <div className="p-1 rounded-full bg-white/20">
+                                <Sparkles className="w-4 h-4" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-bold uppercase tracking-tight">Modo Edición</p>
+                                <p className="text-[10px] opacity-90 hidden sm:block">Tienes cambios sin guardar en tus predicciones</p>
+                            </div>
+                        </div>
+                        <Button
+                            size="sm"
+                            variant="secondary"
+                            className="bg-white text-primary hover:bg-white/90 font-bold gap-2 shadow-sm"
+                            onClick={handleSave}
+                            disabled={isPending}
+                        >
+                            {isPending ? (
+                                <span className="flex items-center gap-2">
+                                    <div className="h-3 w-3 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                    Guardando...
+                                </span>
+                            ) : (
+                                <>
+                                    <Check className="w-4 h-4" />
+                                    Guardar Cambios
+                                </>
+                            )}
+                        </Button>
+                    </div>
+                </div>
+            )}
+
             <div className="relative overflow-hidden rounded-2xl bg-black shadow-xl h-60 sm:h-80 flex items-center justify-center">
                 {/* Background Image with Overlay */}
                 <div className="absolute inset-0 z-0">
@@ -155,6 +209,14 @@ export default function DynamicAwardNominees({
 
                     {user ? (
                         <div className="mt-6 flex flex-col items-center gap-4">
+                            {isDirty && (
+                                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 animate-pulse">
+                                    <Sparkles className="w-3 h-3 text-primary-foreground" />
+                                    <span className="text-xs font-bold uppercase tracking-widest text-primary-foreground">
+                                        Modo Edición
+                                    </span>
+                                </div>
+                            )}
                             <div className="flex flex-wrap justify-center gap-3">
                                 <Button
                                     variant="secondary"
@@ -166,7 +228,12 @@ export default function DynamicAwardNominees({
                                 <LoadingButton
                                     loading={isPending}
                                     onClick={handleSave}
-                                    className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
+                                    className={cn(
+                                        "transition-all duration-300",
+                                        isDirty
+                                            ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary ring-offset-2 ring-offset-black animate-pulse-slow"
+                                            : "bg-primary/80 hover:bg-primary/90 text-primary-foreground"
+                                    )}
                                 >
                                     Guardar Predicciones
                                 </LoadingButton>
@@ -180,11 +247,26 @@ export default function DynamicAwardNominees({
                 </div>
             </div>
 
-            <div className="space-y-10 pb-20 mt-4">
+            <div className="space-y-16 pb-20 mt-8">
                 {categories.map((category) => (
                     <div key={category.id} className="container mx-auto px-2 sm:px-4">
-                        <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-primary">{category.name}</h2>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                        {/* Enhanced Category Header */}
+                        <div className="relative mb-8 group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-primary/40 to-transparent blur opacity-20 group-hover:opacity-30 transition duration-1000 group-hover:duration-200"></div>
+                            <div className="relative flex items-center gap-3 py-3 px-4 rounded-xl bg-gradient-to-r from-primary/10 via-background to-transparent border-l-4 border-primary shadow-sm overflow-hidden animate-in fade-in slide-in-from-left duration-700">
+                                <div className="p-2 rounded-lg bg-primary/20 text-primary animate-pulse-slow">
+                                    <Trophy className="w-5 h-5 sm:w-6 sm:h-6" />
+                                </div>
+                                <div className="flex flex-col">
+                                    <h2 className="text-xl sm:text-2xl font-black tracking-tight text-foreground uppercase italic flex items-center gap-2">
+                                        {category.name}
+                                    </h2>
+                                    <div className="h-0.5 w-24 bg-gradient-to-r from-primary to-transparent mt-1" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 ml-2 sm:ml-4">
                             {category.nominees.map((nominee) => (
                                 <DynamicNomineeCard
                                     key={nominee.id}
@@ -207,7 +289,12 @@ export default function DynamicAwardNominees({
             {user && (
                 <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t z-50 flex justify-center lg:hidden">
                     <LoadingButton
-                        className="w-full max-w-md"
+                        className={cn(
+                            "w-full max-w-md transition-all duration-300",
+                            isDirty
+                                ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary ring-offset-2 animate-pulse-slow"
+                                : ""
+                        )}
                         loading={isPending}
                         onClick={handleSave}
                     >

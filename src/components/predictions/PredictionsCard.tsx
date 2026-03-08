@@ -1,7 +1,6 @@
 "use client"
 
-import { useRouter } from "next/navigation"
-import { Award, Calendar, Pencil, Trash2, ChevronRight, Trophy } from "lucide-react"
+import { Award, Calendar, Trash2, ChevronRight, Trophy } from "lucide-react"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -18,7 +17,6 @@ interface PredictionsCardProps {
 }
 
 export function PredictionsCard({ event, onDelete, own = false }: PredictionsCardProps) {
-  const router = useRouter()
   const eventId = `${event.name}-${event.year}`
   const winners = useOscarsWinners()
 
@@ -43,15 +41,15 @@ export function PredictionsCard({ event, onDelete, own = false }: PredictionsCar
               {event.name} {event.year}
             </CardTitle>
             <CardDescription className="flex flex-col md:flex-row gap-1 md:gap-2">
-              <div className="flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
                 {Object.keys(event.categories).length} categorías predichas
-              </div>
+              </span>
               {categoriesWithWinners > 0 && (
-                <div className="flex items-center gap-2 text-green-500 md:pl-2 md:border-l">
+                <span className="flex items-center gap-2 text-green-500 md:pl-2 md:border-l">
                   <Trophy className="h-4 w-4" />
                   {correctPredictions} de {categoriesWithWinners} aciertos
-                </div>
+                </span>
               )}
             </CardDescription>
           </div>

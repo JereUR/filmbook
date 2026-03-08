@@ -13,7 +13,7 @@ export default async function Layout({
 
   return (
     <SessionProvider value={{ user, session }}>
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-screen flex-col bg-background">
         <Navbar />
         <div className="mx-auto flex w-full max-w-[1500px] grow md:gap-5 p-2 md:p-5">
           <div className="sticky top-[8.25rem] flex flex-col gap-5">

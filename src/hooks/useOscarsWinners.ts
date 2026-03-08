@@ -1,33 +1,25 @@
-import { useMemo } from "react"
-import useOscarsNominees from "./useOscarsNominees"
-
-export type CategoryWinner = {
-  category: string
-  winnerName: string
-}
+import { useState, useEffect } from "react"
 
 export default function useOscarsWinners() {
-  const { nominationsPerson, nominationsMovie, nominationsOriginalSong } =
-    useOscarsNominees()
+  const [winners, setWinners] = useState<Record<string, string>>({})
+  const [isLoading, setIsLoading] = useState(true)
 
-  const winners = useMemo<Record<string, string>>(() => {
-    const result: Record<string, string> = {}
-
-    // Extraer ganadores de todas las categorías
-    const allNominations = [
-      ...nominationsPerson,
-      ...nominationsMovie,
-      ...nominationsOriginalSong,
-    ]
-
-    allNominations.forEach((nomination) => {
-      if (nomination.winner) {
-        result[nomination.category] = nomination.winner
+  useEffect(() => {
+    async function fetchWinners() {
+      try {
+        const response = await fetch("/api/awards/winners")
+        if (!response.ok) throw new Error("Failed to fetch winners")
+        const data = await response.json()
+        setWinners(data)
+      } catch (error) {
+        console.error("Error fetching winners:", error)
+      } finally {
+        setIsLoading(false)
       }
-    })
+    }
 
-    return result
-  }, [nominationsPerson, nominationsMovie, nominationsOriginalSong])
+    fetchWinners()
+  }, [])
 
   return winners
 }
