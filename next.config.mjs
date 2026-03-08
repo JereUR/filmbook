@@ -218,6 +218,26 @@ const nextConfig = {
         hostname: "www.hollywoodreporter.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "a.ltrbxd.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.guim.co.uk",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "kinotico.es",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+        pathname: "/**",
+      },
     ],
   },
   rewrites: () => {

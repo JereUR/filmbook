@@ -7,12 +7,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
-import { Trash2, Plus, Film, User, Music, ImageIcon, Info, Pencil } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Trash2, Plus, Film, User, Music, ImageIcon, Info, Pencil, Check, ChevronsUpDown } from "lucide-react"
 import { useEffect, useRef } from "react"
 import useDebounce from "@/hooks/useDebounce"
 import { Loader2, Search } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { cn } from "@/lib/utils"
+import LoadingButton from "../LoadingButton"
 
 interface Props {
   initialData: (Nominee & { category: Category })[]
@@ -46,6 +49,9 @@ export default function NomineeManagement({ initialData, categories }: Props) {
   const [isSearching, setIsSearching] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [showEditResults, setShowEditResults] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [editOpen, setEditOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const debouncedSearch = useDebounce(movieSearch, 300)
   const debouncedEditSearch = useDebounce(editMovieSearch, 300)
@@ -132,6 +138,7 @@ export default function NomineeManagement({ initialData, categories }: Props) {
 
   const handleCreate = async () => {
     try {
+      setIsLoading(true)
       if (!formData.name || !formData.categoryId) {
         toast({ title: "Nombre y Categoría son requeridos", variant: "destructive" })
         return
@@ -152,27 +159,35 @@ export default function NomineeManagement({ initialData, categories }: Props) {
       toast({ title: "Nominado creado exitosamente" })
     } catch (error) {
       toast({ title: "Error al crear nominado", variant: "destructive" })
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const handleUpdate = async () => {
     if (!editingNominee || !editFormData.name || !editFormData.categoryId) return
     try {
+      setIsLoading(true)
       await updateNominee(editingNominee.id, editFormData)
       setEditingNominee(null)
       toast({ title: "Nominado actualizado" })
     } catch (error) {
       toast({ title: "Error al actualizar", variant: "destructive" })
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const handleDelete = async (id: string) => {
     if (confirm("¿Estás seguro de eliminar este nominado?")) {
       try {
+        setIsLoading(true)
         await deleteNominee(id)
         toast({ title: "Nominado eliminado" })
       } catch (error) {
         toast({ title: "Error al eliminar", variant: "destructive" })
+      } finally {
+        setIsLoading(false)
       }
     }
   }
@@ -195,19 +210,49 @@ export default function NomineeManagement({ initialData, categories }: Props) {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Categoría</label>
-              <Select
-                value={formData.categoryId}
-                onValueChange={(val) => setFormData({ ...formData, categoryId: val })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Seleccionar categoría" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map(cat => (
-                    <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-full justify-between font-normal"
+                  >
+                    {formData.categoryId
+                      ? categories.find((cat) => cat.id === formData.categoryId)?.name
+                      : "Seleccionar categoría"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                  <Command>
+                    <CommandInput placeholder="Buscar categoría..." />
+                    <CommandList>
+                      <CommandEmpty>No se encontró la categoría.</CommandEmpty>
+                      <CommandGroup>
+                        {categories.map((cat) => (
+                          <CommandItem
+                            key={cat.id}
+                            value={cat.name}
+                            onSelect={() => {
+                              setFormData({ ...formData, categoryId: cat.id })
+                              setOpen(false)
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                formData.categoryId === cat.id ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                            {cat.name}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="space-y-2 relative" ref={searchRef}>
               <label className="text-sm font-medium">Movie ID (Busca por título o ingresa ID)</label>
@@ -278,7 +323,7 @@ export default function NomineeManagement({ initialData, categories }: Props) {
               />
             </div>
           </div>
-          <Button onClick={handleCreate} className="w-full md:w-auto"><Plus className="w-4 h-4 mr-2" /> Crear Nominado</Button>
+          <LoadingButton loading={isLoading} onClick={handleCreate} className="w-full md:w-auto"><Plus className="w-4 h-4 mr-2" /> Crear Nominado</LoadingButton>
         </CardContent>
       </Card>
 
@@ -377,19 +422,49 @@ export default function NomineeManagement({ initialData, categories }: Props) {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Categoría</label>
-              <Select
-                value={editFormData.categoryId}
-                onValueChange={(val) => setEditFormData({ ...editFormData, categoryId: val })}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map(cat => (
-                    <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Popover open={editOpen} onOpenChange={setEditOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={editOpen}
+                    className="w-full justify-between font-normal"
+                  >
+                    {editFormData.categoryId
+                      ? categories.find((cat) => cat.id === editFormData.categoryId)?.name
+                      : "Seleccionar categoría"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                  <Command>
+                    <CommandInput placeholder="Buscar categoría..." />
+                    <CommandList>
+                      <CommandEmpty>No se encontró la categoría.</CommandEmpty>
+                      <CommandGroup>
+                        {categories.map((cat) => (
+                          <CommandItem
+                            key={cat.id}
+                            value={cat.name}
+                            onSelect={() => {
+                              setEditFormData({ ...editFormData, categoryId: cat.id })
+                              setEditOpen(false)
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                editFormData.categoryId === cat.id ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                            {cat.name}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="space-y-2 relative" ref={editSearchRef}>
               <label className="text-sm font-medium">Movie ID</label>
@@ -450,7 +525,7 @@ export default function NomineeManagement({ initialData, categories }: Props) {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setEditingNominee(null)}>Cancelar</Button>
-            <Button onClick={handleUpdate}>Guardar Cambios</Button>
+            <LoadingButton loading={isLoading} onClick={handleUpdate}>Guardar Cambios</LoadingButton>
           </DialogFooter>
         </DialogContent>
       </Dialog>

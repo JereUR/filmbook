@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Trophy, Info, CalendarDays, Clock, Star, Film, Video, MonitorPlay } from 'lucide-react'
+import { Trophy, BadgeInfo, Star, Film } from 'lucide-react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import noImage from '@/assets/no-image-film.jpg'
@@ -40,10 +40,10 @@ export default function DynamicNomineeCard({
     return (
         <Card
             className={`overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg ${isWinner
-                    ? "ring-2 sm:ring-4 ring-yellow-500 relative animate-pulse-slow"
-                    : (isPredicted || isFavorite)
-                        ? "ring-2 ring-primary"
-                        : ""
+                ? "ring-2 sm:ring-4 ring-yellow-500 relative animate-pulse-slow"
+                : (isPredicted || isFavorite)
+                    ? "ring-2 ring-primary"
+                    : ""
                 }`}
         >
             <div
@@ -88,76 +88,104 @@ export default function DynamicNomineeCard({
                 </div>
             </div>
             <CardContent className="p-2 sm:p-4 space-y-2">
-                <div className="flex justify-between items-start">
-                    <div className="space-y-1 flex-1 min-w-0">
-                        <p className={`font-semibold text-sm sm:text-lg truncate ${isWinner ? "text-yellow-500" : "text-primary"}`}>
-                            {nominee.name}
-                            {isWinner && <Trophy className="inline w-4 h-4 ml-1 text-yellow-500" />}
-                        </p>
-                        {nominee.movieTitle && (
-                            nominee.movieId ? (
-                                <Link
-                                    href={`/pelicula/${nominee.movieId}?title=${encodeURIComponent(nominee.movieTitle)}`}
-                                    className="text-primary-orange text-xs sm:text-sm hover:underline block truncate"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    {nominee.movieTitle}
-                                </Link>
-                            ) : (
-                                <p className="text-foreground/40 text-xs sm:text-sm truncate">{nominee.movieTitle}</p>
-                            )
-                        )}
-                        {nominee.composers && (
-                            <p className="text-foreground/40 text-xs truncate italic">{nominee.composers}</p>
-                        )}
-                    </div>
-                    {isWinner && (
-                        <div className="text-yellow-500">
-                            <Trophy className="w-5 h-5 animate-bounce" />
-                        </div>
-                    )}
-                </div>
-
-                {isPredicted && (
-                    <div className="text-xs font-bold text-primary flex items-center">
-                        <Star className="w-3 h-3 mr-1 fill-primary" /> Predicción
-                    </div>
-                )}
-                {isFavorite && (
-                    <div className="text-xs font-bold text-primary-orange flex items-center">
-                        <Star className="w-3 h-3 mr-1 fill-primary-orange" /> Favorito
-                    </div>
-                )}
-
-                {nominee.providers && nominee.providers.length > 0 && (
-                    <div className="flex justify-between items-center mt-2">
-                        <div className="flex -space-x-2 overflow-hidden">
-                            {nominee.providers.map((provider: string, index: number) => (
-                                <Image
-                                    key={index}
-                                    src={provider}
-                                    alt="Provider logo"
-                                    width={20}
-                                    height={20}
-                                    className="rounded-full border border-background"
-                                    unoptimized
-                                />
-                            ))}
-                        </div>
-                        <TooltipProvider>
+                <TooltipProvider>
+                    <div className="flex justify-between items-start">
+                        <div className="space-y-2 flex-1 min-w-0">
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Info className="w-3 h-3 text-foreground/40 cursor-help" />
+                                    <p className={`font-semibold text-sm sm:text-lg truncate cursor-default flex items-center gap-2 ${isWinner ? "text-yellow-500" : "text-primary"}`}>
+                                        {nominee.name}
+                                        {isWinner && <Trophy className="inline w-4 h-4 ml-1 text-yellow-500" />}
+                                    </p>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p className="text-xs">{nominee.name}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                            {nominee.movieTitle && (
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        {nominee.movieId ? (
+                                            <Link
+                                                href={`/pelicula/${nominee.movieId}?title=${encodeURIComponent(nominee.movieTitle)}`}
+                                                className="text-primary-orange text-xs sm:text-sm hover:underline flex items-center gap-2 truncate"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <Film className="size-4 flex-shrink-0" />
+                                                <span className="truncate">{nominee.movieTitle}</span>
+                                            </Link>
+                                        ) : (
+                                            <p className="text-foreground/40 text-xs sm:text-sm flex items-center gap-2 truncate cursor-default">
+                                                <Film className="size-4 flex-shrink-0" />
+                                                <span className="truncate">{nominee.movieTitle}</span>
+                                            </p>
+                                        )}
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p className="text-xs">{nominee.movieTitle}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            )}
+                            {nominee.composers && (
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <p className="text-foreground/40 text-xs flex items-center gap-2 truncate italic cursor-default">
+                                            <BadgeInfo className="size-4 flex-shrink-0" />
+                                            <span className="truncate">{nominee.composers}</span>
+                                        </p>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p className="max-w-[300px] text-xs leading-relaxed">{nominee.composers}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            )}
+                        </div>
+                        {isWinner && (
+                            <div className="text-yellow-500">
+                                <Trophy className="w-5 h-5 animate-bounce" />
+                            </div>
+                        )}
+                    </div>
+
+                    {isPredicted && (
+                        <div className="text-xs font-bold text-primary flex items-center">
+                            <Star className="size-4 mr-1 fill-primary" /> Predicción
+                        </div>
+                    )}
+                    {isFavorite && (
+                        <div className="text-xs font-bold text-primary-orange flex items-center">
+                            <Star className="size-4 mr-1 fill-primary-orange" /> Favorito
+                        </div>
+                    )}
+
+                    {nominee.providers && nominee.providers.length > 0 && (
+                        <div className="flex justify-between items-center mt-2">
+                            <div className="flex -space-x-2 overflow-hidden">
+                                {nominee.providers.map((provider: string, index: number) => (
+                                    <Image
+                                        key={index}
+                                        src={provider}
+                                        alt="Provider logo"
+                                        width={20}
+                                        height={20}
+                                        className="rounded-full border border-background"
+                                        unoptimized
+                                    />
+                                ))}
+                            </div>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <BadgeInfo className="size-4 text-foreground/40 cursor-help" />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p className="text-xs">Plataformas disponibles</p>
                                 </TooltipContent>
                             </Tooltip>
-                        </TooltipProvider>
-                    </div>
-                )}
+                        </div>
+                    )}
+                </TooltipProvider>
             </CardContent>
         </Card>
     )
