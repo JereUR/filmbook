@@ -16,9 +16,8 @@ export function EmptyPredictions() {
         <CardDescription>Comienza creando tus predicciones para los premios</CardDescription>
       </CardHeader>
       <CardContent>
-        <Button onClick={() => router.push("/crear-predicciones/Oscars-2025")} className="gap-2">
-          <Award className="h-4 w-4" />
-          Crear predicciones para los Oscars 2025
+        <Button onClick={() => router.push("/")}>
+          Ir a la página principal
         </Button>
       </CardContent>
     </Card>
