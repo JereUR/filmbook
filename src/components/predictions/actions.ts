@@ -29,6 +29,8 @@ export async function addPredictions(values: PredictionInput[]) {
   }
 
   if (!awardEvent) throw new Error("Award event not found")
+  if (!awardEvent.active)
+    throw new Error("Las predicciones para este evento están cerradas")
 
   try {
     const validatedData = predictionsArraySchema.parse(values)

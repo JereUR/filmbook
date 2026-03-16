@@ -35,6 +35,7 @@ interface Category {
 interface AwardEvent {
     id: string
     name: string
+    active: boolean
 }
 
 interface DynamicAwardNomineesProps {
@@ -53,6 +54,8 @@ export default function DynamicAwardNominees({
     const { user } = useAuth()
     const router = useRouter()
     const { toast } = useToast()
+
+    const isVotingClosed = !event.active
 
     const [predictions, setPredictions] = useState<Record<string, { nomineeId?: string; favoriteNomineeId?: string }>>(
         initialPredictions.reduce((acc, pred) => ({
@@ -87,6 +90,7 @@ export default function DynamicAwardNominees({
     }
 
     const handleSelectPrediction = (categoryId: string, nomineeId: string) => {
+        if (isVotingClosed) return
         setPredictions(prev => ({
             ...prev,
             [categoryId]: {
@@ -97,6 +101,7 @@ export default function DynamicAwardNominees({
     }
 
     const handleSelectFavorite = (categoryId: string, nomineeId: string) => {
+        if (isVotingClosed) return
         setPredictions(prev => ({
             ...prev,
             [categoryId]: {
@@ -107,7 +112,7 @@ export default function DynamicAwardNominees({
     }
 
     const handleSave = () => {
-        if (!user) return
+        if (!user || isVotingClosed) return
 
         const predictionData = Object.entries(predictions)
             .filter(([_, data]) => data.nomineeId || data.favoriteNomineeId)
@@ -153,7 +158,7 @@ export default function DynamicAwardNominees({
     return (
         <main className="flex w-full min-w-0 flex-col gap-5">
             {/* Sticky Edit Mode Banner */}
-            {isDirty && showSticky && (
+            {isDirty && showSticky && !isVotingClosed && (
                 <div className="fixed top-0 left-0 right-0 z-[100] animate-in slide-in-from-top duration-300">
                     <div className="bg-primary/95 backdrop-blur-md text-primary-foreground px-4 py-3 shadow-lg flex items-center justify-between container mx-auto rounded-b-xl border-x border-b border-primary/20">
                         <div className="flex items-center gap-2">
@@ -207,9 +212,17 @@ export default function DynamicAwardNominees({
                         {event.name}
                     </h1>
 
+                    {isVotingClosed && (
+                        <div className="mt-4 flex justify-center">
+                            <span className="bg-red-500/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest backdrop-blur-sm border border-red-400/50 shadow-lg">
+                                Predicciones Cerradas
+                            </span>
+                        </div>
+                    )}
+
                     {user ? (
                         <div className="mt-6 flex flex-col items-center gap-4">
-                            {isDirty && (
+                            {isDirty && !isVotingClosed && (
                                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/30 animate-pulse">
                                     <Sparkles className="w-3 h-3 text-primary-foreground" />
                                     <span className="text-xs font-bold uppercase tracking-widest text-primary-foreground">
@@ -225,18 +238,20 @@ export default function DynamicAwardNominees({
                                 >
                                     Mis Predicciones
                                 </Button>
-                                <LoadingButton
-                                    loading={isPending}
-                                    onClick={handleSave}
-                                    className={cn(
-                                        "transition-all duration-300",
-                                        isDirty
-                                            ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary ring-offset-2 ring-offset-black animate-pulse-slow"
-                                            : "bg-primary/80 hover:bg-primary/90 text-primary-foreground"
-                                    )}
-                                >
-                                    Guardar Predicciones
-                                </LoadingButton>
+                                {!isVotingClosed && (
+                                    <LoadingButton
+                                        loading={isPending}
+                                        onClick={handleSave}
+                                        className={cn(
+                                            "transition-all duration-300",
+                                            isDirty
+                                                ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/40 ring-2 ring-primary ring-offset-2 ring-offset-black animate-pulse-slow"
+                                                : "bg-primary/80 hover:bg-primary/90 text-primary-foreground"
+                                        )}
+                                    >
+                                        Guardar Predicciones
+                                    </LoadingButton>
+                                )}
                             </div>
                         </div>
                     ) : (
@@ -274,8 +289,8 @@ export default function DynamicAwardNominees({
                                     isWinner={category.winnerId === nominee.id}
                                     isPredicted={predictions[category.id]?.nomineeId === nominee.id}
                                     isFavorite={predictions[category.id]?.favoriteNomineeId === nominee.id}
-                                    onSelectPrediction={user ? (id) => handleSelectPrediction(category.id, id) : undefined}
-                                    onSelectFavorite={user ? (id) => handleSelectFavorite(category.id, id) : undefined}
+                                    onSelectPrediction={user && !isVotingClosed ? (id) => handleSelectPrediction(category.id, id) : undefined}
+                                    onSelectFavorite={user && !isVotingClosed ? (id) => handleSelectFavorite(category.id, id) : undefined}
                                     onImageClick={handleImageClick}
                                 />
                             ))}
@@ -286,7 +301,7 @@ export default function DynamicAwardNominees({
 
             <PhotoModal isOpen={openModal} onClose={() => setOpenModal(false)} image={selectedImage} />
 
-            {user && (
+            {user && !isVotingClosed && (
                 <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t z-50 flex justify-center lg:hidden">
                     <LoadingButton
                         className={cn(
