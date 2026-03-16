@@ -95,7 +95,7 @@ export default function DynamicNomineeCard({
                                 <TooltipTrigger asChild>
                                     <p className={`font-semibold text-sm sm:text-lg truncate cursor-default flex items-center gap-2 ${isWinner ? "text-yellow-500" : "text-primary"}`}>
                                         {nominee.name}
-                                        {isWinner && <Trophy className="inline w-4 h-4 ml-1 text-yellow-500" />}
+                                        {/* {isWinner && <Trophy className="inline w-4 h-4 ml-1 text-yellow-500" />} */}
                                     </p>
                                 </TooltipTrigger>
                                 <TooltipContent>
